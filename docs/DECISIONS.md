@@ -239,11 +239,17 @@ Examples include:
 - Missions
 - Achievements
 - Rewards
-- Rankings
+- Pet progression
 
 ### Consequences
 
 Every major feature should reinforce user progression whenever appropriate.
+
+### Refined by
+
+DECISION-012 narrows this: gamification is a core system, but it is the **motivation layer** supporting
+learning, not a pillar equal to it — see `PRODUCT_VISION.md` §4. Rankings/leaderboards, listed as an example
+here originally, are now a deprecated concept (`FEATURES.md`).
 
 ---
 
@@ -263,7 +269,7 @@ Many financial applications follow traditional banking interfaces.
 
 ### Decision
 
-Pet Invest App should not resemble a bank or brokerage.
+The application should not resemble a bank or brokerage.
 
 ### Rationale
 
@@ -420,6 +426,211 @@ no-punishment design principle.
 
 Future work extending Academy content or moving progress server-side should follow `ACADEMY_ENGINE.md`'s phasing
 rather than re-deriving scope from the original brief.
+
+---
+
+# DECISION-012
+
+## Title
+
+Learning-First Product Direction (V2 Strategy Reset)
+
+### Status
+
+Accepted
+
+### Context
+
+The original product treated learning, portfolio, gamification, and the AI mentor as roughly equal pillars
+under a "gamified financial education platform" umbrella. This diluted the value proposition and created an
+XP system that rewarded portfolio wealth/profit directly (see DECISION-014).
+
+### Decision
+
+Invest Game V2 is a learning-first investment education platform. Learning is the primary pillar; the
+portfolio is a practice environment; gamification is a motivation layer; the Mentor is a support layer. See
+`PRODUCT_VISION.md` for the full positioning.
+
+### Rationale
+
+- A clearer value proposition than "gamified investing app."
+- A stronger, more defensible retention loop (Learn → Practice → Progress → Grow).
+- A safer incentive structure — rewarding learning instead of wealth avoids nudging users toward risk-taking
+  for game rewards.
+
+### Consequences
+
+All documentation and future feature work must be evaluated against `PRODUCT_VISION.md`'s core loop and
+positioning. Features that only serve the portfolio or gamification layers, without serving learning, need
+explicit justification.
+
+---
+
+# DECISION-013
+
+## Title
+
+Portfolio as a Practice Environment, Not the Core Mechanic
+
+### Status
+
+Accepted
+
+### Context
+
+Previous documentation (`FEATURES.md`) implied buy/sell execution was a planned MVP feature and treated
+portfolio performance as a primary product signal.
+
+### Decision
+
+The portfolio exists to connect learned concepts to real, tracked assets. It does not execute financial
+orders. Buy/Sell execution features are retired from the roadmap rather than deferred.
+
+### Rationale
+
+Connects theory to application without taking on the regulatory and safety surface of an execution platform,
+consistent with the product's explicit non-goal of being a broker (`PRODUCT_VISION.md` §11).
+
+### Consequences
+
+`FEATURES.md`'s "Buy Assets"/"Sell Assets" entries are reclassified as deprecated concepts, not planned work.
+
+---
+
+# DECISION-014
+
+## Title
+
+XP Rewards Learning Behavior, Never Wealth or Profit
+
+### Status
+
+Accepted
+
+### Context
+
+The current implementation (`mission_catalog.dart`, `achievement_catalog.dart`) awards XP directly for
+portfolio value thresholds and positive returns. This predates the V2 strategy reset and directly contradicts
+it.
+
+### Decision
+
+XP is awarded for learning and practice actions (lesson/quiz/module/mission completion) — never for wealth,
+amount invested, portfolio size, profit, or risk-taking. XP should ultimately be derived from an auditable
+`XPEvent` log rather than a single mutable field.
+
+### Rationale
+
+Prevents the product from incentivizing unhealthy financial behavior (chasing XP by taking on more risk or
+depositing more money) and keeps the reward system honest and auditable.
+
+### Consequences
+
+The current wealth/profit-tied catalog entries are a known, tracked gap (see `FEATURES.md`'s XP System
+status) to be corrected in a future implementation pass — not fixed by this documentation update, which is
+docs-only.
+
+---
+
+# DECISION-015
+
+## Title
+
+Pet Represents Learning Progress, Not Financial Risk Profile
+
+### Status
+
+Accepted
+
+### Context
+
+The backend independently computes an `InvestorProfile` risk classification (Guardian/Tactician/Adventurer)
+from an onboarding questionnaire. There is currently no code linkage between this and pet species, and the
+onboarding pet-config flow already deliberately asks a goal/horizon question rather than a risk-tolerance
+question.
+
+### Decision
+
+Keep pet species/identity fully decoupled from financial risk profile. The pet is an emotional representation
+of learning progress and personal identity, not a financial instrument or a risk indicator.
+
+### Rationale
+
+Emotional reward without distorting financial behavior or implying the app is giving risk-based financial
+advice through pet choice.
+
+### Consequences
+
+Any future feature proposing to link pet species/behavior to `InvestorProfile` needs an explicit, reviewed
+product decision — it is not a natural extension of existing code.
+
+---
+
+# DECISION-016
+
+## Title
+
+Documentation Distinguishes Current Implementation from Target Architecture
+
+### Status
+
+Accepted
+
+### Context
+
+Prior documentation described target/aspirational architecture and shipped reality in the same voice,
+frequently blurring the two (e.g. `FEATURES.md` statuses like "Planned" next to features that were partially
+built differently than described).
+
+### Decision
+
+Technical documentation explicitly labels **Current** (what exists in the codebase today) versus **Target**
+(what the V2 architecture is intended to become), with a **Gap** called out when they differ materially.
+
+### Rationale
+
+Lets a new developer or AI agent trust the documentation without re-deriving reality from the code every time,
+and prevents documentation from silently drifting into aspiration-as-fact.
+
+### Consequences
+
+`FEATURES.md`, `ARCHITECTURE.md`, and `API_GUIDELINES.md` were updated to this format as part of this
+documentation pass. Future edits to these files should preserve the distinction.
+
+---
+
+# DECISION-017
+
+## Title
+
+Keep Modular Monolith and PostgreSQL (Reaffirmed)
+
+### Status
+
+Accepted (reaffirms DECISION-002, DECISION-003)
+
+### Context
+
+The V2 strategy reset changes product direction and priorities but does not introduce new scaling or
+organizational requirements that would justify a different backend shape.
+
+### Decision
+
+Continue with the Spring Boot modular monolith (hexagonal-leaning `core/application/infrastructure/
+presentation` layering) and PostgreSQL + Flyway as the target production stack. No microservices during V2.
+
+### Rationale
+
+- Sufficient for the product's current and near-term complexity.
+- Simpler development and deployment.
+- PostgreSQL fits the domain's clearly relational shape (users, learning progress, XP events, portfolio,
+  transactions) and gives strong consistency guarantees the reward/XP ledger design depends on.
+
+### Consequences
+
+New backend features (learning progress persistence, XP events, mission/achievement server migration) should
+be designed as new modules/packages inside the existing monolith, following the structure documented in
+`ARCHITECTURE.md`.
 
 ---
 

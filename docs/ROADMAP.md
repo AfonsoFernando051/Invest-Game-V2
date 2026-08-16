@@ -1,391 +1,145 @@
 # ROADMAP.md
 
-# Product Roadmap
+# Invest Game V2 — Roadmap
 
 ## Overview
 
-This roadmap defines the development priorities for the Pet Invest App.
+This roadmap defines development priorities for Invest Game V2. It exists to guide decisions and prevent
+speculative work, not to promise a fixed feature list. See `PRODUCT_VISION.md` for the product this roadmap
+serves.
 
-The roadmap is intended to guide development decisions and prevent unnecessary work.
+The roadmap is staged in three parts — **MVP V2**, **Beta**, **V1** — rather than the previous five numbered
+phases. This replaces the old Phase 1–5 structure. Where other documents (`ACADEMY_ENGINE.md`,
+`MARKET_EVENTS_ENGINE.md`) use their own internal "Phase 0 / Phase 3+" notation for a specific feature's
+rollout, read those as: **Phase 0 ≈ MVP V2, Phase 3+ ≈ Beta or later** — they are feature-local phase
+numbers, not this roadmap's stage names.
 
-The objective is to deliver a complete and stable MVP before expanding the product.
-
-This roadmap should evolve over time.
-
----
-
-# Development Philosophy
-
-The project follows an MVP-first approach.
-
-Priorities are determined by product value rather than technical interest.
-
-Shipping a functional product is more important than implementing every possible feature.
-
-Avoid feature creep.
+Growth is driven by evidence — user feedback, real usage data, measured technical need — not by the existence
+of an idea in this document. **Not every item below is a commitment; items under Beta and V1 are directional,
+not mandatory.**
 
 ---
 
-# Current Phase
+## MVP V2 — Prove the core loop
 
-## Phase 1 — MVP Development
+**Goal:** ship the smallest complete version of `PRODUCT_VISION.md`'s core loop (Learn → Practice → Progress →
+Grow) end to end, so it can be validated with real users.
 
-Status: In Progress
+### Learning
+- Foundations curriculum (Level 1 of `ACADEMY_ENGINE.md`'s knowledge roadmap).
+- Interactive lessons: explanation, example, micro-exercise, applied scenario, summary.
+- Quizzes with encouraging, non-punitive feedback.
+- Lesson/module progress tracking.
 
-Current objective:
+**Status:** delivered as a Phase 0 slice — one fully authored module ("Fundamentos do Investidor"), remaining
+curriculum as "coming soon" placeholders. See `ACADEMY_ENGINE.md`.
 
-Deliver a complete, stable, and enjoyable first version of the application.
+### Gamification
+- XP tied to learning and practice actions (see `FEATURES.md`'s XP table).
+- Levels derived from XP.
+- Basic achievements and missions.
 
-The MVP should provide a complete investment learning experience even if some advanced systems are not yet implemented.
+**Status:** implemented, but **XP is currently also awarded for portfolio value and profit thresholds** in
+`mission_catalog.dart` / `achievement_catalog.dart` — this contradicts the learning-first XP principle and is
+tracked as a required migration before MVP V2 can be considered complete. See `FEATURES.md` and `DECISIONS.md`.
 
----
+### Pet
+- Five species (Dog, Wolf, Fox, Bear, Lion), basic evolution stages, basic reward-driven progression.
 
-# MVP Priorities
+**Status:** implemented for the Dog species' art assets; other species share the enum but not full evolution
+art — see `ARCHITECTURE.md`'s Current vs Target notes.
 
-The following features are considered essential.
+### Portfolio
+- Add/track holdings, transaction history, allocation, dividends, basic performance.
+- No order execution — tracking and simulation only (see `PRODUCT_VISION.md` §11).
 
-## Authentication
+**Status:** implemented.
 
-Priority: High
+### Integration
+- Lesson → portfolio contextualization ("you just learned P/E — here's how it looks on this asset").
 
-Deliver:
+**Status:** not yet implemented — the Academy and Portfolio features are intentionally decoupled today
+(`ACADEMY_ENGINE.md` §4). This is the highest-value MVP V2 gap to close next, since it is this product's core
+differentiator (`PRODUCT_VISION.md` §10).
 
-- User registration
-- Login
-- JWT authentication
-- Session persistence
-- Logout
+### Mentor
+- Lesson-focused, portfolio-grounded educational chat with safety rules (no buy/sell advice, no price
+  predictions).
 
----
+**Status:** implemented (`AI_MENTOR.md`).
 
-## Portfolio
+### MVP V2 completion criteria
 
-Priority: High
+MVP V2 is complete when a user can:
 
-Deliver:
-
-- Portfolio overview
-- Current balance
-- Asset allocation
-- Portfolio value
-- Investment history
-
----
-
-## Market
-
-Priority: High
-
-Deliver:
-
-- Asset listing
-- Asset details
-- Price simulation
-- Search
-
----
-
-## Buy and Sell Assets
-
-Priority: High
-
-Deliver:
-
-- Buy assets
-- Sell assets
-- Portfolio updates
-- Transaction history
+- create an account and log in;
+- complete the Foundations learning path lesson by lesson, with quizzes;
+- earn XP exclusively from learning/practice actions (not wealth or profit);
+- see their pet evolve as a result;
+- track a real or simulated portfolio;
+- see at least one lesson concept reflected back in their portfolio view;
+- ask the Mentor a grounded question and get a safe, educational answer.
 
 ---
 
-## User Progression
+## Beta — Expand the loop
 
-Priority: High
+Begins once MVP V2's core loop is validated with real usage.
 
-Deliver:
+- Fixed Income, Variable Income, ETFs, FIIs, and Fundamental Analysis curriculum levels (`ACADEMY_ENGINE.md`
+  knowledge roadmap, Levels 2–4).
+- Backend-authoritative learning progress and XP (event-sourced `XPEvent` model — see `FEATURES.md`).
+- Missions and streaks expanded, richer achievements.
+- Multiple pet species with full evolution art, accessories, habitat customization.
+- Educational Portfolio Intelligence: contextual callbacks from portfolio/dividend events back to relevant
+  lessons (`MARKET_EVENTS_ENGINE.md`, reinterpreted as educational triggers rather than trading cues).
+- Contextual Mentor invocation from lesson/asset screens instead of only a standing chat tab.
+- Practical market challenges (e.g. "compare the P/E of three companies you follow").
+- Stronger analytics on learning engagement and retention.
 
-- XP system
-- Levels
-- Progress tracking
+## V1 — Depth and personalization
 
----
+Directional, evidence-gated — none of this is a commitment until Beta data justifies it.
 
-## Missions
-
-Priority: High
-
-Deliver:
-
-- Daily missions
-- Weekly missions
-- Reward system
-
----
-
-## Achievements
-
-Priority: High
-
-Deliver:
-
-- Achievement unlocks
-- Progress tracking
-- Reward feedback
+- Adaptive learning (content sequencing based on quiz performance).
+- Advanced portfolio analytics.
+- Richer practice challenges, including paper-trading-style simulation steps.
+- Deeper pet evolution and collectible depth.
+- Seasonal content / live-ops calendar.
+- Social features — only if user demand is validated; not assumed.
+- Stronger personalization across learning and Mentor.
 
 ---
 
-## Rankings
+## Features not planned
 
-Priority: Medium
-
-Deliver:
-
-- Global leaderboard
-- Weekly rankings
-
-Friendly competition is encouraged.
-
----
-
-## Profile
-
-Priority: Medium
-
-Deliver:
-
-- Avatar
-- User statistics
-- Progress overview
-
----
-
-## Academy (Learning Content)
-
-Priority: Medium
-
-Phase 0 delivered (client-only): one fully authored module reachable from "Treinar", local XP/progress, no
-punitive mechanics. See `ACADEMY_ENGINE.md` for the full phased design and what remains deferred (backend-authoritative
-progress, remaining curriculum modules, practical market challenges, paper trading — tracked under Phase 3+ below).
-
----
-
-# MVP Completion Criteria
-
-The MVP is considered complete when users can:
-
-- Create an account
-- Log in
-- Explore the market
-- Buy assets
-- Sell assets
-- Build a portfolio
-- Earn experience
-- Complete missions
-- Unlock achievements
-- Progress through levels
-- Track personal progress
-
----
-
-# Phase 2 — Product Polish
-
-This phase begins only after the MVP is stable.
-
-Focus areas:
-
-- UI refinements
-- UX improvements
-- Better animations
-- Better transitions
-- Better loading states
-- Better accessibility
-- Improved responsiveness
-
-No major redesigns should occur during this phase.
-
----
-
-# Phase 3 — Growth
-
-Potential additions:
-
-- Daily rewards
-- Streak system
-- Notifications
-- Avatar customization
-- Cosmetic unlocks
-- Inventory
-- Seasonal events
-
-These features increase engagement but are not required for launch.
-
----
-
-# Phase 4 — Community
-
-Potential additions:
-
-- Friends
-- Clubs
-- Guilds
-- Social interactions
-- Community challenges
-- Shared achievements
-
-These features should only be considered after validating user demand.
-
----
-
-# Phase 5 — Platform Evolution
-
-Future possibilities:
-
-- Analytics
-- Background jobs
-- Cloud infrastructure improvements
-- Performance optimization
-- Additional educational content
-
-Infrastructure improvements should support growth, not anticipate it.
-
----
-
-# Technical Priorities
-
-Current priorities:
-
-- Stable backend
-- Reliable authentication
-- Clean architecture
-- Reusable components
-- Maintainable code
-
-Avoid introducing unnecessary technologies during MVP development.
-
----
-
-# UI Priorities
-
-Current priorities:
-
-- Consistency
-- Responsiveness
-- Clear navigation
-- Premium appearance
-
-The application's visual identity is already established.
-
-Focus on refinement rather than redesign.
-
----
-
-# Performance Priorities
-
-Current goals:
-
-- Fast application startup
-- Smooth navigation
-- Responsive interactions
-- Efficient API communication
-
-Optimize only when performance issues become measurable.
-
----
-
-# Features Deferred Until After MVP
-
-The following features are intentionally postponed:
-
-- Avatar evolution
-- Cosmetic inventory
-- Friend system
-- Guilds
-- Seasonal events
-- Interactive tutorials
-- Advanced analytics
-- AI-powered recommendations
-- Complex social systems
-
-These features should not delay the first release.
-
----
-
-# Features Not Planned
-
-The following are currently outside the project's scope:
+Outside this product's scope, at any stage documented here:
 
 - Cryptocurrency trading
-- Real-money investing
-- Banking services
-- Payment processing
-- Brokerage integration
-- High-frequency trading
-- Complex financial analysis
+- Real-money investing / order execution
+- Banking services, payment processing, brokerage integration
+- High-frequency or professional trading tooling
+- The Mentor acting as an autonomous, deterministic financial adviser ("buy this," "put 70% here")
 
-The application is an educational platform, not a brokerage.
+See `PRODUCT_VISION.md` §11 for the reasoning.
 
 ---
 
-# Architecture Evolution
-
-Current architecture is sufficient.
-
-Future improvements may include:
-
-- Background workers
-- Serverless jobs
-- Queue processing
-- Caching
-- Horizontal scaling
-
-These changes should only occur when there is a demonstrated need.
-
----
-
-# Success Metrics
-
-The MVP should achieve:
-
-- Stable authentication
-- Reliable portfolio simulation
-- Smooth user experience
-- Consistent progression
-- Engaging gameplay
-- Low crash rate
-- Positive user feedback
-
----
-
-# Decision Rules
+## Decision rules
 
 Before starting a new feature, ask:
 
-- Does this improve the MVP?
-- Does this delay the release?
-- Is it required for launch?
-- Will users benefit immediately?
+- Which step of the core loop (`PRODUCT_VISION.md` §6) does this strengthen?
+- Does it keep XP tied to learning/practice, not wealth?
+- Is it required to validate the current stage (MVP V2 / Beta / V1), or does it belong to a later one?
+- Will users benefit from it without being pulled away from the learning-first center of the product?
 
-If the answer is "no", postpone the feature.
-
----
-
-# Long-Term Vision
-
-After the MVP, the project should evolve through continuous improvements.
-
-Growth should be driven by:
-
-- User feedback
-- Real usage data
-- Product validation
-- Measured technical needs
-
-Avoid speculative development.
+If the honest answer weakens any of these, postpone the feature and record why in `DECISIONS.md` if the
+question is likely to come up again.
 
 ---
 
-# Guiding Principle
+## Guiding principle
 
-Finish what has already been started before building something new.
-
-A completed MVP creates more value than an unfinished product with dozens of partially implemented features.
+Finish the core loop before expanding it. A validated MVP V2 that proves Learn → Practice → Progress → Grow
+creates more value than a wide feature set that never proves the loop works.

@@ -5,6 +5,11 @@
 ## Status
 
 Phase 0 slice implemented (client-only). Sections marked **Phase 3+** below are design intent, not yet built.
+In `ROADMAP.md`'s staging: Phase 0 ≈ **MVP V2**, Phase 3+ ≈ **Beta or later**.
+
+The Academy is the primary product engine under the V2 direction — see `PRODUCT_VISION.md` §4 ("Learning is
+primary"). Where this document refers to "the brief," that was the original feature request that shaped this
+design; `PRODUCT_VISION.md` is now the authoritative product spec this document must stay consistent with.
 
 ---
 
@@ -47,8 +52,26 @@ Nothing above is replaced. The Academy feature is new files under `features/acad
 Turn the app's existing "Train" stub into a real, short-lesson, gamified financial-education flow: `Home → Academy →
 Module → Lesson → Micro-exercises → Result → XP/Progress → Next lesson`. Content teaches the user to *investigate*
 concepts (P/L, risk, diversification, …) rather than memorize definitions or receive buy/sell advice — see
-`docs/PROJECT_CONTEXT.md`'s "never misleading" principle. Full curriculum (from the original brief, Level 1–8):
-Investor Foundations, Fixed Income, Stocks, Fundamental Analysis, ETFs, Crypto, Portfolio Construction, Advanced.
+`docs/PROJECT_CONTEXT.md`'s "never misleading" principle and `docs/PRODUCT_VISION.md`'s safety boundary (§11).
+
+### Knowledge progression roadmap
+
+This is the target curriculum shape. Content may evolve, but the progressive philosophy — each level builds on
+the last — should remain, and it must stay distinct from game level (`PRODUCT_VISION.md` §9: knowledge
+progress ≠ XP-driven game level).
+
+| Level | Theme | Example concepts |
+|---|---|---|
+| 1 | Foundations | Saving vs. investing, inflation, purchasing power, risk, liquidity, return, simple/compound interest, financial goals |
+| 2 | Fixed Income | Interest rates, CDI, Selic, IPCA, government bonds, CDB, LCI/LCA, fixed vs. floating rates, mark-to-market |
+| 3 | Variable Income | Stocks, dividends, volatility, FIIs, ETFs, market basics |
+| 4 | Fundamental Analysis | Revenue, profit, margins, debt, ROE, ROIC, P/E, P/B, dividend yield, cash flow |
+| 5 | Portfolio Construction | Diversification, allocation, correlation, rebalancing, risk management, horizon |
+| 6 | Advanced | Valuation, DCF, macroeconomics, scenarios, company analysis, advanced strategy |
+
+**Current:** Level 1 (Foundations) exists as the single authored module, "Fundamentos do Investidor." Levels
+2–6 exist only as `contentAvailable: false` placeholder catalog entries. See `ROADMAP.md`'s Beta stage for
+when Levels 2–4 are targeted.
 
 ## 2. Phase 0 (implemented now)
 
@@ -181,6 +204,8 @@ yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, meas
 - **Practical market challenges** (brief §7): a `PracticalChallenge` entity referencing a real ticker/ratio, reward
   wired through the same `TotalXpCalculator`, gated on the asset-details screen already having the indicator data
   (`IndicatorEducationCatalog`) — the natural next integration once Module 4 (Fundamental Analysis) has real content.
+  This is the concrete implementation of "Educational Portfolio Intelligence" (`FEATURES.md`), the product's core
+  differentiator per `PRODUCT_VISION.md` §10 — currently the single highest-priority MVP V2 gap (`ROADMAP.md`).
 - **Paper trading step type**: a `SimulationStep` LessonStep subclass, gated on a simulated-allocation feature that
   doesn't exist yet.
 - **Streak**: plug into `MARKET_EVENTS_ENGINE.md`'s `STREAK_MAINTAINED`/`user_streak` design once that ships, rather

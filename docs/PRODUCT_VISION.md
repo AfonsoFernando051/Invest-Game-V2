@@ -1,355 +1,279 @@
-# AI_RULES.md
+# PRODUCT_VISION.md
 
-# AI Development Rules
+# Invest Game V2 — Product Vision
 
-## Purpose
+## Document role
 
-This document defines how AI assistants should collaborate on the Pet Invest App.
+This is the **source of truth for what Invest Game V2 is and why it exists.** Every other document in
+`docs/` — architecture, features, roadmap, design — must be consistent with what is written here. When a
+document conflicts with this one, this one wins, and the other document should be corrected.
 
-The goal is to ensure that every suggestion, implementation, or review aligns with the project's architecture, product vision, design philosophy, and development priorities.
+This file replaces the previous `PRODUCT_VISION.md`, which was a stray duplicate of `AI_RULES.md` and carried
+no actual product content.
 
-These rules apply to all AI coding assistants.
-
----
-
-# Primary Objective
-
-Help develop the Pet Invest App while preserving its:
-
-- Product vision
-- Architecture
-- Visual identity
-- Code quality
-- Maintainability
-
-The AI should improve the project, not reinvent it.
+> **Relationship to the original Pet Invest App:** Invest Game V2 is derived from the `Pet-Invest-App` MVP but
+> is a **separate product and architecture initiative** with a different product philosophy. The original MVP
+> is preserved in its own repository and should be treated as historical context and a technical reference,
+> not as this product's specification. See `PROJECT_CONTEXT.md` for the full relationship.
 
 ---
 
-# Understand Before Changing
+## 1. The core principle
 
-Before proposing any implementation:
+> **LEARN → PRACTICE → PROGRESS → GROW**
 
-Read the project documentation.
+```text
+                    INVEST GAME
+                         |
+          +--------------+--------------+
+          |              |              |
+          v              v              v
+       LEARNING       PORTFOLIO     GAMIFICATION
+          |              |              |
+       Knowledge       Practice         XP
+       Lessons         Assets           Levels
+       Quizzes        Transactions      Missions
+       Progress       Analysis          Rewards
+          |              |              |
+          +--------------+--------------+
+                         |
+                         v
+                        PET
+                         |
+                         v
+                    MOTIVATION
+                         |
+                         +-------> LEARNING
+```
 
-At minimum, understand:
-
-- PROJECT_CONTEXT.md
-- ARCHITECTURE.md
-- DESIGN_SYSTEM.md
-- FEATURES.md
-- ROADMAP.md
-- DECISIONS.md
-
-Never make assumptions without understanding the existing project.
-
----
-
-# Preserve Existing Decisions
-
-Architectural decisions already made should be respected.
-
-Do not suggest replacing technologies simply because newer alternatives exist.
-
-Examples:
-
-Do not suggest:
-
-- Migrating Flutter to another framework
-- Rewriting Spring Boot
-- Moving to microservices
-- Switching to serverless
-- Rebuilding the UI
-
-Unless the user explicitly requests it.
+The product is **not** documented as an investment-simulation game with education bolted on. It is a learning
+product whose practice environment happens to be a portfolio, whose retention mechanism happens to be
+gamification, and whose emotional anchor happens to be a pet.
 
 ---
 
-# MVP First
+## 2. Problem
 
-The current priority is delivering the MVP.
+Most beginners who want to start investing run into the same wall:
 
-When suggesting improvements:
+- They don't know **what** to study first.
+- They don't know **in what order** concepts build on each other.
+- They have no way to know whether they actually **understood** a concept, versus just having read about it.
+- They can't connect financial theory to **their own, real financial decisions** — lessons stay abstract.
+- Existing options are polarized: dense financial content made for professionals, or gamified apps that
+  entertain without teaching anything durable.
 
-Always prefer:
+## 3. Solution
 
-- Completing unfinished features
-- Fixing bugs
-- Improving stability
-- Improving maintainability
+Invest Game provides:
 
-Avoid introducing large new systems that delay delivery.
+- A structured, progressive **learning path** (Academy) instead of a wall of articles.
+- **Interactive lessons** with explanations, examples, and micro-exercises rather than long-form reading.
+- **Quizzes** that check understanding, with encouraging (never punitive) feedback.
+- **Educational challenges** that connect a concept to a real, held asset.
+- A **portfolio** that acts as the practice environment where lessons become concrete.
+- **XP and levels** that reward the act of learning and practicing, not the size of a portfolio.
+- An **evolving pet** that visualizes the learner's journey.
+- A **contextual AI mentor** that tutors inside the learning flow, not a robo-advisor.
 
----
+### Core promise
 
-# Think Like a Senior Engineer
-
-Always evaluate:
-
-- Implementation cost
-- Long-term maintenance
-- Simplicity
-- Readability
-- Scalability
-- User impact
-
-Do not optimize for theoretical perfection.
-
-Optimize for practical development.
+> **Learn investing step by step, put the knowledge into practice, and watch your companion grow with you.**
 
 ---
 
-# Preserve the Architecture
+## 4. Product positioning
 
-Follow the existing architecture.
+The product has four layers, and the order between them is deliberate — it is not a list of equal pillars.
 
-Do not introduce new architectural patterns unless there is a clear reason.
+| Layer | Role | Examples |
+|---|---|---|
+| **Primary** | Investment education | Academy, learning paths, lessons, quizzes |
+| **Secondary** | Portfolio practice & tracking | Holdings, transactions, allocation, dividends |
+| **Motivation layer** | Gamification & pets | XP, levels, missions, achievements, pet evolution |
+| **Support layer** | AI Mentor | Contextual tutoring grounded in the learning + portfolio state |
 
-Examples of changes that require strong justification:
-
-- Event sourcing
-- CQRS
-- Microservices
-- Serverless architecture
-- Domain-driven redesign
-
-The current architecture is intentionally simple.
-
-Respect it.
+The learning experience is primary. The portfolio exists to make learning concrete. Gamification exists to
+keep the learner coming back. The pet exists to make progress feel emotionally real. None of the lower layers
+should be documented, designed, or built as if they were the point of the product.
 
 ---
 
-# Preserve the Design
+## 5. Target audience
 
-The application's visual identity is established.
+### Primary
 
-Improve the interface through refinement.
+Young adults and beginner investors, roughly 18–35, who:
 
-Do not redesign it.
+- want to start investing but haven't yet;
+- have limited financial literacy;
+- already consume educational content online (videos, short-form, social);
+- feel overwhelmed by fragmented, jargon-heavy financial information;
+- respond well to interactive, bite-sized learning;
+- want visible, structured progress;
+- are motivated by game mechanics (streaks, levels, collectibles).
 
-Focus on:
+### Secondary
 
-- Better spacing
-- Better hierarchy
-- Better usability
-- Better accessibility
-- Better animations
+Early-stage investors who already hold assets but want to organize and deepen their knowledge rather than
+learn from zero.
 
-Never change the overall visual identity without explicit approval.
+### Explicit non-goals
 
----
+The product is **not** initially designed for:
 
-# Reuse Existing Components
+- professional or institutional traders;
+- advanced quantitative users;
+- professional analysts;
+- users seeking trading signals or alpha;
+- users looking for direct execution of financial transactions.
 
-Before creating new code:
-
-Check whether an existing solution already exists.
-
-Prefer:
-
-- Existing widgets
-- Existing services
-- Existing utilities
-- Existing design patterns
-
-Consistency is more valuable than originality.
+These exclusions are deliberate. Building for them would pull the product away from its educational core.
 
 ---
 
-# Keep Solutions Simple
+## 6. Core loop
 
-Prefer:
+```text
+OPEN APP
+   ↓
+SEE PROGRESS
+   ↓
+CONTINUE LESSON
+   ↓
+LEARN
+   ↓
+PRACTICE / QUIZ
+   ↓
+EARN XP
+   ↓
+PET PROGRESSES
+   ↓
+UNLOCK NEW CONTENT
+   ↓
+APPLY KNOWLEDGE TO PORTFOLIO
+   ↓
+RECEIVE EDUCATIONAL FEEDBACK
+   ↓
+RETURN TO LEARNING
+```
 
-Simple solutions.
-
-Avoid:
-
-Complex solutions that solve hypothetical future problems.
-
-Follow:
-
-- KISS
-- DRY
-- YAGNI
-
----
-
-# Explain Trade-offs
-
-When multiple solutions exist:
-
-Explain:
-
-- Advantages
-- Disadvantages
-- Complexity
-- Long-term maintenance
-
-Recommend one solution and justify it.
-
-Do not simply list options.
+**Product rule:** features that do not strengthen learning, practice, progression, or retention require
+explicit justification before being added. When proposing a feature, name which step of this loop it
+strengthens. If it doesn't strengthen any step, reconsider it.
 
 ---
 
-# Incremental Improvements
+## 7. Navigation (target)
 
-Prefer improving existing code over replacing it.
+- **Home** — personal learning dashboard (see §8).
+- **Learn** — the Academy / learning journey.
+- **Portfolio** — the practical investment environment.
+- **Pet** — companion progression and customization.
 
-Small improvements are preferred over large rewrites.
+Profile and settings live outside the primary navigation. The Mentor is primarily a **contextual** tool, not
+necessarily a top-level tab — it should be reachable from wherever the user needs tutoring (a lesson, an asset
+screen, a quiz mistake), not treated as a fifth, disconnected destination.
 
-If an existing implementation works:
+> **Current implementation gap:** the shipped bottom navigation
+> (`petapp_mobile/lib/features/dashboard/presentation/screens/dashboard_screen.dart`) has five tabs — Home,
+> Carteira (Wallet), Proventos (Passive Income), Academia, Mentor — with the Pet surfaced only as a widget on
+> Home, and Mentor as a standing top-level tab. This is pre-existing MVP-era navigation and is **not being
+> changed by this documentation pass** (no code changes here). It is recorded as a target-navigation gap for a
+> future Beta-stage pass — see `ARCHITECTURE.md`'s Current vs Target notes and `ROADMAP.md`.
 
-Improve it.
+## 8. Home
 
-Do not rebuild it.
+Home is the central orchestration layer of the product. It should answer, in this priority order:
 
----
+1. **What am I learning?** — continue-lesson CTA.
+2. **How am I progressing?** — XP / level.
+3. **How is my companion doing?** — pet progression.
+4. **What should I do next?** — daily/weekly mission.
+5. **How is my practical portfolio doing?** — a snapshot, not a dashboard.
+6. **What should I look at, based on what I've learned?** — a personalized educational recommendation.
 
-# Performance
-
-Optimize only when necessary.
-
-Do not introduce complexity for hypothetical performance gains.
-
-Measure before optimizing.
-
----
-
-# Code Generation
-
-Generated code should:
-
-- Follow project conventions
-- Be readable
-- Be maintainable
-- Be reusable
-- Match the existing style
-
-Avoid generating isolated code that ignores the current architecture.
+Financial performance must never dominate Home. A user opening the app should see their learning progress
+before their portfolio's percentage change.
 
 ---
 
-# Business Logic
+## 9. Knowledge progress vs. game level
 
-Business rules belong in the business layer.
+These are two different things and must never be conflated in product copy, design, or logic:
 
-Never move business logic into:
+```text
+Knowledge Progress               XP
+     ↓                            ↓
+Educational readiness      Motivational progression
+                                   ↓
+                          Pet progression / rewards
+```
 
-- Flutter Widgets
-- Controllers
-- UI components
+- **Knowledge Progress** — how much of the educational curriculum the user has actually completed and
+  demonstrated understanding of (lessons completed, quizzes passed).
+- **Game Level** — a motivational progression derived from accumulated XP.
 
-Respect the existing separation of responsibilities.
-
----
-
-# Documentation
-
-Whenever a significant architectural decision is made:
-
-Suggest updating:
-
-- DECISIONS.md
-- FEATURES.md
-- ROADMAP.md
-
-Documentation should evolve together with the project.
+**Level 20 does not mean "advanced investor."** It means the user has been consistently active and completing
+learning/practice activities. Product copy, onboarding, and the Mentor must never imply that a game level is a
+certification of financial competence.
 
 ---
 
-# Product Mindset
+## 10. Product differentiation
 
-Always remember:
+The strongest differentiation is **not** "it has a pet." It is:
 
-Pet Invest App is:
+> **The user's learning journey is connected to a practical investment portfolio and a persistent gamified
+> progression system.**
 
-- A gamified financial education platform.
+```text
+Learn
+ ↓
+Understand
+ ↓
+Practice
+ ↓
+See the concept show up in the portfolio
+ ↓
+Earn XP
+ ↓
+Pet progresses
+ ↓
+Continue learning
+```
 
-It is NOT:
-
-- A banking application.
-- A brokerage.
-- A cryptocurrency exchange.
-
-Every suggestion should reinforce the educational and gamified nature of the product.
-
----
-
-# User Experience
-
-Prioritize:
-
-- Clarity
-- Motivation
-- Progression
-- Simplicity
-- Engagement
-
-Every feature should improve the user experience.
-
-Avoid unnecessary complexity.
+The pet makes the loop emotionally engaging. The learning ↔ portfolio connection (see `ACADEMY_ENGINE.md` §
+"Educational Portfolio Intelligence") is the deeper, harder-to-copy differentiator.
 
 ---
 
-# Review Checklist
+## 11. Safety / financial product boundaries
 
-Before proposing a solution, ask:
+Invest Game V2 is, and should always be documented as:
 
-- Does this preserve the architecture?
-- Does this preserve the product vision?
-- Does this preserve the design language?
-- Is this appropriate for the MVP?
-- Is there a simpler solution?
-- Can existing code be reused?
-- Is the implementation maintainable?
-- Is the complexity justified?
+> **Financial education + portfolio tracking/practice.**
 
-If the answer to any of these questions is "No", reconsider the proposal.
+It is **not**, at least not in this stage of the product:
 
----
+- a broker;
+- an execution platform;
+- a trading-signal engine;
+- an automated investment adviser.
 
-# Preferred AI Behavior
-
-Act as:
-
-- Senior Flutter Engineer
-- Senior Spring Boot Engineer
-- Software Architect
-- Product Designer
-- Technical Lead
-
-Balance technical excellence with practical decision-making.
+The product must always distinguish an educational explanation from personalized financial advice. When the
+Mentor discusses a user's portfolio, it should prioritize explanation, education, transparency, and risk
+awareness over instruction. Deterministic directives — "buy this," "sell this," "put 70% here" — are out of
+scope unless a future, explicit product and legal decision authorizes them. See `AI_MENTOR.md` for the
+Mentor's full behavioral contract.
 
 ---
 
-# Avoid
+## 12. Guiding question
 
-Avoid suggesting:
+Every product, design, and engineering decision should be able to answer:
 
-- Complete rewrites
-- Unnecessary dependencies
-- Premature optimization
-- Technology changes without justification
-- Overengineering
-- Design changes without request
+> **Does this strengthen learning, practice, progression, or the emotional connection to the pet — without
+> encouraging unhealthy financial behavior?**
 
----
-
-# Success Criteria
-
-A successful AI contribution should:
-
-- Solve the requested problem
-- Preserve project consistency
-- Improve maintainability
-- Respect existing decisions
-- Minimize implementation cost
-- Keep the project moving toward the MVP
-
----
-
-# Final Principle
-
-The best solution is not the most technically impressive.
-
-The best solution is the one that delivers value, fits the current architecture, respects the product vision, and can be maintained with confidence over time.
+If the honest answer is no, reconsider the decision.

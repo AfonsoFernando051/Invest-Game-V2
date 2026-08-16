@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This document defines the coding standards and development principles for the Pet Invest App.
+This document defines the coding standards and development principles for Invest Game V2.
 
 Its purpose is to ensure consistency, maintainability, readability, and long-term scalability across the entire codebase.
 
@@ -224,6 +224,33 @@ Provide meaningful error messages.
 Unexpected exceptions should be logged.
 
 User-facing messages should be understandable and actionable.
+
+---
+
+# Financial & Reward Calculations
+
+Invest Game V2 handles two categories of numbers that require extra discipline: monetary values (portfolio,
+transactions, dividends) and reward values (XP, levels).
+
+## Monetary precision
+
+- Never use floating-point types (`double`/`float`) for monetary calculations, on either side of the stack.
+- Backend: use `BigDecimal` for all monetary fields and calculations (see `API_GUIDELINES.md`'s Financial
+  Values section).
+- Serialize monetary values consistently between backend and Flutter — do not let the client re-derive
+  precision-sensitive values through floating-point math on a value that arrived as a string/decimal.
+
+## Deterministic, auditable calculations
+
+- Portfolio value, allocation, and dividend calculations must be deterministic — the same inputs always
+  produce the same output, with no hidden randomness or time-dependent drift beyond the actual market data
+  changing.
+- XP and reward calculations must be traceable to a specific event (lesson completed, quiz passed, mission
+  claimed) — see `FEATURES.md`'s XP System. Prefer an event-sourced log over incrementing a single mutable
+  counter, so a user's total XP is always re-derivable and never silently drifts from its history.
+- Never grant XP or rewards based on portfolio value, invested amount, or profit — see DECISION-014 in
+  `DECISIONS.md`. If you find code doing this (the current codebase has some), treat it as a known gap to
+  flag, not a pattern to extend.
 
 ---
 

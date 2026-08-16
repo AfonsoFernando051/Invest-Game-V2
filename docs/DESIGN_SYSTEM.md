@@ -4,7 +4,7 @@
 
 ## Overview
 
-The Pet Invest App has an established visual identity.
+Invest Game V2 has an established visual identity, inherited from the original Pet Invest App MVP.
 
 This document defines the design principles, visual language, UI components, and user experience guidelines that should be followed throughout the application.
 
@@ -16,19 +16,37 @@ This document should be considered the source of truth for every UI decision.
 
 # Design Philosophy
 
-Pet Invest App is **not** designed to look like a traditional banking application.
+Invest Game V2 is **not** designed to look like a traditional banking application.
 
-Instead, it should feel like a premium mobile game that teaches investing.
+Instead, it should feel like a premium, educational mobile experience — closer to a well-designed learning
+app with game-quality polish than to a finance dashboard. See `PRODUCT_VISION.md` for why learning is the
+product's primary layer; the interface should reflect that same priority order.
 
 The interface should communicate:
 
+- Educational
+- Approachable
+- Trustworthy
 - Progress
 - Discovery
 - Achievement
 - Curiosity
 - Exploration
 
-Every visual element should reinforce the feeling that the user is progressing on a journey.
+Every visual element should reinforce the feeling that the user is progressing on a learning journey — not
+just accumulating game rewards.
+
+## Content vs. atmosphere by screen type
+
+The cosmic, game-inspired atmosphere remains part of the brand, but **content always has visual priority**:
+
+- **Academy / lesson screens** prioritize focus and readability above atmosphere. Backgrounds and
+  microinteractions should recede so the learner can concentrate on the concept being taught.
+- **Home** can be more immersive — it is the orchestration/celebration layer (`PRODUCT_VISION.md` §8) where
+  progress, the pet, and atmosphere are allowed more visual weight.
+
+Light and dark themes should feel like the same product; both are implemented today
+(`lib/core/theme/app_theme.dart`: `AppTheme.light` / `AppTheme.dark`) — this is not a dark-only app.
 
 ---
 

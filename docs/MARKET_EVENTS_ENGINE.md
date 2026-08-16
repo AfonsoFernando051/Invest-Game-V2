@@ -1,14 +1,22 @@
 # MARKET_EVENTS_ENGINE.md
 
-# Market Events & Gamification Engine
+# Market Events & Learning Engine
 
 ## Status
 
-Design specification. Not yet implemented.
+Design specification. Not yet implemented. In `ROADMAP.md`'s staging: this document's Phase 0 rows ≈
+**MVP V2**, Phase 3+/4+ rows ≈ **Beta or later**.
 
-This document is the blueprint for turning real market data into gameplay. It is written to the quality bar of a
-production system, but it is deliberately **phased** — see [Reconciling Ambition With the Roadmap](#reconciling-ambition-with-the-roadmap)
-before building anything from it.
+This document is the blueprint for turning real market/portfolio data into **educational moments** — not into
+a trading or "gameplay" mechanic in its own right. Under the V2 direction (`PRODUCT_VISION.md`), an event like
+a dividend payment or a portfolio milestone exists to route the user back to a relevant lesson and to
+celebrate a learning-adjacent moment, not to encourage trading activity around market events. Read every
+"gameplay consequence" in this document (XP, mission progress, pet reaction) as an instance of the
+`PRODUCT_VISION.md` §6 core loop, not as a separate game system layered on top of investing.
+
+It is written to the quality bar of a production system, but it is deliberately **phased** — see
+[Reconciling Ambition With the Roadmap](#reconciling-ambition-with-the-roadmap) before building anything from
+it.
 
 ---
 
@@ -86,7 +94,7 @@ Everything else is marked **[Phase 3+]** and depends on a market-data provider u
 
 ### Vision
 
-Investing apps show numbers. Pet Invest App turns the same numbers into a moment. The Market Events Engine is the
+Investing apps show numbers. Invest Game turns the same numbers into a moment. The Market Events Engine is the
 system that watches for anything meaningful happening to a user's real simulated portfolio or the real market
 behind it, and turns that fact into a piece of gameplay — a mission update, an XP reward, a pet reaction, a
 timeline entry, a notification — without ever changing what the fact *is*.
@@ -103,6 +111,11 @@ timeline entry, a notification — without ever changing what the fact *is*.
    built.
 4. **Boring by default, delightful at the moment of payoff.** The Daily Dashboard is a 10-second read; the
    celebration is the one moment allowed to be loud (this already exists — see `AchievementCelebrationOverlay`).
+5. **Every meaningful event is a potential learning callback, not a trading cue.** "PETR4 vai pagar
+   dividendos" is not just a number to celebrate — it's a prompt back to the dividends lesson
+   ("Educational Portfolio Intelligence," `FEATURES.md`). Event copy should prefer "here's an opportunity to
+   revisit X" framing over pure celebration when a relevant lesson exists, consistent with
+   `PRODUCT_VISION.md`'s learning-first positioning.
 
 ### Before / after (the brief's own example, applied to this app's voice)
 

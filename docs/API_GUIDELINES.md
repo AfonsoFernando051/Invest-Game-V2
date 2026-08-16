@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This document defines the standards and conventions for designing and implementing REST APIs in the Pet Invest App backend.
+This document defines the standards and conventions for designing and implementing REST APIs in the Invest Game V2 backend.
 
 Every endpoint should follow these guidelines to ensure consistency, maintainability, and a predictable developer experience.
 
@@ -28,25 +28,43 @@ All endpoints should follow REST conventions unless there is a strong technical 
 
 # Base URL
 
-Example:
+## Target
 
 ```
 /api/v1
 ```
 
-Example resources:
+Target namespaces, aligned to `PRODUCT_VISION.md`'s learning-first priority order:
 
 ```
 /api/v1/auth
-/api/v1/users
-/api/v1/profile
+/api/v1/learning
 /api/v1/portfolio
 /api/v1/assets
-/api/v1/transactions
+/api/v1/gamification
+/api/v1/pets
 /api/v1/missions
-/api/v1/achievements
-/api/v1/rankings
+/api/v1/mentor
+/api/v1/users
 ```
+
+## Current
+
+**Gap:** no version prefix exists today, and `auth` isn't even under `/api`. Actual routes in use:
+
+```
+/auth                          (no /api prefix — inconsistent with every other controller)
+/api/settings
+/api/pets
+/api/mentor
+/api/onboarding
+/api/investments               (target name: /api/v1/portfolio + /api/v1/assets)
+```
+
+There is no `/learning`, `/gamification`, or `/missions` namespace yet — Academy progress, XP, missions, and
+achievements are entirely client-local (see `FEATURES.md`). New endpoints should be added under `/api/v1/...`
+going forward rather than extending the unversioned style, so the codebase migrates toward the target
+incrementally instead of needing a single breaking rewrite.
 
 ---
 
@@ -323,19 +341,9 @@ GET /assets?search=apple
 
 # Versioning
 
-Version APIs through the URL.
-
-Example:
-
-```
-/api/v1
-```
-
-Future versions:
-
-```
-/api/v2
-```
+Version APIs through the URL (`/api/v1`, future `/api/v2`). This is the target convention — see the Base URL
+section above for the current unversioned gap. New endpoints should adopt `/api/v1/...` immediately rather
+than perpetuating the unversioned style.
 
 Avoid breaking existing clients whenever possible.
 

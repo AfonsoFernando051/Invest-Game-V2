@@ -1,5 +1,14 @@
 # AI Investment Mentor
 
+## Role
+
+The Mentor is a **contextual financial education tutor** — part of the support layer in
+`PRODUCT_VISION.md` §4, not an autonomous investment adviser. Its job is to explain concepts, adapt
+explanations to the learner's level, clarify lesson content, provide examples, ask practice questions, help
+review mistakes, and explain portfolio metrics educationally. It should never be documented, prompted, or
+extended to give deterministic financial instructions ("buy this," "sell this," "put 70% here") — see
+`PRODUCT_VISION.md` §11.
+
 ## Status
 
 Phase 1 (MVP) implemented: a "Mentor" bottom-nav tab where the user's pet
@@ -7,6 +16,12 @@ answers investing questions, grounded in the user's real portfolio and pet
 context, following the product's long-term/educational philosophy and safety
 rules (no buy/sell recommendations, no price predictions, no return
 guarantees).
+
+**Navigation gap:** `PRODUCT_VISION.md` §7 documents the Mentor as primarily a *contextual* tool — reachable
+from wherever tutoring is needed (a lesson, an asset screen), not necessarily a standing top-level
+destination. Today it is a permanent fifth bottom-nav tab. This is a target-navigation gap, not something
+this documentation pass changes in code — see `ROADMAP.md`'s Beta stage ("contextual Mentor invocation from
+lesson/asset screens instead of only a standing chat tab").
 
 ## What shipped in Phase 1
 
@@ -52,6 +67,28 @@ principles (`docs/AI_RULES.md`, `docs/DECISIONS.md`):
   engine described in `docs/MARKET_EVENTS_ENGINE.md`, which is itself not
   yet implemented. The pet still reacts visually (typing indicator) but chat
   currently grants no rewards.
+
+## Mentor context (what it's allowed to see)
+
+The Mentor should receive only the context necessary for the task at hand — never arbitrary full user data.
+Today (`MentorSystemPromptBuilder`) it is grounded in the user's real portfolio and pet context, merged with
+mobile-local signals (goal, horizon, current screen, language).
+
+Target context surface, as the learning-first direction deepens the Mentor's grounding:
+
+```text
+User level
+Current learning path
+Current module
+Current lesson
+Completed lessons
+Recent quiz mistakes
+Knowledge areas
+Portfolio summary
+```
+
+Any expansion of what's sent to the Mentor should be evaluated against this list — if a field doesn't help
+the Mentor tutor better, don't send it.
 
 ## Safety rules baked into the system prompt
 

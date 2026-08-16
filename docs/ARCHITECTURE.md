@@ -4,11 +4,11 @@
 
 ## Overview
 
-Pet Invest App follows a traditional client-server architecture designed for maintainability, scalability, and rapid MVP development.
+Invest Game V2 follows a traditional client-server architecture designed for maintainability, scalability, and rapid iteration. It supports the learning-first product defined in `PRODUCT_VISION.md` — the architecture exists to serve that product, not the other way around.
 
-The current architecture prioritizes simplicity and predictable development over premature optimization.
+The current architecture prioritizes simplicity and predictable development over premature optimization, and is intentionally designed to evolve incrementally.
 
-The application is intentionally designed to evolve incrementally as the product grows.
+This document distinguishes **Current** (what exists in the codebase today) from **Target** (what the V2 direction is evolving toward) wherever they differ materially — see DECISION-016 in `DECISIONS.md`.
 
 ---
 
@@ -41,12 +41,15 @@ Responsibilities:
 - Authentication
 - Authorization
 - Business Rules
-- Investment Simulation
-- User Progression
+- Learning Progress
+- Portfolio Tracking
+- User Progression (XP, levels)
 - Missions
 - Achievements
-- Rankings
 - REST API
+
+Rankings/leaderboards are a deprecated MVP-era concept, not a current backend responsibility — see
+`FEATURES.md`'s "Deprecated / reconsidered concepts."
 
 ---
 
@@ -104,62 +107,148 @@ Repositories should only access data.
 
 # Frontend Architecture
 
-Flutter should be organized by features whenever possible.
+Flutter is organized by features, each following a `presentation / domain / data` split internally.
 
-Example:
+## Current
+
+```
+petapp_mobile/lib/
+core/
+    constants/   di/   events/   navigation/
+    network/     services/   theme/   utils/   widgets/
+features/
+    academy/       (Learning — see ACADEMY_ENGINE.md)
+    asset_details/
+    auth/
+    dashboard/     (bottom-nav shell + Home content)
+    game/          (level/XP calculation)
+    home/
+    investment/
+    mentor/
+    onboarding/
+    pet/
+    portfolio/
+    profile/
+    settings/
+```
+
+State is wired manually: a single `DI` service locator (`core/di/`) plus six `ChangeNotifier` controllers
+(`PortfolioController`, `MascotController`, `AcademyController`, `LessonSessionController`,
+`AssetDetailsController`, `MentorChatController`), observed via `AnimatedBuilder`/`addListener`. No
+state-management package (Provider/Riverpod/Bloc/GetX) is used.
+
+## Target
 
 ```
 lib/
-
-features/
-    authentication/
-    home/
-    portfolio/
-    market/
-    missions/
-    achievements/
-    ranking/
-    profile/
-
-shared/
-    components/
-    theme/
-    services/
-    models/
-    utils/
+├── core/
+│   ├── networking/
+│   ├── storage/
+│   ├── theme/
+│   ├── routing/
+│   └── utilities/
+└── features/
+    ├── auth/
+    ├── home/
+    ├── learning/       (product-facing name for today's `academy/`)
+    ├── portfolio/
+    ├── pet/
+    ├── gamification/   (XP/levels/missions/achievements, currently spread under portfolio/ and game/)
+    ├── mentor/
+    └── profile/
 ```
 
-The exact folder structure may evolve, but responsibilities should remain clear.
+**Gap:** the target groups gamification (XP, levels, missions, achievements) into its own feature; today it is
+split across `features/game/` (level calculation) and `features/portfolio/domain/services/` (mission and
+achievement catalogs). This consolidation is a Beta-stage refactor, not required for MVP V2 — see `ROADMAP.md`.
+The feature is called "Academy" in code and product copy (see `ACADEMY_ENGINE.md`) even though the conceptual
+pillar is named "Learning" in `PRODUCT_VISION.md`; both names refer to the same feature and do not need to be
+reconciled by renaming code.
+
+**Rule (current and target):** UI must not call network services directly.
+
+```text
+Widget
+ ↓
+Controller / Notifier
+ ↓
+Use Case
+ ↓
+Repository
+ ↓
+Data Source
+ ↓
+API
+```
+
+---
+
+# State Management
+
+The current lightweight `ChangeNotifier` approach is an MVP-era implementation decision, not a permanent
+constraint. The target principle is:
+
+> UI state and business state must remain separated.
+
+Do not introduce a new state-management package merely to modernize the stack. Any future migration must be
+justified by demonstrated complexity the current approach can no longer handle — see `AI_RULES.md`.
 
 ---
 
 # Backend Architecture
 
-The backend should be organized by business domains.
+The backend is organized as a modular monolith with a hexagonal-leaning layering:
+`core (domain/ports) → application (use cases per module) → infrastructure (adapters) → presentation
+(controllers)`.
 
-Example:
+## Current
 
 ```
-authentication/
-
-portfolio/
-
-market/
-
-missions/
-
-achievements/
-
-ranking/
-
-profile/
-
-notifications/
+com/jf/PetApp/
+core/
+    domain/assessment/   domain/enums/   port/   security/
+application/
+    auth/   investment/   mentor/   onboarding/   pet/   settings/   translation/   user/
+infrastructure/
+    config/   controller/   entity/   external/   repository/   security/
+presentation/
+    auth/
 ```
 
-Avoid organizing packages only by technical type.
+This already closely matches the target shape below — no restructuring is required to reach it, only new
+modules as features grow.
 
-Business domains should be easy to identify.
+## Target
+
+```
+core/
+├── domain/
+└── ports/
+
+application/
+├── learning/
+├── portfolio/
+├── gamification/
+├── pet/
+└── mentor/
+
+infrastructure/
+├── persistence/
+├── market-data/
+├── ai/
+└── security/
+
+presentation/
+├── auth/
+├── learning/
+├── portfolio/
+├── gamification/
+├── pet/
+└── mentor/
+```
+
+Avoid microservices during V2 unless a demonstrated scaling or organizational need requires them
+(DECISION-017).
 
 ---
 
@@ -177,7 +266,8 @@ Business rules belong in dedicated service classes.
 
 # API Design
 
-The backend exposes a REST API.
+The backend exposes a REST API. See `API_GUIDELINES.md` for conventions, namespaces, and the current
+(unversioned) vs. target (`/api/v1/*`) URL structure.
 
 General principles:
 
@@ -188,19 +278,6 @@ General principles:
 - Proper HTTP status codes
 
 Future GraphQL adoption is not planned.
-
----
-
-# State Management
-
-The chosen state management solution should:
-
-- Separate UI from business logic
-- Be testable
-- Be predictable
-- Minimize widget rebuilds
-
-Business logic should never depend directly on Widgets.
 
 ---
 
@@ -223,9 +300,65 @@ Avoid duplicating UI code.
 
 ---
 
+# Domain Model (Target)
+
+Conceptual blueprint for the V2 domain — not an instruction to implement every entity immediately. See
+`ROADMAP.md` for what's staged into MVP V2 vs. Beta.
+
+```text
+USER
+│
+├── USER_PROFILE
+├── USER_PREFERENCES
+│
+├── LEARNING_PROGRESS
+│
+├── QUIZ_ATTEMPT
+│
+├── XP_EVENT
+│
+├── ACHIEVEMENT
+│
+├── MISSION
+│
+├── PET
+│
+└── PORTFOLIO
+
+
+COURSE / LEARNING PATH
+├── MODULE
+└── LESSON
+
+
+PORTFOLIO
+├── TRANSACTION
+├── POSITION
+└── PORTFOLIO_SNAPSHOT
+
+
+ASSET
+├── PRICE
+├── FUNDAMENTALS
+└── DIVIDEND
+```
+
+**Current:** only `USER`, `PORTFOLIO`/`TRANSACTION`-adjacent tables (`jf_finances` and related), and pet
+profile data (`jf_pets`) exist in PostgreSQL. `LEARNING_PROGRESS`, `XP_EVENT`, `QUIZ_ATTEMPT`, `ACHIEVEMENT`,
+and `MISSION` do not exist on the backend at all today — they live entirely in Flutter local storage
+(`SharedPreferences`). See `ACADEMY_ENGINE.md` and `FEATURES.md`'s XP System for the migration path.
+
+---
+
 # Database Principles
 
-The database is the single source of truth.
+The database is the single source of truth for persistent business data — learning progress, XP events,
+achievements, missions, pet progression, portfolio, transactions, assets, and dividends (target state; see
+gap above for what's local-only today).
+
+Local device storage (`SharedPreferences`) is appropriate for theme, temporary preferences, cached UI state,
+and other non-authoritative local data — **not** as the canonical source of learning progress or XP once the
+backend migration above happens.
 
 Avoid:
 
@@ -298,6 +431,23 @@ Examples:
 - Import/export tasks
 
 Core business logic should remain inside the Spring Boot backend.
+
+---
+
+# Market Data Abstraction
+
+```text
+AssetDataProvider
+       ↓
+Provider Adapter
+       ↓
+External Market API
+```
+
+The domain must never depend directly on a market-data vendor. **Current:** already satisfied —
+`ExternalInvestmentApiPort` is the port, `BrapiInvestmentApiClient` the sole adapter. This shape makes a
+future provider swap (or adding a second provider) a new adapter class, not a domain change — keep new
+market-data integrations (e.g. `MarketEventSourcePort` in `MARKET_EVENTS_ENGINE.md`) behind the same pattern.
 
 ---
 

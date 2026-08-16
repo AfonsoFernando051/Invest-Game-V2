@@ -4,7 +4,7 @@
 
 ## Purpose
 
-This document defines how AI assistants should collaborate on the Pet Invest App.
+This document defines how AI assistants should collaborate on Invest Game V2.
 
 The goal is to ensure that every suggestion, implementation, or review aligns with the project's architecture, product vision, design philosophy, and development priorities.
 
@@ -14,7 +14,7 @@ These rules apply to all AI coding assistants.
 
 # Primary Objective
 
-Help develop the Pet Invest App while preserving its:
+Help develop Invest Game V2 while preserving its:
 
 - Product vision
 - Architecture
@@ -34,6 +34,7 @@ Read the project documentation.
 
 At minimum, understand:
 
+- PRODUCT_VISION.md (source of truth for product intent)
 - PROJECT_CONTEXT.md
 - ARCHITECTURE.md
 - DESIGN_SYSTEM.md
@@ -41,7 +42,8 @@ At minimum, understand:
 - ROADMAP.md
 - DECISIONS.md
 
-Never make assumptions without understanding the existing project.
+Never make assumptions without understanding the existing project. Never assume the previous "gamified
+investing app" framing still applies — `PRODUCT_VISION.md` documents the current, learning-first direction.
 
 ---
 
@@ -261,17 +263,34 @@ Documentation should evolve together with the project.
 
 Always remember:
 
-Pet Invest App is:
+Invest Game V2 is:
 
-- A gamified financial education platform.
+- A learning-first investment education platform. Learning is primary; the portfolio is a practice
+  environment; gamification is a motivation layer; the Mentor is a support layer. See `PRODUCT_VISION.md` §4.
 
 It is NOT:
 
 - A banking application.
-- A brokerage.
+- A brokerage or execution platform.
 - A cryptocurrency exchange.
+- An autonomous financial adviser.
 
-Every suggestion should reinforce the educational and gamified nature of the product.
+Every suggestion should reinforce the learning-first nature of the product — gamification and the pet exist
+to support learning retention, not the other way around.
+
+---
+
+# Specific Rules for This Product
+
+- **XP must be auditable and must never reward wealth, portfolio size, or profit directly.** If asked to add
+  or modify an XP-granting rule, check it against `FEATURES.md`'s XP System table first.
+- **Portfolio current market value is never the source of truth for rewards.** Rewards derive from
+  learning/practice events, ideally through an event log (`XPEvent`), not a mutable field.
+- **The Mentor never gives deterministic financial instructions** ("buy this," "sell this," "put X% here").
+  See `AI_MENTOR.md` and `PRODUCT_VISION.md` §11.
+- **Whenever architectural behavior changes, update the relevant documentation in the same change** — don't
+  let `docs/` drift from what's implemented.
+- **Do not introduce technologies without an explicit architectural reason** tied to a real, current problem.
 
 ---
 

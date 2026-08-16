@@ -1,322 +1,147 @@
 # PROJECT_CONTEXT.md
 
-# Pet Invest App
+# Invest Game V2 — Project Context
 
-## Project Overview
+## What this repository is
 
-Pet Invest App is a mobile application that teaches investing and personal finance through gamification.
+Invest Game V2 (`AfonsoFernando051/Invest-Game-V2`) is a **new, independent product repository** derived from
+the original `Pet-Invest-App` MVP. It reuses that MVP's codebase, patterns, and Flutter/Spring Boot foundation
+as a starting point, but it is being steered toward a **different product** with a different philosophy and a
+different priority order between its systems.
 
-The application combines financial education, simulation, progression systems, achievements, missions, rankings, and collectibles to create an engaging learning experience.
-
-The goal is not to replace a brokerage platform or become another banking application.
-
-The goal is to make learning about investments enjoyable, motivating, and accessible.
-
----
-
-# Mission
-
-Help people develop healthy investing habits through interactive learning and game mechanics.
-
-Users should feel motivated to return every day, improve their knowledge, and progress naturally while learning.
+**Treat the original MVP as historical context, an implementation reference, and a reusable technical
+foundation — not as the specification for this product.** The specification for what this product is and is
+becoming lives in `PRODUCT_VISION.md`.
 
 ---
 
-# Vision
+## The direction change, in one line
 
-Create the best gamified financial education platform.
-
-The application should combine:
-
-- Financial education
-- Investment simulation
-- RPG progression
-- Daily engagement
-- Premium user experience
-
-The experience should be educational first, entertaining second, and never misleading.
+The original concept was closer to *a gamified investment app with a portfolio, education, an AI mentor, and
+a virtual pet*, with all of those treated as roughly equal pillars. V2 is a **learning-first investment
+education product**: the user learns progressively, practices what they learn through a portfolio, earns XP
+primarily through learning and educational practice, and evolves a pet as a representation of that progress.
+See `PRODUCT_VISION.md` for the full reasoning, positioning, and target audience.
 
 ---
 
-# Product Philosophy
+## Mission
 
-Pet Invest App is built around the following principles.
-
-## Learn by Doing
-
-Users learn through interaction rather than long theoretical lessons.
-
-The application should encourage experimentation in a safe environment.
+Help beginners build real investing knowledge, in the right order, through interactive learning — and let
+them see that knowledge applied to a real, tracked portfolio.
 
 ---
 
-## Gamification First
+## Product identity
 
-Gamification is not an additional feature.
+Invest Game V2 **is**:
 
-Gamification is the foundation of the product.
+- an investment education platform;
+- a structured, gamified learning journey;
+- a practical portfolio tracker and learning environment;
+- a companion-driven progression experience.
 
-Every major action should contribute to user progression.
+Invest Game V2 **is not**:
 
-Examples include:
+- a bank;
+- a brokerage or execution platform;
+- a trading-signal or advisory service;
+- a professional analyst's tool.
 
-- Experience points
-- Levels
-- Missions
-- Achievements
-- Rewards
-- Rankings
-- Daily objectives
-- Unlockable content
-- Pet evolution and customization
-- Daily streaks
-- Virtual currency and collectibles
----
-
-## Simplicity
-
-Financial concepts should be presented in a simple and approachable way.
-
-Avoid overwhelming users with technical terminology.
-
-Whenever possible:
-
-- simplify
-- educate
-- explain visually
+This distinction should always be respected — see `PRODUCT_VISION.md` §11 for the full safety boundary.
 
 ---
 
-## Long-Term Engagement
+## Documentation model
 
-The application should encourage users to return every day.
+Every document in `docs/` belongs to one of these categories. Avoid creating a new file unless none of the
+existing ones represent the concept.
 
-Engagement should be created through meaningful progression rather than addictive mechanics.
+| Category | Question it answers | Documents |
+|---|---|---|
+| **Product** | What the product is and why it exists | `PRODUCT_VISION.md`, `PROJECT_CONTEXT.md` |
+| **Domain** | How business concepts relate | `FEATURES.md`, `ACADEMY_ENGINE.md`, `MARKET_EVENTS_ENGINE.md` |
+| **Architecture** | How the software is structured | `ARCHITECTURE.md`, `API_GUIDELINES.md` |
+| **Engineering** | How developers implement features | `CODING_GUIDELINES.md` |
+| **AI** | How AI systems (Mentor + coding assistants) behave | `AI_MENTOR.md`, `AGENTS.md`, `AI_RULES.md` |
+| **Design** | How the interface should look and feel | `DESIGN_SYSTEM.md` |
+| **Planning** | What ships when, and why decisions were made | `ROADMAP.md`, `DECISIONS.md` |
 
-The objective is to build healthy learning habits.
-
----
-
-# Target Audience
-
-Primary audience:
-
-- Beginner investors
-- Young adults
-- Students
-- People interested in financial education
-- Users with little or no investment experience
-
-The application is designed for learning, not professional trading.
+The Home/navigation/core-loop "Experience" material lives inside `PRODUCT_VISION.md` rather than a separate
+file — it's small enough that a dedicated document would fragment, not clarify.
 
 ---
 
-# Product Identity
+## Technical philosophy
 
-Pet Invest App is NOT:
-
-- a bank
-- a brokerage
-- a trading platform
-- a portfolio manager for professionals
-
-Pet Invest App IS:
-
-- an educational platform
-- a gamified experience
-- an investment simulator
-- a financial learning tool
-- a companion-driven learning journey
-
-This distinction should always be respected.
+Technology exists to support the product. New technologies are adopted only when they solve a real, current
+problem — not because a newer alternative exists. Stability and maintainability are preferred over novelty.
+See `ARCHITECTURE.md` and `DECISIONS.md` for the accepted stack and the reasoning behind it.
 
 ---
 
-# User Experience Goals
+## Product evolution order
 
-The user should feel:
+1. Prove the core learning loop (see `PRODUCT_VISION.md` §6) end to end.
+2. Stabilize the architecture supporting it.
+3. Expand curriculum and gamification depth.
+4. Deepen the learning ↔ portfolio connection.
+5. Refine UX and visual polish.
 
-- motivated
-- rewarded
-- curious
-- confident
-- progressing
-- engaged
-- emotionally connected to their Pet companion
-
-The application should reduce fear around investing.
-
-Learning should feel enjoyable instead of intimidating.
+Large rewrites are avoided unless they solve a demonstrated, significant problem. See `ROADMAP.md` for the
+MVP / Beta / V1 staging of this order.
 
 ---
 
-# Design Philosophy
+## Core values
 
-The application has an established visual identity.
+Every feature should reinforce at least one of:
 
-The interface should communicate:
-
-- futuristic
-- premium
-- modern
-- space themed
-- game inspired
-
-Avoid making the application resemble:
-
-- banking apps
-- corporate software
-- spreadsheets
-- financial dashboards
-
-The experience should feel closer to a modern game than to traditional financial software.
-
----
-
-# Technical Philosophy
-
-Technology exists to support the product.
-
-New technologies should only be adopted when they provide measurable benefits.
-
-Avoid changing frameworks or architecture simply because newer alternatives exist.
-
-Stability and maintainability are preferred over novelty.
-
----
-
-# MVP Strategy
-
-The current priority is completing the Minimum Viable Product (MVP).
-
-During MVP development:
-
-- prioritize completing existing features
-- avoid unnecessary refactoring
-- avoid redesigning completed screens
-- avoid introducing unnecessary complexity
-
-Shipping the product is more important than making it perfect.
-
----
-
-# Product Evolution
-
-The project should evolve incrementally.
-
-Preferred order:
-
-1. Functional features
-2. Stable architecture
-3. Reusable components
-4. Performance improvements
-5. UX refinements
-6. Visual polish
-
-Large rewrites should be avoided unless they solve a significant long-term problem.
-
----
-
-# Core Values
-
-Every feature should reinforce at least one of these values:
-
-- Education
+- Learning
+- Practice
 - Progression
-- Simplicity
 - Motivation
-- Accessibility
-- Consistency
-- Fun
-- Quality
+- Simplicity
+- Trustworthiness
 
-If a feature does not improve the user experience or learning process, reconsider whether it belongs in the product.
-
----
-
-# Success Criteria
-
-The application is successful when users:
-
-- understand investing better
-- return consistently
-- enjoy using the app
-- feel motivated to learn
-- complete missions
-- progress naturally
-- recommend the application to others
-
-Technical perfection is not the primary goal.
-
-Creating an engaging learning experience is.
+If a feature does not clearly serve one of these, reconsider whether it belongs in the product — see
+`PRODUCT_VISION.md` §6's product rule.
 
 ---
 
-# Decision-Making Principles
+## The Pet Companion system
 
-When multiple implementation options exist, prefer the solution that:
+### Emotional core of the app
 
-- preserves simplicity
-- minimizes maintenance
-- improves user experience
-- supports future scalability
-- aligns with the current roadmap
+The pet is the visual and emotional reflection of the user's **learning journey** — not of their portfolio's
+performance and not of their wealth. It is the core driver of daily engagement and retention, but it earns
+that role by representing *progress through learning*, not by tracking money.
 
-Avoid optimizing for hypothetical future problems.
+### Companion mechanics
 
-Build for today's requirements while keeping the architecture extensible.
+- **Visual progression.** As the user completes lessons, quizzes, and missions, the pet evolves. Leveling up
+  the pet represents motivational progression (see `PRODUCT_VISION.md` §9 for why this is explicitly *not*
+  the same as financial competence).
+- **Space-themed habitat.** The pet inhabits an evolving environment consistent with the app's futuristic,
+  space-inspired visual identity (see `DESIGN_SYSTEM.md`). Users unlock skins, habitat decorations, and
+  collectible accessories through progression — cosmetic, never gameplay-affecting.
+- **Dynamic feedback.** The pet reacts to learning milestones, streaks, mission completions, and — as an
+  educational moment, not a financial verdict — to what happens in the user's tracked portfolio. See
+  `MARKET_EVENTS_ENGINE.md` for how portfolio/market events are turned into pet reactions and educational
+  callbacks rather than trading cues.
 
----
+### Safe learning environment
 
-# Guiding Principle
+The pet never "dies," degrades, or penalizes the user for a wrong quiz answer or a portfolio drawdown.
+Mistakes — in a quiz or in a tracked position — are learning opportunities. When a tracked portfolio drops,
+the pet's role is to calmly point back to relevant lessons (diversification, patience, market cycles), never
+to shame or punish. This no-punishment principle is binding across Academy (`ACADEMY_ENGINE.md`) and
+Market Events (`MARKET_EVENTS_ENGINE.md`) design.
 
-Every decision should answer the following question:
+### Pet identity, not financial advice
 
-"Does this make learning investments more enjoyable, intuitive, and motivating?"
-
-If the answer is no, the solution should be reconsidered.
-
----
-
-# The Pet Companion System
-
-## Emotional Core of the App
-
-The Pet is the central companion of the user's educational journey and the defining element of Pet Invest App.
-
-It serves as a visual and emotional reflection of the user's progress, consistency, and financial growth.
-
-The Pet is not just an aesthetic mascot. It is the core driver of daily engagement, empathy, and retention.
-
----
-
-## Companion Mechanics
-
-### Visual Progression
-As the user completes educational missions, maintains daily streaks, and grows their simulated portfolio, the Pet evolves.
-
-Leveling up the Pet directly represents leveling up the user's financial literacy.
-
-### Space-Themed Habitat
-Aligning with the application's futuristic and space-inspired visual identity, the Pet inhabits an evolving virtual environment (e.g., a spaceship, an exoplanet, or a futuristic space station).
-
-Users can spend virtual currency earned through learning to unlock:
-- Custom skins and space outfits for the Pet
-- Habitat upgrades and futuristic decorations
-- Collectible badges and unique accessories
-
-### Dynamic Feedback & Empathy
-The Pet reacts dynamically to the user's actions and the simulated market environment:
-
-- Celebrates completed missions, level-ups, and simulated dividend payouts.
-- Encourages consistency when a daily learning streak is at risk.
-- Acts as a friendly guide during complex financial explanations.
-- Comforts and educates the user during simulated market downturns.
-
----
-
-## Safe Learning Environment
-
-To maintain a positive and fear-free learning experience, the Pet will never "die," degrade, or severely penalize the user due to poor simulated investment choices or market volatility.
-
-Mistakes in the investment simulator are treated as learning opportunities. When a simulated portfolio drops, the Pet's role is to calmly explain concepts like diversification, patience, and market cycles in a supportive and approachable way.
+Pet species (Dog, Wolf, Fox, Bear, Lion) are a personality/identity choice made during onboarding. **Species
+selection must never be presented as, or driven by, a financial risk-tolerance assessment.** The backend
+already computes an investor risk profile (`InvestorProfile`: Guardian/Tactician/Adventurer) from a separate
+onboarding questionnaire — that profile is deliberately not linked to pet species in code today, and should
+stay that way unless a specific, reviewed product decision changes it.
