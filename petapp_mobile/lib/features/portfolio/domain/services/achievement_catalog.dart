@@ -22,11 +22,17 @@ class _AchievementDef {
   });
 }
 
-/// The fixed, permanent achievement catalog. Per the project's stated rule
-/// ("Achievements are permanent. Once unlocked, they cannot be removed."),
-/// [resolve] never un-unlocks anything — the caller (`PortfolioController`)
-/// is responsible for persisting [qualifiedIds] the first time they appear
-/// and always union-ing with what was already persisted before.
+/// The display-side achievement catalog: title/description/icon copy, plus
+/// [qualifiedIds]/[totalXpFor] used only to *preview* what would unlock for
+/// assets the user is still typing in on the setup screen (not yet saved,
+/// so there's nothing for the backend to evaluate yet — see
+/// `PendingPortfolioStatsBuilder`). For a saved portfolio, the backend's
+/// `AchievementCatalog` (PetApp-Backend/.../application/gamification/achievement)
+/// is authoritative — it actually grants XP and persists unlocks
+/// (`PortfolioController._evaluateGamification` via `AchievementsRepository`).
+/// Ids, XP rewards and conditions here must be kept in sync with that Java
+/// catalog by hand (same accepted drift-risk as `LevelCalculator`'s
+/// dart/java duplication).
 ///
 /// Note: the original brief also mentions a "Global Investor" achievement,
 /// but the backend's `InvestmentType` enum has no "international" category

@@ -6,7 +6,9 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.service.LevelCalculator;
+import com.jf.PetApp.application.gamification.service.StreakService;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LessonCompletionResult;
 import com.jf.PetApp.application.learning.port.LearningCatalogPort;
@@ -23,7 +25,11 @@ import com.jf.PetApp.core.domain.learning.ModuleCatalogEntry;
  * resulting module-completion bonus go through {@link XpLedgerService}, so
  * neither can ever be double-granted — replaying this call for an
  * already-completed lesson is always safe and simply reports what was
- * already earned.
+ * already earned. {@code totalXp} always includes achievement XP too (not
+ * just the ledger), matching {@code GetGamificationSummaryUseCaseImpl} —
+ * the client overwrites its stored XP with this total outright, so leaving
+ * achievement XP out here would make completing a lesson look like it
+ * erased previously-earned achievement XP.
  */
 @Service
 public class CompleteLessonUseCaseImpl implements CompleteLessonUseCase {
@@ -32,16 +38,22 @@ public class CompleteLessonUseCaseImpl implements CompleteLessonUseCase {
     private final LearningCatalogPort catalogPort;
     private final LessonProgressRepositoryPort progressRepository;
     private final XpLedgerService xpLedgerService;
+    private final AchievementRepositoryPort achievementRepository;
+    private final StreakService streakService;
 
     public CompleteLessonUseCaseImpl(
             UserRepository userRepository,
             LearningCatalogPort catalogPort,
             LessonProgressRepositoryPort progressRepository,
-            XpLedgerService xpLedgerService) {
+            XpLedgerService xpLedgerService,
+            AchievementRepositoryPort achievementRepository,
+            StreakService streakService) {
         this.userRepository = userRepository;
         this.catalogPort = catalogPort;
         this.progressRepository = progressRepository;
         this.xpLedgerService = xpLedgerService;
+        this.achievementRepository = achievementRepository;
+        this.streakService = streakService;
     }
 
     @Override
@@ -77,7 +89,9 @@ public class CompleteLessonUseCaseImpl implements CompleteLessonUseCase {
             }
         }
 
-        int totalXp = xpLedgerService.totalXpFor(userId);
+        streakService.recordActivity(userId);
+
+        int totalXp = xpLedgerService.totalXpFor(userId) + achievementRepository.totalXpFor(userId);
         PlayerLevel level = LevelCalculator.fromXp(totalXp);
 
         return new LessonCompletionResult(

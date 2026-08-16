@@ -1,9 +1,14 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
+import 'package:petrimonium/features/game/data/datasources/gamification_remote_datasource.dart';
+import 'package:petrimonium/features/game/data/repositories/gamification_repository.dart';
+import 'package:petrimonium/features/game/domain/entities/gamification_summary.dart';
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
+import 'package:petrimonium/features/portfolio/data/datasources/achievements_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/portfolio_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
+import 'package:petrimonium/features/portfolio/domain/entities/achievement_evaluation_result.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/allocation_slice.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/dividend_event.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
@@ -63,40 +68,36 @@ class FakeAchievementsLocalRepository implements AchievementsLocalRepository {
   Future<Map<String, DateTime>> loadUnlocked() async => _unlocked;
 
   @override
-  Future<Map<String, DateTime>> unlockAll(Set<String> newlyUnlockedIds) async {
-    final now = DateTime.now();
-    _unlocked = {
-      ..._unlocked,
-      for (final id in newlyUnlockedIds)
-        if (!_unlocked.containsKey(id)) id: now,
-    };
-    return _unlocked;
+  Future<void> cacheUnlocked(Map<String, DateTime> unlockedAt) async {
+    _unlocked = unlockedAt;
   }
 }
 
-/// In-memory [AcademyProgressLocalRepository] double — the real one persists
-/// to `SharedPreferences`, unavailable in a plain unit test. No lessons are
-/// ever completed in these tests, so it always reports zero Academy XP.
-class FakeAcademyProgressLocalRepository implements AcademyProgressLocalRepository {
-  final Set<String> _completed = {};
+/// In-memory [AchievementsRepository] double standing in for the real
+/// backend call — the achievement-*qualification* logic itself now lives
+/// server-side (see `EvaluateAchievementsUseCaseImplTest.java`), so this
+/// test only verifies `PortfolioController` correctly orchestrates whatever
+/// the backend reports.
+class FakeAchievementsRepository implements AchievementsRepository {
+  AchievementEvaluationResult resultToReturn = AchievementEvaluationResult.empty;
 
   @override
-  Future<Set<String>> loadCompletedLessonIds() async => _completed;
+  Future<AchievementEvaluationResult> evaluate() async => resultToReturn;
 
   @override
-  Future<Set<String>> markLessonCompleted(String lessonId) async {
-    _completed.add(lessonId);
-    return _completed;
-  }
+  AchievementsRemoteDataSource get remoteDataSource => throw UnimplementedError();
+}
+
+/// In-memory [GamificationRepository] double — the real one calls the
+/// backend's `/api/v1/gamification/summary` endpoint.
+class FakeGamificationRepository implements GamificationRepository {
+  GamificationSummary summaryToReturn = GamificationSummary.empty;
 
   @override
-  Future<int> totalXpEarned() async => 0;
+  Future<GamificationSummary> fetchSummary() async => summaryToReturn;
 
   @override
-  Future<Set<String>> mergeCompletedLessonIds(Set<String> serverLessonIds) async {
-    _completed.addAll(serverLessonIds);
-    return _completed;
-  }
+  GamificationRemoteDataSource get remoteDataSource => throw UnimplementedError();
 }
 
 /// A single-lot [Holding] built the same way the real pipeline does
@@ -116,18 +117,21 @@ List<Holding> _holdingList({
 
 void main() {
   late FakePortfolioRepository repository;
-  late FakeAchievementsLocalRepository achievementsRepository;
-  late FakeAcademyProgressLocalRepository academyRepository;
+  late FakeAchievementsLocalRepository achievementsLocalRepository;
+  late FakeAchievementsRepository achievementsRepository;
+  late FakeGamificationRepository gamificationRepository;
   late PortfolioController controller;
 
   setUp(() {
     repository = FakePortfolioRepository();
-    achievementsRepository = FakeAchievementsLocalRepository();
-    academyRepository = FakeAcademyProgressLocalRepository();
+    achievementsLocalRepository = FakeAchievementsLocalRepository();
+    achievementsRepository = FakeAchievementsRepository();
+    gamificationRepository = FakeGamificationRepository();
     controller = PortfolioController(
       repository: repository,
+      achievementsLocalRepository: achievementsLocalRepository,
       achievementsRepository: achievementsRepository,
-      academyRepository: academyRepository,
+      gamificationRepository: gamificationRepository,
     );
   });
 
@@ -197,28 +201,52 @@ void main() {
   });
 
   group('loadAll — gamification', () {
-    test('newly qualifying achievements are unlocked and reported exactly once', () async {
-      repository.holdingsToReturn = _holdingList();
-      repository.summaryToReturn = const PortfolioSummary(
-        investedCapital: 1000,
-        currentValue: 1000,
-        totalGain: 0,
-        totalGainPercent: 0,
-        totalAssets: 1,
+    // Achievement *qualification* is now real, server-side logic (see
+    // EvaluateAchievementsUseCaseImplTest.java) — this only verifies
+    // PortfolioController correctly orchestrates whatever the backend
+    // reports: caching it locally, reporting newly-unlocked ones exactly
+    // once, and feeding real XP into the mascot.
+    test('reports newly-unlocked achievements from the backend and caches them locally', () async {
+      achievementsRepository.resultToReturn = AchievementEvaluationResult(
+        unlockedAt: {'first_investment': DateTime(2026, 1, 1)},
+        newlyUnlockedCodes: {'first_investment'},
+        achievementXpTotal: 50,
       );
 
       await controller.loadAll();
 
       expect(controller.newlyUnlocked.any((a) => a.id == 'first_investment'), isTrue);
+      expect(controller.achievements.firstWhere((a) => a.id == 'first_investment').unlocked, isTrue);
+      expect((await achievementsLocalRepository.loadUnlocked()).containsKey('first_investment'), isTrue);
 
       controller.clearNewlyUnlocked();
       expect(controller.newlyUnlocked, isEmpty);
 
-      // A second load with the same qualifying state must not re-report the
-      // achievement as "newly" unlocked — it's already persisted.
+      // A second load where the backend reports no *new* unlocks (already
+      // persisted server-side) must not re-report it as "newly" unlocked.
+      achievementsRepository.resultToReturn = AchievementEvaluationResult(
+        unlockedAt: {'first_investment': DateTime(2026, 1, 1)},
+        newlyUnlockedCodes: {},
+        achievementXpTotal: 50,
+      );
       await controller.loadAll();
       expect(controller.newlyUnlocked, isEmpty);
-      expect(controller.achievements.firstWhere((a) => a.id == 'first_investment').unlocked, isTrue);
+    });
+
+    test('feeds the backend\'s real total XP into the mascot controller', () async {
+      gamificationRepository.summaryToReturn = const GamificationSummary(
+        totalXp: 275,
+        level: 3,
+        xpIntoLevel: 25,
+        xpForNextLevel: 100,
+        currentStreak: 2,
+        longestStreak: 5,
+      );
+
+      await controller.loadAll();
+
+      expect(controller.gamificationSummary?.totalXp, 275);
+      expect(controller.gamificationSummary?.currentStreak, 2);
     });
   });
 

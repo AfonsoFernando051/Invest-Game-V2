@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:petrimonium/features/pet/data/models/pet_specie_enum.dart';
 import 'package:petrimonium/features/pet/domain/entities/pet_accessory.dart';
 import 'package:petrimonium/features/pet/domain/entities/pet_profile.dart';
 import 'package:petrimonium/features/pet/domain/enums/accessory_type.dart';
@@ -36,6 +37,9 @@ class FakeMascotRepository implements MascotRepository {
 
   @override
   Future<void> saveXp(int xp) async => savedXp = xp;
+
+  @override
+  Future<void> saveSpecie(PetSpecieEnum specie) async {}
 
   @override
   Future<void> saveNetWorth(double netWorth) async => savedNetWorth = netWorth;

@@ -67,7 +67,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _mascotController = MascotController(repository: DI.mascotRepository);
     _portfolioController = PortfolioController(
       repository: DI.portfolioRepository,
+      achievementsLocalRepository: DI.achievementsLocalRepository,
       achievementsRepository: DI.achievementsRepository,
+      gamificationRepository: DI.gamificationRepository,
       mascotController: _mascotController,
     );
     _mascotController.loadProfile();

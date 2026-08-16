@@ -3,15 +3,16 @@ import 'package:mocktail/mocktail.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
+import 'package:petrimonium/features/academy/domain/entities/lesson_completion_result.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/lesson_session_controller.dart';
+import 'package:petrimonium/features/pet/data/models/pet_specie_enum.dart';
 import 'package:petrimonium/features/pet/domain/entities/pet_profile.dart';
 import 'package:petrimonium/features/pet/domain/enums/accessory_type.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_accessory_id.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_evolution_stage.dart';
 import 'package:petrimonium/features/pet/domain/repositories/mascot_repository.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
-import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MockAcademyRemoteDataSource extends Mock implements AcademyRemoteDataSource {}
@@ -30,6 +31,9 @@ class FakeMascotRepository implements MascotRepository {
 
   @override
   Future<void> saveXp(int xp) async {}
+
+  @override
+  Future<void> saveSpecie(PetSpecieEnum specie) async {}
 
   @override
   Future<void> saveNetWorth(double netWorth) async {}
@@ -59,14 +63,12 @@ void main() {
   );
 
   late AcademyProgressLocalRepository academyRepository;
-  late AchievementsLocalRepository achievementsRepository;
   late MascotController mascotController;
   late MockAcademyRemoteDataSource mockRemoteDataSource;
 
   setUp(() {
     SharedPreferences.setMockInitialValues({});
     academyRepository = AcademyProgressLocalRepository();
-    achievementsRepository = AchievementsLocalRepository();
     mascotController = MascotController(repository: FakeMascotRepository());
     mockRemoteDataSource = MockAcademyRemoteDataSource();
   });
@@ -75,7 +77,6 @@ void main() {
     return LessonSessionController(
       lesson: lesson,
       academyRepository: academyRepository,
-      achievementsRepository: achievementsRepository,
       mascotController: mascotController,
       academyRemoteDataSource: remoteDataSource,
     );
@@ -103,12 +104,22 @@ void main() {
   });
 
   test('syncs the completion to the backend when a remote datasource is available', () async {
-    when(() => mockRemoteDataSource.completeLesson(any())).thenAnswer((_) async {});
+    when(() => mockRemoteDataSource.completeLesson(any())).thenAnswer((_) async => const LessonCompletionResult(
+          lessonId: 'test_lesson',
+          alreadyCompleted: false,
+          xpAwarded: 20,
+          moduleCompleted: false,
+          moduleXpAwarded: 0,
+          totalXp: 20,
+          level: 1,
+          xpIntoLevel: 20,
+          xpForNextLevel: 50,
+        ));
     final controller = buildController(remoteDataSource: mockRemoteDataSource);
 
     await controller.advance();
-    await untilCalled(() => mockRemoteDataSource.completeLesson(any()));
 
     verify(() => mockRemoteDataSource.completeLesson('test_lesson')).called(1);
+    expect(controller.xpSynced, isTrue);
   });
 }

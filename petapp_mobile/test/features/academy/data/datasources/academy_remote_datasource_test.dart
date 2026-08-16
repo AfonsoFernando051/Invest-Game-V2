@@ -20,11 +20,26 @@ void main() {
   group('AcademyRemoteDataSource.completeLesson', () {
     const tLessonId = 'foundations_what_is_investing';
 
-    test('succeeds silently on 200', () async {
-      when(() => mockApiClient.post(any(), any())).thenAnswer((_) async => http.Response('{}', 200));
+    test('parses the backend\'s real XP/level response on 200', () async {
+      when(() => mockApiClient.post(any(), any())).thenAnswer((_) async => http.Response(
+            jsonEncode({
+              'lessonId': tLessonId,
+              'alreadyCompleted': false,
+              'xpAwarded': 20,
+              'moduleCompleted': false,
+              'moduleXpAwarded': 0,
+              'totalXp': 20,
+              'level': 1,
+              'xpIntoLevel': 20,
+              'xpForNextLevel': 50,
+            }),
+            200,
+          ));
 
-      await dataSource.completeLesson(tLessonId);
+      final result = await dataSource.completeLesson(tLessonId);
 
+      expect(result.xpAwarded, 20);
+      expect(result.totalXp, 20);
       verify(() => mockApiClient.post(
             ApiConstants.learningLessonCompleteEndpoint(tLessonId),
             {},

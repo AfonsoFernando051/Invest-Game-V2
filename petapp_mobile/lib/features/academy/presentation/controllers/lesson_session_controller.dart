@@ -1,14 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:petrimonium/core/services/total_xp_calculator.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_animation_state.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
-import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
 
 /// Drives a single lesson play-through: current step, the learner's answer
 /// (if the step is a question), and completion. Self-owned by `LessonScreen`
@@ -23,17 +21,14 @@ class LessonSessionController extends ChangeNotifier {
   LessonSessionController({
     required this.lesson,
     required AcademyProgressLocalRepository academyRepository,
-    required AchievementsLocalRepository achievementsRepository,
     required MascotController mascotController,
     AcademyRemoteDataSource? academyRemoteDataSource,
   })  : _academyRepository = academyRepository,
-        _achievementsRepository = achievementsRepository,
         _mascotController = mascotController,
         _academyRemoteDataSource = academyRemoteDataSource;
 
   final Lesson lesson;
   final AcademyProgressLocalRepository _academyRepository;
-  final AchievementsLocalRepository _achievementsRepository;
   final MascotController _mascotController;
   final AcademyRemoteDataSource? _academyRemoteDataSource;
 
@@ -42,6 +37,11 @@ class LessonSessionController extends ChangeNotifier {
   bool hasAnswered = false;
   bool isCompleting = false;
   bool isComplete = false;
+
+  /// Whether the real XP/level shown elsewhere in the app has been updated
+  /// to reflect this completion yet — false if the backend sync failed
+  /// (offline), so nothing here shows a fabricated number.
+  bool xpSynced = false;
 
   LessonStep get currentStep => lesson.steps[currentStepIndex];
   int get totalSteps => lesson.steps.length;
@@ -86,32 +86,30 @@ class LessonSessionController extends ChangeNotifier {
     notifyListeners();
 
     await _academyRepository.markLessonCompleted(lesson.id);
-
-    // Same composition `PortfolioController` uses, so XP always agrees
-    // regardless of which feature last updated the pet — see
-    // `TotalXpCalculator`'s doc comment.
-    final totalXp = await TotalXpCalculator.compute(
-      achievementsRepository: _achievementsRepository,
-      academyRepository: _academyRepository,
-    );
-    await _mascotController.evaluateEvolution(_mascotController.profile.netWorth, totalXp);
     _mascotController.triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));
 
     isCompleting = false;
     isComplete = true;
     notifyListeners();
 
-    // Best-effort sync to the backend's authoritative learning/XP ledger.
-    // Never awaited by the UI flow above — offline or a backend hiccup must
-    // never block a lesson from completing locally.
-    unawaited(_syncCompletionToBackend());
+    // The backend is the only source of truth for XP/level (see
+    // `MascotController.evaluateEvolution`'s doc comment — it overwrites the
+    // pet's stored XP outright, so it must never be fed a locally-guessed
+    // number). Awaited (not fire-and-forget) so the mascot only updates with
+    // a real value; offline/failure just leaves `xpSynced` false — the
+    // lesson still completes locally, and the next successful
+    // gamification-summary fetch reconciles it.
+    await _syncCompletionToBackend();
   }
 
   Future<void> _syncCompletionToBackend() async {
     final remote = _academyRemoteDataSource;
     if (remote == null) return;
     try {
-      await remote.completeLesson(lesson.id);
+      final result = await remote.completeLesson(lesson.id);
+      await _mascotController.evaluateEvolution(_mascotController.profile.netWorth, result.totalXp);
+      xpSynced = true;
+      notifyListeners();
     } catch (_) {
       // Offline or backend unavailable — the next `AcademyController.load()`
       // reconciliation (or a future retry) will pick this up.

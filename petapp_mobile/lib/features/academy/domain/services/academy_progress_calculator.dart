@@ -8,8 +8,8 @@ enum ModuleStatus { comingSoon, available, inProgress, completed }
 
 /// Pure functions deriving lesson/module progression state from
 /// [AcademyCatalog] (static) crossed with the set of completed lesson ids
-/// (persisted). Mirrors `MissionCatalog.evaluate()`: nothing here is stored
-/// as a separate value that could drift from the source of truth.
+/// (persisted). Nothing here is stored as a separate value that could drift
+/// from the source of truth.
 class AcademyProgressCalculator {
   const AcademyProgressCalculator._();
 

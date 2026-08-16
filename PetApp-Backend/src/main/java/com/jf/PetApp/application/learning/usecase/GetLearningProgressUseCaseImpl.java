@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.service.LevelCalculator;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LearningProgressResult;
@@ -23,16 +24,19 @@ public class GetLearningProgressUseCaseImpl implements GetLearningProgressUseCas
     private final LearningCatalogPort catalogPort;
     private final LessonProgressRepositoryPort progressRepository;
     private final XpLedgerService xpLedgerService;
+    private final AchievementRepositoryPort achievementRepository;
 
     public GetLearningProgressUseCaseImpl(
             UserRepository userRepository,
             LearningCatalogPort catalogPort,
             LessonProgressRepositoryPort progressRepository,
-            XpLedgerService xpLedgerService) {
+            XpLedgerService xpLedgerService,
+            AchievementRepositoryPort achievementRepository) {
         this.userRepository = userRepository;
         this.catalogPort = catalogPort;
         this.progressRepository = progressRepository;
         this.xpLedgerService = xpLedgerService;
+        this.achievementRepository = achievementRepository;
     }
 
     @Override
@@ -51,7 +55,7 @@ public class GetLearningProgressUseCaseImpl implements GetLearningProgressUseCas
                 .map(ModuleCatalogEntry::moduleId)
                 .collect(Collectors.toSet());
 
-        int totalXp = xpLedgerService.totalXpFor(userId);
+        int totalXp = xpLedgerService.totalXpFor(userId) + achievementRepository.totalXpFor(userId);
         PlayerLevel level = LevelCalculator.fromXp(totalXp);
 
         return new LearningProgressResult(

@@ -3,15 +3,12 @@ import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/achievement.dart';
-import 'package:petrimonium/features/portfolio/domain/entities/mission.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/achievement_card_widget.dart';
-import 'package:petrimonium/features/portfolio/presentation/widgets/mission_card_widget.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/section_label.dart';
 
-class MissionsAchievementsSection extends StatelessWidget {
-  const MissionsAchievementsSection({super.key, required this.missions, required this.achievements});
+class AchievementsSection extends StatelessWidget {
+  const AchievementsSection({super.key, required this.achievements});
 
-  final List<Mission> missions;
   final List<Achievement> achievements;
 
   @override
@@ -28,10 +25,6 @@ class MissionsAchievementsSection extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SectionLabel('MISSÕES'),
-            const SizedBox(height: 10),
-            for (final mission in missions) MissionCardWidget(mission: mission),
-            const SizedBox(height: 8),
             SectionLabel('CONQUISTAS · $unlockedCount/${achievements.length}'),
             const SizedBox(height: 10),
             SizedBox(

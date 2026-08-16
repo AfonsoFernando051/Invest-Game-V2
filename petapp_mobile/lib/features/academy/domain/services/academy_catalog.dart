@@ -5,16 +5,16 @@ import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
 
 /// The fixed Academy curriculum: modules and their lessons, as static data —
-/// not hardcoded into any screen or widget. Mirrors the `AchievementCatalog`/
-/// `MissionCatalog` pattern: a plain catalog-of-defs, queried by id.
+/// not hardcoded into any screen or widget. Mirrors the `AchievementCatalog`
+/// pattern: a plain catalog-of-defs, queried by id.
 ///
 /// pt-BR is the default and only content available if no language override
 /// applies; `Translator.currentLanguage` (set only via Settings, never
 /// auto-detected) selects which of the three parallel content tables below
 /// is used, mirroring `Translator._localizedValues`'s own per-language map
 /// shape. Curriculum text lives here — colocated with its catalog, like
-/// `MissionCatalog`/`AchievementCatalog` — rather than in the shared
-/// `AppStrings`/`Translator` files, which are reserved for generic UI chrome.
+/// `AchievementCatalog` — rather than in the shared `AppStrings`/
+/// `Translator` files, which are reserved for generic UI chrome.
 ///
 /// Only `investor_foundations` has real lessons today (Phase 0 — see
 /// `docs/ACADEMY_ENGINE.md`). The remaining modules are declared with

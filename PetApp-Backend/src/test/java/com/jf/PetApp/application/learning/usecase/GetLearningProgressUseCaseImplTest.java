@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.port.XpEventRepositoryPort;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LearningProgressResult;
@@ -40,13 +41,17 @@ class GetLearningProgressUseCaseImplTest {
     @Mock
     private XpEventRepositoryPort xpEventRepositoryPort;
 
+    @Mock
+    private AchievementRepositoryPort achievementRepositoryPort;
+
     private GetLearningProgressUseCaseImpl useCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         XpLedgerService xpLedgerService = new XpLedgerService(xpEventRepositoryPort);
-        useCase = new GetLearningProgressUseCaseImpl(userRepository, catalogPort, progressRepository, xpLedgerService);
+        useCase = new GetLearningProgressUseCaseImpl(
+                userRepository, catalogPort, progressRepository, xpLedgerService, achievementRepositoryPort);
 
         User user = new User();
         user.setId(USER_ID);

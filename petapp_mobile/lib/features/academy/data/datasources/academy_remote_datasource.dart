@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:petrimonium/core/constants/api_constants.dart';
 import 'package:petrimonium/core/network/api_client.dart';
 import 'package:petrimonium/core/network/api_error_parser.dart';
+import 'package:petrimonium/features/academy/domain/entities/lesson_completion_result.dart';
 
 /// Syncs Academy lesson completions against the backend's authoritative
 /// learning/XP ledger (see `docs/ACADEMY_ENGINE.md`, `docs/DECISIONS.md`
@@ -13,13 +14,16 @@ class AcademyRemoteDataSource {
 
   AcademyRemoteDataSource({required this.apiClient});
 
-  Future<void> completeLesson(String lessonId) async {
+  /// Returns the backend's authoritative XP/level for this user after the
+  /// completion — never fabricated client-side.
+  Future<LessonCompletionResult> completeLesson(String lessonId) async {
     final response = await apiClient.post(ApiConstants.learningLessonCompleteEndpoint(lessonId), {});
     if (response.statusCode != 200 && response.statusCode != 201) {
       throw Exception(
         extractErrorDetail(response, fallback: 'Failed to sync lesson completion. Status Code: ${response.statusCode}'),
       );
     }
+    return LessonCompletionResult.fromJson(jsonDecode(response.body) as Map<String, dynamic>);
   }
 
   /// The set of lesson ids the backend has recorded as completed for the

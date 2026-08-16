@@ -24,9 +24,11 @@ public class GamificationController {
         String email = SecurityUtils.getCurrentUserEmail();
         GamificationSummaryResult result = getGamificationSummaryUseCase.execute(email);
         return ResponseEntity.ok(new GamificationSummaryResponseDTO(
-                result.totalXp(), result.level(), result.xpIntoLevel(), result.xpForNextLevel()));
+                result.totalXp(), result.level(), result.xpIntoLevel(), result.xpForNextLevel(),
+                result.currentStreak(), result.longestStreak()));
     }
 
-    public record GamificationSummaryResponseDTO(int totalXp, int level, int xpIntoLevel, int xpForNextLevel) {
+    public record GamificationSummaryResponseDTO(
+            int totalXp, int level, int xpIntoLevel, int xpForNextLevel, int currentStreak, int longestStreak) {
     }
 }

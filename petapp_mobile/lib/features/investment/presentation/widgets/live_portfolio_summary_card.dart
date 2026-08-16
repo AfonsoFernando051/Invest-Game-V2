@@ -4,14 +4,13 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_stats.dart';
 import 'package:petrimonium/features/portfolio/domain/services/achievement_catalog.dart';
-import 'package:petrimonium/features/portfolio/domain/services/mission_catalog.dart';
 import 'package:petrimonium/features/portfolio/domain/services/passive_income_estimator.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/formatters.dart';
 
 /// Instant, always-visible feedback after every asset add — reuses the same
 /// domain services as the real Dashboard (`PassiveIncomeEstimator`,
-/// `AchievementCatalog`, `MissionCatalog`) so every figure shown here is a
-/// real computed preview, not a separate onboarding-only estimate.
+/// `AchievementCatalog`) so every figure shown here is a real computed
+/// preview, not a separate onboarding-only estimate.
 class LivePortfolioSummaryCard extends StatelessWidget {
   const LivePortfolioSummaryCard({super.key, required this.stats, required this.alreadyUnlockedIds});
 
@@ -25,8 +24,12 @@ class LivePortfolioSummaryCard extends StatelessWidget {
     final qualified = AchievementCatalog.qualifiedIds(stats);
     final newlyQualified = qualified.difference(alreadyUnlockedIds);
     final xp = AchievementCatalog.totalXpFor(newlyQualified);
-    final missions = MissionCatalog.evaluate(stats);
-    final firstMission = missions.firstWhere((m) => m.isComplete, orElse: () => missions.first);
+    final allAchievements = AchievementCatalog.resolve({for (final id in alreadyUnlockedIds) id: DateTime.now()});
+    final highlightAchievement = allAchievements.firstWhere(
+      (a) => newlyQualified.contains(a.id),
+      orElse: () => allAchievements.firstWhere((a) => !a.unlocked, orElse: () => allAchievements.first),
+    );
+    final highlightIsUnlocked = highlightAchievement.unlocked || newlyQualified.contains(highlightAchievement.id);
 
     return GlassCard(
       backgroundColor: context.colors.surface.withValues(alpha: context.isDarkMode ? 0.55 : 0.94),
@@ -65,7 +68,7 @@ class LivePortfolioSummaryCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                 decoration: BoxDecoration(
-                  color: firstMission.isComplete
+                  color: highlightIsUnlocked
                       ? context.colors.success.withValues(alpha: 0.1)
                       : context.colors.textPrimary.withValues(alpha: 0.05),
                   borderRadius: BorderRadius.circular(10),
@@ -73,17 +76,17 @@ class LivePortfolioSummaryCard extends StatelessWidget {
                 child: Row(
                   children: [
                     Icon(
-                      firstMission.isComplete ? Icons.check_circle : firstMission.icon,
-                      color: firstMission.isComplete ? context.colors.success : context.colors.textSecondary,
+                      highlightIsUnlocked ? Icons.check_circle : highlightAchievement.icon,
+                      color: highlightIsUnlocked ? context.colors.success : context.colors.textSecondary,
                       size: 16,
                     ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
-                        firstMission.title,
+                        highlightAchievement.title,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          color: firstMission.isComplete ? context.colors.success : context.colors.textSecondary,
+                          color: highlightIsUnlocked ? context.colors.success : context.colors.textSecondary,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                         ),

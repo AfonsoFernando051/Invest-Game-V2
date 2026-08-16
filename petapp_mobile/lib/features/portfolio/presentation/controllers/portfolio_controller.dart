@@ -1,11 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:petrimonium/core/events/app_event.dart';
 import 'package:petrimonium/core/events/app_event_bus.dart';
-import 'package:petrimonium/core/services/total_xp_calculator.dart';
-import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
+import 'package:petrimonium/features/game/data/repositories/gamification_repository.dart';
+import 'package:petrimonium/features/game/domain/entities/gamification_summary.dart';
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/achievement.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/allocation_slice.dart';
@@ -13,41 +14,43 @@ import 'package:petrimonium/features/portfolio/domain/entities/dividend_event.da
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/holding.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/investment_lot.dart';
-import 'package:petrimonium/features/portfolio/domain/entities/mission.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/passive_income_estimate.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_health.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_stats.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_summary.dart';
 import 'package:petrimonium/features/portfolio/domain/enums/history_range.dart';
 import 'package:petrimonium/features/portfolio/domain/services/achievement_catalog.dart';
-import 'package:petrimonium/features/portfolio/domain/services/mission_catalog.dart';
 import 'package:petrimonium/features/portfolio/domain/services/passive_income_estimator.dart';
 import 'package:petrimonium/features/portfolio/domain/services/portfolio_health_calculator.dart';
 import 'package:petrimonium/features/portfolio/domain/services/wealth_history_calculator.dart';
 
 /// Owns all state for the redesigned Portfolio screen: real holdings/
 /// summary/allocation/history from the backend, plus everything derived
-/// client-side from that real data (health score, insights, missions,
-/// achievements, estimated passive income). When [mascotController] is
-/// supplied, every successful load feeds the user's real net worth and
-/// achievement-earned XP into `MascotController.evaluateEvolution` — the
-/// first real wiring between actual portfolio data and pet progression.
+/// client-side from that real data (health score, insights, estimated
+/// passive income) and everything the backend now owns authoritatively
+/// (achievement unlocks, total XP/level, engagement streak — see
+/// [_evaluateGamification]). When [mascotController] is supplied, every
+/// successful load feeds the user's real net worth and real backend-granted
+/// XP into `MascotController.evaluateEvolution`.
 class PortfolioController extends ChangeNotifier {
   PortfolioController({
     required PortfolioRepository repository,
-    required AchievementsLocalRepository achievementsRepository,
-    AcademyProgressLocalRepository? academyRepository,
+    required AchievementsLocalRepository achievementsLocalRepository,
+    required AchievementsRepository achievementsRepository,
+    required GamificationRepository gamificationRepository,
     MascotController? mascotController,
     AppEventBus? eventBus,
   })  : _repository = repository,
+        _achievementsLocalRepository = achievementsLocalRepository,
         _achievementsRepository = achievementsRepository,
-        _academyRepository = academyRepository ?? AcademyProgressLocalRepository(),
+        _gamificationRepository = gamificationRepository,
         _mascotController = mascotController,
         _eventBus = eventBus ?? AppEventBus.instance;
 
   final PortfolioRepository _repository;
-  final AchievementsLocalRepository _achievementsRepository;
-  final AcademyProgressLocalRepository _academyRepository;
+  final AchievementsLocalRepository _achievementsLocalRepository;
+  final AchievementsRepository _achievementsRepository;
+  final GamificationRepository _gamificationRepository;
   final MascotController? _mascotController;
   final AppEventBus _eventBus;
 
@@ -58,6 +61,11 @@ class PortfolioController extends ChangeNotifier {
   PortfolioSummary summary = PortfolioSummary.empty;
   List<AllocationSlice> allocation = [];
   Map<String, DateTime> _unlockedAchievements = {};
+
+  /// The backend's real XP/level/streak, refreshed on every [loadAll] (see
+  /// [_evaluateGamification]). Null until the first successful fetch —
+  /// callers must not fabricate a placeholder value while it's null.
+  GamificationSummary? gamificationSummary;
 
   /// Achievements that became unlocked on the *most recent* `loadAll()` call
   /// — i.e. genuinely new this session, not just "unlocked at some point in
@@ -96,8 +104,6 @@ class PortfolioController extends ChangeNotifier {
   PortfolioStats get stats => PortfolioStats(summary: summary, holdings: holdings, allocation: allocation);
 
   PortfolioHealth get health => PortfolioHealthCalculator.calculate(stats);
-
-  List<Mission> get missions => MissionCatalog.evaluate(stats);
 
   List<Achievement> get achievements => AchievementCatalog.resolve(_unlockedAchievements);
 
@@ -246,32 +252,42 @@ class PortfolioController extends ChangeNotifier {
     });
   }
 
+  /// The backend is the sole authority on both achievement unlocks and XP.
+  /// [AchievementsRepository.evaluate] re-checks every achievement condition
+  /// against the user's real, server-side portfolio and persists any new
+  /// unlock; [GamificationRepository.fetchSummary] returns the real total
+  /// XP (learning + achievements) and level. Both calls are independently
+  /// best-effort — offline, this falls back to the last-known-real cache
+  /// rather than fabricating a number.
   Future<void> _evaluateGamification() async {
-    final currentStats = stats;
-    final alreadyUnlocked = await _achievementsRepository.loadUnlocked();
-    final qualifiedNow = AchievementCatalog.qualifiedIds(currentStats);
-    final newIds = qualifiedNow.difference(alreadyUnlocked.keys.toSet());
+    try {
+      final result = await _achievementsRepository.evaluate();
+      _unlockedAchievements = result.unlockedAt;
+      await _achievementsLocalRepository.cacheUnlocked(result.unlockedAt);
 
-    _unlockedAchievements = await _achievementsRepository.unlockAll(qualifiedNow);
-    if (newIds.isNotEmpty) {
-      newlyUnlocked = AchievementCatalog.resolve(_unlockedAchievements)
-          .where((a) => newIds.contains(a.id))
-          .toList();
-      // The in-screen celebration overlay (`newlyUnlocked` above) already
-      // shows these; the bus emission is for other, decoupled listeners
-      // (e.g. a future Character Engine reaction) rather than a second UI.
-      for (final achievement in newlyUnlocked) {
-        _eventBus.emit(AchievementUnlockedEvent(achievement));
+      if (result.newlyUnlockedCodes.isNotEmpty) {
+        newlyUnlocked = AchievementCatalog.resolve(_unlockedAchievements)
+            .where((a) => result.newlyUnlockedCodes.contains(a.id))
+            .toList();
+        // The in-screen celebration overlay (`newlyUnlocked` above) already
+        // shows these; the bus emission is for other, decoupled listeners
+        // (e.g. a future Character Engine reaction) rather than a second UI.
+        for (final achievement in newlyUnlocked) {
+          _eventBus.emit(AchievementUnlockedEvent(achievement));
+        }
       }
+    } catch (_) {
+      // Offline or backend unavailable — fall back to the last-known-real
+      // cached unlock state rather than showing nothing or fabricating one.
+      _unlockedAchievements = await _achievementsLocalRepository.loadUnlocked();
     }
 
-    // Sums achievement XP *and* Academy lesson XP (see `TotalXpCalculator`)
-    // so a portfolio refresh never overwrites XP earned from a lesson —
-    // `evaluateEvolution` sets the pet's stored XP outright, it doesn't add.
-    final totalXp = await TotalXpCalculator.compute(
-      achievementsRepository: _achievementsRepository,
-      academyRepository: _academyRepository,
-    );
-    await _mascotController?.evaluateEvolution(summary.currentValue, totalXp);
+    try {
+      gamificationSummary = await _gamificationRepository.fetchSummary();
+      await _mascotController?.evaluateEvolution(summary.currentValue, gamificationSummary!.totalXp);
+    } catch (_) {
+      // Offline or backend unavailable — keep whatever XP/level the mascot
+      // already had rather than overwriting it with a guess.
+    }
   }
 }

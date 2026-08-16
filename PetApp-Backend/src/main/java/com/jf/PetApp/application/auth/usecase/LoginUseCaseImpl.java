@@ -6,6 +6,7 @@ import com.jf.PetApp.application.auth.dto.LoginResult;
 import com.jf.PetApp.application.auth.exception.AuthenticationException;
 import com.jf.PetApp.application.auth.port.PasswordEncoderPort;
 import com.jf.PetApp.application.auth.port.TokenProvider;
+import com.jf.PetApp.application.gamification.service.StreakService;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.core.domain.User;
 
@@ -13,14 +14,17 @@ public class LoginUseCaseImpl implements LoginUseCase {
     private final UserRepository userRepository;
     private final PasswordEncoderPort passwordEncoder;
     private final TokenProvider tokenProvider;
+    private final StreakService streakService;
 
     public LoginUseCaseImpl(
             UserRepository userRepository,
             PasswordEncoderPort passwordEncoder,
-            TokenProvider tokenProvider) {
+            TokenProvider tokenProvider,
+            StreakService streakService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.tokenProvider = tokenProvider;
+        this.streakService = streakService;
     }
 
     @Override
@@ -37,6 +41,7 @@ public class LoginUseCaseImpl implements LoginUseCase {
         }
 
         String accessToken = tokenProvider.generateToken(user);
+        streakService.recordActivity(user.getId());
 
         return new LoginResult(accessToken);
     }

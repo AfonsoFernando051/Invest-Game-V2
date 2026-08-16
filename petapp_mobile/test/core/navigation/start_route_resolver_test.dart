@@ -72,6 +72,9 @@ class FakeMascotRepository implements MascotRepository {
   Future<void> saveXp(int xp) async {}
 
   @override
+  Future<void> saveSpecie(PetSpecieEnum specie) async {}
+
+  @override
   Future<void> saveNetWorth(double netWorth) async {}
 
   @override

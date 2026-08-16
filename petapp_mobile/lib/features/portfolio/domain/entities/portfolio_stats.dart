@@ -3,9 +3,9 @@ import 'package:petrimonium/features/portfolio/domain/entities/holding.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_summary.dart';
 
 /// A convenience snapshot bundling everything the gamification calculators
-/// (`PortfolioHealthCalculator`, `InsightGenerator`, `MissionCatalog`,
-/// `AchievementCatalog`, `PassiveIncomeEstimator`) need, so each of those
-/// pure functions takes one argument instead of three.
+/// (`PortfolioHealthCalculator`, `InsightGenerator`, `AchievementCatalog`,
+/// `PassiveIncomeEstimator`) need, so each of those pure functions takes one
+/// argument instead of three.
 class PortfolioStats {
   final PortfolioSummary summary;
   final List<Holding> holdings;

@@ -16,4 +16,7 @@ class ApiConstants {
 
   static String learningLessonCompleteEndpoint(String lessonId) => '/api/v1/learning/lessons/$lessonId/complete';
   static const String learningProgressEndpoint = '/api/v1/learning/progress';
+
+  static const String gamificationSummaryEndpoint = '/api/v1/gamification/summary';
+  static const String achievementsEndpoint = '/api/v1/achievements';
 }

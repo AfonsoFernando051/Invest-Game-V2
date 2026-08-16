@@ -1,4 +1,7 @@
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:petrimonium/features/game/data/datasources/gamification_remote_datasource.dart';
+import 'package:petrimonium/features/game/domain/entities/gamification_summary.dart';
+import 'package:petrimonium/features/pet/data/datasources/pet_remote_datasource.dart';
 import 'package:petrimonium/features/pet/data/models/pet_specie_enum.dart';
 import 'package:petrimonium/features/pet/domain/entities/pet_profile.dart';
 import 'package:petrimonium/features/pet/domain/enums/accessory_type.dart';
@@ -6,10 +9,27 @@ import 'package:petrimonium/features/pet/domain/enums/pet_accessory_id.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_evolution_stage.dart';
 import 'package:petrimonium/features/pet/domain/repositories/mascot_repository.dart';
 
+/// [loadProfile] paints instantly from the local cache (name/stage/
+/// accessories/lastActiveAt have no backend equivalent — they stay
+/// local-only, not "fake"), then best-effort overwrites `xp` and `specie`
+/// with the backend's real values (`GamificationRemoteDataSource`,
+/// `PetRemoteDataSource`) and refreshes the cache. Offline, it falls back to
+/// the last-known-real cached value — legitimate staleness, never a
+/// fabricated number.
 class MascotRepositoryImpl implements MascotRepository {
+  MascotRepositoryImpl({
+    required GamificationRemoteDataSource gamificationRemoteDataSource,
+    required PetRemoteDataSource petRemoteDataSource,
+  })  : _gamificationRemoteDataSource = gamificationRemoteDataSource,
+        _petRemoteDataSource = petRemoteDataSource;
+
+  final GamificationRemoteDataSource _gamificationRemoteDataSource;
+  final PetRemoteDataSource _petRemoteDataSource;
+
   static const _nameKey = 'mascot_name';
   static const _stageKey = 'mascot_stage';
   static const _xpKey = 'mascot_xp';
+  static const _specieKey = 'mascot_specie';
   static const _netWorthKey = 'mascot_net_worth';
   static const _equippedKeyPrefix = 'mascot_equipped_';
   static const _unlockedKey = 'mascot_unlocked_accessories';
@@ -26,7 +46,12 @@ class MascotRepositoryImpl implements MascotRepository {
       orElse: () => PetEvolutionStage.babyDog,
     );
 
-    final xp = prefs.getInt(_xpKey) ?? 0;
+    var xp = prefs.getInt(_xpKey) ?? 0;
+    final specieName = prefs.getString(_specieKey);
+    var specie = PetSpecieEnum.values.firstWhere(
+      (s) => s.name == specieName,
+      orElse: () => PetSpecieEnum.DOG,
+    );
     final netWorth = prefs.getDouble(_netWorthKey) ?? 0;
 
     final unlockedNames = prefs.getStringList(_unlockedKey) ?? const [];
@@ -46,8 +71,30 @@ class MascotRepositoryImpl implements MascotRepository {
     final lastActiveAt =
         lastActiveIso != null ? DateTime.tryParse(lastActiveIso) : null;
 
+    try {
+      final summary = await _gamificationRemoteDataSource.fetchSummary();
+      xp = GamificationSummary.fromJson(summary).totalXp;
+      await saveXp(xp);
+    } catch (_) {
+      // Offline or backend unavailable — keep the last-known-real cached XP.
+    }
+
+    try {
+      final petData = await _petRemoteDataSource.getMyPet();
+      final realSpecieName = petData?['specie'] as String?;
+      if (realSpecieName != null) {
+        specie = PetSpecieEnum.values.firstWhere(
+          (s) => s.name == realSpecieName,
+          orElse: () => specie,
+        );
+        await saveSpecie(specie);
+      }
+    } catch (_) {
+      // Offline or backend unavailable — keep the last-known-real cached specie.
+    }
+
     return PetProfile(
-      specie: PetSpecieEnum.DOG,
+      specie: specie,
       name: name,
       stage: stage,
       xp: xp,
@@ -74,6 +121,12 @@ class MascotRepositoryImpl implements MascotRepository {
   Future<void> saveXp(int xp) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt(_xpKey, xp);
+  }
+
+  @override
+  Future<void> saveSpecie(PetSpecieEnum specie) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_specieKey, specie.name);
   }
 
   @override

@@ -62,7 +62,7 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
   }
 
   Future<void> _loadAchievementBaseline() async {
-    final unlocked = await DI.achievementsRepository.loadUnlocked();
+    final unlocked = await DI.achievementsLocalRepository.loadUnlocked();
     if (mounted) setState(() => _alreadyUnlockedIds = unlocked.keys.toSet());
   }
 

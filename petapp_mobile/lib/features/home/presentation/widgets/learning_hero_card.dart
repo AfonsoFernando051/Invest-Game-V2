@@ -4,7 +4,6 @@ import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
-import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/pet_assets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
@@ -54,30 +53,11 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
   final ValueNotifier<Offset> _parallax = ValueNotifier(Offset.zero);
 
-  // The user's actually-chosen species — `MascotController.profile.specie`
-  // is not wired to the real selection yet (`MascotRepositoryImpl.loadProfile`
-  // always returns `DOG`), so this fetches the real value the same way the
-  // widget it replaces did, to avoid showing the wrong pet.
-  String? _petSpecie;
-
   @override
   void initState() {
     super.initState();
-    _fetchSpecie();
     _initAnimations();
     _initAccelerometer();
-  }
-
-  Future<void> _fetchSpecie() async {
-    try {
-      final petData = await DI.petRepository.getMyPet();
-      final specie = petData?['specie'] as String?;
-      if (mounted && specie != null) {
-        setState(() => _petSpecie = specie);
-      }
-    } catch (_) {
-      // Non-critical — falls back to the default species portrait.
-    }
   }
 
   void _initAnimations() {
@@ -250,7 +230,7 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
                               scaleY: _breatheAnimation.value,
                               scaleX: 1.0 + (1.0 - _breatheAnimation.value),
                               child: Image.asset(
-                                PetAssets.imageFor(_petSpecie),
+                                PetAssets.imageFor(widget.mascotController.profile.specie.name),
                                 height: 220,
                                 fit: BoxFit.contain,
                                 errorBuilder: (_, __, ___) => const Icon(Icons.pets, size: 100, color: Colors.white70),

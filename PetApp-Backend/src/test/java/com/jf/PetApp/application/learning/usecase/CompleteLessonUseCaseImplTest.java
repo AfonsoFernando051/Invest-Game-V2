@@ -20,7 +20,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.port.XpEventRepositoryPort;
+import com.jf.PetApp.application.gamification.service.StreakService;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LessonCompletionResult;
 import com.jf.PetApp.application.learning.port.LearningCatalogPort;
@@ -53,6 +55,12 @@ class CompleteLessonUseCaseImplTest {
     @Mock
     private XpEventRepositoryPort xpEventRepositoryPort;
 
+    @Mock
+    private AchievementRepositoryPort achievementRepositoryPort;
+
+    @Mock
+    private StreakService streakService;
+
     private XpLedgerService xpLedgerService;
     private CompleteLessonUseCaseImpl useCase;
 
@@ -60,7 +68,8 @@ class CompleteLessonUseCaseImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         xpLedgerService = new XpLedgerService(xpEventRepositoryPort);
-        useCase = new CompleteLessonUseCaseImpl(userRepository, catalogPort, progressRepository, xpLedgerService);
+        useCase = new CompleteLessonUseCaseImpl(
+                userRepository, catalogPort, progressRepository, xpLedgerService, achievementRepositoryPort, streakService);
 
         User user = new User();
         user.setId(USER_ID);

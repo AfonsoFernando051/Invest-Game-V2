@@ -40,7 +40,6 @@ class _LessonScreenState extends State<LessonScreen> {
     _controller = LessonSessionController(
       lesson: widget.lesson,
       academyRepository: DI.academyProgressRepository,
-      achievementsRepository: DI.achievementsRepository,
       mascotController: widget.mascotController,
       academyRemoteDataSource: DI.academyRemoteDataSource,
     );

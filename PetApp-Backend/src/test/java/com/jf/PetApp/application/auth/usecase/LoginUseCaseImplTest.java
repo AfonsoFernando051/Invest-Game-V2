@@ -5,6 +5,7 @@ import com.jf.PetApp.application.auth.dto.LoginResult;
 import com.jf.PetApp.application.auth.exception.AuthenticationException;
 import com.jf.PetApp.application.auth.port.PasswordEncoderPort;
 import com.jf.PetApp.application.auth.port.TokenProvider;
+import com.jf.PetApp.application.gamification.service.StreakService;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.core.domain.User;
 import org.junit.jupiter.api.BeforeEach;
@@ -29,6 +30,9 @@ class LoginUseCaseImplTest {
 
     @Mock
     private TokenProvider tokenProvider;
+
+    @Mock
+    private StreakService streakService;
 
     @InjectMocks
     private LoginUseCaseImpl loginUseCase;

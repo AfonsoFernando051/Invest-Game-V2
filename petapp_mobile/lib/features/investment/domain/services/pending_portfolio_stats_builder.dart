@@ -10,7 +10,7 @@ import 'package:petrimonium/features/portfolio/domain/entities/portfolio_summary
 /// *currently adding* on the Portfolio Setup screen — before anything is
 /// submitted to the backend. This lets the setup screen reuse the exact
 /// same domain services the real Dashboard uses (`AchievementCatalog`,
-/// `PassiveIncomeEstimator`, `MissionCatalog`) to preview real numbers
+/// `PassiveIncomeEstimator`) to preview real numbers
 /// ("this unlocks +50 XP", "≈R$12/month passive income") instead of
 /// fabricating separate onboarding-only figures.
 ///

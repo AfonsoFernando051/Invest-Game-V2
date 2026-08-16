@@ -19,11 +19,16 @@ class RpgIntegrationCard extends StatelessWidget {
     super.key,
     required this.controller,
     required this.stats,
+    required this.currentStreak,
     this.showPetVisual = true,
   });
 
   final MascotController controller;
   final PortfolioStats stats;
+
+  /// The real consecutive-day engagement streak from the backend
+  /// (`GamificationSummary.currentStreak`) — not derived client-side.
+  final int currentStreak;
 
   /// The Home dashboard already shows the user's actual chosen pet species
   /// via `PetShowcase` (the mascot evolution art in `PetMascotWidget` isn't
@@ -47,9 +52,6 @@ class RpgIntegrationCard extends StatelessWidget {
         final hasNext = nextRule.stage != profile.stage;
         final xpProgress =
             hasNext && nextRule.minXp > 0 ? (profile.xp / nextRule.minXp).clamp(0.0, 1.0) : 1.0;
-
-        final firstPurchase = stats.firstPurchaseDate;
-        final streakDays = firstPurchase == null ? 0 : DateTime.now().difference(firstPurchase).inDays;
 
         return GlassCard(
           backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.65 : 0.94),
@@ -99,7 +101,7 @@ class RpgIntegrationCard extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(child: _statTile(context, Icons.account_balance_wallet, 'Patrimônio', PortfolioFormatters.compactCurrency(profile.netWorth))),
-                    Expanded(child: _statTile(context, Icons.local_fire_department, 'Sequência', '$streakDays dias')),
+                    Expanded(child: _statTile(context, Icons.local_fire_department, 'Sequência', '$currentStreak dias')),
                     Expanded(child: _statTile(context, Icons.hub, 'Diversificação', '${stats.distinctTypeCount} categorias')),
                   ],
                 ),

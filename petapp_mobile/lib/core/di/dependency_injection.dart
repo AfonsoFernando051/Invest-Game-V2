@@ -3,6 +3,8 @@ import 'package:petrimonium/features/academy/data/datasources/academy_remote_dat
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/auth/data/datasources/auth_remote_datasource.dart';
 import 'package:petrimonium/features/auth/data/repositories/auth_repository.dart';
+import 'package:petrimonium/features/game/data/datasources/gamification_remote_datasource.dart';
+import 'package:petrimonium/features/game/data/repositories/gamification_repository.dart';
 import 'package:petrimonium/features/onboarding/data/datasources/onboarding_remote_datasource.dart';
 import 'package:petrimonium/features/onboarding/data/repositories/onboarding_repository.dart';
 import 'package:petrimonium/features/onboarding/data/repositories/onboarding_state_repository.dart';
@@ -16,8 +18,10 @@ import 'package:petrimonium/features/investment/data/datasources/investment_remo
 import 'package:petrimonium/features/investment/data/repositories/investment_repository.dart';
 import 'package:petrimonium/features/mentor/data/datasources/mentor_remote_datasource.dart';
 import 'package:petrimonium/features/mentor/data/repositories/mentor_chat_repository.dart';
+import 'package:petrimonium/features/portfolio/data/datasources/achievements_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/portfolio_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
 import 'package:petrimonium/features/settings/data/datasources/settings_remote_datasource.dart';
 import 'package:petrimonium/features/settings/data/repositories/settings_repository.dart';
@@ -49,8 +53,17 @@ class DI {
   static PetRepository petRepository =
       PetRepositoryImpl(remoteDataSource: _petRemoteDataSource);
 
+  static final GamificationRemoteDataSource _gamificationRemoteDataSource =
+      GamificationRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static MascotRepository mascotRepository = MascotRepositoryImpl();
+  static GamificationRepository gamificationRepository =
+      GamificationRepository(remoteDataSource: _gamificationRemoteDataSource);
+
+  // Not `final` so tests can replace it with a mock repository.
+  static MascotRepository mascotRepository = MascotRepositoryImpl(
+    gamificationRemoteDataSource: _gamificationRemoteDataSource,
+    petRemoteDataSource: _petRemoteDataSource,
+  );
 
   // Not `final` so tests can replace it with a mock repository.
   static PetPreferencesRepository petPreferencesRepository = PetPreferencesRepository();
@@ -74,7 +87,13 @@ class DI {
       PortfolioRepository(remoteDataSource: _portfolioRemoteDataSource);
 
   // Not `final` so tests can replace it with a mock repository.
-  static AchievementsLocalRepository achievementsRepository = AchievementsLocalRepository();
+  static AchievementsLocalRepository achievementsLocalRepository = AchievementsLocalRepository();
+
+  static final AchievementsRemoteDataSource _achievementsRemoteDataSource =
+      AchievementsRemoteDataSource(apiClient: _apiClient);
+  // Not `final` so tests can replace it with a mock repository.
+  static AchievementsRepository achievementsRepository =
+      AchievementsRepository(remoteDataSource: _achievementsRemoteDataSource);
 
   // Not `final` so tests can replace it with a mock repository.
   static AcademyProgressLocalRepository academyProgressRepository = AcademyProgressLocalRepository();

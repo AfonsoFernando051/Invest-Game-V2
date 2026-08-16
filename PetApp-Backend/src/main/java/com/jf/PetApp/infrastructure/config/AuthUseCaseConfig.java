@@ -9,6 +9,7 @@ import com.jf.PetApp.application.auth.usecase.LoginUseCase;
 import com.jf.PetApp.application.auth.usecase.LoginUseCaseImpl;
 import com.jf.PetApp.application.auth.usecase.RegisterUserUseCase;
 import com.jf.PetApp.application.auth.usecase.RegisterUserUseCaseImpl;
+import com.jf.PetApp.application.gamification.service.StreakService;
 import com.jf.PetApp.application.user.port.UserRepository;
 
 @Configuration
@@ -18,12 +19,14 @@ public class AuthUseCaseConfig {
     public LoginUseCase loginUseCase(
         UserRepository userRepository,
         PasswordEncoderPort passwordEncoder,
-        TokenProvider tokenProvider
+        TokenProvider tokenProvider,
+        StreakService streakService
     ) {
         return new LoginUseCaseImpl(
             userRepository,
             passwordEncoder,
-            tokenProvider
+            tokenProvider,
+            streakService
         );
     }
     

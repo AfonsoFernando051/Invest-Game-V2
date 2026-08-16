@@ -1,9 +1,11 @@
 import 'package:shared_preferences/shared_preferences.dart';
 
-/// Persists unlocked achievement ids + their unlock timestamp on-device.
-/// Mirrors `MascotRepositoryImpl`'s SharedPreferences-backed style. Entries
-/// are only ever added, never removed, matching the project's "achievements
-/// are permanent" rule.
+/// A local, offline-fallback cache of unlocked achievement ids + their
+/// unlock timestamp. The backend (`AchievementsRepository.evaluate()`) is
+/// now the source of truth — every successful evaluation overwrites this
+/// cache with the server's authoritative state via [cacheUnlocked]. This
+/// class only exists so the UI has something real to show if the app opens
+/// offline; it never decides what's unlocked on its own.
 class AchievementsLocalRepository {
   static const _idsKey = 'achievements_unlocked_ids';
   static const _datesKey = 'achievements_unlocked_dates';
@@ -21,21 +23,12 @@ class AchievementsLocalRepository {
     return result;
   }
 
-  /// Adds [newlyUnlockedIds] (unlocked "now") to whatever was already
-  /// persisted and returns the merged map.
-  Future<Map<String, DateTime>> unlockAll(Set<String> newlyUnlockedIds) async {
-    final existing = await loadUnlocked();
-    if (newlyUnlockedIds.isEmpty) return existing;
-
-    final now = DateTime.now();
-    final merged = {...existing};
-    for (final id in newlyUnlockedIds) {
-      merged.putIfAbsent(id, () => now);
-    }
-
+  /// Overwrites the local cache with the backend's authoritative unlocked
+  /// map. Safe as a plain overwrite (not a merge) because achievements are
+  /// permanent — the server's set never shrinks.
+  Future<void> cacheUnlocked(Map<String, DateTime> unlockedAt) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setStringList(_idsKey, merged.keys.toList());
-    await prefs.setStringList(_datesKey, merged.values.map((d) => d.toIso8601String()).toList());
-    return merged;
+    await prefs.setStringList(_idsKey, unlockedAt.keys.toList());
+    await prefs.setStringList(_datesKey, unlockedAt.values.map((d) => d.toIso8601String()).toList());
   }
 }
