@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:petrimonium/core/services/total_xp_calculator.dart';
+import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
@@ -22,14 +25,17 @@ class LessonSessionController extends ChangeNotifier {
     required AcademyProgressLocalRepository academyRepository,
     required AchievementsLocalRepository achievementsRepository,
     required MascotController mascotController,
+    AcademyRemoteDataSource? academyRemoteDataSource,
   })  : _academyRepository = academyRepository,
         _achievementsRepository = achievementsRepository,
-        _mascotController = mascotController;
+        _mascotController = mascotController,
+        _academyRemoteDataSource = academyRemoteDataSource;
 
   final Lesson lesson;
   final AcademyProgressLocalRepository _academyRepository;
   final AchievementsLocalRepository _achievementsRepository;
   final MascotController _mascotController;
+  final AcademyRemoteDataSource? _academyRemoteDataSource;
 
   int currentStepIndex = 0;
   int? selectedOptionIndex;
@@ -94,5 +100,21 @@ class LessonSessionController extends ChangeNotifier {
     isCompleting = false;
     isComplete = true;
     notifyListeners();
+
+    // Best-effort sync to the backend's authoritative learning/XP ledger.
+    // Never awaited by the UI flow above — offline or a backend hiccup must
+    // never block a lesson from completing locally.
+    unawaited(_syncCompletionToBackend());
+  }
+
+  Future<void> _syncCompletionToBackend() async {
+    final remote = _academyRemoteDataSource;
+    if (remote == null) return;
+    try {
+      await remote.completeLesson(lesson.id);
+    } catch (_) {
+      // Offline or backend unavailable — the next `AcademyController.load()`
+      // reconciliation (or a future retry) will pick this up.
+    }
   }
 }

@@ -58,4 +58,14 @@ void main() {
       expect(mission.isComplete, isFalse);
     });
   });
+
+  group('MissionCatalog.evaluate — DECISION-014 compliance', () {
+    test('wealth-tied missions (portfolio_10k, portfolio_50k) grant zero XP', () {
+      final missions = MissionCatalog.evaluate(PortfolioStats.empty);
+      final portfolio10k = missions.firstWhere((m) => m.id == 'portfolio_10k');
+      final portfolio50k = missions.firstWhere((m) => m.id == 'portfolio_50k');
+      expect(portfolio10k.xpReward, 0);
+      expect(portfolio50k.xpReward, 0);
+    });
+  });
 }

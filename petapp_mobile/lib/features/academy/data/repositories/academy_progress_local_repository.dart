@@ -28,4 +28,18 @@ class AcademyProgressLocalRepository {
   Future<int> totalXpEarned() async {
     return AcademyCatalog.xpEarnedFor(await loadCompletedLessonIds());
   }
+
+  /// Unions [serverLessonIds] into local storage — the same "only ever add,
+  /// never remove" semantics as [markLessonCompleted]. Used to reconcile
+  /// progress reported by the backend (e.g. completed on another device)
+  /// without ever hiding a lesson completed locally but not yet synced.
+  Future<Set<String>> mergeCompletedLessonIds(Set<String> serverLessonIds) async {
+    final existing = await loadCompletedLessonIds();
+    final merged = {...existing, ...serverLessonIds};
+    if (merged.length == existing.length) return existing;
+
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_completedLessonIdsKey, merged.toList());
+    return merged;
+  }
 }

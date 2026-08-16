@@ -56,7 +56,9 @@ class AchievementCatalog {
       title: 'Primeiro Lucro',
       description: 'Seu portfólio atingiu retorno positivo.',
       icon: Icons.trending_up,
-      xpReward: 100,
+      // DECISION-014: XP must never reward investment profit. Kept as a
+      // milestone for flavor, but grants no XP.
+      xpReward: 0,
       qualifies: (s) => s.summary.totalGain > 0,
     ),
     _AchievementDef(
@@ -64,7 +66,9 @@ class AchievementCatalog {
       title: 'Patamar de R\$10 mil',
       description: 'Alcançou R\$10.000 em patrimônio investido.',
       icon: Icons.savings,
-      xpReward: 150,
+      // DECISION-014: XP must never reward wealth/portfolio size. Kept as a
+      // milestone for flavor, but grants no XP.
+      xpReward: 0,
       qualifies: (s) => s.summary.currentValue >= 10000,
     ),
     _AchievementDef(
@@ -72,7 +76,9 @@ class AchievementCatalog {
       title: 'Patamar de R\$50 mil',
       description: 'Alcançou R\$50.000 em patrimônio investido.',
       icon: Icons.account_balance,
-      xpReward: 400,
+      // DECISION-014: XP must never reward wealth/portfolio size. Kept as a
+      // milestone for flavor, but grants no XP.
+      xpReward: 0,
       qualifies: (s) => s.summary.currentValue >= 50000,
     ),
     _AchievementDef(

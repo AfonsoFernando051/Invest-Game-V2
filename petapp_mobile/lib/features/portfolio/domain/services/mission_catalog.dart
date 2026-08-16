@@ -33,7 +33,9 @@ class MissionCatalog {
         icon: Icons.savings,
         current: stats.summary.currentValue,
         target: 10000,
-        xpReward: 150,
+        // DECISION-014: XP must never reward wealth/portfolio size. Kept as
+        // a milestone for flavor, but grants no XP.
+        xpReward: 0,
       ),
       Mission(
         id: 'portfolio_50k',
@@ -42,7 +44,9 @@ class MissionCatalog {
         icon: Icons.account_balance,
         current: stats.summary.currentValue,
         target: 50000,
-        xpReward: 400,
+        // DECISION-014: XP must never reward wealth/portfolio size. Kept as
+        // a milestone for flavor, but grants no XP.
+        xpReward: 0,
       ),
       Mission(
         id: 'diversification_master',

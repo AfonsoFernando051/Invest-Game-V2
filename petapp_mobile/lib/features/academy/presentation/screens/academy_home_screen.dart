@@ -41,7 +41,10 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   @override
   void initState() {
     super.initState();
-    _controller = AcademyController(repository: DI.academyProgressRepository);
+    _controller = AcademyController(
+      repository: DI.academyProgressRepository,
+      remoteDataSource: DI.academyRemoteDataSource,
+    );
     _controller.addListener(_onChanged);
     _controller.load();
   }

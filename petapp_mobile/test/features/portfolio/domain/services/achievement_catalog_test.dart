@@ -94,12 +94,19 @@ void main() {
     });
 
     test('sums the xpReward of every unlocked achievement', () {
-      final total = AchievementCatalog.totalXpFor({'first_investment', 'positive_return'});
-      expect(total, 50 + 100);
+      final total = AchievementCatalog.totalXpFor({'first_investment', 'first_dividend'});
+      expect(total, 50 + 75);
     });
 
     test('an unknown id contributes nothing (never throws)', () {
       expect(AchievementCatalog.totalXpFor({'not_a_real_id'}), 0);
+    });
+
+    test('wealth/profit-tied achievements grant zero XP (DECISION-014)', () {
+      // Kept as unlockable milestones for flavor, but must never feed the
+      // XP total — XP can only ever come from learning/practice behavior.
+      final total = AchievementCatalog.totalXpFor({'positive_return', 'portfolio_10k', 'portfolio_50k'});
+      expect(total, 0);
     });
   });
 

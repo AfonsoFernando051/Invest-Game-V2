@@ -91,6 +91,12 @@ class FakeAcademyProgressLocalRepository implements AcademyProgressLocalReposito
 
   @override
   Future<int> totalXpEarned() async => 0;
+
+  @override
+  Future<Set<String>> mergeCompletedLessonIds(Set<String> serverLessonIds) async {
+    _completed.addAll(serverLessonIds);
+    return _completed;
+  }
 }
 
 /// A single-lot [Holding] built the same way the real pipeline does

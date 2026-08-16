@@ -42,6 +42,7 @@ class _LessonScreenState extends State<LessonScreen> {
       academyRepository: DI.academyProgressRepository,
       achievementsRepository: DI.achievementsRepository,
       mascotController: widget.mascotController,
+      academyRemoteDataSource: DI.academyRemoteDataSource,
     );
     _controller.addListener(_onChanged);
   }
