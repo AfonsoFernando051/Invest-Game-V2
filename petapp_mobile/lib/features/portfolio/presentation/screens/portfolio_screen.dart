@@ -5,11 +5,14 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/game_snack.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/investment/presentation/screens/investment_configuration_screen.dart';
+import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 import 'package:petrimonium/features/portfolio/presentation/controllers/portfolio_controller.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/asset_allocation_card.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/hero_summary_section.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/holdings_section.dart';
+import 'package:petrimonium/features/portfolio/presentation/widgets/missions_achievements_section.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/quick_actions_fab.dart';
+import 'package:petrimonium/features/portfolio/presentation/widgets/rpg_integration_card.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/wealth_evolution_bar_card.dart';
 
 /// The "Carteira" (Portfolio) tab — holdings (Investidor10-inspired: grouped
@@ -21,9 +24,10 @@ import 'package:petrimonium/features/portfolio/presentation/widgets/wealth_evolu
 /// [controller] is owned and loaded by `DashboardScreen` and shared with the
 /// Home tab, so both reflect the same data with a single fetch.
 class PortfolioScreen extends StatelessWidget {
-  const PortfolioScreen({super.key, required this.controller});
+  const PortfolioScreen({super.key, required this.controller, required this.mascotController});
 
   final PortfolioController controller;
+  final MascotController mascotController;
 
   void _openConfigure(BuildContext context) {
     HapticFeedback.mediumImpact();
@@ -77,6 +81,10 @@ class PortfolioScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 16),
                 HoldingsSection(holdings: controller.holdings, totalPortfolioValue: controller.summary.currentValue),
+                const SizedBox(height: 16),
+                RpgIntegrationCard(controller: mascotController, stats: controller.stats),
+                const SizedBox(height: 16),
+                MissionsAchievementsSection(missions: controller.missions, achievements: controller.achievements),
               ],
             ),
           ),

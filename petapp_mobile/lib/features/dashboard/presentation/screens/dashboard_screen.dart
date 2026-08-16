@@ -7,7 +7,6 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_tokens.dart';
 import '../../../../core/utils/translator.dart';
 import '../../../../core/utils/game_snack.dart';
-import '../../../../core/widgets/app_loading_indicator.dart';
 import '../../../../core/widgets/confirm_logout_dialog.dart';
 import '../../../../core/theme/background_presets.dart';
 import '../../../../core/widgets/cosmic_background.dart';
@@ -18,25 +17,16 @@ import '../../../../core/events/app_event_bus.dart';
 import '../../../academy/presentation/screens/academy_home_screen.dart';
 import '../../../auth/presentation/screens/login_screen.dart';
 import '../../../game/domain/services/level_calculator.dart';
+import '../../../home/presentation/screens/home_screen.dart';
 import '../../../pet/presentation/mascot/controllers/mascot_controller.dart';
 import '../../../portfolio/domain/entities/achievement.dart';
 import '../../../portfolio/presentation/controllers/portfolio_controller.dart';
 import '../../../portfolio/presentation/screens/passive_income_screen.dart';
 import '../../../portfolio/presentation/screens/portfolio_screen.dart';
 import '../../../portfolio/presentation/widgets/achievement_celebration_overlay.dart';
-import '../../../portfolio/presentation/widgets/asset_allocation_card.dart';
 import '../../../portfolio/presentation/widgets/dividend_notifications_sheet.dart';
-import '../../../portfolio/presentation/widgets/hero_summary_section.dart';
-import '../../../portfolio/presentation/widgets/missions_achievements_section.dart';
-import '../../../portfolio/presentation/widgets/shared/error_banner.dart';
-import '../../../portfolio/presentation/widgets/wealth_evolution_card.dart';
 import '../../../mentor/presentation/screens/mentor_screen.dart';
 import '../../../profile/presentation/screens/profile_screen.dart';
-import '../widgets/pet_showcase.dart';
-import '../widgets/action_buttons.dart';
-import '../widgets/portfolio_not_connected_card.dart';
-import '../widgets/portfolio_reminder_banner.dart';
-import '../widgets/suggested_actions_list.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -367,102 +357,26 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // ── Home: the app's executive dashboard ──────────────────────────────────
-  // Charts, allocation, insights, passive income and gamification all live
-  // here now — Carteira (Portfolio) is holdings-management only. Both tabs
-  // share `_portfolioController`/`_mascotController` so they always agree.
+  // ── Home: learning-first orchestration layer (docs/PRODUCT_VISION.md §8) ─
+  // Detailed financial metrics, missions and achievements live on Carteira
+  // (Portfolio) now — Home orients the user in their learning journey first.
+  // Both tabs share `_portfolioController`/`_mascotController` so they
+  // always agree.
   Widget _buildHomeContent() {
-    if (_portfolioController.isLoading &&
-        _portfolioController.holdings.isEmpty &&
-        _portfolioController.error == null) {
-      return const AppLoadingIndicator();
-    }
-
-    // No real holdings yet — whether the user skipped portfolio setup or
-    // just hasn't gotten to it, Home must stay fully usable: placeholders
-    // and "what to do now" suggestions stand in for the data-driven cards.
-    final hasPortfolio = _portfolioController.holdings.isNotEmpty;
-
-    return RefreshIndicator(
-      color: context.colors.primary,
-      backgroundColor: context.colors.surfaceElevated,
-      onRefresh: _portfolioController.refresh,
-      child: SingleChildScrollView(
-        physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            if (_portfolioController.error != null) ...[
-              ErrorBanner(onRetry: _portfolioController.refresh),
-              const SizedBox(height: 12),
-            ],
-            PetShowcase(performancePercent: _portfolioController.summary.totalGainPercent),
-            const SizedBox(height: 16),
-
-            if (_showPortfolioReminder) ...[
-              PortfolioReminderBanner(onDismiss: () => setState(() => _showPortfolioReminder = false)),
-              const SizedBox(height: 16),
-            ],
-
-            if (!hasPortfolio) ...[
-              const PortfolioNotConnectedCard(),
-              const SizedBox(height: 16),
-              _buildSectionLabel(Translator.translate(AppStrings.suggestedActionsTitle).toUpperCase()),
-              const SizedBox(height: 8),
-              SuggestedActionsList(
-                onLearnDividends: () => setState(() => _selectedIndex = 2),
-                onOpenAcademy: () => setState(() => _selectedIndex = 3),
-                showInvestorProfileAction: _investorProfileUnanswered,
-              ),
-              const SizedBox(height: 16),
-            ] else ...[
-              _buildSectionLabel('RESUMO DO PORTFÓLIO'),
-              const SizedBox(height: 8),
-              HeroSummarySection(controller: _portfolioController),
-              const SizedBox(height: 16),
-
-              WealthEvolutionCard(controller: _portfolioController),
-              const SizedBox(height: 16),
-
-              AssetAllocationCard(
-                allocation: _portfolioController.allocation,
-                totalValue: _portfolioController.summary.currentValue,
-              ),
-              const SizedBox(height: 16),
-            ],
-
-            _buildSectionLabel('AÇÕES RÁPIDAS'),
-            const SizedBox(height: 8),
-            ActionButtons(onTrainTap: () => setState(() => _selectedIndex = 3)),
-            const SizedBox(height: 16),
-
-            MissionsAchievementsSection(
-              missions: _portfolioController.missions,
-              achievements: _portfolioController.achievements,
-            ),
-            const SizedBox(height: 32),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSectionLabel(String label) {
-    return Text(
-      label,
-      style: TextStyle(
-        color: context.colors.primary.withValues(alpha: 0.6),
-        fontSize: 11,
-        fontWeight: FontWeight.w700,
-        letterSpacing: 2.0,
-      ),
+    return HomeScreen(
+      portfolioController: _portfolioController,
+      mascotController: _mascotController,
+      onOpenAcademyTab: () => setState(() => _selectedIndex = 3),
+      onOpenPortfolioTab: () => setState(() => _selectedIndex = 1),
+      showPortfolioReminder: _showPortfolioReminder,
+      onDismissPortfolioReminder: () => setState(() => _showPortfolioReminder = false),
+      investorProfileUnanswered: _investorProfileUnanswered,
     );
   }
 
   // ── Wallet / Portfolio ───────────────────────────────────────────────────
   Widget _buildWalletContent() {
-    return PortfolioScreen(controller: _portfolioController);
+    return PortfolioScreen(controller: _portfolioController, mascotController: _mascotController);
   }
 
   // ── Proventos / Passive Income ────────────────────────────────────────────

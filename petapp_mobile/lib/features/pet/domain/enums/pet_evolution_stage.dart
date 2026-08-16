@@ -28,4 +28,19 @@ extension PetEvolutionStageTier on PetEvolutionStage {
   /// Tiers 6+ (royal and above) render a decorative aura/glow background
   /// layer behind the mascot.
   bool get hasAura => tier >= 6;
+
+  /// Product-facing stage name, shown wherever the pet's evolution tier is
+  /// displayed (`LearningHeroCard`, `RpgIntegrationCard`) — single source of
+  /// truth so the two don't drift.
+  String get label => switch (this) {
+        PetEvolutionStage.babyDog => 'Filhote',
+        PetEvolutionStage.teenDog => 'Jovem',
+        PetEvolutionStage.adultDog => 'Adulto',
+        PetEvolutionStage.masterDog => 'Mestre',
+        PetEvolutionStage.legendaryDog => 'Lendário',
+        PetEvolutionStage.royalDog => 'Real',
+        PetEvolutionStage.cyberMysticDog => 'Ciber-Místico',
+        PetEvolutionStage.cosmicGuardianDog => 'Guardião Cósmico',
+        PetEvolutionStage.goldenFinanceDog => 'Dourado das Finanças',
+      };
 }

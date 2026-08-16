@@ -66,22 +66,22 @@ void main() {
 
   tearDown(() => controller.dispose());
 
-  group('resolveStage — financial thresholds map to the 9 evolution tiers', () {
-    const cases = <(PetEvolutionStage, double, int)>[
-      (PetEvolutionStage.babyDog, 0, 0),
-      (PetEvolutionStage.teenDog, 500, 100),
-      (PetEvolutionStage.adultDog, 2000, 300),
-      (PetEvolutionStage.masterDog, 5000, 600),
-      (PetEvolutionStage.legendaryDog, 15000, 1200),
-      (PetEvolutionStage.royalDog, 40000, 2500),
-      (PetEvolutionStage.cyberMysticDog, 100000, 5000),
-      (PetEvolutionStage.cosmicGuardianDog, 250000, 10000),
-      (PetEvolutionStage.goldenFinanceDog, 500000, 20000),
+  group('resolveStage — XP thresholds map to the 9 evolution tiers', () {
+    const cases = <(PetEvolutionStage, int)>[
+      (PetEvolutionStage.babyDog, 0),
+      (PetEvolutionStage.teenDog, 100),
+      (PetEvolutionStage.adultDog, 300),
+      (PetEvolutionStage.masterDog, 600),
+      (PetEvolutionStage.legendaryDog, 1200),
+      (PetEvolutionStage.royalDog, 2500),
+      (PetEvolutionStage.cyberMysticDog, 5000),
+      (PetEvolutionStage.cosmicGuardianDog, 10000),
+      (PetEvolutionStage.goldenFinanceDog, 20000),
     ];
 
-    for (final (stage, netWorth, xp) in cases) {
+    for (final (stage, xp) in cases) {
       test('reaching exactly the ${stage.name} threshold resolves to ${stage.name}', () {
-        final resolved = controller.resolveStage(currentNetWorth: netWorth, userXp: xp);
+        final resolved = controller.resolveStage(userXp: xp);
         expect(resolved, stage);
       });
     }
@@ -97,18 +97,17 @@ void main() {
     });
 
     test('just below a threshold resolves to the previous tier', () {
-      final resolved = controller.resolveStage(currentNetWorth: 499.99, userXp: 100);
+      final resolved = controller.resolveStage(userXp: 99);
       expect(resolved, PetEvolutionStage.babyDog);
     });
 
-    test('high net worth alone does not skip tiers if XP requirement is unmet', () {
-      final resolved = controller.resolveStage(currentNetWorth: 500000, userXp: 0);
-      expect(resolved, PetEvolutionStage.babyDog);
-    });
-
-    test('high XP alone does not skip tiers if net worth requirement is unmet', () {
-      final resolved = controller.resolveStage(currentNetWorth: 0, userXp: 20000);
-      expect(resolved, PetEvolutionStage.babyDog);
+    test('evolution is driven purely by XP — net worth plays no role', () {
+      // Same XP, wildly different net worth arguments to evaluateEvolution
+      // (the only place net worth is still threaded through) must resolve
+      // to the same stage, since resolveStage no longer takes net worth at
+      // all — see docs/PRODUCT_VISION.md §9/§11.
+      final resolved = controller.resolveStage(userXp: 2500);
+      expect(resolved, PetEvolutionStage.royalDog);
     });
   });
 
@@ -135,7 +134,7 @@ void main() {
       expect(controller.animationState, isNot(PetAnimationState.victory));
     });
 
-    test('never downgrades the stage when net worth later drops', () async {
+    test('never downgrades the stage when XP later drops', () async {
       await controller.evaluateEvolution(40000, 2500);
       expect(controller.stage, PetEvolutionStage.royalDog);
 

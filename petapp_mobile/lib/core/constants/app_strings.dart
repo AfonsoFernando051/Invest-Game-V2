@@ -167,4 +167,30 @@ class AppStrings {
   static const String navPassiveIncome = "navPassiveIncome";
   static const String navAcademy = "navAcademy";
   static const String navMentor = "navMentor";
+
+  // Home redesign — learning-first hierarchy (docs/PRODUCT_VISION.md §8)
+  static const String homeContinueLearningEyebrow = "homeContinueLearningEyebrow";
+  static const String homeContinueLearningCta = "homeContinueLearningCta";
+  static const String homeAllLessonsCompleteTitle = "homeAllLessonsCompleteTitle";
+  static const String homeAllLessonsCompleteBody = "homeAllLessonsCompleteBody";
+  static const String homeExploreAcademyCta = "homeExploreAcademyCta";
+  static const String homeLevelProgressLabel = "homeLevelProgressLabel";
+  static const String homeNextEvolutionLabel = "homeNextEvolutionLabel";
+  static const String homeMaxEvolutionLabel = "homeMaxEvolutionLabel";
+  static const String homeKnowledgeMapLabel = "homeKnowledgeMapLabel";
+  static const String homeViewFullAcademyCta = "homeViewFullAcademyCta";
+  static const String homePortfolioBridgeLabel = "homePortfolioBridgeLabel";
+  static const String homePortfolioBridgeApplyMessage = "homePortfolioBridgeApplyMessage";
+  static const String homeViewPortfolioCta = "homeViewPortfolioCta";
+  static const String homeAnswerInvestorProfileLink = "homeAnswerInvestorProfileLink";
+
+  // Level tiers — motivational milestone names, never a competence
+  // certification (docs/PRODUCT_VISION.md §9; docs/FEATURES.md "Levels").
+  static const String levelTierBeginner = "levelTierBeginner";
+  static const String levelTierLearner = "levelTierLearner";
+  static const String levelTierExplorer = "levelTierExplorer";
+  static const String levelTierInvestor = "levelTierInvestor";
+  static const String levelTierAnalyst = "levelTierAnalyst";
+  static const String levelTierStrategist = "levelTierStrategist";
+  static const String levelTierSpecialist = "levelTierSpecialist";
 }

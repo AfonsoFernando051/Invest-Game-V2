@@ -117,32 +117,34 @@ class MascotController extends ChangeNotifier {
   }
 
   /// Returns the highest [PetEvolutionStage] whose rule is satisfied by
-  /// [currentNetWorth] and [userXp]. Rules are evaluated from strongest to
-  /// weakest; [PetEvolutionRule.defaultRules] guarantees `babyDog` (0/0) is
-  /// always satisfied, so this never returns null.
+  /// [userXp] — evolution reflects learning/practice progression, never
+  /// investment volume (`docs/PRODUCT_VISION.md` §9, §11). Rules are
+  /// evaluated from strongest to weakest; [PetEvolutionRule.defaultRules]
+  /// guarantees `babyDog` (0 XP) is always satisfied, so this never returns
+  /// null.
   PetEvolutionStage resolveStage({
-    required double currentNetWorth,
     required int userXp,
   }) {
     for (final rule in _rules) {
-      if (rule.isSatisfiedBy(netWorth: currentNetWorth, xp: userXp)) {
+      if (rule.isSatisfiedBy(xp: userXp)) {
         return rule.stage;
       }
     }
     return PetEvolutionStage.babyDog;
   }
 
-  /// Checks the evolution rules against the user's latest financial state
-  /// and, if a higher tier has been unlocked, upgrades the mascot and plays
-  /// the `victory` animation. Also detects a level-up (see [LevelCalculator])
+  /// Checks the evolution rules against the user's latest XP and, if a
+  /// higher tier has been unlocked, upgrades the mascot and plays the
+  /// `victory` animation. Also detects a level-up (see [LevelCalculator])
   /// from the same XP delta. Both are broadcast on [AppEventBus] so other
   /// systems (a toast today, a future Character Engine reaction) can react
   /// without this controller knowing who's listening.
+  ///
+  /// [currentNetWorth] is stored on the profile as a plain portfolio fact
+  /// (shown informationally elsewhere) but never gates evolution — see
+  /// [resolveStage].
   Future<void> evaluateEvolution(double currentNetWorth, int userXp) async {
-    final resolvedStage = resolveStage(
-      currentNetWorth: currentNetWorth,
-      userXp: userXp,
-    );
+    final resolvedStage = resolveStage(userXp: userXp);
     // Evolution never regresses: a temporary dip in net worth (e.g. a
     // withdrawal) must not strip a tier the user already earned.
     final didEvolve = resolvedStage.tier > _profile.stage.tier;

@@ -10,10 +10,10 @@ import 'package:petrimonium/features/portfolio/domain/entities/portfolio_stats.d
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/formatters.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/section_label.dart';
 
-/// Where the portfolio directly powers the RPG layer: real net worth and
-/// achievement-earned XP (see `PortfolioController._evaluateGamification`)
-/// drive `MascotController.evaluateEvolution`, and this card visualizes the
-/// result — the first place in the app where that wiring is actually shown.
+/// Shows how the companion is progressing (driven purely by learning/
+/// practice XP — never net worth, `docs/PRODUCT_VISION.md` §9/§11) next to
+/// real portfolio context. Net worth is shown as a plain informational
+/// stat, not an evolution input.
 class RpgIntegrationCard extends StatelessWidget {
   const RpgIntegrationCard({
     super.key,
@@ -45,9 +45,6 @@ class RpgIntegrationCard extends StatelessWidget {
           orElse: () => PetEvolutionRule.defaultRules.last,
         );
         final hasNext = nextRule.stage != profile.stage;
-        final netWorthProgress = hasNext && nextRule.minNetWorth > 0
-            ? (profile.netWorth / nextRule.minNetWorth).clamp(0.0, 1.0)
-            : 1.0;
         final xpProgress =
             hasNext && nextRule.minXp > 0 ? (profile.xp / nextRule.minXp).clamp(0.0, 1.0) : 1.0;
 
@@ -78,7 +75,7 @@ class RpgIntegrationCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            _stageLabel(profile.stage),
+                            profile.stage.label,
                             style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 15),
                           ),
                           Text(
@@ -88,17 +85,9 @@ class RpgIntegrationCard extends StatelessWidget {
                           const SizedBox(height: 10),
                           _progressLine(
                             context: context,
-                            label: 'Poder (Patrimônio)',
-                            value: netWorthProgress,
-                            trailing: PortfolioFormatters.compactCurrency(profile.netWorth),
-                            color: AppColors.neonCyan,
-                          ),
-                          const SizedBox(height: 6),
-                          _progressLine(
-                            context: context,
-                            label: 'XP',
+                            label: hasNext ? 'XP até a próxima evolução' : 'Evolução máxima',
                             value: xpProgress,
-                            trailing: '${profile.xp} XP',
+                            trailing: hasNext ? '${profile.xp}/${nextRule.minXp} XP' : '${profile.xp} XP',
                             color: AppColors.goldenBorder,
                           ),
                         ],
@@ -109,8 +98,8 @@ class RpgIntegrationCard extends StatelessWidget {
                 const SizedBox(height: 14),
                 Row(
                   children: [
+                    Expanded(child: _statTile(context, Icons.account_balance_wallet, 'Patrimônio', PortfolioFormatters.compactCurrency(profile.netWorth))),
                     Expanded(child: _statTile(context, Icons.local_fire_department, 'Sequência', '$streakDays dias')),
-                    Expanded(child: _statTile(context, Icons.sentiment_satisfied_alt, 'Humor', _moodLabel())),
                     Expanded(child: _statTile(context, Icons.hub, 'Diversificação', '${stats.distinctTypeCount} categorias')),
                   ],
                 ),
@@ -120,27 +109,6 @@ class RpgIntegrationCard extends StatelessWidget {
         );
       },
     );
-  }
-
-  String _moodLabel() {
-    final gain = stats.summary.totalGainPercent;
-    if (gain > 10) return 'Radiante';
-    if (gain >= 0) return 'Tranquilo';
-    return 'Pensativo';
-  }
-
-  String _stageLabel(PetEvolutionStage stage) {
-    return switch (stage) {
-      PetEvolutionStage.babyDog => 'Filhote',
-      PetEvolutionStage.teenDog => 'Jovem',
-      PetEvolutionStage.adultDog => 'Adulto',
-      PetEvolutionStage.masterDog => 'Mestre',
-      PetEvolutionStage.legendaryDog => 'Lendário',
-      PetEvolutionStage.royalDog => 'Real',
-      PetEvolutionStage.cyberMysticDog => 'Ciber-Místico',
-      PetEvolutionStage.cosmicGuardianDog => 'Guardião Cósmico',
-      PetEvolutionStage.goldenFinanceDog => 'Dourado das Finanças',
-    };
   }
 
   Widget _progressLine({
