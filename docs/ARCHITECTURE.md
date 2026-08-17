@@ -132,10 +132,18 @@ features/
     settings/
 ```
 
-State is wired manually: a single `DI` service locator (`core/di/`) plus six `ChangeNotifier` controllers
+State is wired manually: a single `DI` service locator (`core/di/`) plus `ChangeNotifier` controllers
 (`PortfolioController`, `MascotController`, `AcademyController`, `LessonSessionController`,
-`AssetDetailsController`, `MentorChatController`), observed via `AnimatedBuilder`/`addListener`. No
-state-management package (Provider/Riverpod/Bloc/GetX) is used.
+`AssetDetailsController`, `MentorChatController`, `PetCompanionController`), observed via
+`AnimatedBuilder`/`ListenableBuilder`/`addListener`. No state-management package (Provider/Riverpod/Bloc/GetX)
+is used.
+
+`PetCompanionController` (`features/pet/presentation/companion/`) is the persistent pet companion's single
+source of truth: which contextual `PetMessage` (see `PetMessageCatalog`) the speech bubble is showing, driven
+by route-aware `enterContext(PetContext)` calls from each major screen and by `AppEventBus` reactions
+(lesson/XP/level-up/achievement/evolution). One instance is owned by `DashboardScreen` for the whole
+authenticated session — `PetCompanionHeader`/`PetSpeechBubbleOverlay`/`PetInteractionSheet` are the reusable
+presentation layer wired to it; no screen holds its own copy.
 
 ## Target
 

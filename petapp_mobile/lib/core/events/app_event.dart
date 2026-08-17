@@ -30,3 +30,21 @@ class UserLeveledUpEvent extends AppEvent {
   final int newLevel;
   const UserLeveledUpEvent(this.newLevel);
 }
+
+/// Fired the moment a lesson is marked complete locally (see
+/// `LessonSessionController._completeLesson`) — independent of whether the
+/// backend XP sync that follows it succeeds.
+class LessonCompletedEvent extends AppEvent {
+  final String lessonId;
+  const LessonCompletedEvent(this.lessonId);
+}
+
+/// Fired whenever the user's persisted total XP increases (see
+/// `MascotController.evaluateEvolution`, the single choke point XP changes
+/// flow through from both lesson completion and portfolio/gamification
+/// sync).
+class XpGainedEvent extends AppEvent {
+  final int amount;
+  final int newTotalXp;
+  const XpGainedEvent({required this.amount, required this.newTotalXp});
+}

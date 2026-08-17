@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:petrimonium/core/events/app_event.dart';
+import 'package:petrimonium/core/events/app_event_bus.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
@@ -87,6 +89,7 @@ class LessonSessionController extends ChangeNotifier {
 
     await _academyRepository.markLessonCompleted(lesson.id);
     _mascotController.triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));
+    AppEventBus.instance.emit(LessonCompletedEvent(lesson.id));
 
     isCompleting = false;
     isComplete = true;

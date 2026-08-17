@@ -12,6 +12,7 @@ import 'package:petrimonium/features/pet/data/datasources/pet_remote_datasource.
 import 'package:petrimonium/features/pet/data/repositories/pet_repository_impl.dart';
 import 'package:petrimonium/features/pet/domain/repositories/pet_repository.dart';
 import 'package:petrimonium/features/pet/data/repositories/mascot_repository_impl.dart';
+import 'package:petrimonium/features/pet/data/repositories/pet_companion_preferences_repository.dart';
 import 'package:petrimonium/features/pet/data/repositories/pet_preferences_repository.dart';
 import 'package:petrimonium/features/pet/domain/repositories/mascot_repository.dart';
 import 'package:petrimonium/features/investment/data/datasources/investment_remote_datasource.dart';
@@ -32,32 +33,37 @@ class DI {
   static final ApiClient _apiClient = ApiClient();
 
   static final AuthRemoteDataSource _authRemoteDataSource =
-     
       AuthRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static AuthRepository authRepository =
-      AuthRepository(remoteDataSource: _authRemoteDataSource);
+  static AuthRepository authRepository = AuthRepository(
+    remoteDataSource: _authRemoteDataSource,
+  );
 
   static final OnboardingRemoteDataSource _onboardingRemoteDataSource =
       OnboardingRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static OnboardingRepository onboardingRepository =
-      OnboardingRepository(remoteDataSource: _onboardingRemoteDataSource);
+  static OnboardingRepository onboardingRepository = OnboardingRepository(
+    remoteDataSource: _onboardingRemoteDataSource,
+  );
 
   // Not `final` so tests can replace it with a mock repository.
-  static OnboardingStateRepository onboardingStateRepository = OnboardingStateRepository();
+  static OnboardingStateRepository onboardingStateRepository =
+      OnboardingStateRepository();
 
-  static final PetRemoteDataSource _petRemoteDataSource =
-      PetRemoteDataSource(apiClient: _apiClient);
+  static final PetRemoteDataSource _petRemoteDataSource = PetRemoteDataSource(
+    apiClient: _apiClient,
+  );
   // Not `final` so tests can replace it with a mock repository.
-  static PetRepository petRepository =
-      PetRepositoryImpl(remoteDataSource: _petRemoteDataSource);
+  static PetRepository petRepository = PetRepositoryImpl(
+    remoteDataSource: _petRemoteDataSource,
+  );
 
   static final GamificationRemoteDataSource _gamificationRemoteDataSource =
       GamificationRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static GamificationRepository gamificationRepository =
-      GamificationRepository(remoteDataSource: _gamificationRemoteDataSource);
+  static GamificationRepository gamificationRepository = GamificationRepository(
+    remoteDataSource: _gamificationRemoteDataSource,
+  );
 
   // Not `final` so tests can replace it with a mock repository.
   static MascotRepository mascotRepository = MascotRepositoryImpl(
@@ -66,40 +72,52 @@ class DI {
   );
 
   // Not `final` so tests can replace it with a mock repository.
-  static PetPreferencesRepository petPreferencesRepository = PetPreferencesRepository();
+  static PetPreferencesRepository petPreferencesRepository =
+      PetPreferencesRepository();
+
+  // Not `final` so tests can replace it with a mock repository.
+  static PetCompanionPreferencesRepository petCompanionPreferencesRepository =
+      PetCompanionPreferencesRepository();
 
   static final InvestmentRemoteDataSource _investmentRemoteDataSource =
       InvestmentRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static InvestmentRepository investmentRepository =
-      InvestmentRepository(remoteDataSource: _investmentRemoteDataSource);
+  static InvestmentRepository investmentRepository = InvestmentRepository(
+    remoteDataSource: _investmentRemoteDataSource,
+  );
 
   static final SettingsRemoteDataSource _settingsRemoteDataSource =
       SettingsRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static SettingsRepository settingsRepository =
-      SettingsRepository(remoteDataSource: _settingsRemoteDataSource);
+  static SettingsRepository settingsRepository = SettingsRepository(
+    remoteDataSource: _settingsRemoteDataSource,
+  );
 
   static final PortfolioRemoteDataSource _portfolioRemoteDataSource =
       PortfolioRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static PortfolioRepository portfolioRepository =
-      PortfolioRepository(remoteDataSource: _portfolioRemoteDataSource);
+  static PortfolioRepository portfolioRepository = PortfolioRepository(
+    remoteDataSource: _portfolioRemoteDataSource,
+  );
 
   // Not `final` so tests can replace it with a mock repository.
-  static AchievementsLocalRepository achievementsLocalRepository = AchievementsLocalRepository();
+  static AchievementsLocalRepository achievementsLocalRepository =
+      AchievementsLocalRepository();
 
   static final AchievementsRemoteDataSource _achievementsRemoteDataSource =
       AchievementsRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static AchievementsRepository achievementsRepository =
-      AchievementsRepository(remoteDataSource: _achievementsRemoteDataSource);
+  static AchievementsRepository achievementsRepository = AchievementsRepository(
+    remoteDataSource: _achievementsRemoteDataSource,
+  );
 
   // Not `final` so tests can replace it with a mock repository.
-  static AcademyProgressLocalRepository academyProgressRepository = AcademyProgressLocalRepository();
+  static AcademyProgressLocalRepository academyProgressRepository =
+      AcademyProgressLocalRepository();
 
   // Not `final` so tests can replace it with a mock datasource.
-  static AcademyRemoteDataSource academyRemoteDataSource = AcademyRemoteDataSource(apiClient: _apiClient);
+  static AcademyRemoteDataSource academyRemoteDataSource =
+      AcademyRemoteDataSource(apiClient: _apiClient);
 
   static final MentorRemoteDataSource _mentorRemoteDataSource =
       MentorRemoteDataSource(apiClient: _apiClient);
@@ -112,6 +130,7 @@ class DI {
   static final AssetDetailsRemoteDataSource _assetDetailsRemoteDataSource =
       AssetDetailsRemoteDataSource(apiClient: _apiClient);
   // Not `final` so tests can replace it with a mock repository.
-  static AssetDetailsRepository assetDetailsRepository =
-      AssetDetailsRepository(remoteDataSource: _assetDetailsRemoteDataSource);
+  static AssetDetailsRepository assetDetailsRepository = AssetDetailsRepository(
+    remoteDataSource: _assetDetailsRemoteDataSource,
+  );
 }

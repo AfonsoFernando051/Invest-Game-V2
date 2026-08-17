@@ -223,4 +223,26 @@ class AppStrings {
   static const String levelTierAnalyst = "levelTierAnalyst";
   static const String levelTierStrategist = "levelTierStrategist";
   static const String levelTierSpecialist = "levelTierSpecialist";
+
+  // Persistent pet companion — global header, speech bubble, interaction sheet
+  static const String companionHeaderTooltip = "companionHeaderTooltip";
+  static const String companionDismissTooltip = "companionDismissTooltip";
+  static const String companionInteractionTitle = "companionInteractionTitle";
+  static const String companionInteractionSubtitle = "companionInteractionSubtitle";
+  static const String companionInteractionLearn = "companionInteractionLearn";
+  static const String companionInteractionPortfolio = "companionInteractionPortfolio";
+  static const String companionInteractionProgress = "companionInteractionProgress";
+  static const String companionActionContinue = "companionActionContinue";
+  static const String companionActionViewPortfolio = "companionActionViewPortfolio";
+  static const String companionActionViewProgress = "companionActionViewProgress";
+  static const String companionHomeXpToNextLevel = "companionHomeXpToNextLevel";
+  static const String companionAcademyContinueLesson = "companionAcademyContinueLesson";
+  static const String companionPortfolioDiversified = "companionPortfolioDiversified";
+  static const String companionMentorNudge = "companionMentorNudge";
+  static const String companionProfileSummary = "companionProfileSummary";
+  static const String companionEventLessonCompleted = "companionEventLessonCompleted";
+  static const String companionEventXpGained = "companionEventXpGained";
+  static const String companionEventLevelUp = "companionEventLevelUp";
+  static const String companionEventAchievementUnlocked = "companionEventAchievementUnlocked";
+  static const String companionEventEvolved = "companionEventEvolved";
 }

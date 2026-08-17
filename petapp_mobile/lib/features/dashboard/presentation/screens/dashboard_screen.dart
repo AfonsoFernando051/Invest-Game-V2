@@ -26,6 +26,10 @@ import '../../../portfolio/presentation/screens/portfolio_screen.dart';
 import '../../../portfolio/presentation/widgets/achievement_celebration_overlay.dart';
 import '../../../portfolio/presentation/widgets/dividend_notifications_sheet.dart';
 import '../../../mentor/presentation/screens/mentor_screen.dart';
+import '../../../pet/presentation/companion/pet_companion_controller.dart';
+import '../../../pet/presentation/companion/pet_context.dart';
+import '../../../pet/presentation/companion/widgets/pet_companion_header.dart';
+import '../../../pet/presentation/companion/widgets/pet_speech_bubble.dart';
 import '../../../profile/presentation/screens/profile_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
@@ -43,6 +47,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // in-flight load — no duplicate fetches, no drift between tabs.
   late final MascotController _mascotController;
   late final PortfolioController _portfolioController;
+
+  // The persistent pet companion's speech-bubble/interaction state — one
+  // instance shared by every tab and by `ProfileScreen` (pushed with it),
+  // so there is a single message queue/cooldown ledger for the whole
+  // authenticated session (see `PetCompanionController` class doc).
+  late final PetCompanionController _companionController;
 
   // Newly-unlocked achievements awaiting their celebration overlay (see
   // `PortfolioController.newlyUnlocked`) — previously these unlocked
@@ -65,6 +75,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
     _mascotController = MascotController(repository: DI.mascotRepository);
+    _companionController = PetCompanionController(
+      mascotController: _mascotController,
+      preferencesRepository: DI.petCompanionPreferencesRepository,
+    );
     _portfolioController = PortfolioController(
       repository: DI.portfolioRepository,
       achievementsLocalRepository: DI.achievementsLocalRepository,
@@ -72,7 +86,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       gamificationRepository: DI.gamificationRepository,
       mascotController: _mascotController,
     );
-    _mascotController.loadProfile();
+    _initCompanionGreeting();
     _portfolioController.addListener(_onPortfolioChanged);
     _portfolioController.loadAll();
     // Loaded here (not just on first Proventos-tab visit) so the
@@ -88,19 +102,30 @@ class _DashboardScreenState extends State<DashboardScreen> {
     if (event is UserLeveledUpEvent) {
       GameSnack.showWithHaptic(
         context,
-        Translator.translate(AppStrings.levelUpAchieved, params: {'level': '${event.newLevel}'}),
+        Translator.translate(
+          AppStrings.levelUpAchieved,
+          params: {'level': '${event.newLevel}'},
+        ),
         isSuccess: true,
       );
     }
   }
 
+  Future<void> _initCompanionGreeting() async {
+    await _mascotController.loadProfile();
+    if (!mounted) return;
+    _companionController.enterContext(PetContext.home);
+  }
+
   Future<void> _loadOnboardingSignals() async {
-    final showReminder = await DI.onboardingStateRepository.shouldShowPortfolioReminder();
+    final showReminder = await DI.onboardingStateRepository
+        .shouldShowPortfolioReminder();
     if (showReminder) {
       // Recorded the moment we decide to show it, not on dismiss — so a
       // user who just navigates away without tapping anything still gets
       // the cooldown, instead of seeing it again next session.
-      final sessionCount = await DI.onboardingStateRepository.currentSessionCount();
+      final sessionCount = await DI.onboardingStateRepository
+          .currentSessionCount();
       await DI.onboardingStateRepository.markReminderShown(sessionCount);
     }
 
@@ -132,6 +157,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _eventSubscription?.cancel();
     _portfolioController.removeListener(_onPortfolioChanged);
     _portfolioController.dispose();
+    _companionController.dispose();
     _mascotController.dispose();
     super.dispose();
   }
@@ -152,25 +178,82 @@ class _DashboardScreenState extends State<DashboardScreen> {
   ];
 
   Widget _buildBackground({required Widget child}) {
-    return CosmicBackground(intensity: _tabIntensities[_selectedIndex], child: child);
+    return CosmicBackground(
+      intensity: _tabIntensities[_selectedIndex],
+      child: child,
+    );
   }
 
   // ── Page route helper ─────────────────────────────────────────────────────
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(
-            begin: const Offset(0, 0.04),
-            end: Offset.zero,
-          ).animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: const Duration(milliseconds: 350),
     );
+  }
+
+  // ── Persistent pet companion: route-aware context + destination routing ──
+  // (`docs/PROJECT_CONTEXT.md`'s Pet Companion section, `PetContext`'s doc
+  // comment on why this mirrors the 5 real tabs + Profile rather than a
+  // generic missions/goals set that doesn't exist in this app.)
+  PetContext _petContextForTabIndex(int index) => switch (index) {
+    0 => PetContext.home,
+    1 || 2 =>
+      PetContext
+          .portfolio, // Carteira / Proventos share the same companion voice
+    3 => PetContext.academy,
+    _ => PetContext.mentor,
+  };
+
+  void _onTabSelected(int index) {
+    HapticFeedback.selectionClick();
+    setState(() => _selectedIndex = index);
+    _companionController.enterContext(
+      _petContextForTabIndex(index),
+      data: index == 1 || index == 2
+          ? {'count': '${_portfolioController.holdings.length}'}
+          : const {},
+    );
+  }
+
+  /// Where "Learn" / "Portfolio" / "Progress" in [PetInteractionSheet], or a
+  /// speech-bubble action, actually take the user.
+  void _handleCompanionDestination(PetContext destination) {
+    switch (destination) {
+      case PetContext.academy:
+        _onTabSelected(3);
+      case PetContext.portfolio:
+        _onTabSelected(1);
+      case PetContext.mentor:
+        _onTabSelected(4);
+      case PetContext.home:
+        _onTabSelected(0);
+      case PetContext.profile:
+        _openProfile();
+    }
+  }
+
+  Future<void> _openProfile() async {
+    _companionController.dismiss();
+    _companionController.enterContext(PetContext.profile);
+    await Navigator.of(context).push(
+      _fadeRoute(ProfileScreen(companionController: _companionController)),
+    );
+    // Settings (reached via Profile) may have renamed the pet —
+    // reload so the AppBar/greeting reflect it immediately.
+    await _mascotController.loadProfile();
+    if (mounted) setState(() {});
   }
 
   // ── Logout ────────────────────────────────────────────────────────────────
@@ -217,13 +300,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           IconButton(
             icon: Icon(Icons.settings_outlined, color: tokens.textSecondary),
             tooltip: Translator.translate(AppStrings.profileTooltip),
-            onPressed: () async {
-              await Navigator.of(context).push(_fadeRoute(const ProfileScreen()));
-              // Settings (reached via Profile) may have renamed the pet —
-              // reload so the AppBar/greeting reflect it immediately.
-              await _mascotController.loadProfile();
-              if (mounted) setState(() {});
-            },
+            onPressed: _openProfile,
           ),
           IconButton(
             icon: const Icon(Icons.logout, color: AppColors.neonPurple),
@@ -249,6 +326,22 @@ class _DashboardScreenState extends State<DashboardScreen> {
               ),
             ),
           ),
+          Positioned(
+            top: 0,
+            left: 16,
+            right: 16,
+            child: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.only(top: kToolbarHeight + 6),
+                child: PetSpeechBubbleOverlay(
+                  controller: _companionController,
+                  onActionSelected: (action) =>
+                      _handleCompanionDestination(action.destination),
+                ),
+              ),
+            ),
+          ),
           if (_celebrating.isNotEmpty)
             AchievementCelebrationOverlay(
               achievements: _celebrating,
@@ -260,7 +353,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  // ── AppBar title — compact player HUD ────────────────────────────────────
+  // ── AppBar title — compact player HUD, anchored by the persistent pet
+  // companion (`docs/PROJECT_CONTEXT.md`'s Pet Companion section) ─────────
   Widget _buildAppBarTitle() {
     // Real level derived from the same accumulated XP that drives pet
     // evolution (`MascotController.profile.xp`), not a hardcoded number.
@@ -268,14 +362,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          padding: const EdgeInsets.all(4),
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            border: Border.all(color: AppColors.neonCyan.withValues(alpha: 0.7), width: 1.5),
-            color: context.colors.surface.withValues(alpha: context.isDarkMode ? 0.6 : 0.9),
-          ),
-          child: const Icon(Icons.person_outline, size: 18, color: AppColors.neonCyan),
+        PetCompanionHeader(
+          controller: _companionController,
+          onDestinationSelected: _handleCompanionDestination,
         ),
         const SizedBox(width: 8),
         Column(
@@ -284,16 +373,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Text(
               'Invest Game',
-              style: TextStyle(color: context.colors.textPrimary, fontWeight: FontWeight.bold, fontSize: 14),
+              style: TextStyle(
+                color: context.colors.textPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 14,
+              ),
             ),
             Text(
               _mascotController.profile.name?.isNotEmpty == true
                   ? Translator.translate(
                       AppStrings.appBarPlayerNamedGreeting,
-                      params: {'petName': _mascotController.profile.name!, 'level': '$level'},
+                      params: {
+                        'petName': _mascotController.profile.name!,
+                        'level': '$level',
+                      },
                     )
-                  : Translator.translate(AppStrings.appBarPlayerGenericGreeting, params: {'level': '$level'}),
-              style: TextStyle(color: context.colors.primary.withValues(alpha: 0.9), fontSize: 11),
+                  : Translator.translate(
+                      AppStrings.appBarPlayerGenericGreeting,
+                      params: {'level': '$level'},
+                    ),
+              style: TextStyle(
+                color: context.colors.primary.withValues(alpha: 0.9),
+                fontSize: 11,
+              ),
             ),
           ],
         ),
@@ -312,7 +414,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
       clipBehavior: Clip.none,
       children: [
         IconButton(
-          icon: Icon(Icons.notifications_outlined, color: context.colors.textSecondary),
+          icon: Icon(
+            Icons.notifications_outlined,
+            color: context.colors.textSecondary,
+          ),
           tooltip: Translator.translate(AppStrings.notificationsTooltip),
           onPressed: _openNotifications,
         ),
@@ -327,12 +432,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 decoration: BoxDecoration(
                   color: context.colors.error,
                   borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: context.colors.backgroundSecondary, width: 1.5),
+                  border: Border.all(
+                    color: context.colors.backgroundSecondary,
+                    width: 1.5,
+                  ),
                 ),
                 child: Text(
                   upcomingCount > 9 ? '9+' : '$upcomingCount',
                   textAlign: TextAlign.center,
-                  style: const TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 9,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ),
@@ -371,14 +483,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
       onOpenAcademyTab: () => setState(() => _selectedIndex = 3),
       onOpenPortfolioTab: () => setState(() => _selectedIndex = 1),
       showPortfolioReminder: _showPortfolioReminder,
-      onDismissPortfolioReminder: () => setState(() => _showPortfolioReminder = false),
+      onDismissPortfolioReminder: () =>
+          setState(() => _showPortfolioReminder = false),
       investorProfileUnanswered: _investorProfileUnanswered,
     );
   }
 
   // ── Wallet / Portfolio ───────────────────────────────────────────────────
   Widget _buildWalletContent() {
-    return PortfolioScreen(controller: _portfolioController, mascotController: _mascotController);
+    return PortfolioScreen(
+      controller: _portfolioController,
+      mascotController: _mascotController,
+    );
   }
 
   // ── Proventos / Passive Income ────────────────────────────────────────────
@@ -388,7 +504,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // ── Academia: module/lesson progression (see docs/ACADEMY_ENGINE.md) ────
   Widget _buildAcademyContent() {
-    return AcademyHomeScreen(mascotController: _mascotController);
+    return AcademyHomeScreen(
+      mascotController: _mascotController,
+      companionController: _companionController,
+    );
   }
 
   // ── Mentor: AI-powered chat with the pet acting as investment mentor ────
@@ -402,7 +521,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     final tokens = context.colors;
     return Center(
       child: GlassCard(
-        backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.6 : 0.94),
+        backgroundColor: tokens.surface.withValues(
+          alpha: context.isDarkMode ? 0.6 : 0.94,
+        ),
         borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
         borderRadius: 24,
         borderWidth: 1,
@@ -411,11 +532,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Icon(Icons.auto_graph, size: 64, color: AppColors.neonCyan.withValues(alpha: 0.6)),
+              Icon(
+                Icons.auto_graph,
+                size: 64,
+                color: AppColors.neonCyan.withValues(alpha: 0.6),
+              ),
               const SizedBox(height: 16),
               Text(
                 'Análise Estratégica',
-                style: TextStyle(color: tokens.textPrimary, fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  color: tokens.textPrimary,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -436,10 +565,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Container(
       decoration: BoxDecoration(
         color: tokens.backgroundSecondary,
-        border: Border(top: BorderSide(color: tokens.primary.withValues(alpha: 0.3), width: 1)),
+        border: Border(
+          top: BorderSide(
+            color: tokens.primary.withValues(alpha: 0.3),
+            width: 1,
+          ),
+        ),
         boxShadow: [
           BoxShadow(
-            color: tokens.primary.withValues(alpha: context.isDarkMode ? 0.12 : 0.08),
+            color: tokens.primary.withValues(
+              alpha: context.isDarkMode ? 0.12 : 0.08,
+            ),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -450,13 +586,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: tokens.primary,
         unselectedItemColor: tokens.textTertiary,
-        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 11),
+        selectedLabelStyle: const TextStyle(
+          fontWeight: FontWeight.w600,
+          fontSize: 11,
+        ),
         unselectedLabelStyle: const TextStyle(fontSize: 11),
         currentIndex: _selectedIndex,
-        onTap: (i) {
-          HapticFeedback.selectionClick();
-          setState(() => _selectedIndex = i);
-        },
+        onTap: _onTabSelected,
         items: [
           BottomNavigationBarItem(
             icon: const Padding(

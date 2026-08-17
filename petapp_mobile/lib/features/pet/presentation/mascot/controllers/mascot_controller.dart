@@ -152,6 +152,7 @@ class MascotController extends ChangeNotifier {
 
     final previousLevel = LevelCalculator.fromXp(_profile.xp).level;
     final newLevel = LevelCalculator.fromXp(userXp).level;
+    final xpDelta = userXp - _profile.xp;
 
     _profile = _profile.copyWith(
       stage: targetStage,
@@ -162,6 +163,9 @@ class MascotController extends ChangeNotifier {
 
     await _repository.saveNetWorth(currentNetWorth);
     await _repository.saveXp(userXp);
+    if (xpDelta > 0) {
+      _eventBus.emit(XpGainedEvent(amount: xpDelta, newTotalXp: userXp));
+    }
     if (didEvolve) {
       await _repository.saveStage(targetStage);
       triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));

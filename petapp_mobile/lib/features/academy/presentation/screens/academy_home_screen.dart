@@ -15,6 +15,8 @@ import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.
 import 'package:petrimonium/features/academy/presentation/screens/module_detail_screen.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/module_card.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
+import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
+import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 
 /// The "Academia" tab: current level, an unmissable "what's next" CTA, and
@@ -27,9 +29,17 @@ import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_
 /// individual lessons remain separately pushed screens (they need their own
 /// back navigation); only the top-level tab content lives here.
 class AcademyHomeScreen extends StatefulWidget {
-  const AcademyHomeScreen({super.key, required this.mascotController});
+  const AcademyHomeScreen({
+    super.key,
+    required this.mascotController,
+    required this.companionController,
+  });
 
   final MascotController mascotController;
+
+  /// Offers the "continue where you left off" companion nudge once the
+  /// next lesson is known — see `PetMessageCatalog._academyNudge`.
+  final PetCompanionController companionController;
 
   @override
   State<AcademyHomeScreen> createState() => _AcademyHomeScreenState();
@@ -37,6 +47,7 @@ class AcademyHomeScreen extends StatefulWidget {
 
 class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   late final AcademyController _controller;
+  bool _companionNotified = false;
 
   @override
   void initState() {
@@ -51,6 +62,21 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
 
   void _onChanged() {
     if (mounted) setState(() {});
+    _notifyCompanionOnce();
+  }
+
+  // Only offered once per screen lifetime — `PetCompanionController`'s own
+  // cooldown/priority rules decide whether it's actually shown; this just
+  // avoids re-evaluating on every rebuild the ChangeNotifier triggers.
+  void _notifyCompanionOnce() {
+    if (_companionNotified || _controller.isLoading) return;
+    final nextLesson = _controller.nextLesson;
+    if (nextLesson == null) return;
+    _companionNotified = true;
+    widget.companionController.enterContext(
+      PetContext.academy,
+      data: {'lessonTitle': nextLesson.title},
+    );
   }
 
   @override
@@ -63,14 +89,17 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
-              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: const Duration(milliseconds: 350),
     );
   }
@@ -78,7 +107,9 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   Future<void> _openLesson(Lesson lesson) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(LessonScreen(lesson: lesson, mascotController: widget.mascotController)),
+      _fadeRoute(
+        LessonScreen(lesson: lesson, mascotController: widget.mascotController),
+      ),
     );
     _controller.load();
   }
@@ -86,7 +117,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   Future<void> _openModule(AcademyModule module) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(ModuleDetailScreen(module: module, mascotController: widget.mascotController)),
+      _fadeRoute(
+        ModuleDetailScreen(
+          module: module,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _controller.load();
   }
@@ -128,7 +164,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
             ],
             Text(
               Translator.translate(AppStrings.academyModulesSectionLabel),
-              style: TextStyle(color: tokens.primary.withValues(alpha: 0.6), fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 2),
+              style: TextStyle(
+                color: tokens.primary.withValues(alpha: 0.6),
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+              ),
             ),
             const SizedBox(height: 10),
             for (final module in _controller.modules) ...[
@@ -162,9 +203,16 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: AppColors.neonCyan.withValues(alpha: 0.15),
-                border: Border.all(color: AppColors.neonCyan.withValues(alpha: 0.5), width: 1.5),
+                border: Border.all(
+                  color: AppColors.neonCyan.withValues(alpha: 0.5),
+                  width: 1.5,
+                ),
               ),
-              child: const Icon(Icons.school_outlined, color: AppColors.neonCyan, size: 24),
+              child: const Icon(
+                Icons.school_outlined,
+                color: AppColors.neonCyan,
+                size: 24,
+              ),
             ),
             const SizedBox(width: 14),
             Expanded(
@@ -172,8 +220,15 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    Translator.translate(AppStrings.academyLevelLabel, params: {'level': '$level'}),
-                    style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 16),
+                    Translator.translate(
+                      AppStrings.academyLevelLabel,
+                      params: {'level': '$level'},
+                    ),
+                    style: TextStyle(
+                      color: tokens.textPrimary,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
                   ),
                   const SizedBox(height: 2),
                   Text(
@@ -204,13 +259,28 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
           children: [
             Text(
               Translator.translate(AppStrings.academyContinueSectionLabel),
-              style: TextStyle(color: AppColors.goldenBorder, fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 2),
+              style: TextStyle(
+                color: AppColors.goldenBorder,
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
+              ),
             ),
             const SizedBox(height: 6),
-            Text(lesson.title, style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 17)),
+            Text(
+              lesson.title,
+              style: TextStyle(
+                color: tokens.textPrimary,
+                fontWeight: FontWeight.bold,
+                fontSize: 17,
+              ),
+            ),
             const SizedBox(height: 4),
             Text(
-              Translator.translate(AppStrings.academyXpToCompleteLabel, params: {'xp': '${lesson.xpReward}'}),
+              Translator.translate(
+                AppStrings.academyXpToCompleteLabel,
+                params: {'xp': '${lesson.xpReward}'},
+              ),
               style: TextStyle(color: tokens.textSecondary, fontSize: 12),
             ),
             const SizedBox(height: 14),

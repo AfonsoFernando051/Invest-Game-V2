@@ -187,6 +187,15 @@ the enum without dedicated evolution art yet.
 in the product lineup needs a product decision, see Ambiguities below), accessory/habitat unlocks wired to
 level milestones above.
 
+### Persistent companion (global header)
+
+Beyond the Home hero card (`LearningHeroCard`), a compact `PetCompanionHeader` avatar is present across every
+major authenticated screen (Home, Carteira, Proventos, Academia, Mentor, Perfil) via `DashboardScreen`'s
+shared AppBar, carrying one `PetCompanionController` for the whole session. Tapping it opens a lightweight
+`PetInteractionSheet` (Learn / Portfolio / Progress); route-aware and event-driven copy appears as a dismissible
+`PetSpeechBubbleOverlay`, never a full chat. See `ARCHITECTURE.md`'s Frontend Architecture section and
+`features/pet/presentation/companion/` for the implementation.
+
 ---
 
 # Missions
