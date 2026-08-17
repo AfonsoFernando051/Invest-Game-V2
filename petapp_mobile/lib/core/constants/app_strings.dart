@@ -180,11 +180,18 @@ class AppStrings {
   static const String academyModuleStatusCompleted = "academyModuleStatusCompleted";
   static const String academyModuleStatusInProgress = "academyModuleStatusInProgress";
   static const String academyModuleStatusAvailable = "academyModuleStatusAvailable";
+  static const String academyModuleStatusLocked = "academyModuleStatusLocked";
   static const String academyModuleStatusComingSoon = "academyModuleStatusComingSoon";
   static const String academyMicroExerciseLabel = "academyMicroExerciseLabel";
   static const String academyApplyLabel = "academyApplyLabel";
   static const String academyCorrectFeedbackTitle = "academyCorrectFeedbackTitle";
   static const String academyIncorrectFeedbackTitle = "academyIncorrectFeedbackTitle";
+
+  // Academy — School layer (journey view, mastery, Knowledge Progress)
+  static const String academySchoolsSectionLabel = "academySchoolsSectionLabel";
+  static const String academyMasterySectionLabel = "academyMasterySectionLabel";
+  static const String academyMasteryPercentLabel = "academyMasteryPercentLabel";
+  static const String academyKnowledgeLevelLabel = "academyKnowledgeLevelLabel";
 
   // Dashboard — AppBar / bottom navigation shell
   static const String appBarPlayerNamedGreeting = "appBarPlayerNamedGreeting";
@@ -224,6 +231,19 @@ class AppStrings {
   static const String levelTierStrategist = "levelTierStrategist";
   static const String levelTierSpecialist = "levelTierSpecialist";
 
+  // Knowledge Progress tiers — curriculum-completion track, deliberately
+  // distinct from the Game Level tiers above (docs/PRODUCT_VISION.md §9).
+  static const String knowledgeLevelAbsoluteBeginner = "knowledgeLevelAbsoluteBeginner";
+  static const String knowledgeLevelFinancialApprentice = "knowledgeLevelFinancialApprentice";
+  static const String knowledgeLevelFinancialOrganizer = "knowledgeLevelFinancialOrganizer";
+  static const String knowledgeLevelFinancialProtector = "knowledgeLevelFinancialProtector";
+  static const String knowledgeLevelBeginnerInvestor = "knowledgeLevelBeginnerInvestor";
+  static const String knowledgeLevelInvestor = "knowledgeLevelInvestor";
+  static const String knowledgeLevelAnalyst = "knowledgeLevelAnalyst";
+  static const String knowledgeLevelWealthBuilder = "knowledgeLevelWealthBuilder";
+  static const String knowledgeLevelFinancialStrategist = "knowledgeLevelFinancialStrategist";
+  static const String knowledgeLevelFinancialMaster = "knowledgeLevelFinancialMaster";
+
   // Persistent pet companion — global header, speech bubble, interaction sheet
   static const String companionHeaderTooltip = "companionHeaderTooltip";
   static const String companionDismissTooltip = "companionDismissTooltip";
@@ -245,4 +265,6 @@ class AppStrings {
   static const String companionEventLevelUp = "companionEventLevelUp";
   static const String companionEventAchievementUnlocked = "companionEventAchievementUnlocked";
   static const String companionEventEvolved = "companionEventEvolved";
+  static const String companionEventDifficultyDetected = "companionEventDifficultyDetected";
+  static const String companionEventSchoolMastered = "companionEventSchoolMastered";
 }

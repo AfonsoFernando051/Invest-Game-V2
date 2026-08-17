@@ -7,8 +7,16 @@ import 'package:petrimonium/features/academy/data/datasources/academy_remote_dat
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_animation_state.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
+
+/// How many recent wrong answers in one school trigger the pet's
+/// difficulty-detected nudge (see `AcademyProgressLocalRepository.recordMiss`
+/// and `PetMessageCatalog.difficultyDetected`) — matches the brief's own
+/// example ("you've missed two questions on this topic").
+const int kDifficultyDetectionThreshold = 2;
 
 /// Drives a single lesson play-through: current step, the learner's answer
 /// (if the step is a question), and completion. Self-owned by `LessonScreen`
@@ -66,7 +74,26 @@ class LessonSessionController extends ChangeNotifier {
     if (hasAnswered) return;
     selectedOptionIndex = index;
     hasAnswered = true;
+    final step = currentStep;
+    if (step is ChoiceQuestionStep && index != step.correctIndex) {
+      unawaited(_recordMiss());
+    }
     notifyListeners();
+  }
+
+  Future<void> _recordMiss() async {
+    final module = AcademyCatalog.moduleById(lesson.moduleId);
+    if (module == null) return;
+    final school = AcademyCatalog.schoolById(module.schoolId);
+    if (school == null) return;
+    final count = await _academyRepository.recordMiss(module.schoolId);
+    // Exact match, not `>=`: fires once per struggle streak — the counter
+    // only returns to a value below the threshold via `resetMisses` on the
+    // next lesson completed in this school, so this can't spam on every
+    // subsequent miss within the same streak.
+    if (count == kDifficultyDetectionThreshold) {
+      AppEventBus.instance.emit(DifficultyDetectedEvent(school.title));
+    }
   }
 
   Future<void> advance() async {
@@ -87,9 +114,29 @@ class LessonSessionController extends ChangeNotifier {
     isCompleting = true;
     notifyListeners();
 
+    final module = AcademyCatalog.moduleById(lesson.moduleId);
+    final school = module == null ? null : AcademyCatalog.schoolById(module.schoolId);
+    final wasSchoolAlreadyComplete = school == null
+        ? true
+        : AcademyProgressCalculator.schoolStatus(
+              school: school,
+              completedIds: await _academyRepository.loadCompletedLessonIds(),
+            ) ==
+            SchoolStatus.completed;
+
     await _academyRepository.markLessonCompleted(lesson.id);
+    if (module != null) await _academyRepository.resetMisses(module.schoolId);
     _mascotController.triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));
     AppEventBus.instance.emit(LessonCompletedEvent(lesson.id));
+
+    if (school != null && !wasSchoolAlreadyComplete) {
+      final nowComplete = AcademyProgressCalculator.schoolStatus(
+            school: school,
+            completedIds: await _academyRepository.loadCompletedLessonIds(),
+          ) ==
+          SchoolStatus.completed;
+      if (nowComplete) AppEventBus.instance.emit(SchoolMasteredEvent(school.title));
+    }
 
     isCompleting = false;
     isComplete = true;

@@ -93,13 +93,14 @@ class _ModuleChip extends StatelessWidget {
         ModuleStatus.completed => AppColors.goldenBorder,
         ModuleStatus.inProgress => AppColors.neonViolet,
         ModuleStatus.available => AppColors.neonCyan,
+        ModuleStatus.locked => Colors.transparent,
         ModuleStatus.comingSoon => Colors.transparent,
       };
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.colors;
-    final locked = status == ModuleStatus.comingSoon;
+    final locked = status == ModuleStatus.comingSoon || status == ModuleStatus.locked;
 
     return SizedBox(
       width: 84,

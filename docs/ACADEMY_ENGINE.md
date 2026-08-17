@@ -4,12 +4,17 @@
 
 ## Status
 
-Phase 0 slice implemented (client-only). Sections marked **Phase 3+** below are design intent, not yet built.
-In `ROADMAP.md`'s staging: Phase 0 ≈ **MVP V2**, Phase 3+ ≈ **Beta or later**.
+Phase 0 slice implemented (client-only), then expanded with a **School layer, Knowledge Progress track, and a
+new "Financial Life" school** by explicit user direction — see `DECISIONS.md` DECISION-018 for why this is a
+deliberate departure from the Phase-0-only scope this document originally settled on. Sections marked
+**Phase 3+** below are still design intent, not yet built. In `ROADMAP.md`'s staging: Phase 0 ≈ **MVP V2**,
+Phase 3+ ≈ **Beta or later**.
 
 The Academy is the primary product engine under the V2 direction — see `PRODUCT_VISION.md` §4 ("Learning is
 primary"). Where this document refers to "the brief," that was the original feature request that shaped this
-design; `PRODUCT_VISION.md` is now the authoritative product spec this document must stay consistent with.
+design; `PRODUCT_VISION.md` is now the authoritative product spec this document must stay consistent with. A
+second, larger brief (requesting a full 19-school academy with competency tracking and prerequisites) is
+referred to below as "the 2026 brief" — see DECISION-018 for the full context.
 
 ---
 
@@ -125,6 +130,50 @@ Progress is derived, not stored as a separate aggregate: `AcademyProgressCalcula
 `Set<String> completedLessonIds` (persisted). This mirrors `MissionCatalog.evaluate()` — a pure function over a fixed
 catalog and live state, not a stored derived value that can drift.
 
+## 3b. School Layer, Knowledge Progress & "Financial Life" (implemented — DECISION-018)
+
+Added on top of the Phase 0 domain model above, additively — no existing module/lesson id, XP value, or
+content changed.
+
+```
+School
+  id, title, description, icon, order, prerequisites, contentAvailable
+
+AcademyModule (+2 fields)
+  ...(unchanged)..., schoolId, prerequisites
+```
+
+- **19 schools**, matching the 2026 brief's full curriculum naming, in `AcademyCatalog.schools`. Two are real
+  today: School 1 "Financial Life" (new — see below) and School 3 "Investment Fundamentals" (the pre-existing
+  `investor_foundations` module, reparented under a school but otherwise byte-identical). The other 17 —
+  including 6 that reuse the module ids that already existed as placeholders (`fixed_income`, `stocks`, etc.,
+  each reparented to its matching school) — are `contentAvailable: false` journey nodes with no lessons, same
+  "visible without shipping unwritten content" philosophy as Phase 0's module list.
+- **School 1 "Financial Life" → Module 1 "Money Fundamentals"**: 10 lessons (What Is Money?, Income and
+  Expenses, Needs vs. Wants, Organizing Your Money, What Is a Budget?, Building Your First Budget, Conscious
+  Consumption, Financial Goals, Emergency Funds, Review), same 5-step pattern and no-punishment rules as Phase
+  0's content, in `services/catalog/financial_life_catalog.dart` — new schools' content lives in its own file
+  under `catalog/` rather than growing `academy_catalog.dart` further as the curriculum scales.
+- **Competency/mastery** (2026 brief's term) is modeled as **per-school completion percent**
+  (`KnowledgeProgressCalculator.percentForSchool`) rather than a second taxonomy — a school already is a
+  competency grouping.
+- **Knowledge Progress** (`KnowledgeLevel`, 10 named tiers, `KnowledgeProgressCalculator`) finally implements
+  `PRODUCT_VISION.md` §9's Knowledge Progress vs. Game Level split, which was documented but never built before
+  this. Derived from curriculum completion across `contentAvailable` content only — never from XP — and
+  rendered as a visually separate row from Game Level on the Academy home header, never merged into one number.
+- **Prerequisites** (`AcademyModule.prerequisites`/`School.prerequisites`, both lists of ids) extend
+  `AcademyProgressCalculator` with a `locked` status, checked before a module/school with real content is ever
+  offered as available. Additive-only by construction: nothing shipped with prerequisites today, so no
+  previously-reachable content regresses to locked.
+- **Pet**: two new event-triggered messages, `PetMessageCatalog.difficultyDetected` (fires once a
+  learner hits `kDifficultyDetectionThreshold` recent wrong answers in one school — tracked by
+  `AcademyProgressLocalRepository.recordMiss`/`resetMisses`, a lightweight per-school counter, not a mistake
+  history) and `.schoolMastered` (fires when a lesson completion brings every currently-available module of its
+  school to 100%). Both follow the existing `AppEvent`/`AppEventBus` pattern — no new coupling between the pet
+  and Academy features.
+- **No backend changes.** School/module ids and prerequisites are a client-side content-organization layer
+  only; `LearningController` still only ever sees individual lesson-completion calls.
+
 ## 4. Gamification Integration
 
 Lesson completion persists the lesson id via `AcademyProgressLocalRepository` (identical shape to
@@ -166,16 +215,23 @@ petapp_mobile/lib/features/academy/
     entities/academy_module.dart
     entities/lesson.dart
     entities/lesson_step.dart
+    entities/school.dart                          # School layer
+    entities/knowledge_level.dart                  # Knowledge Progress
     services/academy_catalog.dart
     services/academy_progress_calculator.dart
+    services/knowledge_progress_calculator.dart    # Knowledge Progress
+    services/catalog/financial_life_catalog.dart   # School 1 content
   data/
     repositories/academy_progress_local_repository.dart
   presentation/
     controllers/academy_controller.dart
     controllers/lesson_session_controller.dart
     screens/academy_home_screen.dart
+    screens/school_detail_screen.dart              # School layer
     screens/module_detail_screen.dart
     screens/lesson_screen.dart
+    widgets/school_card.dart                       # School layer
+    widgets/mastery_bar_row.dart                   # School layer
     widgets/module_card.dart
     widgets/lesson_list_tile.dart
     widgets/academy_progress_bar.dart
@@ -188,7 +244,8 @@ petapp_mobile/lib/features/academy/
 petapp_mobile/lib/core/services/total_xp_calculator.dart
 ```
 
-No new top-level pattern; mirrors `features/portfolio/` and `features/mentor/` exactly.
+No new top-level pattern; mirrors `features/portfolio/` and `features/mentor/` exactly. The School layer
+follows the same `data → domain → presentation` shape, just one level higher than Module.
 
 ## 7. Phase 3+ (explicitly deferred — design intent only)
 
@@ -199,8 +256,13 @@ yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, meas
   (`education_modules`, `education_lessons`, `user_lesson_progress`), once local-only achievements/missions
   themselves make that same migration (`MARKET_EVENTS_ENGINE.md` §6 already earmarks this as "the single
   highest-value, lowest-risk first migration" for achievements — Academy should follow, not lead, that move).
-- **Remaining 6 modules' real content** (Fixed Income → Advanced), written and reviewed incrementally, module by
-  module, validated against real user engagement with Module 1 first.
+- **Remaining 17 schools' real content**, written and reviewed incrementally, one school/module at a time,
+  validated against real user engagement with "Financial Life"/"Investment Fundamentals" first.
+- **Full Question-entity metadata** (the 2026 brief's ~20 fields: sub-competency, review date, source,
+  version, 10 question types beyond multiple-choice) — no real content velocity yet to justify it; the sealed
+  `LessonStep` can grow one type at a time when a specific lesson actually needs it.
+- **Backend School/prerequisite/competency schema** — School/module organization stays a client-side-only
+  concept until learning progress itself migrates to backend-authoritative (see the item above this list).
 - **Practical market challenges** (brief §7): a `PracticalChallenge` entity referencing a real ticker/ratio, reward
   wired through the same `TotalXpCalculator`, gated on the asset-details screen already having the indicator data
   (`IndicatorEducationCatalog`) — the natural next integration once Module 4 (Fundamental Analysis) has real content.

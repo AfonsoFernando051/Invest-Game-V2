@@ -170,6 +170,33 @@ class PetMessageCatalog {
     );
   }
 
+  /// Never punitive — same encouraging, "let's look at this together" tone
+  /// as a wrong-answer explanation inside a lesson, just offered a level up:
+  /// a pattern across recent answers, not a single mistake.
+  static PetMessage difficultyDetected(String schoolTitle) {
+    return PetMessage(
+      id: 'event_difficulty_detected_$schoolTitle',
+      context: PetContext.academy,
+      priority: PetMessagePriority.normal,
+      trigger: PetMessageTrigger.difficultyDetected,
+      textKey: AppStrings.companionEventDifficultyDetected,
+      params: {'school': schoolTitle},
+      mood: PetAnimationState.think,
+    );
+  }
+
+  static PetMessage schoolMastered(String schoolTitle) {
+    return PetMessage(
+      id: 'event_school_mastered_$schoolTitle',
+      context: PetContext.academy,
+      priority: PetMessagePriority.high,
+      trigger: PetMessageTrigger.schoolMastered,
+      textKey: AppStrings.companionEventSchoolMastered,
+      params: {'school': schoolTitle},
+      mood: PetAnimationState.victory,
+    );
+  }
+
   static PetMessage evolved(PetEvolutionStage newStage) {
     return PetMessage(
       id: 'event_evolved',

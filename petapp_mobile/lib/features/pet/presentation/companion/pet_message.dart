@@ -19,6 +19,8 @@ enum PetMessageTrigger {
   levelUp,
   achievementUnlocked,
   evolved,
+  difficultyDetected,
+  schoolMastered,
 }
 
 /// An optional call-to-action attached to a [PetMessage] — e.g. "Continue

@@ -110,7 +110,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void _tapModuleChip(AcademyModule module) {
-    if (_academyController.statusFor(module) == ModuleStatus.comingSoon) return;
+    final status = _academyController.statusFor(module);
+    if (status == ModuleStatus.comingSoon || status == ModuleStatus.locked) return;
     _openModule(module);
   }
 

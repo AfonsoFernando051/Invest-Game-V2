@@ -171,9 +171,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // CosmicBackground pushed as a separate route (see LessonScreen).
   static const List<BackgroundIntensity> _tabIntensities = [
     BackgroundIntensity.immersive, // Home
+    BackgroundIntensity.subtle, // Academia
     BackgroundIntensity.balanced, // Carteira / Portfolio
     BackgroundIntensity.balanced, // Proventos / Passive income
-    BackgroundIntensity.subtle, // Academia
     BackgroundIntensity.mentor, // Mentor
   ];
 
@@ -209,10 +209,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   // generic missions/goals set that doesn't exist in this app.)
   PetContext _petContextForTabIndex(int index) => switch (index) {
     0 => PetContext.home,
-    1 || 2 =>
+    1 => PetContext.academy,
+    2 || 3 =>
       PetContext
           .portfolio, // Carteira / Proventos share the same companion voice
-    3 => PetContext.academy,
     _ => PetContext.mentor,
   };
 
@@ -221,7 +221,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     setState(() => _selectedIndex = index);
     _companionController.enterContext(
       _petContextForTabIndex(index),
-      data: index == 1 || index == 2
+      data: index == 2 || index == 3
           ? {'count': '${_portfolioController.holdings.length}'}
           : const {},
     );
@@ -232,9 +232,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _handleCompanionDestination(PetContext destination) {
     switch (destination) {
       case PetContext.academy:
-        _onTabSelected(3);
-      case PetContext.portfolio:
         _onTabSelected(1);
+      case PetContext.portfolio:
+        _onTabSelected(2);
       case PetContext.mentor:
         _onTabSelected(4);
       case PetContext.home:
@@ -318,9 +318,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 index: _selectedIndex,
                 children: [
                   _buildHomeContent(),
+                  _buildAcademyContent(),
                   _buildWalletContent(),
                   _buildPassiveIncomeContent(),
-                  _buildAcademyContent(),
                   _buildMentorContent(),
                 ],
               ),
@@ -480,8 +480,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return HomeScreen(
       portfolioController: _portfolioController,
       mascotController: _mascotController,
-      onOpenAcademyTab: () => setState(() => _selectedIndex = 3),
-      onOpenPortfolioTab: () => setState(() => _selectedIndex = 1),
+      onOpenAcademyTab: () => setState(() => _selectedIndex = 1),
+      onOpenPortfolioTab: () => setState(() => _selectedIndex = 2),
       showPortfolioReminder: _showPortfolioReminder,
       onDismissPortfolioReminder: () =>
           setState(() => _showPortfolioReminder = false),
@@ -606,6 +606,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
             label: Translator.translate(AppStrings.navHome),
           ),
           BottomNavigationBarItem(
+            icon: const Icon(Icons.school_outlined),
+            activeIcon: const Icon(Icons.school),
+            label: Translator.translate(AppStrings.navAcademy),
+          ),
+          BottomNavigationBarItem(
             icon: const Icon(Icons.diamond_outlined),
             activeIcon: const Icon(Icons.diamond),
             label: Translator.translate(AppStrings.navWallet),
@@ -614,11 +619,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             icon: const Icon(Icons.payments_outlined),
             activeIcon: const Icon(Icons.payments),
             label: Translator.translate(AppStrings.navPassiveIncome),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.school_outlined),
-            activeIcon: const Icon(Icons.school),
-            label: Translator.translate(AppStrings.navAcademy),
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.auto_awesome_outlined),

@@ -4,48 +4,46 @@ import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
-import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
+import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_progress_bar.dart';
 
-class ModuleCard extends StatelessWidget {
-  const ModuleCard({
+/// A school-level journey node — the Academy home's top-level list item, one
+/// visual step up from [ModuleCard]. Same visual language and status
+/// treatment (lock/progress/reward states), applied to a [SchoolStatus]
+/// instead of a [ModuleStatus].
+class SchoolCard extends StatelessWidget {
+  const SchoolCard({
     super.key,
-    required this.module,
+    required this.school,
     required this.status,
-    required this.completedLessons,
+    required this.masteryPercent,
     required this.onTap,
   });
 
-  final AcademyModule module;
-  final ModuleStatus status;
-  final int completedLessons;
+  final School school;
+  final SchoolStatus status;
+  final double masteryPercent;
   final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.colors;
-    final isLocked = status == ModuleStatus.comingSoon || status == ModuleStatus.locked;
-    final totalLessons = module.lessonIds.length;
-    final progress = totalLessons == 0 ? 0.0 : completedLessons / totalLessons;
+    final isLocked = status == SchoolStatus.comingSoon || status == SchoolStatus.locked;
 
-    // `inProgress` (the user's "current step") gets the brand purple
-    // treatment so it's visually dominant against merely-`available`
-    // modules, which stay a quieter cyan — otherwise the two states looked
-    // identical apart from a text label.
     final accentColor = switch (status) {
-      ModuleStatus.completed => tokens.success,
-      ModuleStatus.inProgress => AppColors.neonPurple,
-      ModuleStatus.available => AppColors.neonCyan,
-      ModuleStatus.locked => tokens.textTertiary,
-      ModuleStatus.comingSoon => tokens.textTertiary,
+      SchoolStatus.completed => tokens.success,
+      SchoolStatus.inProgress => AppColors.neonPurple,
+      SchoolStatus.available => AppColors.neonCyan,
+      SchoolStatus.locked => tokens.textTertiary,
+      SchoolStatus.comingSoon => tokens.textTertiary,
     };
     final cardSurface = switch (status) {
-      ModuleStatus.completed => CardSurface.reward,
-      ModuleStatus.inProgress => CardSurface.active,
-      ModuleStatus.available => CardSurface.standard,
-      ModuleStatus.locked => CardSurface.disabled,
-      ModuleStatus.comingSoon => CardSurface.disabled,
+      SchoolStatus.completed => CardSurface.reward,
+      SchoolStatus.inProgress => CardSurface.active,
+      SchoolStatus.available => CardSurface.standard,
+      SchoolStatus.locked => CardSurface.disabled,
+      SchoolStatus.comingSoon => CardSurface.disabled,
     };
 
     return Opacity(
@@ -74,7 +72,7 @@ class ModuleCard extends StatelessWidget {
                           color: accentColor.withValues(alpha: 0.15),
                           borderRadius: BorderRadius.circular(14),
                         ),
-                        child: Icon(isLocked ? Icons.lock_outline : module.icon, color: accentColor, size: 22),
+                        child: Icon(isLocked ? Icons.lock_outline : school.icon, color: accentColor, size: 22),
                       ),
                       const SizedBox(width: 12),
                       Expanded(
@@ -82,7 +80,7 @@ class ModuleCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              module.title,
+                              school.title,
                               style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 15),
                             ),
                             const SizedBox(height: 2),
@@ -97,19 +95,19 @@ class ModuleCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   Text(
-                    module.description,
+                    school.description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: tokens.textSecondary, fontSize: 12, height: 1.35),
                   ),
                   if (!isLocked) ...[
                     const SizedBox(height: 12),
-                    AcademyProgressBar(progress: progress),
+                    AcademyProgressBar(progress: masteryPercent),
                     const SizedBox(height: 6),
                     Text(
                       Translator.translate(
-                        AppStrings.academyLessonsProgressLabel,
-                        params: {'completed': '$completedLessons', 'total': '$totalLessons'},
+                        AppStrings.academyMasteryPercentLabel,
+                        params: {'percent': '${(masteryPercent * 100).round()}'},
                       ),
                       style: TextStyle(color: tokens.textTertiary, fontSize: 11),
                     ),
@@ -123,13 +121,13 @@ class ModuleCard extends StatelessWidget {
     );
   }
 
-  String _statusLabel(ModuleStatus status) {
+  String _statusLabel(SchoolStatus status) {
     return switch (status) {
-      ModuleStatus.completed => Translator.translate(AppStrings.academyModuleStatusCompleted),
-      ModuleStatus.inProgress => Translator.translate(AppStrings.academyModuleStatusInProgress),
-      ModuleStatus.available => Translator.translate(AppStrings.academyModuleStatusAvailable),
-      ModuleStatus.locked => Translator.translate(AppStrings.academyModuleStatusLocked),
-      ModuleStatus.comingSoon => Translator.translate(AppStrings.academyModuleStatusComingSoon),
+      SchoolStatus.completed => Translator.translate(AppStrings.academyModuleStatusCompleted),
+      SchoolStatus.inProgress => Translator.translate(AppStrings.academyModuleStatusInProgress),
+      SchoolStatus.available => Translator.translate(AppStrings.academyModuleStatusAvailable),
+      SchoolStatus.locked => Translator.translate(AppStrings.academyModuleStatusLocked),
+      SchoolStatus.comingSoon => Translator.translate(AppStrings.academyModuleStatusComingSoon),
     };
   }
 }

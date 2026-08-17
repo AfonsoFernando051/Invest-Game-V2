@@ -83,6 +83,10 @@ class PetCompanionController extends ChangeNotifier {
       AchievementUnlockedEvent(:final achievement) =>
         PetMessageCatalog.achievementUnlocked(achievement.title),
       PetEvolvedEvent(:final newStage) => PetMessageCatalog.evolved(newStage),
+      DifficultyDetectedEvent(:final schoolTitle) =>
+        PetMessageCatalog.difficultyDetected(schoolTitle),
+      SchoolMasteredEvent(:final schoolTitle) =>
+        PetMessageCatalog.schoolMastered(schoolTitle),
     };
     _offer(message, bypassCooldown: true);
   }

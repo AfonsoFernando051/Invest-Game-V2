@@ -29,10 +29,12 @@ Grow) end to end, so it can be validated with real users.
 - Foundations curriculum (Level 1 of `ACADEMY_ENGINE.md`'s knowledge roadmap).
 - Interactive lessons: explanation, example, micro-exercise, applied scenario, summary.
 - Quizzes with encouraging, non-punitive feedback.
-- Lesson/module progress tracking.
+- Lesson/module/school progress tracking, with a Knowledge Progress track separate from Game Level.
 
-**Status:** delivered as a Phase 0 slice — one fully authored module ("Fundamentos do Investidor"), remaining
-curriculum as "coming soon" placeholders. See `ACADEMY_ENGINE.md`.
+**Status:** expanded beyond the original Phase 0 slice by explicit user direction (`DECISIONS.md`
+DECISION-018) — a `School` layer now groups modules into the brief's full 19-school journey; School 1
+("Financial Life," 10 new lessons) and School 3 ("Investment Fundamentals," the pre-existing "Fundamentos do
+Investidor" module) are real, the other 17 schools are "coming soon" placeholders. See `ACADEMY_ENGINE.md`.
 
 ### Gamification
 - XP tied to learning and practice actions (see `FEATURES.md`'s XP table).

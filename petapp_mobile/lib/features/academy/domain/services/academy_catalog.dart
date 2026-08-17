@@ -3,10 +3,15 @@ import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
+import 'package:petrimonium/features/academy/domain/entities/school.dart';
+import 'package:petrimonium/features/academy/domain/services/catalog/financial_life_catalog.dart';
 
-/// The fixed Academy curriculum: modules and their lessons, as static data —
-/// not hardcoded into any screen or widget. Mirrors the `AchievementCatalog`
-/// pattern: a plain catalog-of-defs, queried by id.
+/// The fixed Academy curriculum: schools, modules and their lessons, as
+/// static data — not hardcoded into any screen or widget. Mirrors the
+/// `AchievementCatalog` pattern: a plain catalog-of-defs, queried by id.
+/// `School` groups related `AcademyModule`s (see `docs/ACADEMY_ENGINE.md`'s
+/// School-layer section); modules and lessons keep their own ids untouched
+/// by that addition.
 ///
 /// pt-BR is the default and only content available if no language override
 /// applies; `Translator.currentLanguage` (set only via Settings, never
@@ -14,28 +19,44 @@ import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
 /// is used, mirroring `Translator._localizedValues`'s own per-language map
 /// shape. Curriculum text lives here — colocated with its catalog, like
 /// `AchievementCatalog` — rather than in the shared `AppStrings`/
-/// `Translator` files, which are reserved for generic UI chrome.
+/// `Translator` files, which are reserved for generic UI chrome. Newer
+/// schools' content (starting with `financial_life`) lives in its own file
+/// under `services/catalog/` rather than growing this file further — see
+/// `FinancialLifeCatalog`.
 ///
-/// Only `investor_foundations` has real lessons today (Phase 0 — see
-/// `docs/ACADEMY_ENGINE.md`). The remaining modules are declared with
-/// `contentAvailable: false` so the full curriculum shape (and progression
-/// system) is visible without shipping unwritten/unvalidated content.
+/// Only `financial_life` (new) and `investment_fundamentals` (the
+/// pre-existing `investor_foundations` module) have real lessons today. The
+/// remaining schools/modules are declared with `contentAvailable: false` so
+/// the full curriculum shape (and progression system) is visible without
+/// shipping unwritten/unvalidated content.
 class AcademyCatalog {
   const AcademyCatalog._();
 
   static List<AcademyModule> get modules {
     return switch (Translator.currentLanguage) {
-      'en' => _modulesEn,
-      'es' => _modulesEs,
-      _ => _modulesPt,
+      'en' => [..._modulesEn, ...FinancialLifeCatalog.modulesEn],
+      'es' => [..._modulesEs, ...FinancialLifeCatalog.modulesEs],
+      _ => [..._modulesPt, ...FinancialLifeCatalog.modulesPt],
     };
   }
 
   static List<Lesson> get _lessons {
     return switch (Translator.currentLanguage) {
-      'en' => _lessonsEn,
-      'es' => _lessonsEs,
-      _ => _lessonsPt,
+      'en' => [..._lessonsEn, ...FinancialLifeCatalog.lessonsEn],
+      'es' => [..._lessonsEs, ...FinancialLifeCatalog.lessonsEs],
+      _ => [..._lessonsPt, ...FinancialLifeCatalog.lessonsPt],
+    };
+  }
+
+  /// The full School journey, in curriculum order — real schools alongside
+  /// `contentAvailable: false` placeholders, so the full 19-school shape is
+  /// visible without shipping unwritten content (same philosophy as
+  /// `modules`).
+  static List<School> get schools {
+    return switch (Translator.currentLanguage) {
+      'en' => _schoolsEn,
+      'es' => _schoolsEs,
+      _ => _schoolsPt,
     };
   }
 
@@ -53,8 +74,21 @@ class AcademyCatalog {
     return null;
   }
 
+  static School? schoolById(String id) {
+    for (final school in schools) {
+      if (school.id == id) return school;
+    }
+    return null;
+  }
+
   static List<Lesson> lessonsForModule(String moduleId) {
     final result = _lessons.where((l) => l.moduleId == moduleId).toList();
+    result.sort((a, b) => a.order.compareTo(b.order));
+    return result;
+  }
+
+  static List<AcademyModule> modulesForSchool(String schoolId) {
+    final result = modules.where((m) => m.schoolId == schoolId).toList();
     result.sort((a, b) => a.order.compareTo(b.order));
     return result;
   }
@@ -64,7 +98,8 @@ class AcademyCatalog {
   /// XP rewards are language-independent, so this reads from the pt table
   /// regardless of the active language.
   static int xpEarnedFor(Set<String> completedLessonIds) {
-    return _lessonsPt.where((l) => completedLessonIds.contains(l.id)).fold(0, (sum, l) => sum + l.xpReward);
+    final allLessonsPt = [..._lessonsPt, ...FinancialLifeCatalog.lessonsPt];
+    return allLessonsPt.where((l) => completedLessonIds.contains(l.id)).fold(0, (sum, l) => sum + l.xpReward);
   }
 
   // ── Modules ────────────────────────────────────────────────────────────
@@ -72,6 +107,7 @@ class AcademyCatalog {
   static const List<AcademyModule> _modulesPt = [
     AcademyModule(
       id: 'investor_foundations',
+      schoolId: 'investment_fundamentals',
       title: 'Fundamentos do Investidor',
       description: 'A linguagem básica de investir: poupar x investir, patrimônio, inflação, juros compostos, risco e diversificação.',
       icon: Icons.rocket_launch_outlined,
@@ -88,51 +124,58 @@ class AcademyCatalog {
     ),
     AcademyModule(
       id: 'fixed_income',
+      schoolId: 'fixed_income',
       title: 'Renda Fixa',
       description: 'Como funcionam CDBs, Tesouro Direto, LCI/LCA e os conceitos de liquidez, prazo e risco de crédito.',
       icon: Icons.shield_outlined,
-      order: 2,
+      order: 1,
     ),
     AcademyModule(
       id: 'stocks',
+      schoolId: 'equities',
       title: 'Ações e Renda Variável',
       description: 'O que significa ser sócio de uma empresa: preço, valor de mercado, lucro, dividendos e volatilidade.',
       icon: Icons.trending_up,
-      order: 3,
+      order: 1,
     ),
     AcademyModule(
       id: 'fundamental_analysis',
+      schoolId: 'fundamental_analysis',
       title: 'Análise Fundamentalista',
       description: 'P/L, P/VP, ROE, margens e endividamento — ferramentas para investigar uma empresa, não sinais de compra.',
       icon: Icons.analytics_outlined,
-      order: 4,
+      order: 1,
     ),
     AcademyModule(
       id: 'etfs',
+      schoolId: 'funds_etfs_fiis',
       title: 'ETFs e Diversificação',
       description: 'Exposição a dezenas de empresas de uma vez: como funcionam os fundos de índice.',
       icon: Icons.pie_chart_outline,
-      order: 5,
+      order: 1,
     ),
     AcademyModule(
       id: 'crypto',
+      schoolId: 'crypto_assets',
       title: 'Criptoativos',
       description: 'Bitcoin, blockchain e os riscos específicos de custódia e volatilidade — com responsabilidade.',
       icon: Icons.currency_bitcoin,
-      order: 6,
+      order: 1,
     ),
     AcademyModule(
       id: 'portfolio_construction',
+      schoolId: 'portfolio_wealth_management',
       title: 'Monte sua Carteira',
       description: 'Perfil de risco, horizonte de tempo e alocação entre renda fixa, ações e ETFs.',
       icon: Icons.dashboard_customize_outlined,
-      order: 7,
+      order: 1,
     ),
   ];
 
   static const List<AcademyModule> _modulesEn = [
     AcademyModule(
       id: 'investor_foundations',
+      schoolId: 'investment_fundamentals',
       title: 'Investor Foundations',
       description: 'The basic language of investing: saving vs. investing, net worth, inflation, compound interest, risk and diversification.',
       icon: Icons.rocket_launch_outlined,
@@ -149,51 +192,58 @@ class AcademyCatalog {
     ),
     AcademyModule(
       id: 'fixed_income',
+      schoolId: 'fixed_income',
       title: 'Fixed Income',
       description: 'How CDBs, Treasury bonds and LCI/LCA work, and the concepts of liquidity, term and credit risk.',
       icon: Icons.shield_outlined,
-      order: 2,
+      order: 1,
     ),
     AcademyModule(
       id: 'stocks',
+      schoolId: 'equities',
       title: 'Stocks & Variable Income',
       description: "What it means to be a part-owner of a company: price, market value, profit, dividends and volatility.",
       icon: Icons.trending_up,
-      order: 3,
+      order: 1,
     ),
     AcademyModule(
       id: 'fundamental_analysis',
+      schoolId: 'fundamental_analysis',
       title: 'Fundamental Analysis',
       description: 'P/E, P/B, ROE, margins and debt — tools for investigating a company, not buy signals.',
       icon: Icons.analytics_outlined,
-      order: 4,
+      order: 1,
     ),
     AcademyModule(
       id: 'etfs',
+      schoolId: 'funds_etfs_fiis',
       title: 'ETFs & Diversification',
       description: 'Exposure to dozens of companies at once: how index funds work.',
       icon: Icons.pie_chart_outline,
-      order: 5,
+      order: 1,
     ),
     AcademyModule(
       id: 'crypto',
+      schoolId: 'crypto_assets',
       title: 'Crypto Assets',
       description: 'Bitcoin, blockchain, and the specific risks of custody and volatility — responsibly explained.',
       icon: Icons.currency_bitcoin,
-      order: 6,
+      order: 1,
     ),
     AcademyModule(
       id: 'portfolio_construction',
+      schoolId: 'portfolio_wealth_management',
       title: 'Build Your Portfolio',
       description: 'Risk profile, time horizon and allocation across fixed income, stocks and ETFs.',
       icon: Icons.dashboard_customize_outlined,
-      order: 7,
+      order: 1,
     ),
   ];
 
   static const List<AcademyModule> _modulesEs = [
     AcademyModule(
       id: 'investor_foundations',
+      schoolId: 'investment_fundamentals',
       title: 'Fundamentos del Inversor',
       description: 'El lenguaje básico de invertir: ahorrar vs. invertir, patrimonio, inflación, interés compuesto, riesgo y diversificación.',
       icon: Icons.rocket_launch_outlined,
@@ -210,45 +260,454 @@ class AcademyCatalog {
     ),
     AcademyModule(
       id: 'fixed_income',
+      schoolId: 'fixed_income',
       title: 'Renta Fija',
       description: 'Cómo funcionan los CDB, el Tesoro Directo, LCI/LCA y los conceptos de liquidez, plazo y riesgo de crédito.',
       icon: Icons.shield_outlined,
-      order: 2,
+      order: 1,
     ),
     AcademyModule(
       id: 'stocks',
+      schoolId: 'equities',
       title: 'Acciones y Renta Variable',
       description: 'Qué significa ser socio de una empresa: precio, valor de mercado, ganancias, dividendos y volatilidad.',
       icon: Icons.trending_up,
-      order: 3,
+      order: 1,
     ),
     AcademyModule(
       id: 'fundamental_analysis',
+      schoolId: 'fundamental_analysis',
       title: 'Análisis Fundamental',
       description: 'P/E, P/VC, ROE, márgenes y endeudamiento — herramientas para investigar una empresa, no señales de compra.',
       icon: Icons.analytics_outlined,
-      order: 4,
+      order: 1,
     ),
     AcademyModule(
       id: 'etfs',
+      schoolId: 'funds_etfs_fiis',
       title: 'ETFs y Diversificación',
       description: 'Exposición a decenas de empresas a la vez: cómo funcionan los fondos indexados.',
       icon: Icons.pie_chart_outline,
-      order: 5,
+      order: 1,
     ),
     AcademyModule(
       id: 'crypto',
+      schoolId: 'crypto_assets',
       title: 'Criptoactivos',
       description: 'Bitcoin, blockchain y los riesgos específicos de custodia y volatilidad — con responsabilidad.',
       icon: Icons.currency_bitcoin,
-      order: 6,
+      order: 1,
     ),
     AcademyModule(
       id: 'portfolio_construction',
+      schoolId: 'portfolio_wealth_management',
       title: 'Arma tu Cartera',
       description: 'Perfil de riesgo, horizonte de tiempo y asignación entre renta fija, acciones y ETFs.',
       icon: Icons.dashboard_customize_outlined,
+      order: 1,
+    ),
+  ];
+
+  // ── Schools ────────────────────────────────────────────────────────────
+  //
+  // Order follows the full 19-school curriculum vision. Six schools below
+  // wrap a module that already existed pre-School (see the `schoolId`s added
+  // to `_modulesPt/En/Es` above) — those keep `contentAvailable: false` at
+  // the school level too, exactly matching their module's current
+  // "coming soon" state, so this refactor changes nothing about what a user
+  // can reach today. Only `financial_life` (new) and `investment_fundamentals`
+  // (pre-existing `investor_foundations` content) are real right now.
+
+  static const List<School> _schoolsPt = [
+    FinancialLifeCatalog.schoolPt,
+    School(
+      id: 'financial_fundamentals',
+      title: 'Fundamentos Financeiros',
+      description: 'A matemática por trás das decisões financeiras: porcentagens, juros, valor do dinheiro no tempo e economia básica.',
+      icon: Icons.calculate_outlined,
+      order: 2,
+    ),
+    School(
+      id: 'investment_fundamentals',
+      title: 'Fundamentos do Investimento',
+      description: 'Por que investir, risco e retorno, perfil de investidor, diversificação e como funciona o sistema financeiro.',
+      icon: Icons.rocket_launch_outlined,
+      order: 3,
+      contentAvailable: true,
+    ),
+    School(
+      id: 'fixed_income',
+      title: 'Renda Fixa',
+      description: 'CDBs, Tesouro Direto, LCI/LCA e os riscos de crédito, mercado e liquidez da renda fixa.',
+      icon: Icons.shield_outlined,
+      order: 4,
+    ),
+    School(
+      id: 'equities',
+      title: 'Ações e Renda Variável',
+      description: 'O que é ser sócio de uma empresa, como funciona a bolsa e como os dividendos são distribuídos.',
+      icon: Icons.trending_up,
+      order: 5,
+    ),
+    School(
+      id: 'funds_etfs_fiis',
+      title: 'Fundos, ETFs e FIIs',
+      description: 'Fundos de investimento, ETFs e fundos imobiliários — como funcionam e como avaliá-los.',
+      icon: Icons.pie_chart_outline,
+      order: 6,
+    ),
+    School(
+      id: 'fundamental_analysis',
+      title: 'Análise Fundamentalista',
+      description: 'Como ler balanços, margens, indicadores de retorno e endividamento de uma empresa.',
+      icon: Icons.analytics_outlined,
       order: 7,
+    ),
+    School(
+      id: 'valuation',
+      title: 'Valuation',
+      description: 'Preço x valor, margem de segurança, múltiplos e fluxo de caixa descontado.',
+      icon: Icons.insights_outlined,
+      order: 8,
+    ),
+    School(
+      id: 'portfolio_wealth_management',
+      title: 'Carteira e Gestão de Patrimônio',
+      description: 'Alocação de ativos, diversificação, rebalanceamento e construção de patrimônio no longo prazo.',
+      icon: Icons.dashboard_customize_outlined,
+      order: 9,
+    ),
+    School(
+      id: 'risk_management',
+      title: 'Gestão de Risco',
+      description: 'Risco de mercado, crédito, liquidez e concentração — e como avaliar e conviver com eles.',
+      icon: Icons.gpp_maybe_outlined,
+      order: 10,
+    ),
+    School(
+      id: 'financial_behavior',
+      title: 'Comportamento Financeiro',
+      description: 'Como vieses, emoções e hábitos afetam suas decisões financeiras — às vezes mais do que o próprio mercado.',
+      icon: Icons.psychology_outlined,
+      order: 11,
+    ),
+    School(
+      id: 'international_investing',
+      title: 'Investimento Internacional',
+      description: 'Diversificação geográfica, câmbio, BDRs e ativos no exterior.',
+      icon: Icons.public_outlined,
+      order: 12,
+    ),
+    School(
+      id: 'crypto_assets',
+      title: 'Criptoativos',
+      description: 'Bitcoin, blockchain e os riscos específicos de custódia e volatilidade — com responsabilidade.',
+      icon: Icons.currency_bitcoin,
+      order: 13,
+    ),
+    School(
+      id: 'retirement_pension',
+      title: 'Aposentadoria e Previdência',
+      description: 'Previdência privada, PGBL, VGBL e planejamento para a aposentadoria.',
+      icon: Icons.beach_access_outlined,
+      order: 14,
+    ),
+    School(
+      id: 'macroeconomics_markets',
+      title: 'Macroeconomia e Mercados',
+      description: 'PIB, inflação, Selic e política monetária — e como isso afeta seus investimentos.',
+      icon: Icons.bar_chart_outlined,
+      order: 15,
+    ),
+    School(
+      id: 'taxation',
+      title: 'Tributação',
+      description: 'Imposto de renda sobre renda fixa, ações, FIIs e criptoativos — conteúdo revisado periodicamente.',
+      icon: Icons.receipt_long_outlined,
+      order: 16,
+    ),
+    School(
+      id: 'derivatives_advanced_markets',
+      title: 'Derivativos e Mercados Avançados',
+      description: 'Opções, futuros e swaps — proteção (hedge) e especulação, com os riscos envolvidos.',
+      icon: Icons.timeline_outlined,
+      order: 17,
+    ),
+    School(
+      id: 'trading',
+      title: 'Trading',
+      description: 'Day trade, swing trade e gestão de risco de curto prazo — sem prometer um caminho fácil.',
+      icon: Icons.candlestick_chart_outlined,
+      order: 18,
+    ),
+    School(
+      id: 'real_life_simulations',
+      title: 'Simulações da Vida Real',
+      description: 'Cenários práticos — primeiro salário, primeira dívida, uma queda de mercado — para aplicar o que você aprendeu.',
+      icon: Icons.map_outlined,
+      order: 19,
+    ),
+  ];
+
+  static const List<School> _schoolsEn = [
+    FinancialLifeCatalog.schoolEn,
+    School(
+      id: 'financial_fundamentals',
+      title: 'Financial Fundamentals',
+      description: 'The math behind financial decisions: percentages, interest, the time value of money and basic economics.',
+      icon: Icons.calculate_outlined,
+      order: 2,
+    ),
+    School(
+      id: 'investment_fundamentals',
+      title: 'Investment Fundamentals',
+      description: 'Why invest, risk and return, investor profile, diversification and how the financial system works.',
+      icon: Icons.rocket_launch_outlined,
+      order: 3,
+      contentAvailable: true,
+    ),
+    School(
+      id: 'fixed_income',
+      title: 'Fixed Income',
+      description: 'CDBs, Treasury bonds, LCI/LCA and the credit, market and liquidity risks of fixed income.',
+      icon: Icons.shield_outlined,
+      order: 4,
+    ),
+    School(
+      id: 'equities',
+      title: 'Equities & Variable Income',
+      description: 'What it means to be a part-owner of a company, how the stock market works and how dividends are paid.',
+      icon: Icons.trending_up,
+      order: 5,
+    ),
+    School(
+      id: 'funds_etfs_fiis',
+      title: 'Funds, ETFs & REITs',
+      description: 'Investment funds, ETFs and real-estate funds — how they work and how to evaluate them.',
+      icon: Icons.pie_chart_outline,
+      order: 6,
+    ),
+    School(
+      id: 'fundamental_analysis',
+      title: 'Fundamental Analysis',
+      description: 'How to read financial statements, margins, return and debt indicators of a company.',
+      icon: Icons.analytics_outlined,
+      order: 7,
+    ),
+    School(
+      id: 'valuation',
+      title: 'Valuation',
+      description: 'Price vs. value, margin of safety, multiples and discounted cash flow.',
+      icon: Icons.insights_outlined,
+      order: 8,
+    ),
+    School(
+      id: 'portfolio_wealth_management',
+      title: 'Portfolio & Wealth Management',
+      description: 'Asset allocation, diversification, rebalancing and building wealth over the long term.',
+      icon: Icons.dashboard_customize_outlined,
+      order: 9,
+    ),
+    School(
+      id: 'risk_management',
+      title: 'Risk Management',
+      description: 'Market, credit, liquidity and concentration risk — and how to assess and live with them.',
+      icon: Icons.gpp_maybe_outlined,
+      order: 10,
+    ),
+    School(
+      id: 'financial_behavior',
+      title: 'Financial Behavior',
+      description: 'How biases, emotions and habits shape your financial decisions — sometimes more than the market itself.',
+      icon: Icons.psychology_outlined,
+      order: 11,
+    ),
+    School(
+      id: 'international_investing',
+      title: 'International Investing',
+      description: 'Geographic diversification, foreign exchange, BDRs and assets abroad.',
+      icon: Icons.public_outlined,
+      order: 12,
+    ),
+    School(
+      id: 'crypto_assets',
+      title: 'Crypto Assets',
+      description: 'Bitcoin, blockchain, and the specific risks of custody and volatility — responsibly explained.',
+      icon: Icons.currency_bitcoin,
+      order: 13,
+    ),
+    School(
+      id: 'retirement_pension',
+      title: 'Retirement & Pension',
+      description: 'Private pension plans, taxation and planning for retirement.',
+      icon: Icons.beach_access_outlined,
+      order: 14,
+    ),
+    School(
+      id: 'macroeconomics_markets',
+      title: 'Macroeconomics & Markets',
+      description: 'GDP, inflation, interest rates and monetary policy — and how they affect your investments.',
+      icon: Icons.bar_chart_outlined,
+      order: 15,
+    ),
+    School(
+      id: 'taxation',
+      title: 'Taxation',
+      description: 'Income tax on fixed income, stocks, REITs and crypto assets — content reviewed periodically.',
+      icon: Icons.receipt_long_outlined,
+      order: 16,
+    ),
+    School(
+      id: 'derivatives_advanced_markets',
+      title: 'Derivatives & Advanced Markets',
+      description: 'Options, futures and swaps — hedging and speculation, with the risks involved.',
+      icon: Icons.timeline_outlined,
+      order: 17,
+    ),
+    School(
+      id: 'trading',
+      title: 'Trading',
+      description: 'Day trading, swing trading and short-term risk management — without promising an easy path.',
+      icon: Icons.candlestick_chart_outlined,
+      order: 18,
+    ),
+    School(
+      id: 'real_life_simulations',
+      title: 'Real-Life Financial Simulations',
+      description: 'Practical scenarios — first paycheck, first debt, a market downturn — to apply what you learned.',
+      icon: Icons.map_outlined,
+      order: 19,
+    ),
+  ];
+
+  static const List<School> _schoolsEs = [
+    FinancialLifeCatalog.schoolEs,
+    School(
+      id: 'financial_fundamentals',
+      title: 'Fundamentos Financieros',
+      description: 'La matemática detrás de las decisiones financieras: porcentajes, interés, el valor del dinero en el tiempo y economía básica.',
+      icon: Icons.calculate_outlined,
+      order: 2,
+    ),
+    School(
+      id: 'investment_fundamentals',
+      title: 'Fundamentos de la Inversión',
+      description: 'Por qué invertir, riesgo y retorno, perfil de inversor, diversificación y cómo funciona el sistema financiero.',
+      icon: Icons.rocket_launch_outlined,
+      order: 3,
+      contentAvailable: true,
+    ),
+    School(
+      id: 'fixed_income',
+      title: 'Renta Fija',
+      description: 'CDB, Tesoro Directo, LCI/LCA y los riesgos de crédito, mercado y liquidez de la renta fija.',
+      icon: Icons.shield_outlined,
+      order: 4,
+    ),
+    School(
+      id: 'equities',
+      title: 'Acciones y Renta Variable',
+      description: 'Qué significa ser socio de una empresa, cómo funciona la bolsa y cómo se distribuyen los dividendos.',
+      icon: Icons.trending_up,
+      order: 5,
+    ),
+    School(
+      id: 'funds_etfs_fiis',
+      title: 'Fondos, ETFs y Fondos Inmobiliarios',
+      description: 'Fondos de inversión, ETFs y fondos inmobiliarios — cómo funcionan y cómo evaluarlos.',
+      icon: Icons.pie_chart_outline,
+      order: 6,
+    ),
+    School(
+      id: 'fundamental_analysis',
+      title: 'Análisis Fundamental',
+      description: 'Cómo leer balances, márgenes, indicadores de retorno y endeudamiento de una empresa.',
+      icon: Icons.analytics_outlined,
+      order: 7,
+    ),
+    School(
+      id: 'valuation',
+      title: 'Valuación',
+      description: 'Precio vs. valor, margen de seguridad, múltiplos y flujo de caja descontado.',
+      icon: Icons.insights_outlined,
+      order: 8,
+    ),
+    School(
+      id: 'portfolio_wealth_management',
+      title: 'Cartera y Gestión de Patrimonio',
+      description: 'Asignación de activos, diversificación, rebalanceo y construcción de patrimonio a largo plazo.',
+      icon: Icons.dashboard_customize_outlined,
+      order: 9,
+    ),
+    School(
+      id: 'risk_management',
+      title: 'Gestión de Riesgo',
+      description: 'Riesgo de mercado, crédito, liquidez y concentración — y cómo evaluarlos y convivir con ellos.',
+      icon: Icons.gpp_maybe_outlined,
+      order: 10,
+    ),
+    School(
+      id: 'financial_behavior',
+      title: 'Comportamiento Financiero',
+      description: 'Cómo los sesgos, las emociones y los hábitos moldean tus decisiones financieras — a veces más que el propio mercado.',
+      icon: Icons.psychology_outlined,
+      order: 11,
+    ),
+    School(
+      id: 'international_investing',
+      title: 'Inversión Internacional',
+      description: 'Diversificación geográfica, tipo de cambio, BDRs y activos en el exterior.',
+      icon: Icons.public_outlined,
+      order: 12,
+    ),
+    School(
+      id: 'crypto_assets',
+      title: 'Criptoactivos',
+      description: 'Bitcoin, blockchain y los riesgos específicos de custodia y volatilidad — con responsabilidad.',
+      icon: Icons.currency_bitcoin,
+      order: 13,
+    ),
+    School(
+      id: 'retirement_pension',
+      title: 'Jubilación y Previsión',
+      description: 'Previsión privada, tributación y planificación para la jubilación.',
+      icon: Icons.beach_access_outlined,
+      order: 14,
+    ),
+    School(
+      id: 'macroeconomics_markets',
+      title: 'Macroeconomía y Mercados',
+      description: 'PIB, inflación, tasas de interés y política monetaria — y cómo afectan tus inversiones.',
+      icon: Icons.bar_chart_outlined,
+      order: 15,
+    ),
+    School(
+      id: 'taxation',
+      title: 'Tributación',
+      description: 'Impuesto sobre la renta fija, acciones, fondos inmobiliarios y criptoactivos — contenido revisado periódicamente.',
+      icon: Icons.receipt_long_outlined,
+      order: 16,
+    ),
+    School(
+      id: 'derivatives_advanced_markets',
+      title: 'Derivados y Mercados Avanzados',
+      description: 'Opciones, futuros y swaps — cobertura (hedge) y especulación, con los riesgos que implican.',
+      icon: Icons.timeline_outlined,
+      order: 17,
+    ),
+    School(
+      id: 'trading',
+      title: 'Trading',
+      description: 'Day trading, swing trading y gestión de riesgo de corto plazo — sin prometer un camino fácil.',
+      icon: Icons.candlestick_chart_outlined,
+      order: 18,
+    ),
+    School(
+      id: 'real_life_simulations',
+      title: 'Simulaciones de la Vida Real',
+      description: 'Escenarios prácticos — primer sueldo, primera deuda, una caída del mercado — para aplicar lo aprendido.',
+      icon: Icons.map_outlined,
+      order: 19,
     ),
   ];
 

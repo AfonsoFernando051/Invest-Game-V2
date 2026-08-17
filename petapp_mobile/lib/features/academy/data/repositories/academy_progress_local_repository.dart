@@ -42,4 +42,26 @@ class AcademyProgressLocalRepository {
     await prefs.setStringList(_completedLessonIdsKey, merged.toList());
     return merged;
   }
+
+  /// A lightweight "recently struggling with this school" counter, used only
+  /// to power the pet's difficulty-detected nudge (see
+  /// `LessonSessionController`/`PetMessageCatalog.difficultyDetected`) — not
+  /// a mistake-history log, no per-question detail is kept. Increments on
+  /// every wrong answer in [schoolId] and resets on the next lesson
+  /// completed there ([resetMisses]), so the signal only ever reflects
+  /// recent struggle, not a permanent record.
+  Future<int> recordMiss(String schoolId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final key = _missCountKey(schoolId);
+    final updated = (prefs.getInt(key) ?? 0) + 1;
+    await prefs.setInt(key, updated);
+    return updated;
+  }
+
+  Future<void> resetMisses(String schoolId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove(_missCountKey(schoolId));
+  }
+
+  String _missCountKey(String schoolId) => 'academy_miss_count_$schoolId';
 }

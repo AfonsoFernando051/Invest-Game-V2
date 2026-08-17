@@ -8,12 +8,14 @@ import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
 import 'package:petrimonium/core/widgets/game_button.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
-import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
+import 'package:petrimonium/features/academy/domain/entities/school.dart';
+import 'package:petrimonium/features/academy/domain/services/knowledge_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
-import 'package:petrimonium/features/academy/presentation/screens/module_detail_screen.dart';
-import 'package:petrimonium/features/academy/presentation/widgets/module_card.dart';
+import 'package:petrimonium/features/academy/presentation/screens/school_detail_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/mastery_bar_row.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/school_card.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
@@ -114,12 +116,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     _controller.load();
   }
 
-  Future<void> _openModule(AcademyModule module) async {
+  Future<void> _openSchool(School school) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
       _fadeRoute(
-        ModuleDetailScreen(
-          module: module,
+        SchoolDetailScreen(
+          school: school,
           mascotController: widget.mascotController,
         ),
       ),
@@ -146,6 +148,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
       return const AppLoadingIndicator();
     }
 
+    // Mastery rows are only shown for schools with real content — an empty
+    // 0% row for a `comingSoon` school isn't informative, same reasoning as
+    // `PetMessageCatalog._portfolioNudge` only firing once there's something
+    // real to say.
+    final masterySchools = _controller.schools.where((s) => s.contentAvailable).toList();
+
     return RefreshIndicator(
       color: tokens.primary,
       backgroundColor: tokens.surfaceElevated,
@@ -162,8 +170,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               _buildContinueCard(context, _controller.nextLesson!),
               const SizedBox(height: 24),
             ],
+            if (masterySchools.isNotEmpty) ...[
+              _buildMasterySection(context, masterySchools),
+              const SizedBox(height: 24),
+            ],
             Text(
-              Translator.translate(AppStrings.academyModulesSectionLabel),
+              Translator.translate(AppStrings.academySchoolsSectionLabel),
               style: TextStyle(
                 color: tokens.primary.withValues(alpha: 0.6),
                 fontSize: 11,
@@ -172,12 +184,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               ),
             ),
             const SizedBox(height: 10),
-            for (final module in _controller.modules) ...[
-              ModuleCard(
-                module: module,
-                status: _controller.statusFor(module),
-                completedLessons: _controller.completedLessonCountFor(module),
-                onTap: () => _openModule(module),
+            for (final school in _controller.schools) ...[
+              SchoolCard(
+                school: school,
+                status: _controller.schoolStatusFor(school),
+                masteryPercent: _controller.masteryFor(school),
+                onTap: () => _openSchool(school),
               ),
               const SizedBox(height: 12),
             ],
@@ -190,57 +202,111 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
 
   Widget _buildLevelHeader(BuildContext context, int level) {
     final tokens = context.colors;
+    final knowledgeLevel = _controller.knowledgeLevel;
     return GlassCard(
       borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
       borderRadius: 20,
       child: Padding(
         padding: const EdgeInsets.all(16),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColors.neonCyan.withValues(alpha: 0.15),
-                border: Border.all(
-                  color: AppColors.neonCyan.withValues(alpha: 0.5),
-                  width: 1.5,
+            Row(
+              children: [
+                Container(
+                  width: 48,
+                  height: 48,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColors.neonCyan.withValues(alpha: 0.15),
+                    border: Border.all(
+                      color: AppColors.neonCyan.withValues(alpha: 0.5),
+                      width: 1.5,
+                    ),
+                  ),
+                  child: const Icon(
+                    Icons.school_outlined,
+                    color: AppColors.neonCyan,
+                    size: 24,
+                  ),
                 ),
-              ),
-              child: const Icon(
-                Icons.school_outlined,
-                color: AppColors.neonCyan,
-                size: 24,
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        Translator.translate(
+                          AppStrings.academyLevelLabel,
+                          params: {'level': '$level'},
+                        ),
+                        style: TextStyle(
+                          color: tokens.textPrimary,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        Translator.translate(
+                          AppStrings.academyXpEarnedLabel,
+                          params: {'xp': '${_controller.totalXpEarned}'},
+                        ),
+                        style: TextStyle(color: tokens.textSecondary, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 14),
+            Divider(color: tokens.textPrimary.withValues(alpha: 0.08), height: 1),
+            const SizedBox(height: 12),
+            // Deliberately visually distinct from Game Level above (no icon
+            // circle, secondary color) — this is Knowledge Progress, never
+            // to be read as the same kind of number (PRODUCT_VISION.md §9).
+            Row(
+              children: [
+                Icon(Icons.psychology_alt_outlined, color: AppColors.goldenBorder, size: 18),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    Translator.translate(
+                      AppStrings.academyKnowledgeLevelLabel,
+                      params: {'tier': KnowledgeProgressCalculator.labelFor(knowledgeLevel)},
+                    ),
+                    style: TextStyle(color: tokens.textSecondary, fontSize: 12, fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMasterySection(BuildContext context, List<School> masterySchools) {
+    final tokens = context.colors;
+    return GlassCard(
+      borderRadius: 20,
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              Translator.translate(AppStrings.academyMasterySectionLabel),
+              style: TextStyle(
+                color: tokens.primary.withValues(alpha: 0.6),
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                letterSpacing: 2,
               ),
             ),
-            const SizedBox(width: 14),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    Translator.translate(
-                      AppStrings.academyLevelLabel,
-                      params: {'level': '$level'},
-                    ),
-                    style: TextStyle(
-                      color: tokens.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const SizedBox(height: 2),
-                  Text(
-                    Translator.translate(
-                      AppStrings.academyXpEarnedLabel,
-                      params: {'xp': '${_controller.totalXpEarned}'},
-                    ),
-                    style: TextStyle(color: tokens.textSecondary, fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
+            const SizedBox(height: 12),
+            for (final school in masterySchools)
+              MasteryBarRow(school: school, percent: _controller.masteryFor(school)),
           ],
         ),
       ),

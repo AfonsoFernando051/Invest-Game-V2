@@ -48,3 +48,23 @@ class XpGainedEvent extends AppEvent {
   final int newTotalXp;
   const XpGainedEvent({required this.amount, required this.newTotalXp});
 }
+
+/// Fired when the learner has recently missed enough questions in one
+/// Academy school to be worth a gentle "let's review" nudge (see
+/// `AcademyProgressLocalRepository.recordMiss`). Carries the school's
+/// already-resolved, current-language title — not its id — so the pet
+/// feature stays decoupled from the Academy's school/module id scheme,
+/// matching how `AchievementUnlockedEvent` carries a resolved title.
+class DifficultyDetectedEvent extends AppEvent {
+  final String schoolTitle;
+  const DifficultyDetectedEvent(this.schoolTitle);
+}
+
+/// Fired the moment completing a lesson brings every currently-available
+/// module of its school to 100% (see
+/// `LessonSessionController._completeLesson`). Same "carry the resolved
+/// title" reasoning as [DifficultyDetectedEvent].
+class SchoolMasteredEvent extends AppEvent {
+  final String schoolTitle;
+  const SchoolMasteredEvent(this.schoolTitle);
+}

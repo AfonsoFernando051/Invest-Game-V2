@@ -23,11 +23,12 @@ Teach investing concepts through short, interactive lessons — the primary prod
 
 ## Responsibilities
 
-- Learning path → module → lesson → step progression, reachable from Home.
+- School → module → lesson → step progression, reachable from Home.
 - Interactive lesson steps: explanation, example, micro-exercise, applied scenario, summary.
 - Quizzes with immediate, encouraging feedback.
-- Lesson/module completion tracking.
+- Lesson/module/school completion tracking, with per-module and per-school prerequisites.
 - XP awarded on completion.
+- Knowledge Progress (curriculum completion, 10-tier) shown alongside — never merged with — Game Level.
 
 ## Business Rules
 
@@ -37,15 +38,21 @@ Teach investing concepts through short, interactive lessons — the primary prod
   lost lives, no reset progress, no lesson failure state.
 - Knowledge progress (curriculum completion) is tracked separately from XP/game level — see
   `PRODUCT_VISION.md` §9. Completing the curriculum is never conflated with "being an advanced investor."
+- A prerequisite may only gate content that wasn't already reachable — no school/module already available to
+  users can regress to locked (see `DECISIONS.md` DECISION-018).
 
 ## Status
 
-**Current:** Phase 0 slice implemented, client-only. One fully authored learning path/module ("Fundamentos do
-Investidor," 6 lessons), remaining curriculum shown as "coming soon." Progress persisted locally
-(`SharedPreferences`), not backend-authoritative.
+**Current:** School layer implemented (`DECISIONS.md` DECISION-018) — 19 schools shown as a journey, 2 with
+real content (School 1 "Financial Life" → Module 1 "Money Fundamentals", 10 lessons; School 3 "Investment
+Fundamentals" → the pre-existing "Fundamentos do Investidor" module, 6 lessons), 17 as "coming soon." Knowledge
+Progress (`KnowledgeLevel`, 10 tiers) implemented, derived from curriculum completion — kept visually and
+logically separate from Game Level. Progress persisted locally (`SharedPreferences`), not
+backend-authoritative. Full design in `ACADEMY_ENGINE.md`.
 
-**Target:** full knowledge roadmap (see `ACADEMY_ENGINE.md`'s Level 1–6 curriculum), backend-authoritative
-progress, practical challenges connected to real held assets.
+**Target:** remaining 17 schools' content, full Question-entity metadata/question-bank architecture,
+backend-authoritative progress, practical challenges connected to real held assets, Mentor/Portfolio
+integration.
 
 ---
 

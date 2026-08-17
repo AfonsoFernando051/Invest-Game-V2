@@ -634,6 +634,65 @@ be designed as new modules/packages inside the existing monolith, following the 
 
 ---
 
+# DECISION-018
+
+## Title
+
+Academy School Layer, Knowledge Progress Track, and Financial Life Curriculum — a Deliberate Departure from the Phase 0 Scope
+
+### Status
+
+Accepted
+
+### Context
+
+A large product brief requested a full 19-school financial academy (School → Module → Lesson hierarchy,
+competency/mastery tracking, cross-topic prerequisites, a 10-tier knowledge level, pet-as-teacher behaviors).
+`ACADEMY_ENGINE.md` documents that an earlier, similarly ambitious brief for the same feature was deliberately
+reconciled down to a "Phase 0" slice — one authored module, client-only progress, no new backend systems — per
+`AI_RULES.md`'s "avoid introducing large new systems" and a validate-one-module-first philosophy. This tension
+was surfaced directly to the user, who explicitly chose to proceed with the larger scope rather than the
+Phase-0-consistent minimal option.
+
+### Decision
+
+Add a `School` entity above `AcademyModule` (additive — existing module/lesson ids and content are untouched),
+a "Knowledge Progress" tier system (`KnowledgeLevel`/`KnowledgeProgressCalculator`) computed from curriculum
+completion and kept strictly separate from the existing XP-driven Game Level, and per-school prerequisite
+support in `AcademyProgressCalculator`. Fully author one new school — **School 1, "Financial Life" → Module 1,
+"Money Fundamentals"** (10 lessons) — as the validation slice, per the brief's own "prioritize architecture
+first, validate one path" instruction. The remaining 18 schools (including 6 that already existed as
+placeholder modules, now reparented under their matching school) are declared as `contentAvailable: false`
+journey nodes with no lessons yet, mirroring the exact "coming soon" pattern already proven for
+`investor_foundations`'s sibling modules.
+
+"Competency"/"mastery" from the brief is modeled as per-school completion percent rather than a second,
+parallel taxonomy — a school already is a competency grouping, so this avoids maintaining two ontologies in
+sync. No backend schema changes: school/module ids remain a purely client-side content-organization layer over
+the existing lesson-completion contract (`LearningController`).
+
+### Rationale
+
+- This is the correct home for `PRODUCT_VISION.md` §9's Knowledge Progress vs. Game Level separation, which
+  was documented but never actually built — the brief's own "Level System" request is the natural trigger for
+  finally building it, rather than inventing an XP-adjacent number.
+- Prerequisites are additive-only: no school or module that is reachable today gains a new prerequisite that
+  would retroactively lock it. `investor_foundations` (now under School 3, "Investment Fundamentals") keeps
+  zero prerequisites.
+- Full Question-entity metadata (20 fields, 10 question types), a backend School/Competency schema, and content
+  for the other 17 schools remain explicitly out of scope this pass — no real usage data yet justifies them,
+  consistent with `AI_RULES.md`'s "does it solve a real, measured problem" test even under this larger scope.
+
+### Consequences
+
+- Future schools/modules should follow the same pattern: add real content behind `contentAvailable: true`,
+  wire a `schoolId`, keep prerequisites additive-only.
+- `ACADEMY_ENGINE.md`, `FEATURES.md`, and `ROADMAP.md` are updated to reflect the School layer and Financial
+  Life as delivered, and to record which brief items (question bank, remaining schools' content, Portfolio/
+  Mentor integration, backend-authoritative progress) remain future work.
+
+---
+
 # Future Decisions
 
 Whenever a significant architectural or product decision is made, add a new entry following the same structure.
