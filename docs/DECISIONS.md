@@ -693,6 +693,62 @@ the existing lesson-completion contract (`LearningController`).
 
 ---
 
+# DECISION-019
+
+## Title
+
+Academy Domain ("Escola") Layer — Grouping the 19 Schools Into 8 Broader Areas
+
+### Status
+
+Accepted
+
+### Context
+
+A large product brief asked for an Academy → School → Module → Lesson hierarchy, replacing the "long vertical
+list of subjects" presentation with a browsable library. Investigation found that hierarchy already exists —
+DECISION-018 built exactly this shape, and all 19 subjects the new brief listed (Vida Financeira, Renda Fixa,
+Ações, Valuation, ...) are already `School` entities in `AcademyCatalog`. The actual gap: today's `School` sits
+at the brief's "Módulo/assunto" granularity, and `AcademyHomeScreen` renders all 19 of them as one flat card
+list — which *is* the "long list" problem the brief describes. There was no grouping layer above `School` into
+the ~6-8 broader areas ("Escolas": Educação Financeira, Investimentos, Análise e Valuation, ...) the brief
+describes.
+
+### Decision
+
+Add an `AcademyDomain` entity purely as a navigation grouping one level above `School` (`AcademyDomainCatalog`,
+8 domains, static, mirrors `AcademyCatalog`'s pattern). Every existing school id is assigned to exactly one
+domain — additive only, zero school/module/lesson ids, content, or progress logic touched. `AcademyHomeScreen`'s
+school list is replaced by a domain list (`AcademyDomainCard` → `AcademyDomainDetailScreen`, which lists that
+domain's schools using the existing, unmodified `SchoolCard` → `SchoolDetailScreen` flow). Domain status/mastery
+(`AcademyProgressCalculator.domainStatus`, `KnowledgeProgressCalculator.percentForDomain`) are always derived
+from member schools, never stored, following the same "nothing stored that could drift" discipline as the rest
+of the Academy progress model. No backend changes — same "client-side content-organization layer only"
+rationale as DECISION-018.
+
+### Rationale
+
+- Mirrors DECISION-018's own precedent: a large brief lands, gets reconciled to an additive slice that validates
+  the concept without an in-place rebuild, preserving every existing id.
+- Reuses `SchoolStatus` for domain status instead of introducing a parallel enum — the possible states
+  (comingSoon/locked/available/inProgress/completed) are identical, so a second enum would just be duplication.
+- Out of scope this pass, consistent with "don't invent content without need": new placeholder modules for
+  not-yet-authored subjects (Orçamento, Crédito e Dívidas, ...), search/filter UI, and any backend School/Domain
+  schema.
+
+### Consequences
+
+- Future schools should be assigned a `domainId`'s worth of membership in `AcademyDomainCatalog` as they're
+  added — `academy_domain_catalog_test.dart` fails the build if a school is left unowned or double-owned.
+- `ACADEMY_ENGINE.md` is updated (§3c) to reflect the Domain layer as delivered.
+- In the same pass, a pre-existing latent bug was found and fixed: the backend's `learning_modules`/
+  `learning_lessons` seed data (`V4__learning_gamification_schema.sql`) was never updated for the
+  `money_fundamentals` module shipped under DECISION-018, so lesson-completion XP for that module silently
+  never reached the server. Fixed via `V9__seed_money_fundamentals_learning_catalog.sql`, unrelated to the
+  Domain layer itself but discovered while verifying "XP keeps working" end to end.
+
+---
+
 # Future Decisions
 
 Whenever a significant architectural or product decision is made, add a new entry following the same structure.

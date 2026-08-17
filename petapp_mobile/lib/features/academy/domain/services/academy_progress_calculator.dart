@@ -1,3 +1,4 @@
+import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
@@ -67,6 +68,28 @@ class AcademyProgressCalculator {
     final statuses = modules.map((m) => moduleStatus(module: m, completedIds: completedIds)).toList();
     if (statuses.every((s) => s == ModuleStatus.completed)) return SchoolStatus.completed;
     if (statuses.any((s) => s == ModuleStatus.completed || s == ModuleStatus.inProgress)) {
+      return SchoolStatus.inProgress;
+    }
+    return SchoolStatus.available;
+  }
+
+  /// Same shape as [schoolStatus], aggregated across a domain's member
+  /// schools with real content — see `AcademyDomain`'s doc comment on why
+  /// domain status is always derived, never stored.
+  static SchoolStatus domainStatus({
+    required AcademyDomain domain,
+    required Set<String> completedIds,
+  }) {
+    final schools = domain.schoolIds
+        .map(AcademyCatalog.schoolById)
+        .whereType<School>()
+        .where((s) => s.contentAvailable)
+        .toList();
+    if (schools.isEmpty) return SchoolStatus.comingSoon;
+
+    final statuses = schools.map((s) => schoolStatus(school: s, completedIds: completedIds)).toList();
+    if (statuses.every((s) => s == SchoolStatus.completed)) return SchoolStatus.completed;
+    if (statuses.any((s) => s == SchoolStatus.completed || s == SchoolStatus.inProgress)) {
       return SchoolStatus.inProgress;
     }
     return SchoolStatus.available;

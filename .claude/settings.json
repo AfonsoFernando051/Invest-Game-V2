@@ -9,7 +9,11 @@
       "Bash(./mvnw -q test-compile)",
       "Bash(unzip -l /home/fernando/.m2/repository/org/springframework/boot/spring-boot-resttestclient/4.0.1/spring-boot-resttestclient-4.0.1.jar)",
       "Bash(xargs -I{} sh -c 'echo === {} ===; cat {}')",
-      "Bash(python3 -)"
+      "Bash(python3 -)",
+      "Bash(mvn -q -o test -Dtest='*Learning*,*Migration*')",
+      "Bash(mvn -q test -Dtest='*Learning*,*Migration*')",
+      "Bash(./mvnw -q -o test -Dtest='LearningControllerTest,CompleteLessonUseCaseImplTest,GetLearningProgressUseCaseImplTest,LearningCatalogRepositoryAdapterTest,LessonProgressRepositoryAdapterTest')",
+      "Bash(echo \"EXIT: $?\")"
     ]
   }
 }

@@ -1,5 +1,6 @@
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/knowledge_level.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
@@ -32,6 +33,18 @@ class KnowledgeProgressCalculator {
   static double percentForSchool(String schoolId, Set<String> completedLessonIds) {
     return _completionPercent(
       AcademyCatalog.modulesForSchool(schoolId).where((m) => m.contentAvailable),
+      completedLessonIds,
+    );
+  }
+
+  /// Same as [percentForSchool], aggregated across every school belonging to
+  /// [domain] — mirrors `AcademyProgressCalculator.domainStatus`'s
+  /// aggregation shape.
+  static double percentForDomain(AcademyDomain domain, Set<String> completedLessonIds) {
+    return _completionPercent(
+      domain.schoolIds
+          .expand(AcademyCatalog.modulesForSchool)
+          .where((m) => m.contentAvailable),
       completedLessonIds,
     );
   }

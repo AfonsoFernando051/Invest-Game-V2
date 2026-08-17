@@ -1,11 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/knowledge_level.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_domain_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/academy/domain/services/knowledge_progress_calculator.dart';
 
@@ -28,6 +30,8 @@ class AcademyController extends ChangeNotifier {
   List<AcademyModule> get modules => AcademyCatalog.modules;
 
   List<School> get schools => AcademyCatalog.schools;
+
+  List<AcademyDomain> get domains => AcademyDomainCatalog.domains;
 
   Lesson? get nextLesson => AcademyProgressCalculator.nextLessonToContinue(completedIds: completedLessonIds);
 
@@ -72,6 +76,18 @@ class AcademyController extends ChangeNotifier {
   }
 
   List<AcademyModule> modulesForSchool(School school) => AcademyCatalog.modulesForSchool(school.id);
+
+  SchoolStatus domainStatusFor(AcademyDomain domain) {
+    return AcademyProgressCalculator.domainStatus(domain: domain, completedIds: completedLessonIds);
+  }
+
+  List<School> schoolsForDomain(AcademyDomain domain) {
+    return domain.schoolIds.map(AcademyCatalog.schoolById).whereType<School>().toList();
+  }
+
+  double domainMasteryFor(AcademyDomain domain) {
+    return KnowledgeProgressCalculator.percentForDomain(domain, completedLessonIds);
+  }
 
   int completedLessonCountFor(AcademyModule module) {
     return module.lessonIds.where(completedLessonIds.contains).length;

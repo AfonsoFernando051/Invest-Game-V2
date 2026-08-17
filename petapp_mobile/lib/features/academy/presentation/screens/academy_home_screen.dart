@@ -8,15 +8,15 @@ import 'package:petrimonium/core/theme/app_spacing.dart';
 import 'package:petrimonium/core/theme/app_text_styles.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
-import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
+import 'package:petrimonium/features/academy/presentation/screens/academy_domain_detail_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
-import 'package:petrimonium/features/academy/presentation/screens/school_detail_screen.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_continue_card.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_domain_card.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_level_header.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_mastery_section.dart';
-import 'package:petrimonium/features/academy/presentation/widgets/school_card.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
@@ -117,12 +117,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     _controller.load();
   }
 
-  Future<void> _openSchool(School school) async {
+  Future<void> _openDomain(AcademyDomain domain) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
       _fadeRoute(
-        SchoolDetailScreen(
-          school: school,
+        AcademyDomainDetailScreen(
+          domain: domain,
           mascotController: widget.mascotController,
         ),
       ),
@@ -180,7 +180,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               const SizedBox(height: AppSpacing.xxl + 4),
             ],
             Text(
-              Translator.translate(AppStrings.academySchoolsSectionLabel),
+              Translator.translate(AppStrings.academyDomainsSectionLabel),
               style: AppTextStyles.caption.copyWith(
                 color: tokens.primary.withValues(alpha: 0.6),
                 fontWeight: FontWeight.w700,
@@ -188,12 +188,12 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               ),
             ),
             const SizedBox(height: AppSpacing.sm + 2),
-            for (final school in _controller.schools) ...[
-              SchoolCard(
-                school: school,
-                status: _controller.schoolStatusFor(school),
-                masteryPercent: _controller.masteryFor(school),
-                onTap: () => _openSchool(school),
+            for (final domain in _controller.domains) ...[
+              AcademyDomainCard(
+                domain: domain,
+                status: _controller.domainStatusFor(domain),
+                masteryPercent: _controller.domainMasteryFor(domain),
+                onTap: () => _openDomain(domain),
               ),
               const SizedBox(height: AppSpacing.md),
             ],

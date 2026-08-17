@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_domain_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 
 void main() {
@@ -101,6 +103,33 @@ void main() {
     test('a real available school with content resolves to a real status (not comingSoon/locked)', () {
       final school = AcademyCatalog.schools.firstWhere((s) => s.contentAvailable && s.prerequisites.isEmpty);
       final status = AcademyProgressCalculator.schoolStatus(school: school, completedIds: {});
+      expect(status, anyOf(SchoolStatus.available, SchoolStatus.inProgress, SchoolStatus.completed));
+    });
+  });
+
+  group('domainStatus', () {
+    test('a domain with no schools is comingSoon', () {
+      const empty = AcademyDomain(id: 'empty', title: 'x', description: 'x', icon: Icons.school, order: 1);
+      expect(AcademyProgressCalculator.domainStatus(domain: empty, completedIds: {}), SchoolStatus.comingSoon);
+    });
+
+    test('a domain whose only school has no content-available modules is comingSoon', () {
+      final placeholderOnly = AcademyDomain(
+        id: 'placeholder-domain',
+        title: 'x',
+        description: 'x',
+        icon: Icons.school,
+        order: 1,
+        schoolIds: [AcademyCatalog.schools.firstWhere((s) => !s.contentAvailable).id],
+      );
+      expect(AcademyProgressCalculator.domainStatus(domain: placeholderOnly, completedIds: {}), SchoolStatus.comingSoon);
+    });
+
+    test('a domain whose school has real content resolves to a real status (not comingSoon/locked)', () {
+      final domain = AcademyDomainCatalog.domains.firstWhere(
+        (d) => d.schoolIds.any((id) => AcademyCatalog.schoolById(id)?.contentAvailable ?? false),
+      );
+      final status = AcademyProgressCalculator.domainStatus(domain: domain, completedIds: {});
       expect(status, anyOf(SchoolStatus.available, SchoolStatus.inProgress, SchoolStatus.completed));
     });
   });

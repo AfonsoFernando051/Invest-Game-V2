@@ -174,6 +174,33 @@ AcademyModule (+2 fields)
 - **No backend changes.** School/module ids and prerequisites are a client-side content-organization layer
   only; `LearningController` still only ever sees individual lesson-completion calls.
 
+## 3c. Domain ("Escola") Layer (implemented — DECISION-019)
+
+Added on top of the School layer above, additively — no `School`/`AcademyModule`/`Lesson` id, content, or
+progress logic changed.
+
+```
+AcademyDomain
+  id, title, description, icon, order, schoolIds
+```
+
+- **8 domains** (`AcademyDomainCatalog.domains`), grouping the 19 existing schools into the 2026 brief's broader
+  areas: Educação Financeira, Investimentos, Análise e Valuation, Carteira e Patrimônio, Macroeconomia e
+  Mercados, Tributação e Regulação, Mercados Avançados, Simulações e Prática. Every school belongs to exactly
+  one domain (`academy_domain_catalog_test.dart` enforces this) — a pure regrouping of the existing School list,
+  not a new content tier.
+- **Status/mastery are always derived**, never stored: `AcademyProgressCalculator.domainStatus` aggregates its
+  member schools' `SchoolStatus` (reusing the enum as-is — a domain's possible states are identical to a
+  school's, so no new enum was introduced) and `KnowledgeProgressCalculator.percentForDomain` sums lesson
+  completion across them, mirroring `schoolStatus`/`percentForSchool`'s own aggregation shape one level down.
+- **UX**: `AcademyHomeScreen`'s "all 19 schools" list is replaced by 8 `AcademyDomainCard`s pushing
+  `AcademyDomainDetailScreen`, which lists that domain's schools via the **existing, unmodified** `SchoolCard` →
+  `SchoolDetailScreen` → `ModuleDetailScreen` → `LessonScreen` flow. Nothing below the Domain layer changed.
+- **No backend changes** — same rationale as §3b: domains are a client-side navigation grouping only.
+- **Out of scope this pass**: new placeholder modules for subjects not yet authored (Orçamento, Crédito e
+  Dívidas, Planejamento Financeiro, ...), search/filter UI, and per-domain pet nudges — see DECISION-019's
+  Rationale for why.
+
 ## 4. Gamification Integration
 
 Lesson completion persists the lesson id via `AcademyProgressLocalRepository` (identical shape to
@@ -216,8 +243,10 @@ petapp_mobile/lib/features/academy/
     entities/lesson.dart
     entities/lesson_step.dart
     entities/school.dart                          # School layer
+    entities/academy_domain.dart                  # Domain layer
     entities/knowledge_level.dart                  # Knowledge Progress
     services/academy_catalog.dart
+    services/academy_domain_catalog.dart           # Domain layer
     services/academy_progress_calculator.dart
     services/knowledge_progress_calculator.dart    # Knowledge Progress
     services/catalog/financial_life_catalog.dart   # School 1 content
@@ -227,9 +256,11 @@ petapp_mobile/lib/features/academy/
     controllers/academy_controller.dart
     controllers/lesson_session_controller.dart
     screens/academy_home_screen.dart
+    screens/academy_domain_detail_screen.dart      # Domain layer
     screens/school_detail_screen.dart              # School layer
     screens/module_detail_screen.dart
     screens/lesson_screen.dart
+    widgets/academy_domain_card.dart               # Domain layer
     widgets/school_card.dart                       # School layer
     widgets/mastery_bar_row.dart                   # School layer
     widgets/module_card.dart
