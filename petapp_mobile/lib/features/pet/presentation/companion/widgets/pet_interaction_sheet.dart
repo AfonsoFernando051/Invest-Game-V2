@@ -6,7 +6,7 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
-import 'package:petrimonium/features/pet/presentation/mascot/widgets/pet_mascot_widget.dart';
+import 'package:petrimonium/features/pet/presentation/companion/rive/pet_rive_companion.dart';
 
 /// Tapping the companion header opens this — a lightweight, structured menu
 /// ("Learn / Portfolio / Progress") rather than a chatbot, matching the
@@ -68,10 +68,11 @@ class PetInteractionSheet extends StatelessWidget {
                         ),
                       ),
                       child: ClipOval(
-                        child: PetMascotWidget(
+                        child: PetRiveCompanion(
                           controller: controller.mascotController,
                           size: 40,
                           interactive: false,
+                          interacting: true,
                         ),
                       ),
                     ),

@@ -6,8 +6,8 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
+import 'package:petrimonium/features/pet/presentation/companion/rive/pet_rive_companion.dart';
 import 'package:petrimonium/features/pet/presentation/companion/widgets/pet_interaction_sheet.dart';
-import 'package:petrimonium/features/pet/presentation/mascot/widgets/pet_mascot_widget.dart';
 
 /// The compact, always-visible companion avatar shown in every major
 /// screen's chrome (see `docs/PRODUCT_VISION.md`'s Pet Companion section).
@@ -105,10 +105,11 @@ class PetCompanionHeader extends StatelessWidget {
                         : null,
                   ),
                   child: ClipOval(
-                    child: PetMascotWidget(
+                    child: PetRiveCompanion(
                       controller: controller.mascotController,
                       size: avatarSize - 4,
                       interactive: false,
+                      interacting: controller.isInteractionOpen,
                     ),
                   ),
                 ),

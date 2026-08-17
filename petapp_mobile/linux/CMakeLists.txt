@@ -74,6 +74,15 @@ set_target_properties(${BINARY_NAME}
 # them to the application.
 include(flutter/generated_plugins.cmake)
 
+# rive_common vendors an older HarfBuzz snapshot that trips `-Wnontrivial-
+# memcall` (a newer Clang diagnostic the upstream source predates) under this
+# toolchain's Clang version. apply_standard_settings() turns it into a build-
+# breaking error for every plugin; downgrade it back to a warning for just
+# this target rather than weakening -Werror project-wide.
+if(TARGET rive_common_plugin)
+  target_compile_options(rive_common_plugin PRIVATE -Wno-error=nontrivial-memcall)
+endif()
+
 
 # === Installation ===
 # By default, "installing" just makes a relocatable bundle in the build
