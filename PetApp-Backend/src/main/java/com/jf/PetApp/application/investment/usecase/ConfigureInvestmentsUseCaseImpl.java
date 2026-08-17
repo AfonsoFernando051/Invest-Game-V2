@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.investment.port.InvestmentRepositoryPort;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.core.domain.Investment;
@@ -24,7 +25,7 @@ public class ConfigureInvestmentsUseCaseImpl implements ConfigureInvestmentsUseC
     @Transactional
     public void execute(String email, List<ConfigureInvestmentCommand> commands) {
         userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found for email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for email: " + email));
 
         List<Investment> investments = commands.stream()
                 .map(c -> new Investment(null, email, c.name(), c.quantity(), c.purchasePrice(), c.purchaseDate(), c.type()))

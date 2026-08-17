@@ -1,5 +1,6 @@
 package com.jf.PetApp.application.mentor.usecase;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.investment.dto.PortfolioSummaryDTO;
 import com.jf.PetApp.application.investment.usecase.GetPortfolioAllocationUseCase;
 import com.jf.PetApp.application.investment.usecase.GetPortfolioSummaryUseCase;
@@ -66,7 +67,7 @@ class GetMentorReplyUseCaseImplTest {
     void execute_WhenUserDoesNotExist_Throws() {
         when(userRepository.findByEmail(EMAIL)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ResourceNotFoundException.class,
                 () -> useCase.execute(EMAIL, requestWithHistory(List.of())));
     }
 

@@ -2,8 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
+import 'package:petrimonium/core/theme/app_spacing.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
+import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/core/widgets/chart_legend.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
+import 'package:petrimonium/core/widgets/tooltip_summary.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/dividend_event.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/formatters.dart';
 
@@ -70,10 +77,10 @@ class _ProventosEvolutionBarCardState extends State<ProventosEvolutionBarCard> {
     return GlassCard(
       backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.62 : 0.94),
       borderColor: AppColors.neonBlue.withValues(alpha: 0.3),
-      borderRadius: 20,
+      borderRadius: AppRadii.xl,
       borderWidth: 1,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -82,19 +89,25 @@ class _ProventosEvolutionBarCardState extends State<ProventosEvolutionBarCard> {
               children: [
                 Text(
                   'Evolução de Proventos',
-                  style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 15),
+                  style: AppTextStyles.bodyEmphasis.copyWith(color: tokens.textPrimary, fontWeight: FontWeight.bold),
                 ),
-                const _Legend(),
+                ChartLegend(items: [
+                  ChartLegendItem(color: AppColors.neonBlue, label: Translator.translate(AppStrings.proventosLegendReceived)),
+                  ChartLegendItem(
+                    color: AppColors.neonBlue.withValues(alpha: 0.35),
+                    label: Translator.translate(AppStrings.proventosLegendExpected),
+                  ),
+                ]),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             SizedBox(
               height: 220,
               child: !hasData
                   ? Center(
                       child: Text(
                         'Sem proventos registrados ainda.',
-                        style: TextStyle(color: tokens.textSecondary, fontSize: 12),
+                        style: AppTextStyles.label.copyWith(color: tokens.textSecondary),
                       ),
                     )
                   : BarChart(
@@ -104,12 +117,32 @@ class _ProventosEvolutionBarCardState extends State<ProventosEvolutionBarCard> {
                     ),
             ),
             if (_touchedIndex != null && _touchedIndex! < months.length) ...[
-              const SizedBox(height: 12),
-              _TooltipSummary(month: months[_touchedIndex!]),
+              const SizedBox(height: AppSpacing.md),
+              _buildTooltip(months[_touchedIndex!], tokens),
             ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTooltip(_MonthlyProventos month, AppColorTokens tokens) {
+    return TooltipSummary(
+      accentColor: AppColors.neonBlue,
+      children: [
+        Text(
+          '${month.month.month.toString().padLeft(2, '0')}/${month.month.year}',
+          style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
+        ),
+        Text(
+          'Recebido: ${PortfolioFormatters.currency(month.received, showCents: false)}',
+          style: AppTextStyles.label.copyWith(color: AppColors.neonBlue, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          'A receber: ${PortfolioFormatters.currency(month.expected, showCents: false)}',
+          style: AppTextStyles.label.copyWith(color: tokens.textSecondary, fontWeight: FontWeight.bold),
+        ),
+      ],
     );
   }
 
@@ -210,65 +243,3 @@ class _ProventosEvolutionBarCardState extends State<ProventosEvolutionBarCard> {
   }
 }
 
-class _TooltipSummary extends StatelessWidget {
-  const _TooltipSummary({required this.month});
-
-  final _MonthlyProventos month;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: tokens.surfaceElevated.withValues(alpha: 0.9),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.neonBlue.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '${month.month.month.toString().padLeft(2, '0')}/${month.month.year}',
-            style: TextStyle(color: tokens.textSecondary, fontSize: 11),
-          ),
-          Text(
-            'Recebido: ${PortfolioFormatters.currency(month.received, showCents: false)}',
-            style: TextStyle(color: AppColors.neonBlue, fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          Text(
-            'A receber: ${PortfolioFormatters.currency(month.expected, showCents: false)}',
-            style: TextStyle(color: tokens.textSecondary, fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Legend extends StatelessWidget {
-  const _Legend();
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _dot(AppColors.neonBlue),
-        const SizedBox(width: 4),
-        Text('Recebidos', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-        const SizedBox(width: 10),
-        _dot(AppColors.neonBlue.withValues(alpha: 0.35)),
-        const SizedBox(width: 4),
-        Text('A receber', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-      ],
-    );
-  }
-
-  Widget _dot(Color color) => Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-      );
-}

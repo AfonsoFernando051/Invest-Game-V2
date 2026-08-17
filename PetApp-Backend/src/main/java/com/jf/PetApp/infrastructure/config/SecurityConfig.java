@@ -3,6 +3,7 @@ package com.jf.PetApp.infrastructure.config;
 import com.jf.PetApp.application.auth.port.TokenProvider;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.infrastructure.security.jwt.JwtAuthenticationFilter;
+import com.jf.PetApp.infrastructure.security.ratelimit.RateLimitingFilter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,6 +26,13 @@ public class SecurityConfig {
     @Value("${app.cors.allowed-origins:*}")
     private String allowedOrigins;
 
+    // Same flag that gates the H2 console itself (application.properties vs
+    // application-prod.properties) — the only reason X-Frame-Options was ever disabled was to
+    // let the H2 console render in an iframe, so it's disabled only where that console is
+    // actually enabled. Everywhere else (including prod) keeps the safe same-origin default.
+    @Value("${spring.h2.console.enabled:false}")
+    private boolean h2ConsoleEnabled;
+
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(
         TokenProvider tokenProvider,
@@ -34,9 +42,15 @@ public class SecurityConfig {
     }
 
     @Bean
+    public RateLimitingFilter rateLimitingFilter() {
+        return new RateLimitingFilter();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(
         HttpSecurity http,
-        JwtAuthenticationFilter jwtAuthenticationFilter
+        JwtAuthenticationFilter jwtAuthenticationFilter,
+        RateLimitingFilter rateLimitingFilter
     ) throws Exception {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -47,7 +61,13 @@ public class SecurityConfig {
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
             .logout(logout -> logout.disable())
-            .headers(headers -> headers.frameOptions(frame -> frame.disable()))
+            .headers(headers -> headers.frameOptions(frame -> {
+                if (h2ConsoleEnabled) {
+                    frame.disable();
+                } else {
+                    frame.sameOrigin();
+                }
+            }))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
                 .anyRequest().authenticated()
@@ -55,6 +75,13 @@ public class SecurityConfig {
             .addFilterBefore(
                 jwtAuthenticationFilter,
                 UsernamePasswordAuthenticationFilter.class
+            )
+            // Explicitly ordered ahead of the JWT filter (not just both "before
+            // UsernamePasswordAuthenticationFilter", which wouldn't fix their relative order) —
+            // a rate-limited request should never reach JWT parsing at all.
+            .addFilterBefore(
+                rateLimitingFilter,
+                JwtAuthenticationFilter.class
             );
 
         return http.build();

@@ -4,8 +4,7 @@ import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
-import 'package:petrimonium/core/widgets/glass_card.dart';
-import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
+import 'package:petrimonium/core/widgets/module_chip.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/onboarding/presentation/screens/gamification_intro_screen.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
@@ -72,7 +71,7 @@ class AcademyIntroScreen extends StatelessWidget {
             mainAxisSpacing: 12,
             childAspectRatio: 2.4,
             children: [
-              for (final module in previewModules) _ModuleChip(module: module),
+              for (final module in previewModules) ModuleChip(module: module),
             ],
           ),
           const SizedBox(height: 20),
@@ -106,47 +105,6 @@ class AcademyIntroScreen extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _ModuleChip extends StatelessWidget {
-  const _ModuleChip({required this.module});
-
-  final AcademyModule module;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return GlassCard(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
-      child: Row(
-        children: [
-          Container(
-            width: 34,
-            height: 34,
-            decoration: BoxDecoration(
-              color: AppColors.neonCyan.withValues(alpha: 0.14),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Icon(module.icon, color: AppColors.neonCyan, size: 18),
-          ),
-          const SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              module.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: tokens.textPrimary,
-                fontSize: 12.5,
-                fontWeight: FontWeight.w600,
-                height: 1.2,
-              ),
             ),
           ),
         ],

@@ -17,7 +17,9 @@ import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.ConstraintViolationException;
 
 import com.jf.PetApp.application.auth.exception.AuthenticationException;
+import com.jf.PetApp.application.auth.exception.PasswordResetTokenInvalidException;
 import com.jf.PetApp.application.auth.exception.UserAlreadyExistsException;
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 
 /**
  * Single point where every uncaught exception becomes an HTTP response, so every controller
@@ -79,6 +81,18 @@ public class GlobalExceptionHandler {
     public ProblemDetail handleAuthenticationException(AuthenticationException e) {
         log.warn("Authentication failed");
         return problem(HttpStatus.UNAUTHORIZED, "INVALID_CREDENTIALS", e.getMessage());
+    }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ProblemDetail handleResourceNotFoundException(ResourceNotFoundException e) {
+        log.warn("Resource not found: {}", e.getMessage());
+        return problem(HttpStatus.NOT_FOUND, "RESOURCE_NOT_FOUND", e.getMessage());
+    }
+
+    @ExceptionHandler(PasswordResetTokenInvalidException.class)
+    public ProblemDetail handlePasswordResetTokenInvalid(PasswordResetTokenInvalidException e) {
+        log.warn("Rejected password reset: {}", e.getMessage());
+        return problem(HttpStatus.BAD_REQUEST, "PASSWORD_RESET_TOKEN_INVALID", e.getMessage());
     }
 
     @ExceptionHandler(ResponseStatusException.class)

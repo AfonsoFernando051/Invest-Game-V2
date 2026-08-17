@@ -13,12 +13,7 @@ class PortfolioHealthCard extends StatelessWidget {
 
   final PortfolioHealth health;
 
-  Color _scoreColor(BuildContext context) {
-    final tokens = context.colors;
-    if (health.overallScore >= 75) return tokens.success;
-    if (health.overallScore >= 50) return AppColors.goldenBorder;
-    return tokens.error;
-  }
+  Color _scoreColor(BuildContext context) => _colorForTier(health.tier, context);
 
   @override
   Widget build(BuildContext context) {
@@ -92,6 +87,19 @@ class PortfolioHealthCard extends StatelessWidget {
   String _shortName(String name) => name.length > 10 ? '${name.substring(0, 9)}…' : name;
 }
 
+/// Shared by [PortfolioHealthCard] (overall score) and [_MetricBar] (per-facet
+/// score) — both read a computed [HealthTier] rather than re-deriving it from
+/// a raw score, so only the tier→color mapping (a presentation concern)
+/// lives here; the score→tier thresholds live on the domain entities.
+Color _colorForTier(HealthTier tier, BuildContext context) {
+  final tokens = context.colors;
+  return switch (tier) {
+    HealthTier.strong => tokens.success,
+    HealthTier.moderate => AppColors.goldenBorder,
+    HealthTier.weak => tokens.error,
+  };
+}
+
 class _ScoreBadge extends StatelessWidget {
   const _ScoreBadge({required this.score, required this.grade, required this.color});
 
@@ -129,12 +137,7 @@ class _MetricBar extends StatelessWidget {
 
   final HealthMetric metric;
 
-  Color _color(BuildContext context) {
-    final tokens = context.colors;
-    if (metric.score >= 75) return tokens.success;
-    if (metric.score >= 45) return AppColors.goldenBorder;
-    return tokens.error;
-  }
+  Color _color(BuildContext context) => _colorForTier(metric.tier, context);
 
   @override
   Widget build(BuildContext context) {

@@ -2,8 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
+import 'package:petrimonium/core/theme/app_spacing.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
+import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/core/widgets/chart_legend.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
+import 'package:petrimonium/core/widgets/tooltip_summary.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
 import 'package:petrimonium/features/portfolio/presentation/controllers/portfolio_controller.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/formatters.dart';
@@ -44,10 +51,10 @@ class _WealthEvolutionBarCardState extends State<WealthEvolutionBarCard> {
     return GlassCard(
       backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.62 : 0.94),
       borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
-      borderRadius: 20,
+      borderRadius: AppRadii.xl,
       borderWidth: 1,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -56,19 +63,25 @@ class _WealthEvolutionBarCardState extends State<WealthEvolutionBarCard> {
               children: [
                 Text(
                   'Evolução do Patrimônio',
-                  style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 15),
+                  style: AppTextStyles.bodyEmphasis.copyWith(color: tokens.textPrimary, fontWeight: FontWeight.bold),
                 ),
-                _Legend(tokens: tokens),
+                ChartLegend(items: [
+                  ChartLegendItem(color: tokens.chartPositive, label: Translator.translate(AppStrings.wealthLegendAppliedValue)),
+                  ChartLegendItem(
+                    color: tokens.chartPositive.withValues(alpha: 0.45),
+                    label: Translator.translate(AppStrings.wealthLegendCapitalGain),
+                  ),
+                ]),
               ],
             ),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             SizedBox(
               height: 220,
               child: buckets.length < 2
                   ? Center(
                       child: Text(
                         'Sem dados suficientes para este período.',
-                        style: TextStyle(color: tokens.textSecondary, fontSize: 12),
+                        style: AppTextStyles.label.copyWith(color: tokens.textSecondary),
                       ),
                     )
                   : BarChart(
@@ -78,12 +91,36 @@ class _WealthEvolutionBarCardState extends State<WealthEvolutionBarCard> {
                     ),
             ),
             if (_touchedIndex != null && _touchedIndex! < buckets.length) ...[
-              const SizedBox(height: 12),
-              _TooltipSummary(point: buckets[_touchedIndex!]),
+              const SizedBox(height: AppSpacing.md),
+              _buildTooltip(buckets[_touchedIndex!], tokens),
             ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTooltip(HistoryPoint point, AppColorTokens tokens) {
+    final profit = point.profit;
+    return TooltipSummary(
+      accentColor: AppColors.neonCyan,
+      children: [
+        Text(
+          '${point.date.month.toString().padLeft(2, '0')}/${point.date.year}',
+          style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
+        ),
+        Text(
+          PortfolioFormatters.currency(point.investedCapital, showCents: false),
+          style: AppTextStyles.label.copyWith(color: tokens.textPrimary, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          '${profit >= 0 ? '+' : ''}${PortfolioFormatters.currency(profit, showCents: false)}',
+          style: AppTextStyles.label.copyWith(
+            color: profit >= 0 ? tokens.chartPositive : tokens.chartNegative,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 
@@ -197,71 +234,3 @@ class _WealthEvolutionBarCardState extends State<WealthEvolutionBarCard> {
   }
 }
 
-class _TooltipSummary extends StatelessWidget {
-  const _TooltipSummary({required this.point});
-
-  final HistoryPoint point;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    final profit = point.profit;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: tokens.surfaceElevated.withValues(alpha: 0.9),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.neonCyan.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            '${point.date.month.toString().padLeft(2, '0')}/${point.date.year}',
-            style: TextStyle(color: tokens.textSecondary, fontSize: 11),
-          ),
-          Text(
-            PortfolioFormatters.currency(point.investedCapital, showCents: false),
-            style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          Text(
-            '${profit >= 0 ? '+' : ''}${PortfolioFormatters.currency(profit, showCents: false)}',
-            style: TextStyle(
-              color: profit >= 0 ? tokens.chartPositive : tokens.chartNegative,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Legend extends StatelessWidget {
-  const _Legend({required this.tokens});
-
-  final AppColorTokens tokens;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _dot(tokens.chartPositive),
-        const SizedBox(width: 4),
-        Text('Valor aplicado', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-        const SizedBox(width: 10),
-        _dot(tokens.chartPositive.withValues(alpha: 0.45)),
-        const SizedBox(width: 4),
-        Text('Ganho de Capital', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-      ],
-    );
-  }
-
-  Widget _dot(Color color) => Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-      );
-}

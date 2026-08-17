@@ -13,6 +13,7 @@ import 'package:petrimonium/features/auth/presentation/widgets/custom_text_field
 import 'package:petrimonium/features/auth/presentation/widgets/login_background.dart';
 import 'package:petrimonium/features/auth/presentation/widgets/login_button.dart';
 import 'package:petrimonium/features/auth/presentation/widgets/login_card.dart';
+import 'package:petrimonium/core/widgets/game_button.dart';
 
 class MockAuthRepository extends Mock implements AuthRepository {}
 
@@ -97,7 +98,7 @@ void main() {
       expect(find.text('test@example.com'), findsOneWidget);
       expect(find.text('password123'), findsOneWidget);
 
-      final loginBtn = find.byType(ElevatedButton).first;
+      final loginBtn = find.byType(GameButton);
       await tester.tap(loginBtn);
       await tester.pump(); // Start loading
       await tester.pump(); // Finish loading

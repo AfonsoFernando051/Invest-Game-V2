@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/asset_details/domain/entities/asset_details.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/shared/formatters.dart';
@@ -21,7 +23,7 @@ class AssetHeader extends StatelessWidget {
     return GlassCard(
       backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.6 : 0.94),
       borderColor: AppColors.neonCyan.withValues(alpha: 0.25),
-      borderRadius: 20,
+      borderRadius: AppRadii.xl,
       borderWidth: 1,
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -36,7 +38,7 @@ class AssetHeader extends StatelessWidget {
                   const SizedBox(width: 8),
                   Text(
                     '· ${asset.sector}',
-                    style: TextStyle(color: tokens.textSecondary, fontSize: 11),
+                    style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
                   ),
                 ],
               ],
@@ -47,11 +49,7 @@ class AssetHeader extends StatelessWidget {
             // ── Name ────────────────────────────────────────────
             Text(
               asset.displayName,
-              style: TextStyle(
-                color: tokens.textPrimary,
-                fontWeight: FontWeight.w600,
-                fontSize: 15,
-              ),
+              style: AppTextStyles.bodyEmphasis.copyWith(color: tokens.textPrimary),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
@@ -65,16 +63,12 @@ class AssetHeader extends StatelessWidget {
                 if (asset.currentPrice != null)
                   Text(
                     PortfolioFormatters.currency(asset.currentPrice!),
-                    style: TextStyle(
-                      color: tokens.textPrimary,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 28,
-                    ),
+                    style: AppTextStyles.display.copyWith(color: tokens.textPrimary),
                   )
                 else
                   Text(
                     'Preço indisponível',
-                    style: TextStyle(color: tokens.textSecondary, fontSize: 16),
+                    style: AppTextStyles.title.copyWith(color: tokens.textSecondary, fontWeight: FontWeight.normal),
                   ),
                 const Spacer(),
                 if (asset.dailyChangePercent != null)
@@ -82,7 +76,7 @@ class AssetHeader extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                     decoration: BoxDecoration(
                       color: changeColor.withValues(alpha: 0.15),
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(AppRadii.xl),
                       border: Border.all(color: changeColor.withValues(alpha: 0.4)),
                     ),
                     child: Row(
@@ -95,11 +89,7 @@ class AssetHeader extends StatelessWidget {
                         ),
                         Text(
                           PortfolioFormatters.percent(asset.dailyChangePercent!),
-                          style: TextStyle(
-                            color: changeColor,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 13,
-                          ),
+                          style: AppTextStyles.body.copyWith(color: changeColor, fontWeight: FontWeight.bold),
                         ),
                       ],
                     ),
@@ -122,7 +112,7 @@ class AssetHeader extends StatelessWidget {
               const SizedBox(height: 10),
               Text(
                 _formatLastUpdated(asset.lastUpdated!),
-                style: TextStyle(color: tokens.textTertiary, fontSize: 10),
+                style: AppTextStyles.caption.copyWith(color: tokens.textTertiary),
               ),
             ],
           ],
@@ -166,12 +156,12 @@ class _AssetTypeBadge extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
       decoration: BoxDecoration(
         color: color.withValues(alpha: 0.15),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppRadii.sm),
         border: Border.all(color: color.withValues(alpha: 0.4)),
       ),
       child: Text(
         label,
-        style: TextStyle(color: color, fontSize: 10, fontWeight: FontWeight.bold),
+        style: AppTextStyles.caption.copyWith(color: color, fontWeight: FontWeight.bold),
       ),
     );
   }
@@ -203,12 +193,12 @@ class _FiftyTwoWeekRange extends StatelessWidget {
           children: [
             Text(
               '52 sem: ${PortfolioFormatters.currency(low, showCents: false)}',
-              style: TextStyle(color: tokens.textSecondary, fontSize: 10),
+              style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
             ),
             const Spacer(),
             Text(
               PortfolioFormatters.currency(high, showCents: false),
-              style: TextStyle(color: tokens.textSecondary, fontSize: 10),
+              style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
             ),
           ],
         ),

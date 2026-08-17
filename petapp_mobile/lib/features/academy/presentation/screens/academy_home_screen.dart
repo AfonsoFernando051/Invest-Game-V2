@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_motion.dart';
+import 'package:petrimonium/core/theme/app_spacing.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
-import 'package:petrimonium/core/widgets/game_button.dart';
-import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
-import 'package:petrimonium/features/academy/domain/services/knowledge_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/school_detail_screen.dart';
-import 'package:petrimonium/features/academy/presentation/widgets/mastery_bar_row.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_continue_card.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_level_header.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_mastery_section.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/school_card.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
@@ -102,7 +103,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               child: child,
             ),
           ),
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: AppMotion.pageTransition,
     );
   }
 
@@ -160,30 +161,33 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
       onRefresh: _controller.load,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.md),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            _buildLevelHeader(context, level.level),
-            const SizedBox(height: 20),
+            AcademyLevelHeader(
+              level: level.level,
+              totalXpEarned: _controller.totalXpEarned,
+              knowledgeLevel: _controller.knowledgeLevel,
+            ),
+            const SizedBox(height: AppSpacing.xxl),
             if (_controller.nextLesson != null) ...[
-              _buildContinueCard(context, _controller.nextLesson!),
-              const SizedBox(height: 24),
+              AcademyContinueCard(lesson: _controller.nextLesson!, onStart: () => _openLesson(_controller.nextLesson!)),
+              const SizedBox(height: AppSpacing.xxl + 4),
             ],
             if (masterySchools.isNotEmpty) ...[
-              _buildMasterySection(context, masterySchools),
-              const SizedBox(height: 24),
+              AcademyMasterySection(schools: masterySchools, masteryFor: _controller.masteryFor),
+              const SizedBox(height: AppSpacing.xxl + 4),
             ],
             Text(
               Translator.translate(AppStrings.academySchoolsSectionLabel),
-              style: TextStyle(
+              style: AppTextStyles.caption.copyWith(
                 color: tokens.primary.withValues(alpha: 0.6),
-                fontSize: 11,
                 fontWeight: FontWeight.w700,
                 letterSpacing: 2,
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: AppSpacing.sm + 2),
             for (final school in _controller.schools) ...[
               SchoolCard(
                 school: school,
@@ -191,172 +195,9 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
                 masteryPercent: _controller.masteryFor(school),
                 onTap: () => _openSchool(school),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: AppSpacing.md),
             ],
-            const SizedBox(height: 20),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLevelHeader(BuildContext context, int level) {
-    final tokens = context.colors;
-    final knowledgeLevel = _controller.knowledgeLevel;
-    return GlassCard(
-      borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
-      borderRadius: 20,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Container(
-                  width: 48,
-                  height: 48,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: AppColors.neonCyan.withValues(alpha: 0.15),
-                    border: Border.all(
-                      color: AppColors.neonCyan.withValues(alpha: 0.5),
-                      width: 1.5,
-                    ),
-                  ),
-                  child: const Icon(
-                    Icons.school_outlined,
-                    color: AppColors.neonCyan,
-                    size: 24,
-                  ),
-                ),
-                const SizedBox(width: 14),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        Translator.translate(
-                          AppStrings.academyLevelLabel,
-                          params: {'level': '$level'},
-                        ),
-                        style: TextStyle(
-                          color: tokens.textPrimary,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        Translator.translate(
-                          AppStrings.academyXpEarnedLabel,
-                          params: {'xp': '${_controller.totalXpEarned}'},
-                        ),
-                        style: TextStyle(color: tokens.textSecondary, fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 14),
-            Divider(color: tokens.textPrimary.withValues(alpha: 0.08), height: 1),
-            const SizedBox(height: 12),
-            // Deliberately visually distinct from Game Level above (no icon
-            // circle, secondary color) — this is Knowledge Progress, never
-            // to be read as the same kind of number (PRODUCT_VISION.md §9).
-            Row(
-              children: [
-                Icon(Icons.psychology_alt_outlined, color: AppColors.goldenBorder, size: 18),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    Translator.translate(
-                      AppStrings.academyKnowledgeLevelLabel,
-                      params: {'tier': KnowledgeProgressCalculator.labelFor(knowledgeLevel)},
-                    ),
-                    style: TextStyle(color: tokens.textSecondary, fontSize: 12, fontWeight: FontWeight.w600),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildMasterySection(BuildContext context, List<School> masterySchools) {
-    final tokens = context.colors;
-    return GlassCard(
-      borderRadius: 20,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              Translator.translate(AppStrings.academyMasterySectionLabel),
-              style: TextStyle(
-                color: tokens.primary.withValues(alpha: 0.6),
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 2,
-              ),
-            ),
-            const SizedBox(height: 12),
-            for (final school in masterySchools)
-              MasteryBarRow(school: school, percent: _controller.masteryFor(school)),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildContinueCard(BuildContext context, Lesson lesson) {
-    final tokens = context.colors;
-    return GlassCard(
-      borderColor: AppColors.goldenBorder.withValues(alpha: 0.4),
-      borderRadius: 20,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              Translator.translate(AppStrings.academyContinueSectionLabel),
-              style: TextStyle(
-                color: AppColors.goldenBorder,
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 2,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              lesson.title,
-              style: TextStyle(
-                color: tokens.textPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              Translator.translate(
-                AppStrings.academyXpToCompleteLabel,
-                params: {'xp': '${lesson.xpReward}'},
-              ),
-              style: TextStyle(color: tokens.textSecondary, fontSize: 12),
-            ),
-            const SizedBox(height: 14),
-            GameButton(
-              label: Translator.translate(AppStrings.academyStartLessonButton),
-              icon: Icons.play_arrow_rounded,
-              colors: const [AppColors.neonViolet, AppColors.neonPink],
-              pulse: true,
-              onPressed: () => _openLesson(lesson),
-            ),
+            const SizedBox(height: AppSpacing.xl),
           ],
         ),
       ),

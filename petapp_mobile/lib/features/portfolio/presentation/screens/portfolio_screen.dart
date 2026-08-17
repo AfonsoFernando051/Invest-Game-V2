@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/game_snack.dart';
-import 'package:petrimonium/core/widgets/glass_card.dart';
+import 'package:petrimonium/core/widgets/error_state_view.dart';
 import 'package:petrimonium/features/investment/presentation/screens/investment_configuration_screen.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 import 'package:petrimonium/features/portfolio/presentation/controllers/portfolio_controller.dart';
@@ -56,7 +56,12 @@ class PortfolioScreen extends StatelessWidget {
     }
 
     if (controller.error != null && controller.holdings.isEmpty) {
-      return _ErrorState(error: controller.error!, onRetry: controller.loadAll);
+      return ErrorStateView(
+        title: 'Falha de Comunicação',
+        message: 'Não foi possível carregar seu portfólio.\n${controller.error!}',
+        onRetry: controller.loadAll,
+        style: ErrorStateStyle.card,
+      );
     }
 
     return Stack(
@@ -107,52 +112,6 @@ class PortfolioScreen extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({required this.error, required this.onRetry});
-
-  final String error;
-  final Future<void> Function() onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return Center(
-      child: GlassCard(
-        backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.6 : 0.94),
-        borderColor: tokens.error.withValues(alpha: 0.4),
-        borderRadius: 24,
-        child: Padding(
-          padding: const EdgeInsets.all(28),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(Icons.satellite_alt, size: 56, color: tokens.error),
-              const SizedBox(height: 16),
-              Text(
-                'Falha de Comunicação',
-                style: TextStyle(color: tokens.textPrimary, fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Não foi possível carregar seu portfólio.\n$error',
-                textAlign: TextAlign.center,
-                style: TextStyle(color: tokens.textSecondary, fontSize: 13),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton.icon(
-                onPressed: onRetry,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Tentar novamente'),
-                style: ElevatedButton.styleFrom(backgroundColor: AppColors.neonViolet, foregroundColor: Colors.white),
-              ),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }

@@ -37,10 +37,10 @@ public class JwtTokenProvider implements TokenProvider {
         Date expiration = new Date(now.getTime() + expirationMillis);
 
         return Jwts.builder()
-            .setSubject(user.getEmail())
+            .subject(user.getEmail())
             .claim("role", user.getRole().name())
-            .setIssuedAt(now)
-            .setExpiration(expiration)
+            .issuedAt(now)
+            .expiration(expiration)
             .signWith(secretKey)
             .compact();
     }
@@ -48,10 +48,10 @@ public class JwtTokenProvider implements TokenProvider {
     @Override
     public boolean validate(String token) {
         try {
-            Jwts.parserBuilder()
-                .setSigningKey(secretKey)
+            Jwts.parser()
+                .verifyWith(secretKey)
                 .build()
-                .parseClaimsJws(token);
+                .parseSignedClaims(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;
@@ -60,11 +60,11 @@ public class JwtTokenProvider implements TokenProvider {
 
     @Override
     public String extractSubject(String token) {
-        return Jwts.parserBuilder()
-            .setSigningKey(secretKey)
+        return Jwts.parser()
+            .verifyWith(secretKey)
             .build()
-            .parseClaimsJws(token)
-            .getBody()
+            .parseSignedClaims(token)
+            .getPayload()
             .getSubject();
     }
 }

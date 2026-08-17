@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_tokens.dart';
 import '../../../../core/utils/translator.dart';
+import '../screens/forgot_password_screen.dart';
 
 class ForgotPasswordButton extends StatelessWidget {
   const ForgotPasswordButton({super.key});
@@ -11,7 +12,9 @@ class ForgotPasswordButton extends StatelessWidget {
     final textSecondary = context.colors.textSecondary;
     return GestureDetector(
       onTap: () {
-        // TODO: Lógica para recuperação de senha
+        Navigator.of(context).push(
+          MaterialPageRoute(builder: (_) => const ForgotPasswordScreen()),
+        );
       },
       child: Text(
         Translator.translate(AppStrings.forgotPassword),

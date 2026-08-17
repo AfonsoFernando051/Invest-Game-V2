@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 
 /// The app's single logout-confirmation dialog, shown from both Dashboard
@@ -17,7 +18,7 @@ class ConfirmLogoutDialog {
       context: context,
       builder: (dialogContext) => AlertDialog(
         backgroundColor: tokens.surfaceElevated,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadii.xl)),
         title: Text(
           Translator.translate(AppStrings.logoutConfirmTitle),
           style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold),

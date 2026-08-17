@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/utils/pet_assets.dart';
+import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/mentor/domain/entities/chat_message.dart';
@@ -89,21 +91,21 @@ class _MentorScreenState extends State<MentorScreen> {
         backgroundColor: tokens.surfaceElevated,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Text(
-          'Limpar conversa?',
+          Translator.translate(AppStrings.mentorClearConversationTitle),
           style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold),
         ),
         content: Text(
-          'O histórico com seu mentor será apagado deste dispositivo.',
+          Translator.translate(AppStrings.mentorClearConversationConfirm),
           style: TextStyle(color: tokens.textSecondary),
         ),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancelar', style: TextStyle(color: AppColors.neonCyan)),
+            child: Text(Translator.translate(AppStrings.cancelButton), style: const TextStyle(color: AppColors.neonCyan)),
           ),
           TextButton(
             onPressed: () => Navigator.pop(context, true),
-            child: Text('Limpar', style: TextStyle(color: tokens.error)),
+            child: Text(Translator.translate(AppStrings.clearButton), style: TextStyle(color: tokens.error)),
           ),
         ],
       ),

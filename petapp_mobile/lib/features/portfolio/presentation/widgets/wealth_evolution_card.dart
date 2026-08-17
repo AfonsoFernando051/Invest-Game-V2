@@ -2,8 +2,15 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
+import 'package:petrimonium/core/theme/app_spacing.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
+import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/core/widgets/chart_legend.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
+import 'package:petrimonium/core/widgets/tooltip_summary.dart';
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/investment_type_display.dart';
@@ -35,10 +42,10 @@ class _WealthEvolutionCardState extends State<WealthEvolutionCard> {
     return GlassCard(
       backgroundColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.62 : 0.94),
       borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
-      borderRadius: 20,
+      borderRadius: AppRadii.xl,
       borderWidth: 1,
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(AppSpacing.lg),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -47,23 +54,26 @@ class _WealthEvolutionCardState extends State<WealthEvolutionCard> {
               children: [
                 Text(
                   'Evolução Patrimonial',
-                  style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 15),
+                  style: AppTextStyles.bodyEmphasis.copyWith(color: tokens.textPrimary, fontWeight: FontWeight.bold),
                 ),
-                const _Legend(),
+                ChartLegend(items: [
+                  ChartLegendItem(color: AppColors.neonCyan, label: Translator.translate(AppStrings.wealthLegendPatrimony)),
+                  ChartLegendItem(color: tokens.chartNeutral, label: Translator.translate(AppStrings.wealthLegendInvested)),
+                ]),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.md),
             _RangeSelector(controller: controller),
-            const SizedBox(height: 8),
+            const SizedBox(height: AppSpacing.sm),
             _AssetFilterSelector(controller: controller),
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.lg),
             SizedBox(
               height: 220,
               child: points.length < 2
                   ? Center(
                       child: Text(
                         'Sem dados suficientes para este período.',
-                        style: TextStyle(color: tokens.textSecondary, fontSize: 12),
+                        style: AppTextStyles.label.copyWith(color: tokens.textSecondary),
                       ),
                     )
                   : InteractiveViewer(
@@ -79,12 +89,36 @@ class _WealthEvolutionCardState extends State<WealthEvolutionCard> {
                     ),
             ),
             if (_touchedIndex != null && _touchedIndex! < points.length) ...[
-              const SizedBox(height: 12),
-              _TooltipSummary(point: points[_touchedIndex!]),
+              const SizedBox(height: AppSpacing.md),
+              _buildTooltip(points[_touchedIndex!], tokens),
             ],
           ],
         ),
       ),
+    );
+  }
+
+  Widget _buildTooltip(HistoryPoint point, AppColorTokens tokens) {
+    final profit = point.profit;
+    return TooltipSummary(
+      accentColor: AppColors.neonCyan,
+      children: [
+        Text(
+          PortfolioFormatters.date(point.date),
+          style: AppTextStyles.caption.copyWith(color: tokens.textSecondary),
+        ),
+        Text(
+          PortfolioFormatters.currency(point.portfolioValue, showCents: false),
+          style: AppTextStyles.label.copyWith(color: tokens.textPrimary, fontWeight: FontWeight.bold),
+        ),
+        Text(
+          '${profit >= 0 ? '+' : ''}${PortfolioFormatters.currency(profit, showCents: false)}',
+          style: AppTextStyles.label.copyWith(
+            color: profit >= 0 ? tokens.chartPositive : tokens.chartNegative,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     );
   }
 
@@ -166,74 +200,6 @@ class _WealthEvolutionCardState extends State<WealthEvolutionCard> {
       ],
     );
   }
-}
-
-class _TooltipSummary extends StatelessWidget {
-  const _TooltipSummary({required this.point});
-
-  final HistoryPoint point;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    final profit = point.profit;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: tokens.surfaceElevated.withValues(alpha: 0.9),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.neonCyan.withValues(alpha: 0.3)),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Text(
-            PortfolioFormatters.date(point.date),
-            style: TextStyle(color: tokens.textSecondary, fontSize: 11),
-          ),
-          Text(
-            PortfolioFormatters.currency(point.portfolioValue, showCents: false),
-            style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold, fontSize: 12),
-          ),
-          Text(
-            '${profit >= 0 ? '+' : ''}${PortfolioFormatters.currency(profit, showCents: false)}',
-            style: TextStyle(
-              color: profit >= 0 ? tokens.chartPositive : tokens.chartNegative,
-              fontWeight: FontWeight.bold,
-              fontSize: 12,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _Legend extends StatelessWidget {
-  const _Legend();
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _dot(AppColors.neonCyan),
-        const SizedBox(width: 4),
-        Text('Patrimônio', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-        const SizedBox(width: 10),
-        _dot(tokens.chartNeutral),
-        const SizedBox(width: 4),
-        Text('Investido', style: TextStyle(color: tokens.textSecondary, fontSize: 10)),
-      ],
-    );
-  }
-
-  Widget _dot(Color color) => Container(
-        width: 8,
-        height: 8,
-        decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-      );
 }
 
 class _RangeSelector extends StatelessWidget {
@@ -322,20 +288,19 @@ class _Chip extends StatelessWidget {
       color: Colors.transparent,
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(AppRadii.lg),
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 200),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md, vertical: 6),
           decoration: BoxDecoration(
             color: selected ? accent.withValues(alpha: 0.18) : tokens.textTertiary.withValues(alpha: 0.08),
-            borderRadius: BorderRadius.circular(16),
+            borderRadius: BorderRadius.circular(AppRadii.lg),
             border: Border.all(color: selected ? accent.withValues(alpha: 0.7) : tokens.border),
           ),
           child: Text(
             label,
-            style: TextStyle(
+            style: AppTextStyles.caption.copyWith(
               color: selected ? tokens.textPrimary : tokens.textSecondary,
-              fontSize: 11,
               fontWeight: selected ? FontWeight.bold : FontWeight.normal,
             ),
           ),

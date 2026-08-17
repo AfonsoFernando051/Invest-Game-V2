@@ -8,6 +8,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.gamification.achievement.AchievementCatalog;
 import com.jf.PetApp.application.gamification.achievement.AchievementContext;
 import com.jf.PetApp.application.gamification.achievement.AchievementDefinition;
@@ -64,7 +65,7 @@ public class EvaluateAchievementsUseCaseImpl implements EvaluateAchievementsUseC
     @Transactional
     public AchievementEvaluationResult execute(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Long userId = user.getId();
 
         AchievementContext context = buildContext(userEmail);

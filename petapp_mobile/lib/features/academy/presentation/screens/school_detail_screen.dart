@@ -4,6 +4,7 @@ import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_motion.dart';
 import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
@@ -68,7 +69,7 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
           child: child,
         ),
       ),
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: AppMotion.pageTransition,
     );
   }
 

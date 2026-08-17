@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
 
 /// A premium "mobile-game" CTA button: gradient fill, ambient glow, a tap-down
 /// press animation, and an optional slow idle pulse reserved for the single
@@ -20,7 +22,7 @@ class GameButton extends StatefulWidget {
     this.pulse = false,
     this.isLoading = false,
     this.height = 56,
-    this.borderRadius = 20,
+    this.borderRadius = AppRadii.xl,
     this.expand = true,
     this.iconTrailing = false,
   }) : child = null;
@@ -42,7 +44,7 @@ class GameButton extends StatefulWidget {
     this.colors = AppColors.brandGradient,
     this.pulse = false,
     this.height,
-    this.borderRadius = 20,
+    this.borderRadius = AppRadii.xl,
     this.expand = true,
   })  : label = null,
         icon = null,
@@ -207,10 +209,8 @@ class _GameButtonState extends State<GameButton> with TickerProviderStateMixin {
                               child: Text(
                                 widget.label!,
                                 overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
+                                style: AppTextStyles.title.copyWith(
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 15,
                                   letterSpacing: 0.3,
                                 ),
                               ),

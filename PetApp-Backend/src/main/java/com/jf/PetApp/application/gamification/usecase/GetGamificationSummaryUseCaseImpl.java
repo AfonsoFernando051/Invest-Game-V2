@@ -2,6 +2,7 @@ package com.jf.PetApp.application.gamification.usecase;
 
 import org.springframework.stereotype.Service;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.gamification.dto.GamificationSummaryResult;
 import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.service.LevelCalculator;
@@ -34,7 +35,7 @@ public class GetGamificationSummaryUseCaseImpl implements GetGamificationSummary
     @Override
     public GamificationSummaryResult execute(String userEmail) {
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Long userId = user.getId();
 
         int totalXp = xpLedgerService.totalXpFor(userId) + achievementRepository.totalXpFor(userId);

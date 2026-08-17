@@ -6,6 +6,7 @@ import java.util.Set;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.service.LevelCalculator;
 import com.jf.PetApp.application.gamification.service.StreakService;
@@ -60,7 +61,7 @@ public class CompleteLessonUseCaseImpl implements CompleteLessonUseCase {
     @Transactional
     public LessonCompletionResult execute(String userEmail, String lessonId) {
         User user = userRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         Long userId = user.getId();
 
         LessonCatalogEntry lesson = catalogPort.findLesson(lessonId)

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./mvnw -q compile)",
+      "Bash(echo \"exit: $?\")",
+      "Bash(./mvnw -q test -Dtest=GetAssetDetailsUseCaseImplTest)",
+      "Bash(xargs -I{} sh -c 'unzip -l \"{}\" 2>/dev/null | grep -q \"TestRestTemplate.class\" && echo FOUND IN: {}')",
+      "Bash(./mvnw -q dependency:tree -Dincludes=org.springframework.boot:spring-boot-resttestclient)",
+      "Bash(./mvnw -q test-compile)",
+      "Bash(unzip -l /home/fernando/.m2/repository/org/springframework/boot/spring-boot-resttestclient/4.0.1/spring-boot-resttestclient-4.0.1.jar)",
+      "Bash(xargs -I{} sh -c 'echo === {} ===; cat {}')",
+      "Bash(python3 -)"
+    ]
+  }
+}

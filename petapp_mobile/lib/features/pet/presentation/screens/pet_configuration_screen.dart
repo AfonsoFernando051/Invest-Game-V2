@@ -6,6 +6,8 @@ import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/utils/friendly_error_message.dart';
 import 'package:petrimonium/core/utils/game_snack.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_spacing.dart';
+import 'package:petrimonium/core/theme/app_text_styles.dart';
 import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/pet_assets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
@@ -13,6 +15,9 @@ import 'package:petrimonium/features/onboarding/presentation/screens/academy_int
 import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/pet_hero_capsule.dart';
 import 'package:petrimonium/features/pet/data/models/pet_specie_enum.dart';
+import 'package:petrimonium/features/pet/presentation/widgets/pet_name_field.dart';
+import 'package:petrimonium/features/pet/presentation/widgets/pet_preview_panel.dart';
+import 'package:petrimonium/features/pet/presentation/widgets/pet_species_selector.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 
 /// Onboarding's "Configure Your Pet" step — the pet introduces itself, and
@@ -97,7 +102,7 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
       isCtaLoading: _isLoading,
       onCta: _handleContinue,
       body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 20),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl),
         child: LayoutBuilder(
           builder: (context, constraints) {
             final isWide = constraints.maxWidth > 700;
@@ -107,8 +112,8 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(flex: 5, child: _buildLeftPanel()),
-                    const SizedBox(width: 16),
-                    Expanded(flex: 4, child: _buildRightPanel(context)),
+                    const SizedBox(width: AppSpacing.md),
+                    const Expanded(flex: 4, child: PetPreviewPanel()),
                   ],
                 ),
               );
@@ -116,8 +121,8 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
             return Column(
               children: [
                 _buildLeftPanel(),
-                const SizedBox(height: 16),
-                _buildRightPanel(context),
+                const SizedBox(height: AppSpacing.md),
+                const PetPreviewPanel(),
               ],
             );
           },
@@ -128,20 +133,16 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
 
   Widget _buildLeftPanel() {
     return GlassCard(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(AppSpacing.xl),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
             Translator.translate(AppStrings.meetPetNeedName),
             textAlign: TextAlign.center,
-            style: const TextStyle(
-              color: AppColors.goldenBorder,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-            ),
+            style: AppTextStyles.body.copyWith(color: AppColors.goldenBorder, fontWeight: FontWeight.w600),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Center(
             child: PetHeroCapsule(
               size: 210,
@@ -151,255 +152,29 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
               ),
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: AppSpacing.md),
           Text(
             Translator.translate(AppStrings.meetPetSpeciesPrompt),
             textAlign: TextAlign.center,
-            style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
+            style: AppTextStyles.body.copyWith(color: context.colors.textSecondary),
           ),
-          const SizedBox(height: 12),
-          _buildPetSelector(),
-          const SizedBox(height: 20),
-          _buildNameField(),
+          const SizedBox(height: AppSpacing.sm + 4),
+          PetSpeciesSelector(
+            selected: _selectedSpecie,
+            onSelected: (specie) => setState(() => _selectedSpecie = specie),
+          ),
+          const SizedBox(height: AppSpacing.xl),
+          PetNameField(
+            controller: _nameController,
+            showError: _showNameError,
+            suggestions: _nameSuggestions,
+            onChanged: (_) {
+              if (_showNameError) setState(() => _showNameError = false);
+            },
+            onSuggestionSelected: _pickSuggestion,
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildNameField() {
-    final tokens = context.colors;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        Text(
-          Translator.translate(AppStrings.namePetPrompt),
-          textAlign: TextAlign.center,
-          style: TextStyle(color: tokens.textSecondary, fontSize: 13),
-        ),
-        const SizedBox(height: 10),
-        TextField(
-          controller: _nameController,
-          textCapitalization: TextCapitalization.words,
-          textAlign: TextAlign.center,
-          style: TextStyle(color: tokens.textPrimary),
-          onChanged: (_) {
-            if (_showNameError) setState(() => _showNameError = false);
-          },
-          decoration: InputDecoration(
-            hintText: Translator.translate(AppStrings.namePetHint),
-            hintStyle: TextStyle(color: tokens.textTertiary),
-            filled: true,
-            fillColor: tokens.surface.withValues(
-              alpha: context.isDarkMode ? 0.5 : 0.94,
-            ),
-            errorText: _showNameError
-                ? Translator.translate(AppStrings.namePetRequiredError)
-                : null,
-            contentPadding: const EdgeInsets.symmetric(
-              horizontal: 16,
-              vertical: 12,
-            ),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: AppColors.neonCyan.withValues(alpha: 0.4),
-              ),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(
-                color: AppColors.neonCyan.withValues(alpha: 0.3),
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(
-                color: AppColors.neonCyan,
-                width: 1.5,
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 10),
-        Wrap(
-          alignment: WrapAlignment.center,
-          spacing: 8,
-          runSpacing: 8,
-          children: _nameSuggestions.map((name) {
-            final isSelected = _nameController.text == name;
-            return ChoiceChip(
-              label: Text(name),
-              selected: isSelected,
-              onSelected: (_) => _pickSuggestion(name),
-              labelStyle: TextStyle(
-                color: isSelected ? tokens.textPrimary : tokens.textSecondary,
-                fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-              ),
-              backgroundColor: tokens.textPrimary.withValues(alpha: 0.06),
-              selectedColor: AppColors.neonCyan.withValues(alpha: 0.25),
-              side: BorderSide(
-                color: isSelected
-                    ? AppColors.neonCyan
-                    : tokens.textPrimary.withValues(alpha: 0.15),
-              ),
-            );
-          }).toList(),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildPetSelector() {
-    return SizedBox(
-      height: 90,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: PetSpecieEnum.values.length,
-        itemBuilder: (context, index) {
-          final specie = PetSpecieEnum.values[index];
-          final isSelected = _selectedSpecie == specie;
-          final tokens = context.colors;
-          return GestureDetector(
-            onTap: () => setState(() => _selectedSpecie = specie),
-            child: Container(
-              width: 70,
-              margin: const EdgeInsets.only(right: 12),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? AppColors.neonCyan.withValues(alpha: 0.2)
-                    : tokens.textPrimary.withValues(alpha: 0.05),
-                borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: isSelected
-                      ? AppColors.neonCyan
-                      : tokens.textPrimary.withValues(alpha: 0.2),
-                  width: isSelected ? 2 : 1,
-                ),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                        image: AssetImage(PetAssets.imageFor(specie.name)),
-                        fit: BoxFit.cover,
-                      ),
-                      border: Border.all(color: tokens.border, width: 1),
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Text(
-                    specie.name[0].toUpperCase() +
-                        specie.name.substring(1).toLowerCase(),
-                    style: TextStyle(
-                      color: isSelected
-                          ? tokens.textPrimary
-                          : tokens.textSecondary,
-                      fontSize: 12,
-                      fontWeight: isSelected
-                          ? FontWeight.bold
-                          : FontWeight.normal,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-
-  /// What the companion actually is: a description of the relationship
-  /// ahead, not a stat sheet. No numbers are invented here — the pet has no
-  /// financial metrics of its own; those belong to the user's portfolio.
-  Widget _buildRightPanel(BuildContext context) {
-    return GlassCard(
-      borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
-      boxShadow: [
-        BoxShadow(
-          color: AppColors.neonCyan.withValues(alpha: 0.1),
-          blurRadius: 15,
-          spreadRadius: 2,
-        ),
-      ],
-      child: Padding(
-        padding: const EdgeInsets.all(24.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(
-              Translator.translate(AppStrings.meetPetPreviewTitle),
-              style: TextStyle(
-                color: context.colors.textPrimary,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 20),
-            _buildPreviewRow(
-              context,
-              Icons.celebration,
-              AppColors.goldenBorder,
-              Translator.translate(AppStrings.meetPetPreviewCelebrate),
-            ),
-            const SizedBox(height: 16),
-            _buildPreviewRow(
-              context,
-              Icons.school,
-              AppColors.neonCyan,
-              Translator.translate(AppStrings.meetPetPreviewLearn),
-            ),
-            const SizedBox(height: 16),
-            _buildPreviewRow(
-              context,
-              Icons.favorite,
-              AppColors.neonPink,
-              Translator.translate(AppStrings.meetPetPreviewRemember),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildPreviewRow(
-    BuildContext context,
-    IconData icon,
-    Color color,
-    String label,
-  ) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: color.withValues(alpha: 0.15),
-            shape: BoxShape.circle,
-          ),
-          child: Icon(icon, color: color, size: 20),
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.only(top: 8),
-            child: Text(
-              label,
-              style: TextStyle(
-                color: context.colors.textSecondary,
-                fontSize: 14,
-                height: 1.3,
-              ),
-            ),
-          ),
-        ),
-      ],
     );
   }
 }

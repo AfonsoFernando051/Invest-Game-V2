@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/asset_details/domain/entities/asset_details.dart';
 import 'package:petrimonium/features/asset_details/domain/services/indicator_education_catalog.dart';
@@ -71,7 +73,7 @@ class PetTeacherWidget extends StatelessWidget {
 
             // ── Suggested questions ─────────────────────────────
             Text(
-              'Pergunte ao mentor:',
+              Translator.translate(AppStrings.petTeacherAskMentor),
               style: TextStyle(
                 color: context.colors.textSecondary,
                 fontSize: 10,
@@ -91,10 +93,11 @@ class PetTeacherWidget extends StatelessWidget {
   }
 
   String _petGreeting() {
+    final params = {'assetName': asset.displayName};
     if (asset.isOwned) {
-      return 'Vamos entender melhor ${asset.displayName}!';
+      return Translator.translate(AppStrings.petTeacherOwnedGreeting, params: params);
     }
-    return 'Quer saber mais sobre ${asset.displayName}?';
+    return Translator.translate(AppStrings.petTeacherNotOwnedGreeting, params: params);
   }
 }
 

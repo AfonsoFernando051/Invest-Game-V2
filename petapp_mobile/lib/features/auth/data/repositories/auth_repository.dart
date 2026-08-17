@@ -18,16 +18,27 @@ class AuthRepository {
     await _saveEmail(email);
   }
 
+  /// Always succeeds server-side regardless of whether [email] belongs to an
+  /// account (avoids leaking which emails are registered).
+  Future<void> requestPasswordReset(String email) {
+    return remoteDataSource.requestPasswordReset(email);
+  }
+
+  Future<void> resetPassword(String token, String newPassword) {
+    return remoteDataSource.resetPassword(token, newPassword);
+  }
+
   Future<void> logout() async {
+    // The bearer token lives in secure storage (see ApiClient); only the
+    // non-sensitive last-used email stays in SharedPreferences.
+    await remoteDataSource.apiClient.clearToken();
     final prefs = await SharedPreferences.getInstance();
-    await prefs.remove('auth_token');
     await prefs.remove('auth_email');
   }
 
   Future<void> _saveToken(String? token) async {
     if (token != null && token.isNotEmpty) {
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('auth_token', token);
+      await remoteDataSource.apiClient.saveToken(token);
     }
   }
 
@@ -42,7 +53,7 @@ class AuthRepository {
   }
 
   Future<bool> isLoggedIn() async {
-    final prefs = await SharedPreferences.getInstance();
-    return prefs.getString('auth_token') != null;
+    final token = await remoteDataSource.apiClient.readToken();
+    return token != null;
   }
 }

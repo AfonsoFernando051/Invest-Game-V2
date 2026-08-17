@@ -5,10 +5,12 @@ import 'package:flutter/services.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/theme/app_color_tokens.dart';
+import '../../../../core/theme/app_motion.dart';
+import '../../../../core/theme/app_radii.dart';
+import '../../../../core/theme/app_text_styles.dart';
 import '../../../../core/utils/translator.dart';
 import '../../../../core/utils/game_snack.dart';
 import '../../../../core/widgets/confirm_logout_dialog.dart';
-import '../../../../core/theme/background_presets.dart';
 import '../../../../core/widgets/cosmic_background.dart';
 import '../../../../core/widgets/glass_card.dart';
 import '../../../../core/di/dependency_injection.dart';
@@ -31,6 +33,7 @@ import '../../../pet/presentation/companion/pet_context.dart';
 import '../../../pet/presentation/companion/widgets/pet_companion_header.dart';
 import '../../../pet/presentation/companion/widgets/pet_speech_bubble.dart';
 import '../../../profile/presentation/screens/profile_screen.dart';
+import '../services/dashboard_tab_router.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -164,22 +167,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
   // Shared background instance for all tabs (the IndexedStack below keeps
   // every tab's state alive, so there's one CosmicBackground behind all of
-  // them, not five). Content-hierarchy comes from swapping `intensity` per
-  // selected tab instead: full cosmic expression on Home, progressively
-  // quieter as the screen gets more cognitively demanding, down to Academy.
-  // Lesson/quiz screens go one step further with their own `focus`-level
-  // CosmicBackground pushed as a separate route (see LessonScreen).
-  static const List<BackgroundIntensity> _tabIntensities = [
-    BackgroundIntensity.immersive, // Home
-    BackgroundIntensity.subtle, // Academia
-    BackgroundIntensity.balanced, // Carteira / Portfolio
-    BackgroundIntensity.balanced, // Proventos / Passive income
-    BackgroundIntensity.mentor, // Mentor
-  ];
-
+  // them, not five) — see `DashboardTabRouter.backgroundIntensityFor` for
+  // which mood each tab gets.
   Widget _buildBackground({required Widget child}) {
     return CosmicBackground(
-      intensity: _tabIntensities[_selectedIndex],
+      intensity: DashboardTabRouter.backgroundIntensityFor(_selectedIndex),
       child: child,
     );
   }
@@ -199,29 +191,17 @@ class _DashboardScreenState extends State<DashboardScreen> {
               child: child,
             ),
           ),
-      transitionDuration: const Duration(milliseconds: 350),
+      transitionDuration: AppMotion.pageTransition,
     );
   }
 
   // ── Persistent pet companion: route-aware context + destination routing ──
-  // (`docs/PROJECT_CONTEXT.md`'s Pet Companion section, `PetContext`'s doc
-  // comment on why this mirrors the 5 real tabs + Profile rather than a
-  // generic missions/goals set that doesn't exist in this app.)
-  PetContext _petContextForTabIndex(int index) => switch (index) {
-    0 => PetContext.home,
-    1 => PetContext.academy,
-    2 || 3 =>
-      PetContext
-          .portfolio, // Carteira / Proventos share the same companion voice
-    _ => PetContext.mentor,
-  };
-
   void _onTabSelected(int index) {
     HapticFeedback.selectionClick();
     setState(() => _selectedIndex = index);
     _companionController.enterContext(
-      _petContextForTabIndex(index),
-      data: index == 2 || index == 3
+      DashboardTabRouter.petContextFor(index),
+      data: DashboardTabRouter.showsHoldingsCount(index)
           ? {'count': '${_portfolioController.holdings.length}'}
           : const {},
     );
@@ -373,11 +353,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           children: [
             Text(
               'Invest Game',
-              style: TextStyle(
-                color: context.colors.textPrimary,
-                fontWeight: FontWeight.bold,
-                fontSize: 14,
-              ),
+              style: AppTextStyles.bodyEmphasis.copyWith(color: context.colors.textPrimary, fontWeight: FontWeight.bold),
             ),
             Text(
               _mascotController.profile.name?.isNotEmpty == true
@@ -392,10 +368,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       AppStrings.appBarPlayerGenericGreeting,
                       params: {'level': '$level'},
                     ),
-              style: TextStyle(
-                color: context.colors.primary.withValues(alpha: 0.9),
-                fontSize: 11,
-              ),
+              style: AppTextStyles.caption.copyWith(color: context.colors.primary.withValues(alpha: 0.9)),
             ),
           ],
         ),
@@ -431,14 +404,14 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 constraints: const BoxConstraints(minWidth: 15, minHeight: 15),
                 decoration: BoxDecoration(
                   color: context.colors.error,
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: BorderRadius.circular(AppRadii.sm),
                   border: Border.all(
                     color: context.colors.backgroundSecondary,
                     width: 1.5,
                   ),
                 ),
                 child: Text(
-                  upcomingCount > 9 ? '9+' : '$upcomingCount',
+                  DashboardFormatters.notificationBadgeLabel(upcomingCount),
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: Colors.white,
@@ -525,7 +498,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
           alpha: context.isDarkMode ? 0.6 : 0.94,
         ),
         borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
-        borderRadius: 24,
+        borderRadius: AppRadii.xxl,
         borderWidth: 1,
         child: Padding(
           padding: const EdgeInsets.all(32),
@@ -540,17 +513,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
               const SizedBox(height: 16),
               Text(
                 'Análise Estratégica',
-                style: TextStyle(
-                  color: tokens.textPrimary,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: AppTextStyles.headline.copyWith(color: tokens.textPrimary),
               ),
               const SizedBox(height: 8),
               Text(
                 'Centro de análise de ativos\nem construção, Comandante.',
                 textAlign: TextAlign.center,
-                style: TextStyle(color: tokens.textSecondary, fontSize: 14),
+                style: AppTextStyles.bodyEmphasis.copyWith(color: tokens.textSecondary, fontWeight: FontWeight.normal),
               ),
             ],
           ),
@@ -586,11 +555,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
         type: BottomNavigationBarType.fixed,
         selectedItemColor: tokens.primary,
         unselectedItemColor: tokens.textTertiary,
-        selectedLabelStyle: const TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 11,
-        ),
-        unselectedLabelStyle: const TextStyle(fontSize: 11),
+        selectedLabelStyle: AppTextStyles.caption.copyWith(fontWeight: FontWeight.w600),
+        unselectedLabelStyle: AppTextStyles.caption,
         currentIndex: _selectedIndex,
         onTap: _onTabSelected,
         items: [

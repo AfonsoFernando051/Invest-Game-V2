@@ -1,5 +1,6 @@
 package com.jf.PetApp.application.mentor.usecase;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.investment.dto.AllocationSliceDTO;
 import com.jf.PetApp.application.investment.dto.PortfolioSummaryDTO;
 import com.jf.PetApp.application.investment.usecase.GetPortfolioAllocationUseCase;
@@ -47,7 +48,7 @@ public class GetMentorReplyUseCaseImpl implements GetMentorReplyUseCase {
     @Override
     public String execute(String email, MentorChatRequest request) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
 
         PortfolioSummaryDTO summary = getPortfolioSummaryUseCase.execute(email);
         List<AllocationSliceDTO> allocation = getPortfolioAllocationUseCase.execute(email);

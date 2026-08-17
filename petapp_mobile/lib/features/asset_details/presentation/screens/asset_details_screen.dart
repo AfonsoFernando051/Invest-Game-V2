@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/widgets/error_state_view.dart';
 import 'package:petrimonium/features/asset_details/domain/entities/asset_data_status.dart';
 import 'package:petrimonium/features/asset_details/presentation/controllers/asset_details_controller.dart';
 import 'package:petrimonium/features/asset_details/presentation/widgets/asset_education_section.dart';
@@ -126,8 +127,9 @@ class _AssetDetailsScreenState extends State<AssetDetailsScreen> {
     }
 
     if (_controller.error != null && asset == null) {
-      return _ErrorState(
-        error: _controller.error!,
+      return ErrorStateView(
+        title: 'Não foi possível carregar este ativo',
+        message: _controller.error!,
         onRetry: _controller.refresh,
       );
     }
@@ -279,53 +281,6 @@ class _AssetDetailsSkeleton extends StatelessWidget {
         color: tokens.surface.withValues(alpha: context.isDarkMode ? 0.5 : 0.94),
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: tokens.border),
-      ),
-    );
-  }
-}
-
-// ── Error State ──────────────────────────────────────────────────────────
-
-class _ErrorState extends StatelessWidget {
-  const _ErrorState({required this.error, required this.onRetry});
-
-  final String error;
-  final Future<void> Function() onRetry;
-
-  @override
-  Widget build(BuildContext context) {
-    final tokens = context.colors;
-    return Center(
-      child: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(Icons.satellite_alt, size: 56, color: tokens.error),
-            const SizedBox(height: 16),
-            Text(
-              'Não foi possível carregar este ativo',
-              style: TextStyle(color: tokens.textPrimary, fontSize: 16, fontWeight: FontWeight.bold),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              error,
-              style: TextStyle(color: tokens.textSecondary, fontSize: 12),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton.icon(
-              onPressed: onRetry,
-              icon: const Icon(Icons.refresh, size: 18),
-              label: const Text('Tentar novamente'),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: AppColors.neonViolet,
-                foregroundColor: Colors.white,
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

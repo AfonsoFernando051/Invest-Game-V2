@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/holding.dart';
@@ -41,7 +43,7 @@ class HoldingsSection extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 20),
                 child: Center(
-                  child: Text('Nenhum ativo registrado ainda.', style: TextStyle(color: context.colors.textSecondary)),
+                  child: Text(Translator.translate(AppStrings.noAssetsRegisteredYet), style: TextStyle(color: context.colors.textSecondary)),
                 ),
               )
             else

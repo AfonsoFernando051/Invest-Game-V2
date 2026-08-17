@@ -43,4 +43,33 @@ class AuthRemoteDataSource {
       throw Exception(extractErrorDetail(response, fallback: 'Failed to register. Status Code: ${response.statusCode}'));
     }
   }
+
+  /// Backend always answers 200 here (even for an unregistered email) to
+  /// avoid user enumeration, so the only failure mode worth surfacing is a
+  /// transport-level error, which `apiClient.post` already throws for.
+  Future<void> requestPasswordReset(String email) async {
+    final response = await apiClient.post(
+      ApiConstants.forgotPasswordEndpoint,
+      {'email': email},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        extractErrorDetail(response, fallback: 'Failed to request password reset. Status Code: ${response.statusCode}'),
+      );
+    }
+  }
+
+  Future<void> resetPassword(String token, String newPassword) async {
+    final response = await apiClient.post(
+      ApiConstants.resetPasswordEndpoint,
+      {'token': token, 'newPassword': newPassword},
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        extractErrorDetail(response, fallback: 'Failed to reset password. Status Code: ${response.statusCode}'),
+      );
+    }
+  }
 }

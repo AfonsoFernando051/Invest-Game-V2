@@ -1,5 +1,6 @@
 package com.jf.PetApp.infrastructure.external;
 
+import com.jf.PetApp.application.common.util.RawFieldExtractor;
 import com.jf.PetApp.application.investment.dto.AssetQuoteResponse;
 import com.jf.PetApp.application.investment.dto.DividendDTO;
 import com.jf.PetApp.application.investment.port.ExternalInvestmentApiPort;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.client.HttpClientErrorException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
@@ -25,12 +28,34 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
     private static final Logger log = LoggerFactory.getLogger(BrapiInvestmentApiClient.class);
 
     private final RestTemplate restTemplate;
-    
+
     @Value("${api.brapi.token:}")
     private String token;
 
+    @Value("${api.brapi.baseUrl:https://brapi.dev}")
+    private String baseUrl;
+
     public BrapiInvestmentApiClient() {
         this.restTemplate = new RestTemplate();
+    }
+
+    private static String encode(String value) {
+        return URLEncoder.encode(value, StandardCharsets.UTF_8);
+    }
+
+    /**
+     * Every Brapi quote-style endpoint (getQuote, getDividends, getEnrichedQuote) wraps its
+     * payload the same way: a top-level {@code results} array, empty or absent when the
+     * provider has nothing to report. Centralizing the "get → check key → cast → check-empty"
+     * steps here means each caller only has to decide what to do with the first result.
+     */
+    @SuppressWarnings("unchecked")
+    private List<Map<String, Object>> extractResults(Map<String, Object> response) {
+        if (response == null || !response.containsKey("results")) {
+            return List.of();
+        }
+        List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
+        return results != null ? results : List.of();
     }
 
     @Override
@@ -42,34 +67,23 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
         }
 
         try {
-            String url = String.format("https://brapi.dev/api/quote/%s?token=%s", ticker, token);
+            String url = String.format("%s/api/quote/%s?token=%s", baseUrl, encode(ticker), encode(token));
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);
-            
-            if (response != null && response.containsKey("results")) {
-                List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
-                if (results != null && !results.isEmpty()) {
-                    Map<String, Object> data = results.get(0);
-                    String symbol = (String) data.getOrDefault("symbol", ticker);
-                    String shortName = (String) data.getOrDefault("shortName", "");
-                    
-                    Object priceObj = data.get("regularMarketPrice");
-                    Double price = null;
-                    if (priceObj instanceof Number) {
-                        price = ((Number) priceObj).doubleValue();
-                    }
-                    
-                    String currency = (String) data.getOrDefault("currency", "BRL");
 
-                    Object changePercentObj = data.get("regularMarketChangePercent");
-                    Double changePercent = 0.0;
-                    if (changePercentObj instanceof Number) {
-                        changePercent = ((Number) changePercentObj).doubleValue();
-                    }
-
-                    return Optional.of(new AssetQuoteResponse(symbol, shortName, price, currency, changePercent));
-                }
+            List<Map<String, Object>> results = extractResults(response);
+            if (results.isEmpty()) {
+                return Optional.empty();
             }
-            return Optional.empty();
+
+            Map<String, Object> data = results.get(0);
+            String symbol = (String) data.getOrDefault("symbol", ticker);
+            String shortName = (String) data.getOrDefault("shortName", "");
+            Double price = RawFieldExtractor.toDouble(data.get("regularMarketPrice"));
+            String currency = (String) data.getOrDefault("currency", "BRL");
+            Double changePercent = RawFieldExtractor.toDouble(data.get("regularMarketChangePercent"));
+
+            return Optional.of(new AssetQuoteResponse(
+                    symbol, shortName, price, currency, changePercent != null ? changePercent : 0.0));
         } catch (HttpClientErrorException e) {
             log.warn("Brapi quote request failed for {}: HTTP {}", ticker, e.getStatusCode());
             return Optional.empty();
@@ -85,7 +99,7 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
     public List<AssetQuoteResponse> searchQuotes(String query) {
         try {
             // we can use search without a token
-            String url = String.format("https://brapi.dev/api/quote/list?search=%s", query);
+            String url = String.format("%s/api/quote/list?search=%s", baseUrl, encode(query));
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);
             
             List<AssetQuoteResponse> resultList = new ArrayList<>();
@@ -119,17 +133,14 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
     public List<DividendDTO> getDividends(String ticker) {
         List<DividendDTO> result = new ArrayList<>();
         try {
-            String url = String.format("https://brapi.dev/api/v2/stocks/dividends?symbols=%s", ticker.toUpperCase());
+            String url = String.format("%s/api/v2/stocks/dividends?symbols=%s", baseUrl, encode(ticker.toUpperCase()));
             if (token != null && !token.isBlank()) {
-                url += "&token=" + token;
+                url += "&token=" + encode(token);
             }
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);
-            if (response == null || !response.containsKey("results")) {
-                return result;
-            }
 
-            List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
-            if (results == null || results.isEmpty()) {
+            List<Map<String, Object>> results = extractResults(response);
+            if (results.isEmpty()) {
                 return result;
             }
 
@@ -146,7 +157,7 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
             List<Map<String, Object>> cashDividends = (List<Map<String, Object>>) cashDividendsObj;
 
             for (Map<String, Object> entry : cashDividends) {
-                Double rate = toDouble(entry.get("rate"));
+                Double rate = RawFieldExtractor.toDouble(entry.get("rate"));
                 // Never report a payment we can't confirm a value for.
                 if (rate == null) continue;
 
@@ -169,10 +180,6 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
         }
     }
 
-    private static Double toDouble(Object value) {
-        return value instanceof Number ? ((Number) value).doubleValue() : null;
-    }
-
     /**
      * Brapi encodes each date as Brazilian local midnight serialized in UTC
      * (e.g. {@code 2026-09-21T03:00:00.000Z} = 2026-09-21 00:00 America/Sao_Paulo),
@@ -188,7 +195,6 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     public Optional<Map<String, Object>> getEnrichedQuote(String ticker) {
         if (token == null || token.isBlank()) {
             log.warn("api.brapi.token is not configured; cannot fetch enriched quote for {}", ticker);
@@ -199,18 +205,13 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
             // Request all available modules from Brapi for maximum data coverage.
             // The summaryProfile module provides sector, industry, description, etc.
             String url = String.format(
-                "https://brapi.dev/api/quote/%s?token=%s&modules=summaryProfile",
-                ticker, token
+                "%s/api/quote/%s?token=%s&modules=summaryProfile",
+                baseUrl, encode(ticker), encode(token)
             );
             Map<String, Object> response = restTemplate.getForObject(url, Map.class);
 
-            if (response != null && response.containsKey("results")) {
-                List<Map<String, Object>> results = (List<Map<String, Object>>) response.get("results");
-                if (results != null && !results.isEmpty()) {
-                    return Optional.of(results.get(0));
-                }
-            }
-            return Optional.empty();
+            List<Map<String, Object>> results = extractResults(response);
+            return results.isEmpty() ? Optional.empty() : Optional.of(results.get(0));
         } catch (HttpClientErrorException e) {
             log.warn("Brapi enriched quote request failed for {}: HTTP {}", ticker, e.getStatusCode());
             return Optional.empty();

@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_radii.dart';
 
 /// Light-mode surface hierarchy for [GlassCard] — Dark theme keeps its
 /// single glow-border look regardless of [GlassCard.surface] (it already
@@ -47,7 +48,7 @@ class GlassCard extends StatelessWidget {
     this.margin,
     this.borderColor,
     this.backgroundColor,
-    this.borderRadius = 24.0,
+    this.borderRadius = AppRadii.xxl,
     this.borderWidth = 1.5,
     this.boxShadow,
     this.isAnimated = false,

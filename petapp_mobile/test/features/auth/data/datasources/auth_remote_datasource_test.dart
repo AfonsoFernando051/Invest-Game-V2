@@ -148,4 +148,61 @@ void main() {
       );
     });
   });
+
+  group('AuthRemoteDataSource - requestPasswordReset', () {
+    const tEmail = 'test@example.com';
+
+    test('completes normally on 200, regardless of whether the email is registered', () async {
+      when(() => mockApiClient.post(any(), any())).thenAnswer(
+        (_) async => http.Response('', 200),
+      );
+
+      await dataSource.requestPasswordReset(tEmail);
+
+      verify(() => mockApiClient.post(
+            ApiConstants.forgotPasswordEndpoint,
+            {'email': tEmail},
+          )).called(1);
+    });
+
+    test('throws with the surfaced detail on a non-200 (transport-level failure)', () async {
+      when(() => mockApiClient.post(any(), any())).thenAnswer(
+        (_) async => http.Response(jsonEncode({'detail': 'Service unavailable'}), 503),
+      );
+
+      await expectLater(
+        () => dataSource.requestPasswordReset(tEmail),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Service unavailable'))),
+      );
+    });
+  });
+
+  group('AuthRemoteDataSource - resetPassword', () {
+    const tToken = 'reset-token-123';
+    const tNewPassword = 'NewPassw0rd';
+
+    test('completes normally on 200', () async {
+      when(() => mockApiClient.post(any(), any())).thenAnswer(
+        (_) async => http.Response('', 200),
+      );
+
+      await dataSource.resetPassword(tToken, tNewPassword);
+
+      verify(() => mockApiClient.post(
+            ApiConstants.resetPasswordEndpoint,
+            {'token': tToken, 'newPassword': tNewPassword},
+          )).called(1);
+    });
+
+    test('surfaces the backend detail for an invalid/expired token (400)', () async {
+      when(() => mockApiClient.post(any(), any())).thenAnswer(
+        (_) async => http.Response(jsonEncode({'detail': 'Token is invalid or has expired'}), 400),
+      );
+
+      await expectLater(
+        () => dataSource.resetPassword(tToken, tNewPassword),
+        throwsA(predicate((e) => e is Exception && e.toString().contains('Token is invalid or has expired'))),
+      );
+    });
+  });
 }

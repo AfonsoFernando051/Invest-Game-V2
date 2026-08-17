@@ -42,7 +42,7 @@ class JwtTokenProviderTest {
         String token = provider.generateToken(user);
 
         SecretKey key = Keys.hmacShaKeyFor(TEST_SECRET.getBytes(StandardCharsets.UTF_8));
-        Claims claims = Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
+        Claims claims = Jwts.parser().verifyWith(key).build().parseSignedClaims(token).getPayload();
         assertEquals("ADMIN", claims.get("role"));
     }
 

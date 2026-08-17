@@ -1,5 +1,6 @@
 package com.jf.PetApp.application.onboarding.usecase;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.core.domain.User;
 import com.jf.PetApp.core.domain.assessment.InvestorProfile;
@@ -23,7 +24,7 @@ public class SubmitAssessmentUseCaseImpl implements SubmitAssessmentUseCase {
     @Override
     public InvestorProfile execute(String email, List<String> selectedOptionIds) {
         User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("User not found for email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found for email: " + email));
 
         // Already completed onboarding: return the existing profile instead of
         // recomputing, so a retried/duplicate submit is idempotent.

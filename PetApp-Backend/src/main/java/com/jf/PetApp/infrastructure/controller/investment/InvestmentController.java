@@ -72,12 +72,10 @@ public class InvestmentController {
     public ResponseEntity<Void> configureInvestments(@RequestBody List<AssetRegistrationDto> request) {
         String email = SecurityUtils.getCurrentUserEmail();
         validateAssets(request);
-        try {
-            configureInvestmentsUseCase.execute(email, toCommands(request));
-            return ResponseEntity.ok().build();
-        } catch (IllegalArgumentException e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid investment data");
-        }
+        // IllegalArgumentException propagates to GlobalExceptionHandler, which already maps it
+        // to 400 with the use case's real message — no need to catch and discard it here.
+        configureInvestmentsUseCase.execute(email, toCommands(request));
+        return ResponseEntity.ok().build();
     }
 
     // The request body is a raw List<AssetRegistrationDto>, not a wrapper object — Bean

@@ -1,5 +1,6 @@
 package com.jf.PetApp.application.investment.usecase;
 
+import com.jf.PetApp.application.common.exception.ResourceNotFoundException;
 import com.jf.PetApp.application.investment.port.InvestmentRepositoryPort;
 import com.jf.PetApp.application.user.port.UserRepository;
 import com.jf.PetApp.core.domain.User;
@@ -64,7 +65,7 @@ public class ConfigureInvestmentsUseCaseImplTest {
 
         ConfigureInvestmentCommand asset1 = new ConfigureInvestmentCommand("PETR4", 100.0, 35.5, java.time.LocalDate.now(), InvestmentType.STOCKS);
 
-        assertThrows(IllegalArgumentException.class, () ->
+        assertThrows(ResourceNotFoundException.class, () ->
             configureInvestmentsUseCase.execute(email, List.of(asset1)));
 
         verify(investmentRepositoryPort, never()).saveAll(any(), any());

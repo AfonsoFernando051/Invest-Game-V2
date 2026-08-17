@@ -17,6 +17,22 @@ class AppStrings {
   static const String signupButton = "signupButton";
   static const String alreadyHaveAccount = "alreadyHaveAccount";
 
+  // Forgot / reset password
+  static const String forgotPasswordTitle = "forgotPasswordTitle";
+  static const String forgotPasswordSubtitle = "forgotPasswordSubtitle";
+  static const String forgotPasswordEmailHint = "forgotPasswordEmailHint";
+  static const String forgotPasswordSendButton = "forgotPasswordSendButton";
+  static const String forgotPasswordConfirmationMessage = "forgotPasswordConfirmationMessage";
+  static const String forgotPasswordHaveCodeLink = "forgotPasswordHaveCodeLink";
+  static const String resetPasswordTitle = "resetPasswordTitle";
+  static const String resetPasswordSubtitle = "resetPasswordSubtitle";
+  static const String resetPasswordTokenHint = "resetPasswordTokenHint";
+  static const String resetPasswordNewPasswordHint = "resetPasswordNewPasswordHint";
+  static const String resetPasswordSubmitButton = "resetPasswordSubmitButton";
+  static const String resetPasswordSuccessMessage = "resetPasswordSuccessMessage";
+  static const String resetPasswordMismatchError = "resetPasswordMismatchError";
+  static const String resetPasswordFieldsRequiredError = "resetPasswordFieldsRequiredError";
+
   // Onboarding
   static const String pleaseAnswerAllQuestions = "pleaseAnswerAllQuestions";
   static const String onboardingFailed = "onboardingFailed";
@@ -267,4 +283,35 @@ class AppStrings {
   static const String companionEventEvolved = "companionEventEvolved";
   static const String companionEventDifficultyDetected = "companionEventDifficultyDetected";
   static const String companionEventSchoolMastered = "companionEventSchoolMastered";
+
+  // Portfolio — wealth/proventos evolution cards (chart legend labels)
+  static const String wealthLegendPatrimony = "wealthLegendPatrimony";
+  static const String wealthLegendInvested = "wealthLegendInvested";
+  static const String wealthLegendAppliedValue = "wealthLegendAppliedValue";
+  static const String wealthLegendCapitalGain = "wealthLegendCapitalGain";
+  static const String proventosLegendReceived = "proventosLegendReceived";
+  static const String proventosLegendExpected = "proventosLegendExpected";
+
+  // Portfolio — shared empty/error states
+  static const String noAssetsRegisteredYet = "noAssetsRegisteredYet";
+  static const String retryButtonLabel = "retryButtonLabel";
+
+  // Mentor
+  static const String mentorClearConversationTitle = "mentorClearConversationTitle";
+  static const String mentorClearConversationConfirm = "mentorClearConversationConfirm";
+  static const String clearButton = "clearButton";
+
+  // Investment configuration
+  static const String initialPortfolioTitle = "initialPortfolioTitle";
+
+  // Portfolio summary card (investment feature)
+  static const String portfolioCardTitle = "portfolioCardTitle";
+
+  // Profile
+  static const String profileTitle = "profileTitle";
+
+  // Asset details — pet teacher widget
+  static const String petTeacherAskMentor = "petTeacherAskMentor";
+  static const String petTeacherOwnedGreeting = "petTeacherOwnedGreeting";
+  static const String petTeacherNotOwnedGreeting = "petTeacherNotOwnedGreeting";
 }

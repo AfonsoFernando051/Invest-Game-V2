@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+/// Health-score band — presentation reads this instead of embedding its own
+/// `score >= N` thresholds, so the "what counts as strong/moderate/weak"
+/// business rule lives in one place (here) rather than being re-decided by
+/// every widget that renders a score.
+enum HealthTier { strong, moderate, weak }
+
 /// One 0-100 facet of portfolio health (shown as a radar axis + progress bar).
 class HealthMetric {
   final String name;
@@ -7,6 +13,15 @@ class HealthMetric {
   final IconData icon;
 
   const HealthMetric({required this.name, required this.score, required this.icon});
+
+  /// Per-metric band. Deliberately a lower "moderate" floor (45) than
+  /// [PortfolioHealth.tier]'s (50) — a single weak facet shouldn't read as
+  /// flatly "poor" the way a weak overall score should.
+  HealthTier get tier {
+    if (score >= 75) return HealthTier.strong;
+    if (score >= 45) return HealthTier.moderate;
+    return HealthTier.weak;
+  }
 }
 
 /// The full "Portfolio Health" verdict: an overall 0-100 score/letter grade
@@ -29,5 +44,11 @@ class PortfolioHealth {
     if (overallScore >= 60) return 'B';
     if (overallScore >= 40) return 'C';
     return 'D';
+  }
+
+  HealthTier get tier {
+    if (overallScore >= 75) return HealthTier.strong;
+    if (overallScore >= 50) return HealthTier.moderate;
+    return HealthTier.weak;
   }
 }
