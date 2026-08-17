@@ -19,10 +19,17 @@ class PetMascotWidget extends StatefulWidget {
     super.key,
     required this.controller,
     this.size = 220,
+    this.interactive = true,
   });
 
   final MascotController controller;
   final double size;
+
+  /// Whether tapping the mascot plays its own `happy` reaction. Compact
+  /// embeddings (the companion header avatar, the interaction sheet) host
+  /// their own tap handler (open the interaction sheet) and set this to
+  /// `false` so the two gesture detectors don't compete for the same tap.
+  final bool interactive;
 
   @override
   State<PetMascotWidget> createState() => _PetMascotWidgetState();
@@ -97,44 +104,45 @@ class _PetMascotWidgetState extends State<PetMascotWidget>
   Widget build(BuildContext context) {
     final profile = widget.controller.profile;
 
-    return GestureDetector(
-      onTap: _handlePet,
-      child: AnimatedBuilder(
-        animation: Listenable.merge([_breatheController, _bumpController]),
-        builder: (context, child) {
-          return Transform.translate(
-            offset: Offset(0, _bumpAnimation.value),
-            child: Transform.scale(
-              scale: _breatheAnimation.value,
-              child: child,
+    final content = AnimatedBuilder(
+      animation: Listenable.merge([_breatheController, _bumpController]),
+      builder: (context, child) {
+        return Transform.translate(
+          offset: Offset(0, _bumpAnimation.value),
+          child: Transform.scale(
+            scale: _breatheAnimation.value,
+            child: child,
+          ),
+        );
+      },
+      child: SizedBox(
+        width: widget.size,
+        height: widget.size,
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            if (_showsAura(profile.stage, profile.animationState))
+              _AuraLayer(stage: profile.stage, size: widget.size),
+            _BaseMascotLayer(
+              state: profile.animationState,
+              stage: profile.stage,
+              specie: profile.specie.name,
+              size: widget.size,
             ),
-          );
-        },
-        child: SizedBox(
-          width: widget.size,
-          height: widget.size,
-          child: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              if (_showsAura(profile.stage, profile.animationState))
-                _AuraLayer(stage: profile.stage, size: widget.size),
-              _BaseMascotLayer(
-                state: profile.animationState,
-                stage: profile.stage,
+            for (final entry in profile.equippedAccessories.entries)
+              _AccessoryLayer(
+                slot: entry.key,
+                accessoryId: entry.value,
                 size: widget.size,
               ),
-              for (final entry in profile.equippedAccessories.entries)
-                _AccessoryLayer(
-                  slot: entry.key,
-                  accessoryId: entry.value,
-                  size: widget.size,
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );
+
+    if (!widget.interactive) return content;
+    return GestureDetector(onTap: _handlePet, child: content);
   }
 
   bool _showsAura(PetEvolutionStage stage, PetAnimationState state) {
@@ -181,11 +189,18 @@ class _BaseMascotLayer extends StatelessWidget {
   const _BaseMascotLayer({
     required this.state,
     required this.stage,
+    required this.specie,
     required this.size,
   });
 
   final PetAnimationState state;
   final PetEvolutionStage stage;
+
+  /// The pet's chosen species — carried all the way to [_EvolutionFallback]
+  /// so that when neither the per-state Lottie nor the per-stage PNG exists
+  /// yet, the fallback still renders *this* pet's portrait instead of
+  /// silently defaulting to the generic dog asset.
+  final String? specie;
   final double size;
 
   @override
@@ -198,18 +213,26 @@ class _BaseMascotLayer extends StatelessWidget {
       fit: BoxFit.contain,
       errorBuilder: (context, error, stackTrace) => _EvolutionFallback(
         stage: stage,
+        specie: specie,
         size: mascotSize,
       ),
     );
   }
 }
 
-/// Static PNG fallback for a given evolution [stage], used while
-/// per-state Lottie animations aren't authored yet.
+/// Static PNG fallback for a given evolution [stage], used while per-state
+/// Lottie animations aren't authored yet. Falls back further to [specie]'s
+/// portrait (never a hardcoded species) while per-stage PNGs aren't authored
+/// either.
 class _EvolutionFallback extends StatelessWidget {
-  const _EvolutionFallback({required this.stage, required this.size});
+  const _EvolutionFallback({
+    required this.stage,
+    required this.specie,
+    required this.size,
+  });
 
   final PetEvolutionStage stage;
+  final String? specie;
   final double size;
 
   @override
@@ -220,7 +243,7 @@ class _EvolutionFallback extends StatelessWidget {
       height: size,
       fit: BoxFit.contain,
       errorBuilder: (context, error, stackTrace) => Image.asset(
-        PetAssets.imageFor(null),
+        PetAssets.imageFor(specie),
         width: size,
         height: size,
         fit: BoxFit.contain,

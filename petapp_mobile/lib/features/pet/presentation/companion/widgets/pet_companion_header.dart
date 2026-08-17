@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
-import 'package:petrimonium/core/utils/pet_assets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
 import 'package:petrimonium/features/pet/presentation/companion/widgets/pet_interaction_sheet.dart';
+import 'package:petrimonium/features/pet/presentation/mascot/widgets/pet_mascot_widget.dart';
 
 /// The compact, always-visible companion avatar shown in every major
 /// screen's chrome (see `docs/PRODUCT_VISION.md`'s Pet Companion section).
@@ -62,7 +62,6 @@ class PetCompanionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final avatarSize = _resolveSize(context);
-    final specie = controller.mascotController.profile.specie.name;
 
     return ListenableBuilder(
       listenable: controller,
@@ -106,14 +105,10 @@ class PetCompanionHeader extends StatelessWidget {
                         : null,
                   ),
                   child: ClipOval(
-                    child: Image.asset(
-                      PetAssets.imageFor(specie),
-                      fit: BoxFit.cover,
-                      errorBuilder: (context, error, stackTrace) => Icon(
-                        Icons.pets,
-                        size: avatarSize * 0.55,
-                        color: AppColors.neonCyan,
-                      ),
+                    child: PetMascotWidget(
+                      controller: controller.mascotController,
+                      size: avatarSize - 4,
+                      interactive: false,
                     ),
                   ),
                 ),

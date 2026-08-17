@@ -124,7 +124,13 @@ class PetCompanionController extends ChangeNotifier {
     _lastShown[message.id] = _currentMessageShownAt!;
     unawaited(_preferences.recordShown(message.id, _currentMessageShownAt!));
 
-    _autoHideTimer = Timer(_autoHideDurationFor(message.priority), () {
+    final displayDuration = _autoHideDurationFor(message.priority);
+    // The mascot visually reacts for as long as the bubble is up — see
+    // `PetMessage.mood`'s doc comment, which described this pairing before
+    // anything actually wired it.
+    _mascotController.triggerEventAnimation(message.mood, duration: displayDuration);
+
+    _autoHideTimer = Timer(displayDuration, () {
       if (_currentMessage?.id == message.id) dismiss();
     });
   }

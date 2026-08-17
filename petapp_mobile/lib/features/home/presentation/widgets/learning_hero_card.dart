@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sensors_plus/sensors_plus.dart';
@@ -93,14 +95,32 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
         .animate(CurvedAnimation(parent: _personalityController, curve: Curves.easeInOutSine));
   }
 
+  // `sensors_plus` only ships a real platform implementation for
+  // Android/iOS (and a DeviceMotion-backed one for web); on desktop
+  // (Linux/Windows/macOS) there is no receiver registered at all. Its
+  // method-channel layer fires `invokeMethod('setAccelerationSamplingPeriod',
+  // ...)` internally without awaiting it, so the resulting
+  // `MissingPluginException` surfaces as an *unhandled* async error no
+  // surrounding try/catch can intercept — the only reliable fix is to never
+  // call `accelerometerEventStream()` on a platform that can't answer it.
+  bool get _accelerometerSupported =>
+      kIsWeb || Platform.isAndroid || Platform.isIOS;
+
   void _initAccelerometer() {
+    if (!_accelerometerSupported) return;
     try {
-      _accelerometerSubscription = accelerometerEventStream().listen((event) {
-        _parallax.value = Offset(
-          (event.x * -3.0).clamp(-20.0, 20.0),
-          (event.y * 3.0).clamp(-20.0, 20.0),
-        );
-      });
+      _accelerometerSubscription = accelerometerEventStream().listen(
+        (event) {
+          _parallax.value = Offset(
+            (event.x * -3.0).clamp(-20.0, 20.0),
+            (event.y * 3.0).clamp(-20.0, 20.0),
+          );
+        },
+        onError: (Object error) {
+          debugPrint('Accelerometer not available: $error');
+        },
+        cancelOnError: true,
+      );
     } catch (e) {
       debugPrint('Accelerometer not available: $e');
     }
