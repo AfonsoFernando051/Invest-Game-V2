@@ -6,16 +6,19 @@ import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/utils/friendly_error_message.dart';
 import 'package:petrimonium/core/utils/game_snack.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/pet_assets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/features/onboarding/presentation/screens/academy_intro_screen.dart';
+import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
+import 'package:petrimonium/features/onboarding/presentation/widgets/pet_hero_capsule.dart';
 import 'package:petrimonium/features/pet/data/models/pet_specie_enum.dart';
-import 'package:petrimonium/features/pet/presentation/screens/financial_goal_screen.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 
 /// Onboarding's "Configure Your Pet" step — the pet introduces itself, and
-/// the player picks its species and name together in one screen right
-/// after registering, before anything financial is asked. The financial
-/// goal (`FinancialGoalScreen`) is a separate step later in the flow.
+/// the player picks its species and name together in one screen right after
+/// the emotional Welcome opener. The financial goal (`FinancialGoalScreen`)
+/// and the Academy/Gamification narrative screens come after this one.
 class PetConfigurationScreen extends StatefulWidget {
   const PetConfigurationScreen({super.key});
 
@@ -23,38 +26,23 @@ class PetConfigurationScreen extends StatefulWidget {
   State<PetConfigurationScreen> createState() => _PetConfigurationScreenState();
 }
 
-class _PetConfigurationScreenState extends State<PetConfigurationScreen> with SingleTickerProviderStateMixin {
-  static const _nameSuggestions = ['Atlas', 'Bolt', 'Loki', 'Charlie', 'Max', 'Nino'];
+class _PetConfigurationScreenState extends State<PetConfigurationScreen> {
+  static const _nameSuggestions = [
+    'Atlas',
+    'Bolt',
+    'Loki',
+    'Charlie',
+    'Max',
+    'Nino',
+  ];
 
   PetSpecieEnum _selectedSpecie = PetSpecieEnum.DOG;
   bool _isLoading = false;
   bool _showNameError = false;
   final _nameController = TextEditingController();
 
-  late AnimationController _animationController;
-  late Animation<double> _breatheAnimation;
-  late Animation<double> _floatAnimation;
-
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 3),
-    )..repeat(reverse: true);
-
-    _breatheAnimation = Tween<double>(begin: 0.98, end: 1.02).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-
-    _floatAnimation = Tween<double>(begin: -5.0, end: 5.0).animate(
-      CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-    );
-  }
-
   @override
   void dispose() {
-    _animationController.dispose();
     _nameController.dispose();
     super.dispose();
   }
@@ -67,7 +55,7 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
     });
   }
 
-  Future<void> _handleSelectType() async {
+  Future<void> _handleContinue() async {
     final name = _nameController.text.trim();
     if (name.isEmpty) {
       setState(() => _showNameError = true);
@@ -79,9 +67,9 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
       await DI.petRepository.configurePet(_selectedSpecie);
       await DI.mascotRepository.saveName(name);
       if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const FinancialGoalScreen()),
-        );
+        Navigator.of(
+          context,
+        ).push(MaterialPageRoute(builder: (_) => const AcademyIntroScreen()));
       }
     } catch (e) {
       if (mounted) {
@@ -98,111 +86,81 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        title: Text(Translator.translate(AppStrings.meetPetTitle), style: TextStyle(color: context.colors.textPrimary)),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: context.colors.textPrimary),
-          onPressed: () {
-            if (Navigator.canPop(context)) Navigator.pop(context);
+    return OnboardingScaffold(
+      intensity: BackgroundIntensity.subtle,
+      step: 2,
+      totalSteps: 7,
+      maxContentWidth: 900,
+      title: Translator.translate(AppStrings.meetPetTitle),
+      subtitle: Translator.translate(AppStrings.meetPetIntro),
+      ctaLabel: Translator.translate(AppStrings.meetPetContinue),
+      isCtaLoading: _isLoading,
+      onCta: _handleContinue,
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final isWide = constraints.maxWidth > 700;
+            if (isWide) {
+              return IntrinsicHeight(
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Expanded(flex: 5, child: _buildLeftPanel()),
+                    const SizedBox(width: 16),
+                    Expanded(flex: 4, child: _buildRightPanel(context)),
+                  ],
+                ),
+              );
+            }
+            return Column(
+              children: [
+                _buildLeftPanel(),
+                const SizedBox(height: 16),
+                _buildRightPanel(context),
+              ],
+            );
           },
-        ),
-      ),
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_nebula.png'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
-            child: LayoutBuilder(
-              builder: (context, constraints) {
-                final isWide = constraints.maxWidth > 800;
-                if (isWide) {
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      Expanded(flex: 4, child: _buildLeftPanel()),
-                      const SizedBox(width: 16),
-                      Expanded(flex: 6, child: _buildRightPanel()),
-                    ],
-                  );
-                } else {
-                  return SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        _buildLeftPanel(),
-                        const SizedBox(height: 16),
-                        _buildRightPanel(),
-                      ],
-                    ),
-                  );
-                }
-              },
-            ),
-          ),
         ),
       ),
     );
   }
 
   Widget _buildLeftPanel() {
-    final tokens = context.colors;
     return GlassCard(
       padding: const EdgeInsets.all(20),
-      boxShadow: [
-        BoxShadow(
-          color: tokens.shadow,
-          blurRadius: 10,
-          spreadRadius: 2,
-        )
-      ],
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Text(
-            Translator.translate(AppStrings.meetPetGreeting),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              color: tokens.textPrimary,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            Translator.translate(AppStrings.meetPetIntro),
-            textAlign: TextAlign.center,
-            style: TextStyle(color: tokens.textSecondary, fontSize: 13, height: 1.4),
-          ),
-          const SizedBox(height: 6),
-          Text(
             Translator.translate(AppStrings.meetPetNeedName),
             textAlign: TextAlign.center,
-            style: const TextStyle(color: AppColors.goldenBorder, fontSize: 13, fontWeight: FontWeight.w600),
+            style: const TextStyle(
+              color: AppColors.goldenBorder,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+            ),
           ),
           const SizedBox(height: 16),
-          Expanded(
-            child: _buildActivePetCapsule(),
+          Center(
+            child: PetHeroCapsule(
+              size: 210,
+              child: Image.asset(
+                PetAssets.imageFor(_selectedSpecie.name),
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           const SizedBox(height: 16),
           Text(
             Translator.translate(AppStrings.meetPetSpeciesPrompt),
             textAlign: TextAlign.center,
-            style: TextStyle(color: tokens.textSecondary, fontSize: 13),
+            style: TextStyle(color: context.colors.textSecondary, fontSize: 13),
           ),
           const SizedBox(height: 12),
           _buildPetSelector(),
           const SizedBox(height: 20),
           _buildNameField(),
-          const SizedBox(height: 20),
-          _buildConfirmButton(),
         ],
       ),
     );
@@ -231,20 +189,34 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
             hintText: Translator.translate(AppStrings.namePetHint),
             hintStyle: TextStyle(color: tokens.textTertiary),
             filled: true,
-            fillColor: tokens.surface.withValues(alpha: context.isDarkMode ? 0.5 : 0.94),
-            errorText: _showNameError ? Translator.translate(AppStrings.namePetRequiredError) : null,
-            contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            fillColor: tokens.surface.withValues(
+              alpha: context.isDarkMode ? 0.5 : 0.94,
+            ),
+            errorText: _showNameError
+                ? Translator.translate(AppStrings.namePetRequiredError)
+                : null,
+            contentPadding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 12,
+            ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: AppColors.neonCyan.withValues(alpha: 0.4)),
+              borderSide: BorderSide(
+                color: AppColors.neonCyan.withValues(alpha: 0.4),
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: BorderSide(color: AppColors.neonCyan.withValues(alpha: 0.3)),
+              borderSide: BorderSide(
+                color: AppColors.neonCyan.withValues(alpha: 0.3),
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14),
-              borderSide: const BorderSide(color: AppColors.neonCyan, width: 1.5),
+              borderSide: const BorderSide(
+                color: AppColors.neonCyan,
+                width: 1.5,
+              ),
             ),
           ),
         ),
@@ -265,56 +237,15 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
               ),
               backgroundColor: tokens.textPrimary.withValues(alpha: 0.06),
               selectedColor: AppColors.neonCyan.withValues(alpha: 0.25),
-              side: BorderSide(color: isSelected ? AppColors.neonCyan : tokens.textPrimary.withValues(alpha: 0.15)),
+              side: BorderSide(
+                color: isSelected
+                    ? AppColors.neonCyan
+                    : tokens.textPrimary.withValues(alpha: 0.15),
+              ),
             );
           }).toList(),
         ),
       ],
-    );
-  }
-
-  Widget _buildActivePetCapsule() {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(0, _floatAnimation.value),
-          child: Transform.scale(
-            scale: _breatheAnimation.value,
-            child: Container(
-              width: 250,
-              height: 250,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: RadialGradient(
-                  colors: [
-                    AppColors.neonCyan.withValues(alpha: 0.18),
-                    AppColors.spaceDark.withValues(alpha: 0.05),
-                  ],
-                ),
-                border: Border.all(color: Colors.white.withValues(alpha: 0.12)),
-                boxShadow: [
-                  BoxShadow(
-                    color: AppColors.neonCyan.withValues(alpha: 0.15 + (_animationController.value * 0.1)),
-                    blurRadius: 40 + (_animationController.value * 15),
-                    spreadRadius: 10 + (_animationController.value * 5),
-                  ),
-                  BoxShadow(
-                    color: AppColors.neonPink.withValues(alpha: 0.1 * _animationController.value),
-                    blurRadius: 20 * _animationController.value,
-                    spreadRadius: 5 * _animationController.value,
-                  )
-                ],
-              ),
-              padding: const EdgeInsets.all(20),
-              child: Image.asset(
-                PetAssets.imageFor(_selectedSpecie.name),
-                fit: BoxFit.contain,
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 
@@ -334,10 +265,14 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
               width: 70,
               margin: const EdgeInsets.only(right: 12),
               decoration: BoxDecoration(
-                color: isSelected ? AppColors.neonCyan.withValues(alpha: 0.2) : tokens.textPrimary.withValues(alpha: 0.05),
+                color: isSelected
+                    ? AppColors.neonCyan.withValues(alpha: 0.2)
+                    : tokens.textPrimary.withValues(alpha: 0.05),
                 borderRadius: BorderRadius.circular(16),
                 border: Border.all(
-                  color: isSelected ? AppColors.neonCyan : tokens.textPrimary.withValues(alpha: 0.2),
+                  color: isSelected
+                      ? AppColors.neonCyan
+                      : tokens.textPrimary.withValues(alpha: 0.2),
                   width: isSelected ? 2 : 1,
                 ),
               ),
@@ -358,11 +293,16 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    specie.name[0].toUpperCase() + specie.name.substring(1).toLowerCase(),
+                    specie.name[0].toUpperCase() +
+                        specie.name.substring(1).toLowerCase(),
                     style: TextStyle(
-                      color: isSelected ? tokens.textPrimary : tokens.textSecondary,
+                      color: isSelected
+                          ? tokens.textPrimary
+                          : tokens.textSecondary,
                       fontSize: 12,
-                      fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                      fontWeight: isSelected
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                     ),
                   ),
                 ],
@@ -374,39 +314,10 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
     );
   }
 
-  Widget _buildConfirmButton() {
-    return Container(
-      height: 56,
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [AppColors.neonPurple, AppColors.neonCyan],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        borderRadius: BorderRadius.circular(28),
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-          borderRadius: BorderRadius.circular(28),
-          onTap: _isLoading ? null : _handleSelectType,
-          child: Center(
-            child: _isLoading
-                ? const SizedBox(height: 24, width: 24, child: CircularProgressIndicator(color: Colors.white, strokeWidth: 2))
-                : Text(
-                    Translator.translate(AppStrings.meetPetContinue),
-                    style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-          ),
-        ),
-      ),
-    );
-  }
-
   /// What the companion actually is: a description of the relationship
   /// ahead, not a stat sheet. No numbers are invented here — the pet has no
   /// financial metrics of its own; those belong to the user's portfolio.
-  Widget _buildRightPanel() {
+  Widget _buildRightPanel(BuildContext context) {
     return GlassCard(
       borderColor: AppColors.neonCyan.withValues(alpha: 0.3),
       boxShadow: [
@@ -414,7 +325,7 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
           color: AppColors.neonCyan.withValues(alpha: 0.1),
           blurRadius: 15,
           spreadRadius: 2,
-        )
+        ),
       ],
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -424,21 +335,45 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
           children: [
             Text(
               Translator.translate(AppStrings.meetPetPreviewTitle),
-              style: TextStyle(color: context.colors.textPrimary, fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                color: context.colors.textPrimary,
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 20),
-            _buildPreviewRow(Icons.celebration, AppColors.goldenBorder, Translator.translate(AppStrings.meetPetPreviewCelebrate)),
+            _buildPreviewRow(
+              context,
+              Icons.celebration,
+              AppColors.goldenBorder,
+              Translator.translate(AppStrings.meetPetPreviewCelebrate),
+            ),
             const SizedBox(height: 16),
-            _buildPreviewRow(Icons.school, AppColors.neonCyan, Translator.translate(AppStrings.meetPetPreviewLearn)),
+            _buildPreviewRow(
+              context,
+              Icons.school,
+              AppColors.neonCyan,
+              Translator.translate(AppStrings.meetPetPreviewLearn),
+            ),
             const SizedBox(height: 16),
-            _buildPreviewRow(Icons.favorite, AppColors.neonPink, Translator.translate(AppStrings.meetPetPreviewRemember)),
+            _buildPreviewRow(
+              context,
+              Icons.favorite,
+              AppColors.neonPink,
+              Translator.translate(AppStrings.meetPetPreviewRemember),
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildPreviewRow(IconData icon, Color color, String label) {
+  Widget _buildPreviewRow(
+    BuildContext context,
+    IconData icon,
+    Color color,
+    String label,
+  ) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -454,7 +389,14 @@ class _PetConfigurationScreenState extends State<PetConfigurationScreen> with Si
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text(label, style: TextStyle(color: context.colors.textSecondary, fontSize: 14, height: 1.3)),
+            child: Text(
+              label,
+              style: TextStyle(
+                color: context.colors.textSecondary,
+                fontSize: 14,
+                height: 1.3,
+              ),
+            ),
           ),
         ),
       ],

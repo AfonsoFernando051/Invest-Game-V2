@@ -1,0 +1,156 @@
+import 'package:flutter/material.dart';
+import 'package:petrimonium/core/constants/app_colors.dart';
+import 'package:petrimonium/core/constants/app_strings.dart';
+import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/background_presets.dart';
+import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/core/widgets/glass_card.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
+import 'package:petrimonium/features/onboarding/presentation/screens/gamification_intro_screen.dart';
+import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
+import 'package:petrimonium/features/pet/presentation/screens/financial_goal_screen.dart';
+
+/// Onboarding's "there is a real investment school inside this app" beat.
+/// Modules/icons/titles are read live from `AcademyCatalog` — the same data
+/// the real Academy screen shows — so onboarding never drifts from what the
+/// user will actually see once they get there.
+class AcademyIntroScreen extends StatelessWidget {
+  const AcademyIntroScreen({super.key});
+
+  void _goNext(BuildContext context) {
+    Navigator.of(
+      context,
+    ).push(MaterialPageRoute(builder: (_) => const GamificationIntroScreen()));
+  }
+
+  void _skip(BuildContext context) {
+    Navigator.of(context).pushReplacement(
+      MaterialPageRoute(builder: (_) => const FinancialGoalScreen()),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.colors;
+    final previewModules =
+        AcademyCatalog.modules.where((m) => m.order <= 4).toList()
+          ..sort((a, b) => a.order.compareTo(b.order));
+    final xpPerLesson =
+        AcademyCatalog.lessonById('foundations_compound_interest')?.xpReward ??
+        20;
+
+    return OnboardingScaffold(
+      intensity: BackgroundIntensity.subtle,
+      step: 3,
+      totalSteps: 7,
+      showSkip: true,
+      onSkip: () => _skip(context),
+      title: Translator.translate(AppStrings.academyIntroTitle),
+      subtitle: Translator.translate(AppStrings.academyIntroSubtitle),
+      ctaLabel: Translator.translate(AppStrings.onboardingNext),
+      onCta: () => _goNext(context),
+      body: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            Translator.translate(AppStrings.academyIntroBody),
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: tokens.textSecondary,
+              fontSize: 13,
+              height: 1.4,
+            ),
+          ),
+          const SizedBox(height: 24),
+          GridView.count(
+            crossAxisCount: 2,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisSpacing: 12,
+            mainAxisSpacing: 12,
+            childAspectRatio: 2.4,
+            children: [
+              for (final module in previewModules) _ModuleChip(module: module),
+            ],
+          ),
+          const SizedBox(height: 20),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+            decoration: BoxDecoration(
+              color: AppColors.goldenBorder.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(999),
+              border: Border.all(
+                color: AppColors.goldenBorder.withValues(alpha: 0.4),
+              ),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const Icon(
+                  Icons.auto_awesome,
+                  color: AppColors.goldenBorder,
+                  size: 16,
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  Translator.translate(
+                    AppStrings.academyIntroXpBadge,
+                    params: {'xp': '$xpPerLesson'},
+                  ),
+                  style: const TextStyle(
+                    color: AppColors.goldenBorder,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ModuleChip extends StatelessWidget {
+  const _ModuleChip({required this.module});
+
+  final AcademyModule module;
+
+  @override
+  Widget build(BuildContext context) {
+    final tokens = context.colors;
+    return GlassCard(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      child: Row(
+        children: [
+          Container(
+            width: 34,
+            height: 34,
+            decoration: BoxDecoration(
+              color: AppColors.neonCyan.withValues(alpha: 0.14),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Icon(module.icon, color: AppColors.neonCyan, size: 18),
+          ),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              module.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(
+                color: tokens.textPrimary,
+                fontSize: 12.5,
+                fontWeight: FontWeight.w600,
+                height: 1.2,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

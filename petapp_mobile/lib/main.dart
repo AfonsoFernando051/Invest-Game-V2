@@ -10,9 +10,9 @@ import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/auth/presentation/screens/login_screen.dart';
 import 'package:petrimonium/features/dashboard/presentation/screens/dashboard_screen.dart';
 import 'package:petrimonium/features/investment/presentation/screens/portfolio_choice_screen.dart';
-import 'package:petrimonium/features/onboarding/presentation/screens/tutorial_screen.dart';
+import 'package:petrimonium/features/onboarding/presentation/screens/journey_ready_screen.dart';
+import 'package:petrimonium/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:petrimonium/features/pet/presentation/screens/financial_goal_screen.dart';
-import 'package:petrimonium/features/pet/presentation/screens/pet_configuration_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -56,11 +56,11 @@ class MyApp extends StatelessWidget {
                 case StartRoute.portfolioChoice:
                   return const PortfolioChoiceScreen();
                 case StartRoute.tutorial:
-                  return const TutorialScreen();
+                  return const JourneyReadyScreen();
                 case StartRoute.financialGoal:
                   return const FinancialGoalScreen();
                 case StartRoute.meetPet:
-                  return const PetConfigurationScreen();
+                  return const WelcomeScreen();
                 case StartRoute.login:
                 case null:
                   return const LoginScreen();
@@ -90,8 +90,16 @@ class _SplashScreen extends StatelessWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: isDark
-                ? [AppColors.spaceDark, AppColors.spacePurple, AppColors.spaceBlue]
-                : [tokens.backgroundPrimary, tokens.primaryContainer, tokens.backgroundSecondary],
+                ? [
+                    AppColors.spaceDark,
+                    AppColors.spacePurple,
+                    AppColors.spaceBlue,
+                  ]
+                : [
+                    tokens.backgroundPrimary,
+                    tokens.primaryContainer,
+                    tokens.backgroundSecondary,
+                  ],
           ),
         ),
         child: Center(
@@ -101,11 +109,8 @@ class _SplashScreen extends StatelessWidget {
               Image.asset(
                 'assets/images/generated_fox.png',
                 height: 120,
-                errorBuilder: (context, error, stackTrace) => Icon(
-                  Icons.pets,
-                  size: 80,
-                  color: tokens.primary,
-                ),
+                errorBuilder: (context, error, stackTrace) =>
+                    Icon(Icons.pets, size: 80, color: tokens.primary),
               ),
               const SizedBox(height: 32),
               SizedBox(

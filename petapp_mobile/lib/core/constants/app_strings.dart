@@ -55,16 +55,46 @@ class AppStrings {
   static const String financialGoalSubtitle = "financialGoalSubtitle";
   static const String financialGoalContinue = "financialGoalContinue";
 
-  // Tutorial (onboarding)
-  static const String tutorialSkip = "tutorialSkip";
-  static const String tutorialNext = "tutorialNext";
-  static const String tutorialEnterHome = "tutorialEnterHome";
-  static const String tutorialStep1Title = "tutorialStep1Title";
-  static const String tutorialStep1Body = "tutorialStep1Body";
-  static const String tutorialStep2Title = "tutorialStep2Title";
-  static const String tutorialStep2Body = "tutorialStep2Body";
-  static const String tutorialStep3Title = "tutorialStep3Title";
-  static const String tutorialStep3Body = "tutorialStep3Body";
+  // Onboarding — shared chrome (Skip/Next reused by Welcome, Academy and
+  // Gamification intro screens; Goal/Horizon reuse onboardingNext too).
+  static const String onboardingSkip = "onboardingSkip";
+  static const String onboardingNext = "onboardingNext";
+
+  // Welcome (onboarding)
+  static const String welcomeHeadline = "welcomeHeadline";
+  static const String welcomeSubheadline = "welcomeSubheadline";
+  static const String welcomeBody = "welcomeBody";
+  static const String welcomeCta = "welcomeCta";
+
+  // Academy intro (onboarding)
+  static const String academyIntroTitle = "academyIntroTitle";
+  static const String academyIntroSubtitle = "academyIntroSubtitle";
+  static const String academyIntroBody = "academyIntroBody";
+  static const String academyIntroXpBadge = "academyIntroXpBadge";
+
+  // Gamification intro (onboarding)
+  static const String gamificationIntroTitle = "gamificationIntroTitle";
+  static const String gamificationIntroSubtitle = "gamificationIntroSubtitle";
+  static const String onboardingLevelBadge = "onboardingLevelBadge";
+
+  // Mission reward card — shared by Gamification intro and Journey Ready
+  static const String missionCompleteLabel = "missionCompleteLabel";
+  static const String missionCompoundInterestTitle = "missionCompoundInterestTitle";
+
+  // Time Horizon (onboarding)
+  static const String timeHorizonTitle = "timeHorizonTitle";
+  static const String timeHorizonSubtitle = "timeHorizonSubtitle";
+
+  // Journey Ready (onboarding — replaces the old Tutorial's final step)
+  static const String journeyReadyTitle = "journeyReadyTitle";
+  static const String journeyReadySubtitle = "journeyReadySubtitle";
+  static const String journeyReadyGoalLabel = "journeyReadyGoalLabel";
+  static const String journeyReadyPathLabel = "journeyReadyPathLabel";
+  static const String journeyReadyPathValue = "journeyReadyPathValue";
+  static const String journeyReadyCompanionLabel = "journeyReadyCompanionLabel";
+  static const String journeyReadyProgressLabel = "journeyReadyProgressLabel";
+  static const String journeyReadyFirstMissionLabel = "journeyReadyFirstMissionLabel";
+  static const String journeyReadyCta = "journeyReadyCta";
 
   // Portfolio choice (onboarding — optional portfolio connection)
   static const String portfolioChoiceTitle = "portfolioChoiceTitle";
