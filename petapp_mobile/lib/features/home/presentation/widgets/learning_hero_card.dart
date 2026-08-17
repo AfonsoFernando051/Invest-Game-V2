@@ -203,8 +203,14 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
             ),
           ),
         ),
+        // Anchored to the arch's bottom edge, not the card's: the card now
+        // has _buildEvolutionBar (plus its spacing and the card's bottom
+        // padding) below the arch, so a bottom offset measured from the
+        // card edge — as before this section existed — leaves the pet and
+        // its pedestal floating in that extra space instead of sitting on
+        // the arch.
         Positioned(
-          bottom: -22,
+          bottom: 28,
           left: 0,
           right: 0,
           child: GestureDetector(
