@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_color_tokens.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField extends StatefulWidget {
   final String hint;
   final IconData icon;
   final bool obscure;
@@ -23,9 +23,18 @@ class CustomTextField extends StatelessWidget {
   });
 
   @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  // Starts obscured whenever the field asked for it; the eye toggle below
+  // only ever reveals it for this field instance, never affects others.
+  late bool _obscureText = widget.obscure;
+
+  @override
   Widget build(BuildContext context) {
     final tokens = context.colors;
-    final hasError = errorText != null;
+    final hasError = widget.errorText != null;
     final accentColor = hasError ? tokens.error : AppColors.neonCyan;
     return Container(
       decoration: BoxDecoration(
@@ -41,16 +50,26 @@ class CustomTextField extends StatelessWidget {
         ],
       ),
       child: TextField(
-        controller: controller,
-        obscureText: obscure,
+        controller: widget.controller,
+        obscureText: widget.obscure && _obscureText,
         style: TextStyle(color: tokens.textPrimary),
         decoration: InputDecoration(
-          prefixIcon: Icon(icon, color: accentColor),
-          hintText: hint,
+          prefixIcon: Icon(widget.icon, color: accentColor),
+          suffixIcon: widget.obscure
+              ? IconButton(
+                  icon: Icon(
+                    _obscureText ? Icons.visibility_outlined : Icons.visibility_off_outlined,
+                    color: tokens.textTertiary,
+                  ),
+                  tooltip: _obscureText ? 'Mostrar senha' : 'Ocultar senha',
+                  onPressed: () => setState(() => _obscureText = !_obscureText),
+                )
+              : null,
+          hintText: widget.hint,
           hintStyle: TextStyle(color: tokens.textTertiary),
           border: InputBorder.none,
           contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-          errorText: errorText,
+          errorText: widget.errorText,
           errorStyle: TextStyle(color: tokens.error, fontSize: 12),
           errorMaxLines: 2,
         ),
