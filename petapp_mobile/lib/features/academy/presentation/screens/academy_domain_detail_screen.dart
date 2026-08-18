@@ -14,6 +14,7 @@ import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/school_detail_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_catalog_error_state.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_progress_bar.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/school_card.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
@@ -24,13 +25,18 @@ import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_
 /// exactly (own `Scaffold`/`AppBar`/`CosmicBackground`, same fade-route push
 /// into the **existing, unmodified** `SchoolDetailScreen`).
 class AcademyDomainDetailScreen extends StatefulWidget {
-  const AcademyDomainDetailScreen({super.key, required this.domain, required this.mascotController});
+  const AcademyDomainDetailScreen({
+    super.key,
+    required this.domain,
+    required this.mascotController,
+  });
 
   final AcademyDomain domain;
   final MascotController mascotController;
 
   @override
-  State<AcademyDomainDetailScreen> createState() => _AcademyDomainDetailScreenState();
+  State<AcademyDomainDetailScreen> createState() =>
+      _AcademyDomainDetailScreenState();
 }
 
 class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
@@ -62,14 +68,17 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
-              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: AppMotion.pageTransition,
     );
   }
@@ -77,7 +86,12 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
   Future<void> _openSchool(School school) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(SchoolDetailScreen(school: school, mascotController: widget.mascotController)),
+      _fadeRoute(
+        SchoolDetailScreen(
+          school: school,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _controller.load();
   }
@@ -100,7 +114,11 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
       appBar: AppBar(
         title: Text(
           widget.domain.title,
-          style: TextStyle(color: tokens.textPrimary, fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: tokens.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -116,6 +134,8 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
         child: SafeArea(
           child: _controller.isLoading || _controller.isCatalogLoading
               ? const AppLoadingIndicator()
+              : _controller.snapshot == null
+              ? AcademyCatalogErrorState(onRetry: _controller.load)
               : SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
                   child: Column(
@@ -131,12 +151,20 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(widget.domain.icon, color: AppColors.neonCyan, size: 24),
+                                  Icon(
+                                    widget.domain.icon,
+                                    color: AppColors.neonCyan,
+                                    size: 24,
+                                  ),
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
                                       widget.domain.description,
-                                      style: TextStyle(color: tokens.textSecondary, fontSize: 13, height: 1.4),
+                                      style: TextStyle(
+                                        color: tokens.textSecondary,
+                                        fontSize: 13,
+                                        height: 1.4,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -147,9 +175,15 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
                               Text(
                                 Translator.translate(
                                   AppStrings.academyMasteryPercentLabel,
-                                  params: {'percent': '${(masteryPercent * 100).round()}'},
+                                  params: {
+                                    'percent':
+                                        '${(masteryPercent * 100).round()}',
+                                  },
                                 ),
-                                style: TextStyle(color: tokens.textTertiary, fontSize: 11),
+                                style: TextStyle(
+                                  color: tokens.textTertiary,
+                                  fontSize: 11,
+                                ),
                               ),
                             ],
                           ),
@@ -157,7 +191,9 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        Translator.translate(AppStrings.academySchoolsSectionLabel),
+                        Translator.translate(
+                          AppStrings.academySchoolsSectionLabel,
+                        ),
                         style: TextStyle(
                           color: tokens.primary.withValues(alpha: 0.6),
                           fontSize: 11,

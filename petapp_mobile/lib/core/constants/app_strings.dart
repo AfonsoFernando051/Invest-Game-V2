@@ -207,6 +207,8 @@ class AppStrings {
   // Academy — School layer (journey view, mastery, Knowledge Progress)
   static const String academySchoolsSectionLabel = "academySchoolsSectionLabel";
   static const String academyDomainsSectionLabel = "academyDomainsSectionLabel";
+  static const String academyCatalogErrorTitle = "academyCatalogErrorTitle";
+  static const String academyCatalogErrorBody = "academyCatalogErrorBody";
   static const String academyMasterySectionLabel = "academyMasterySectionLabel";
   static const String academyMasteryPercentLabel = "academyMasteryPercentLabel";
   static const String academyKnowledgeLevelLabel = "academyKnowledgeLevelLabel";

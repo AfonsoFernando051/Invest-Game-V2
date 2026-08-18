@@ -14,6 +14,7 @@ import 'package:petrimonium/features/academy/domain/entities/academy_module.dart
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/module_detail_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_catalog_error_state.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_progress_bar.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/mastery_tier_presentation.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/module_card.dart';
@@ -25,7 +26,11 @@ import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_
 /// `Scaffold`/`AppBar`/`CosmicBackground`, same fade-route push into
 /// `ModuleDetailScreen`).
 class SchoolDetailScreen extends StatefulWidget {
-  const SchoolDetailScreen({super.key, required this.school, required this.mascotController});
+  const SchoolDetailScreen({
+    super.key,
+    required this.school,
+    required this.mascotController,
+  });
 
   final School school;
   final MascotController mascotController;
@@ -63,14 +68,17 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
-              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: AppMotion.pageTransition,
     );
   }
@@ -78,7 +86,12 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
   Future<void> _openModule(AcademyModule module) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(ModuleDetailScreen(module: module, mascotController: widget.mascotController)),
+      _fadeRoute(
+        ModuleDetailScreen(
+          module: module,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _controller.load();
   }
@@ -103,7 +116,11 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
       appBar: AppBar(
         title: Text(
           widget.school.title,
-          style: TextStyle(color: tokens.textPrimary, fontSize: 16, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: tokens.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -119,6 +136,8 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
         child: SafeArea(
           child: _controller.isLoading || _controller.isCatalogLoading
               ? const AppLoadingIndicator()
+              : _controller.snapshot == null
+              ? AcademyCatalogErrorState(onRetry: _controller.load)
               : SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
                   child: Column(
@@ -134,20 +153,34 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(widget.school.icon, color: AppColors.neonCyan, size: 24),
+                                  Icon(
+                                    widget.school.icon,
+                                    color: AppColors.neonCyan,
+                                    size: 24,
+                                  ),
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
                                       widget.school.description,
-                                      style: TextStyle(color: tokens.textSecondary, fontSize: 13, height: 1.4),
+                                      style: TextStyle(
+                                        color: tokens.textSecondary,
+                                        fontSize: 13,
+                                        height: 1.4,
+                                      ),
                                     ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 14),
                               Text(
-                                Translator.translate(AppStrings.academyProgressLabel),
-                                style: TextStyle(color: tokens.textTertiary, fontSize: 10, fontWeight: FontWeight.w700),
+                                Translator.translate(
+                                  AppStrings.academyProgressLabel,
+                                ),
+                                style: TextStyle(
+                                  color: tokens.textTertiary,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               AcademyProgressBar(progress: progressPercent),
@@ -155,14 +188,26 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                               Text(
                                 Translator.translate(
                                   AppStrings.academyMasteryPercentLabel,
-                                  params: {'percent': '${(progressPercent * 100).round()}'},
+                                  params: {
+                                    'percent':
+                                        '${(progressPercent * 100).round()}',
+                                  },
                                 ),
-                                style: TextStyle(color: tokens.textTertiary, fontSize: 11),
+                                style: TextStyle(
+                                  color: tokens.textTertiary,
+                                  fontSize: 11,
+                                ),
                               ),
                               const SizedBox(height: 14),
                               Text(
-                                Translator.translate(AppStrings.academyRealMasteryLabel),
-                                style: TextStyle(color: tokens.textTertiary, fontSize: 10, fontWeight: FontWeight.w700),
+                                Translator.translate(
+                                  AppStrings.academyRealMasteryLabel,
+                                ),
+                                style: TextStyle(
+                                  color: tokens.textTertiary,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                               const SizedBox(height: 4),
                               Row(
@@ -170,21 +215,31 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                                   Expanded(
                                     child: AcademyProgressBar(
                                       progress: realMasteryPercent,
-                                      color: MasteryTierPresentation.color(masteryTier),
+                                      color: MasteryTierPresentation.color(
+                                        masteryTier,
+                                      ),
                                     ),
                                   ),
                                   const SizedBox(width: 10),
                                   Text(
                                     '${(realMasteryPercent * 100).round()}%',
-                                    style: TextStyle(color: tokens.textTertiary, fontSize: 11, fontWeight: FontWeight.w600),
+                                    style: TextStyle(
+                                      color: tokens.textTertiary,
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.w600,
+                                    ),
                                   ),
                                 ],
                               ),
                               const SizedBox(height: 6),
                               Text(
-                                Translator.translate(MasteryTierPresentation.labelKey(masteryTier)),
+                                Translator.translate(
+                                  MasteryTierPresentation.labelKey(masteryTier),
+                                ),
                                 style: TextStyle(
-                                  color: MasteryTierPresentation.color(masteryTier),
+                                  color: MasteryTierPresentation.color(
+                                    masteryTier,
+                                  ),
                                   fontSize: 11,
                                   fontWeight: FontWeight.w700,
                                 ),
@@ -195,7 +250,9 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        Translator.translate(AppStrings.academyModulesSectionLabel),
+                        Translator.translate(
+                          AppStrings.academyModulesSectionLabel,
+                        ),
                         style: TextStyle(
                           color: tokens.primary.withValues(alpha: 0.6),
                           fontSize: 11,
@@ -208,7 +265,9 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                         ModuleCard(
                           module: module,
                           status: _controller.statusFor(module),
-                          completedLessons: _controller.completedLessonCountFor(module),
+                          completedLessons: _controller.completedLessonCountFor(
+                            module,
+                          ),
                           onTap: () => _openModule(module),
                         ),
                         const SizedBox(height: 12),

@@ -4,11 +4,13 @@
 
 ## Status
 
-Phase 0 slice implemented (client-only), then expanded with a **School layer, Knowledge Progress track, and a
-new "Financial Life" school** by explicit user direction — see `DECISIONS.md` DECISION-018 for why this is a
-deliberate departure from the Phase-0-only scope this document originally settled on. Sections marked
-**Phase 3+** below are still design intent, not yet built. In `ROADMAP.md`'s staging: Phase 0 ≈ **Alpha**,
-Phase 3+ ≈ **Beta or later**.
+Phase 0 slice implemented (originally client-only), then expanded with a **School layer, Knowledge Progress
+track, and a new "Financial Life" school** by explicit user direction — see `DECISIONS.md` DECISION-018 for why
+this is a deliberate departure from the Phase-0-only scope this document originally settled on. Progress/XP
+became backend-authoritative ahead of schedule (§3b/§7), and as of §3e/DECISION-022 the curriculum **content**
+itself (domains/schools/modules/lessons/steps) is backend-authoritative too — Postgres is now the only source
+of truth, the client fetches and caches it. Sections marked **Phase 3+** below are still design intent, not yet
+built. In `ROADMAP.md`'s staging: Phase 0 ≈ **Alpha**, Phase 3+ ≈ **Beta or later**.
 
 The Academy is the primary product engine under the V2 direction — see `PRODUCT_VISION.md` §4 ("Learning is
 primary"). Where this document refers to "the brief," that was the original feature request that shaped this
@@ -128,9 +130,10 @@ types; adding one is a new `LessonStep` subclass + one new step-view widget, not
 already switches on step type generically).
 
 Progress is derived, not stored as a separate aggregate: `AcademyProgressCalculator` computes lesson/module status
-(`locked | available | completed`, `comingSoon | inProgress | completed`) from `AcademyCatalog` (static) crossed with
-`Set<String> completedLessonIds` (persisted). This mirrors `MissionCatalog.evaluate()` — a pure function over a fixed
-catalog and live state, not a stored derived value that can drift.
+(`locked | available | completed`, `comingSoon | inProgress | completed`) from an `AcademyCatalogSnapshot` (fetched
+from the backend, see §3e — originally a static `AcademyCatalog`) crossed with `Set<String> completedLessonIds`
+(persisted). This mirrors `MissionCatalog.evaluate()` — a pure function over a catalog and live state, not a stored
+derived value that can drift.
 
 ## 3b. School Layer, Knowledge Progress & "Financial Life" (implemented — DECISION-018)
 
@@ -257,6 +260,70 @@ AcademyRecommendation
 - **Out of scope this pass** (see DECISION-020): new curriculum content, a prerequisite hard-lock→soft-guidance
   UX change, new exercise types, and every other Financial Lab beyond Compound Interest.
 
+## 3e. Backend-Authoritative Curriculum Content (implemented — DECISION-022)
+
+Replaces the hardcoded Dart catalog (`AcademyCatalog`/`AcademyDomainCatalog`/`FinancialLifeCatalog`, all three
+now deleted) as the source of truth for domains/schools/modules/lessons/steps. Every prior section above
+(§3–§3d) still describes the *shape* of the curriculum correctly — only where that content physically lives,
+and how the client obtains it, has changed. Requested directly by the project owner (not brief-driven, unlike
+§3b–§3d): the backend already existed and was being underused, and content velocity was about to increase
+("muito mais conteúdo" — see DECISIONS.md).
+
+```
+Postgres: academy_domains, academy_schools, learning_modules(+school_id/icon_key/content_available),
+          learning_lessons, academy_lesson_steps, choice-question options, summary takeaways,
+          one "_translations" table per entity (pt/en/es)
+        ↓
+GET /api/v1/academy/catalog?lang=pt|en|es   (JWT required, same as every other endpoint)
+        ↓
+AcademyCatalogSnapshot   (client-side model, data/models/academy_catalog_snapshot.dart)
+```
+
+- **Schema**: `V10__academy_content_schema.sql` extends the existing server-owned `learning_modules`/
+  `learning_lessons` (already used by `CompleteLessonUseCaseImpl`/`GetLearningProgressUseCaseImpl` for XP
+  validation since §3b's Phase-3+ note) rather than duplicating them. Structural data (ids, order, xpReward,
+  icon, prerequisites, contentAvailable) is language-independent; text lives in paired `_translations` tables,
+  one row per (entity, lang) — mirrors the "3 parallel Dart tables per language" shape the old catalog used,
+  just as rows instead of const lists.
+- **Authoring**: content is JSON files under `PetApp-Backend/src/main/resources/academy-content/`
+  (`domains.json` + one file per school, `schools/{domainId}/{schoolId}.json`), not SQL migrations or a CRUD
+  admin (deliberately — see DECISIONS.md for why). `AcademyContentSeedRunner` (a Spring `ApplicationRunner`)
+  reads them and upserts into the database on every boot — idempotent by construction: `academy_domains`/
+  `academy_schools`/`learning_modules`/`learning_lessons` (permanent ids shared with `lesson_progress`/
+  `xp_events`) are upserted by `findById().orElseGet(new)` + `save()`; everything else (translations,
+  prerequisites, steps, options, takeaways — no id shared with user progress) is deleted-for-its-parent and
+  reinserted every boot. **Ids are permanent** — discontinuing content sets `contentAvailable: false` in its
+  JSON, never removes the entry (see `academy-content/README.md`).
+- **API**: `GET /api/v1/academy/catalog?lang=` (`AcademyCatalogController`) returns the whole curriculum as 4
+  flat lists (domains/schools/modules/lessons, lesson steps nested) — no pagination (matches every other
+  endpoint in this backend), authenticated like the rest of the API even though the payload isn't user-specific
+  (simplicity over adding the project's first public/cacheable-endpoint precedent).
+- **Client**: `AcademyCatalogRepository` fetches and caches the raw response body in `SharedPreferences`, one
+  entry per language (`AcademyController` fetches the current language on `load()`/language switch, cache-first
+  then revalidate — same stale-while-revalidate shape as `PortfolioController._recomputeChart`).
+  `AcademyCatalogSnapshot` replaces `AcademyCatalog`/`AcademyDomainCatalog` as the in-memory model, with the
+  same lookup methods (`moduleById`, `lessonsForModule`, `domainForSchool`, `xpEarnedFor`, ...) now as instance
+  methods instead of static getters — every calculator (`AcademyProgressCalculator`, `KnowledgeProgressCalculator`,
+  `MasteryCalculator`, `AcademyRecommendationService`) takes the snapshot as a parameter instead of reading a
+  static class. `AcademyIconRegistry` maps a server-sent string key (e.g. `"savings_outlined"`) back to a
+  compile-time `IconData` literal, since `IconData` itself can't cross JSON/a database column without breaking
+  Flutter's icon tree-shaking.
+- **Trade-off accepted**: switching language is no longer instant — the old catalog held all 3 languages in
+  memory at once; the backend catalog is fetched per language on demand, so a language switch now shows a brief
+  loading state (`AcademyController.isCatalogLoading`) while the new language's snapshot is fetched. Considered
+  pre-fetching all 3 languages on every load instead; rejected as 3x unnecessary network traffic for a switch
+  that happens rarely (Settings only).
+- **Hardening**: `AcademyCatalogErrorState` (a retry card) is shown by every Academy screen when the catalog
+  could neither be fetched nor loaded from cache — the one edge case the old static catalog could never hit
+  (it was always available, compiled into the binary). `HomeScreen`'s `ContinueLearningCard`/`KnowledgeMapStrip`
+  degrade to their "nothing to show yet" state rather than crashing, with an `ErrorBanner` distinguishing "still
+  loading/failed" from "you genuinely finished everything."
+- **One-time migration**: the 8 domains/19 schools/14 modules/16 lessons that existed in the old Dart catalog
+  were converted to the JSON files above by a throwaway script
+  (`petapp_mobile/tool/generate_academy_seed_json.dart`, since deleted — it read the real `AcademyCatalog` via
+  the Flutter test harness and emitted JSON, rather than hand-transcribing ~4000 lines of lesson content) —
+  every id was preserved exactly, so no user's `lesson_progress`/`xp_events` history was affected.
+
 ## 4. Gamification Integration
 
 Lesson completion persists the lesson id via `AcademyProgressLocalRepository` (identical shape to
@@ -303,15 +370,15 @@ petapp_mobile/lib/features/academy/
     entities/knowledge_level.dart                  # Knowledge Progress
     entities/mastery_tier.dart                      # Mastery
     entities/academy_recommendation.dart            # Recommendations/Review
-    services/academy_catalog.dart
-    services/academy_domain_catalog.dart           # Domain layer
+    services/academy_icon_registry.dart             # Backend content, §3e
     services/academy_progress_calculator.dart
     services/knowledge_progress_calculator.dart    # Knowledge Progress
     services/mastery_calculator.dart                # Mastery
     services/academy_recommendation_service.dart    # Recommendations/Review
     services/compound_interest_calculator.dart      # Financial Lab
-    services/catalog/financial_life_catalog.dart   # School 1 content
   data/
+    models/academy_catalog_snapshot.dart            # Backend content, §3e
+    repositories/academy_catalog_repository.dart    # Backend content, §3e
     repositories/academy_progress_local_repository.dart
   presentation/
     controllers/academy_controller.dart
@@ -330,6 +397,7 @@ petapp_mobile/lib/features/academy/
     widgets/recommended_for_you_section.dart        # Recommendations
     widgets/academy_review_card.dart                # Review
     widgets/financial_lab_entry_card.dart           # Financial Lab
+    widgets/academy_catalog_error_state.dart        # Backend content, §3e
     widgets/module_card.dart
     widgets/lesson_list_tile.dart
     widgets/academy_progress_bar.dart
@@ -345,6 +413,21 @@ petapp_mobile/lib/core/services/total_xp_calculator.dart
 No new top-level pattern; mirrors `features/portfolio/` and `features/mentor/` exactly. The School layer
 follows the same `data → domain → presentation` shape, just one level higher than Module.
 
+Backend, added by §3e (mirrors the existing `learning` module's `port/usecase/dto` + adapter/controller shape):
+
+```
+PetApp-Backend/src/main/java/com/jf/PetApp/
+  application/academy/{port,usecase,dto}/          # GetAcademyCatalogUseCase + views
+  infrastructure/repository/academy/                # 14 JPA repos + the read-side query adapter
+  infrastructure/controller/academy/AcademyCatalogController.java
+  infrastructure/seed/academy/AcademyContentSeedRunner.java + model/ (JSON DTOs)
+  infrastructure/entity/Academy*JpaEntity.java       # 14 entities
+
+PetApp-Backend/src/main/resources/
+  db/migration/V10__academy_content_schema.sql       # schema only, no seed data
+  academy-content/{domains.json, schools/{domainId}/{schoolId}.json, README.md}
+```
+
 ## 7. Phase 3+ (explicitly deferred — design intent only)
 
 These are not built. Each needs a real trigger (more content, real usage data, or a dependency that doesn't exist
@@ -358,12 +441,15 @@ yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, meas
   something this pass's changes caused. Local-only achievements/missions have **not** made the same migration
   yet, so Academy's XP composition (`TotalXpCalculator`) still reads their local state — see `FEATURES.md`.
 - **Remaining 17 schools' real content**, written and reviewed incrementally, one school/module at a time,
-  validated against real user engagement with "Financial Life"/"Investment Fundamentals" first.
+  validated against real user engagement with "Financial Life"/"Investment Fundamentals" first. Now authored
+  as JSON under `academy-content/` (§3e) rather than Dart, but the incremental, engagement-validated approach
+  is unchanged.
 - **Full Question-entity metadata** (the 2026 brief's ~20 fields: sub-competency, review date, source,
   version, 10 question types beyond multiple-choice) — no real content velocity yet to justify it; the sealed
   `LessonStep` can grow one type at a time when a specific lesson actually needs it.
-- **Backend School/prerequisite/competency schema** — School/module organization stays a client-side-only
-  concept until learning progress itself migrates to backend-authoritative (see the item above this list).
+- ~~Backend School/prerequisite/competency schema~~ — **delivered** by §3e: `academy_domains`, `academy_schools`
+  (+ `academy_school_prerequisites`), and `learning_modules.school_id`/`academy_module_prerequisites` are all
+  real backend tables now, not a client-only concept.
 - **Practical market challenges** (brief §7): a `PracticalChallenge` entity referencing a real ticker/ratio, reward
   wired through the same `TotalXpCalculator`, gated on the asset-details screen already having the indicator data
   (`IndicatorEducationCatalog`) — the natural next integration once Module 4 (Fundamental Analysis) has real content.
@@ -373,8 +459,10 @@ yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, meas
   doesn't exist yet.
 - **Streak**: plug into `MARKET_EVENTS_ENGINE.md`'s `STREAK_MAINTAINED`/`user_streak` design once that ships, rather
   than building a second streak tracker.
-- **CMS / content pipeline**: only worth it once content velocity (multiple modules, frequent edits) makes hardcoded
-  Dart catalogs the actual bottleneck — not before, per YAGNI.
+- ~~CMS / content pipeline~~ — **delivered** by §3e, once content velocity actually justified it (per this
+  item's own original YAGNI condition): content is now backend-owned (Postgres) and authored as JSON files +
+  an idempotent seeder, not hardcoded Dart catalogs. A CRUD/admin authoring UI remains explicitly out of scope —
+  see DECISIONS.md for why JSON-file authoring was chosen over it.
 - **Offline-first outbox sync**: only meaningful once progress is backend-authoritative; local-only progress has
   nothing to sync yet.
 

@@ -868,6 +868,78 @@ derived from) are left untouched, since those describe a different, real, histor
 
 ---
 
+# DECISION-022
+
+## Title
+
+Academy Curriculum Content Moves From Hardcoded Dart to Backend-Authoritative (Postgres + JSON Authoring)
+
+### Status
+
+Accepted
+
+### Context
+
+The Academy's entire curriculum (domains, schools, modules, lessons, steps, pt/en/es text) lived as hardcoded
+Dart `const` data (`AcademyCatalog`/`AcademyDomainCatalog`/`FinancialLifeCatalog`), while the backend only held
+a shallow id+XP validation catalog (`learning_modules`/`learning_lessons`, seeded via hand-written Flyway
+`INSERT`s in `V4`/`V9`) — a design `ACADEMY_ENGINE.md` §7 explicitly deferred moving off of, pending real
+content velocity ("not before, per YAGNI"). The project owner directly requested centralizing content in the
+backend/database: the backend already existed and was underused, and a large increase in authored content
+("muito mais conteúdo") was planned — exactly the trigger §7's YAGNI condition named. The dual-catalog design
+had already caused one real bug (a module shipped in the Dart catalog before its server-side seed existed,
+returning "Unknown lesson id" for every completion attempt, fixed in `V9`).
+
+### Decision
+
+Domains/schools/modules/lessons/steps (structural data + one translation row per (entity, lang)) move into
+Postgres, extending the existing `learning_modules`/`learning_lessons` tables rather than duplicating them
+(`V10__academy_content_schema.sql`, schema only). A new `GET /api/v1/academy/catalog?lang=` endpoint serves the
+full curriculum, authenticated like every other endpoint. Content authoring is JSON files under
+`academy-content/` (one per school) — explicitly **not** a CRUD/admin API or a UI, and **not** continuing
+hand-written Flyway `INSERT`s either — loaded by an idempotent `AcademyContentSeedRunner` on every boot
+(`findById().orElseGet(new)` + `save()` for permanent ids; delete-and-reinsert for everything else). The
+client (`AcademyCatalogRepository`/`AcademyCatalogSnapshot`) fetches and caches the catalog per language,
+cache-first then revalidate, replacing the static catalog everywhere it was read (calculators now take the
+snapshot as a parameter instead of reading a static class). The 8 domains/19 schools/14 modules/16 lessons
+already authored in Dart were converted to the new JSON format by a one-time, throwaway script rather than
+hand-transcribed, preserving every id exactly (ids are permanent — shared with `lesson_progress`/`xp_events`).
+See `ACADEMY_ENGINE.md` §3e for the full design.
+
+### Rationale
+
+- **JSON files over a CRUD/admin API**: the project has no precedent for user-facing content-write endpoints
+  anywhere, and building one (auth model for editors, validation, an editing UI) is real, unbounded scope the
+  actual problem doesn't need — a JSON diff reviewed in a PR is sufficient authoring UX for a solo/small team,
+  and the seeder makes "commit JSON → deploy → live" the entire publish flow.
+- **Extending `learning_modules`/`learning_lessons` instead of duplicating them**: those tables are already the
+  authoritative id+XP source for `CompleteLessonUseCaseImpl`/`GetLearningProgressUseCaseImpl` — a second,
+  parallel content-catalog table would recreate the exact two-tables-that-must-agree problem this decision
+  exists to eliminate.
+- **Per-language fetch, not pre-fetching all 3 languages**: the old catalog held pt/en/es in memory
+  simultaneously, so switching language was instant; fetching all 3 upfront would preserve that but at 3x
+  unnecessary network cost on every load for a switch that only happens in Settings. Traded a rare, brief
+  loading state for avoiding that constant overhead.
+- **Delete-and-reinsert for children, upsert-by-id for parents**: only `academy_domains`/`academy_schools`/
+  `learning_modules`/`learning_lessons` have an id shared with user progress and must never be deleted;
+  everything nested under them (translations, prerequisites, steps, options, takeaways) has no such constraint,
+  so the simplest-correct reconciliation (wipe and rewrite) is safe and requires no diffing logic.
+
+### Consequences
+
+- `AcademyCatalog`, `AcademyDomainCatalog`, `FinancialLifeCatalog`, and the one-time conversion script are
+  deleted — the backend database is now the only place curriculum content is authored or stored.
+  `docs/ACADEMY_ENGINE.md` §3e supersedes every prior section's implicit assumption of a static, always-available
+  catalog; §7's "CMS / content pipeline" and "Backend School/prerequisite/competency schema" Phase-3+ items are
+  marked delivered.
+- The Academy now has a genuine offline/loading edge case it never had before (first launch with no
+  connectivity and no cache) — `AcademyController.isCatalogLoading`/`catalogError` and
+  `AcademyCatalogErrorState` handle it explicitly across every Academy screen.
+- Adding a new school/module/lesson going forward is a JSON PR + deploy, not a Dart code change + app store
+  release — the exact content-velocity unlock this decision was made to provide.
+
+---
+
 # Future Decisions
 
 Whenever a significant architectural or product decision is made, add a new entry following the same structure.

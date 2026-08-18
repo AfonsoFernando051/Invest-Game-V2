@@ -15,12 +15,17 @@ import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_catalog_error_state.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_progress_bar.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/lesson_list_tile.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 
 class ModuleDetailScreen extends StatefulWidget {
-  const ModuleDetailScreen({super.key, required this.module, required this.mascotController});
+  const ModuleDetailScreen({
+    super.key,
+    required this.module,
+    required this.mascotController,
+  });
 
   final AcademyModule module;
   final MascotController mascotController;
@@ -58,14 +63,17 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
-              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: AppMotion.pageTransition,
     );
   }
@@ -73,7 +81,13 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
   Future<void> _openLesson(Lesson lesson) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(LessonScreen(lesson: lesson, catalog: _controller.snapshot!, mascotController: widget.mascotController)),
+      _fadeRoute(
+        LessonScreen(
+          lesson: lesson,
+          catalog: _controller.snapshot!,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _controller.load();
   }
@@ -88,14 +102,22 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
 
   Widget _buildContent(BuildContext context) {
     final tokens = context.colors;
-    final lessons = _controller.snapshot?.lessonsForModule(widget.module.id) ?? const [];
+    final lessons =
+        _controller.snapshot?.lessonsForModule(widget.module.id) ?? const [];
     final completed = _controller.completedLessonCountFor(widget.module);
     final progress = lessons.isEmpty ? 0.0 : completed / lessons.length;
 
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text(widget.module.title, style: TextStyle(color: tokens.textPrimary, fontSize: 16, fontWeight: FontWeight.bold)),
+        title: Text(
+          widget.module.title,
+          style: TextStyle(
+            color: tokens.textPrimary,
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
@@ -110,6 +132,8 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
         child: SafeArea(
           child: _controller.isLoading || _controller.isCatalogLoading
               ? const AppLoadingIndicator()
+              : _controller.snapshot == null
+              ? AcademyCatalogErrorState(onRetry: _controller.load)
               : SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
                   child: Column(
@@ -125,12 +149,20 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
                             children: [
                               Row(
                                 children: [
-                                  Icon(widget.module.icon, color: AppColors.neonCyan, size: 24),
+                                  Icon(
+                                    widget.module.icon,
+                                    color: AppColors.neonCyan,
+                                    size: 24,
+                                  ),
                                   const SizedBox(width: 10),
                                   Expanded(
                                     child: Text(
                                       widget.module.description,
-                                      style: TextStyle(color: tokens.textSecondary, fontSize: 13, height: 1.4),
+                                      style: TextStyle(
+                                        color: tokens.textSecondary,
+                                        fontSize: 13,
+                                        height: 1.4,
+                                      ),
                                     ),
                                   ),
                                 ],
@@ -141,9 +173,15 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
                               Text(
                                 Translator.translate(
                                   AppStrings.academyLessonsProgressLabel,
-                                  params: {'completed': '$completed', 'total': '${lessons.length}'},
+                                  params: {
+                                    'completed': '$completed',
+                                    'total': '${lessons.length}',
+                                  },
                                 ),
-                                style: TextStyle(color: tokens.textTertiary, fontSize: 11),
+                                style: TextStyle(
+                                  color: tokens.textTertiary,
+                                  fontSize: 11,
+                                ),
                               ),
                             ],
                           ),
@@ -151,8 +189,15 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        Translator.translate(AppStrings.academyLessonsSectionLabel),
-                        style: TextStyle(color: tokens.primary.withValues(alpha: 0.6), fontSize: 11, fontWeight: FontWeight.w700, letterSpacing: 2),
+                        Translator.translate(
+                          AppStrings.academyLessonsSectionLabel,
+                        ),
+                        style: TextStyle(
+                          color: tokens.primary.withValues(alpha: 0.6),
+                          fontSize: 11,
+                          fontWeight: FontWeight.w700,
+                          letterSpacing: 2,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       for (final lesson in lessons)

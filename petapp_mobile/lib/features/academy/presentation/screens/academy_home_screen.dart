@@ -14,6 +14,7 @@ import 'package:petrimonium/features/academy/presentation/controllers/academy_co
 import 'package:petrimonium/features/academy/presentation/screens/academy_domain_detail_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/financial_lab/financial_lab_home_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_catalog_error_state.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_continue_card.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_domain_card.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_level_header.dart';
@@ -76,7 +77,11 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   // cooldown/priority rules decide whether it's actually shown; this just
   // avoids re-evaluating on every rebuild the ChangeNotifier triggers.
   void _notifyCompanionOnce() {
-    if (_companionNotified || _controller.isLoading || _controller.isCatalogLoading) return;
+    if (_companionNotified ||
+        _controller.isLoading ||
+        _controller.isCatalogLoading) {
+      return;
+    }
     final reviewCount = _controller.reviewQueue.length;
     final nextLesson = _controller.nextLesson;
     if (reviewCount == 0 && nextLesson == null) return;
@@ -119,7 +124,11 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
       _fadeRoute(
-        LessonScreen(lesson: lesson, catalog: _controller.snapshot!, mascotController: widget.mascotController),
+        LessonScreen(
+          lesson: lesson,
+          catalog: _controller.snapshot!,
+          mascotController: widget.mascotController,
+        ),
       ),
     );
     _controller.load();
@@ -158,11 +167,17 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
       return const AppLoadingIndicator();
     }
 
+    if (_controller.snapshot == null) {
+      return AcademyCatalogErrorState(onRetry: _controller.load);
+    }
+
     // Mastery rows are only shown for schools with real content — an empty
     // 0% row for a `comingSoon` school isn't informative, same reasoning as
     // `PetMessageCatalog._portfolioNudge` only firing once there's something
     // real to say.
-    final masterySchools = _controller.schools.where((s) => s.contentAvailable).toList();
+    final masterySchools = _controller.schools
+        .where((s) => s.contentAvailable)
+        .toList();
 
     return RefreshIndicator(
       color: tokens.primary,
@@ -170,7 +185,10 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
       onRefresh: _controller.load,
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xl, vertical: AppSpacing.md),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppSpacing.xl,
+          vertical: AppSpacing.md,
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
@@ -181,7 +199,10 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
             ),
             const SizedBox(height: AppSpacing.xxl),
             if (_controller.nextLesson != null) ...[
-              AcademyContinueCard(lesson: _controller.nextLesson!, onStart: () => _openLesson(_controller.nextLesson!)),
+              AcademyContinueCard(
+                lesson: _controller.nextLesson!,
+                onStart: () => _openLesson(_controller.nextLesson!),
+              ),
               const SizedBox(height: AppSpacing.xxl + 4),
             ],
             if (masterySchools.isNotEmpty) ...[
@@ -202,7 +223,9 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               const SizedBox(height: AppSpacing.xxl + 4),
             ],
             FinancialLabEntryCard(
-              onTap: () => Navigator.of(context).push(_fadeRoute(const FinancialLabHomeScreen())),
+              onTap: () => Navigator.of(
+                context,
+              ).push(_fadeRoute(const FinancialLabHomeScreen())),
             ),
             const SizedBox(height: AppSpacing.xxl + 4),
             Text(

@@ -84,14 +84,17 @@ class _HomeScreenState extends State<HomeScreen> {
   Route _fadeRoute(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
-        opacity: animation,
-        child: SlideTransition(
-          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
-              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
-          child: child,
-        ),
-      ),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(
+            opacity: animation,
+            child: SlideTransition(
+              position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+                  .animate(
+                    CurvedAnimation(parent: animation, curve: Curves.easeOut),
+                  ),
+              child: child,
+            ),
+          ),
       transitionDuration: const Duration(milliseconds: 350),
     );
   }
@@ -99,7 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _startLesson(Lesson lesson) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(LessonScreen(lesson: lesson, catalog: _academyController.snapshot!, mascotController: widget.mascotController)),
+      _fadeRoute(
+        LessonScreen(
+          lesson: lesson,
+          catalog: _academyController.snapshot!,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _academyController.load();
   }
@@ -107,7 +116,12 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _openModule(AcademyModule module) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(ModuleDetailScreen(module: module, mascotController: widget.mascotController)),
+      _fadeRoute(
+        ModuleDetailScreen(
+          module: module,
+          mascotController: widget.mascotController,
+        ),
+      ),
     );
     _academyController.load();
   }
@@ -116,12 +130,16 @@ class _HomeScreenState extends State<HomeScreen> {
   /// already this screen's `ContinueLearningCard`, so showing it again here
   /// would be redundant (brief's own "one primary action per screen"
   /// principle).
-  List<AcademyRecommendation> get _reviewRecommendations =>
-      _academyController.recommendations.where((r) => r.type == RecommendationType.review).toList();
+  List<AcademyRecommendation> get _reviewRecommendations => _academyController
+      .recommendations
+      .where((r) => r.type == RecommendationType.review)
+      .toList();
 
   void _tapModuleChip(AcademyModule module) {
     final status = _academyController.statusFor(module);
-    if (status == ModuleStatus.comingSoon || status == ModuleStatus.locked) return;
+    if (status == ModuleStatus.comingSoon || status == ModuleStatus.locked) {
+      return;
+    }
     _openModule(module);
   }
 
@@ -129,7 +147,9 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final portfolioController = widget.portfolioController;
 
-    if (portfolioController.isLoading && portfolioController.holdings.isEmpty && portfolioController.error == null) {
+    if (portfolioController.isLoading &&
+        portfolioController.holdings.isEmpty &&
+        portfolioController.error == null) {
       return const AppLoadingIndicator();
     }
 
@@ -138,7 +158,10 @@ class _HomeScreenState extends State<HomeScreen> {
     return RefreshIndicator(
       color: context.colors.primary,
       backgroundColor: context.colors.surfaceElevated,
-      onRefresh: () => Future.wait([portfolioController.refresh(), _academyController.load()]),
+      onRefresh: () => Future.wait([
+        portfolioController.refresh(),
+        _academyController.load(),
+      ]),
       child: SingleChildScrollView(
         physics: const AlwaysScrollableScrollPhysics(),
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
@@ -150,11 +173,23 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 12),
             ],
 
+            // Only when the catalog truly never loaded (no cache either) —
+            // otherwise a `nextLesson == null` reads as "every lesson
+            // complete" below, which would be misleading during a transient
+            // fetch failure that still has cached content to show.
+            if (_academyController.catalogError != null &&
+                _academyController.snapshot == null) ...[
+              ErrorBanner(onRetry: _academyController.load),
+              const SizedBox(height: 12),
+            ],
+
             ContinueLearningCard(
               nextLesson: _academyController.nextLesson,
               moduleTitle: _academyController.nextLesson == null
                   ? null
-                  : _academyController.snapshot?.moduleById(_academyController.nextLesson!.moduleId)?.title,
+                  : _academyController.snapshot
+                        ?.moduleById(_academyController.nextLesson!.moduleId)
+                        ?.title,
               onStartLesson: () {
                 final lesson = _academyController.nextLesson;
                 if (lesson != null) _startLesson(lesson);
@@ -167,15 +202,19 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(height: 16),
 
             if (widget.showPortfolioReminder) ...[
-              PortfolioReminderBanner(onDismiss: widget.onDismissPortfolioReminder),
+              PortfolioReminderBanner(
+                onDismiss: widget.onDismissPortfolioReminder,
+              ),
               const SizedBox(height: 16),
             ],
 
-            if (!_academyController.isLoading && !_academyController.isCatalogLoading) ...[
+            if (!_academyController.isLoading &&
+                !_academyController.isCatalogLoading) ...[
               KnowledgeMapStrip(
                 modules: _academyController.modules,
                 statusFor: _academyController.statusFor,
-                completedLessonCountFor: _academyController.completedLessonCountFor,
+                completedLessonCountFor:
+                    _academyController.completedLessonCountFor,
                 onTapModule: _tapModuleChip,
                 onViewAll: widget.onOpenAcademyTab,
               ),
@@ -183,18 +222,24 @@ class _HomeScreenState extends State<HomeScreen> {
             ],
 
             if (_reviewRecommendations.isNotEmpty) ...[
-              RecommendedForYouSection(recommendations: _reviewRecommendations, onTapLesson: _startLesson),
+              RecommendedForYouSection(
+                recommendations: _reviewRecommendations,
+                onTapLesson: _startLesson,
+              ),
               const SizedBox(height: 16),
             ],
 
             if (hasPortfolio)
               PortfolioBridgeCard(
                 summary: portfolioController.summary,
-                completedLessonCount: _academyController.completedLessonIds.length,
+                completedLessonCount:
+                    _academyController.completedLessonIds.length,
                 onViewPortfolio: widget.onOpenPortfolioTab,
               )
             else
-              PortfolioNotConnectedCard(showInvestorProfileAction: widget.investorProfileUnanswered),
+              PortfolioNotConnectedCard(
+                showInvestorProfileAction: widget.investorProfileUnanswered,
+              ),
 
             const SizedBox(height: 32),
           ],
