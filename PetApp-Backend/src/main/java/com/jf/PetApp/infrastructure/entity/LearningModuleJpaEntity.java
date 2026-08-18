@@ -22,6 +22,15 @@ public class LearningModuleJpaEntity {
     @Column(name = "lesson_count")
     private int lessonCount;
 
+    @Column(name = "school_id")
+    private String schoolId;
+
+    @Column(name = "icon_key")
+    private String iconKey;
+
+    @Column(name = "content_available")
+    private boolean contentAvailable;
+
     public String getModuleId() {
         return moduleId;
     }
@@ -52,5 +61,29 @@ public class LearningModuleJpaEntity {
 
     public void setLessonCount(int lessonCount) {
         this.lessonCount = lessonCount;
+    }
+
+    public String getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(String schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public String getIconKey() {
+        return iconKey;
+    }
+
+    public void setIconKey(String iconKey) {
+        this.iconKey = iconKey;
+    }
+
+    public boolean isContentAvailable() {
+        return contentAvailable;
+    }
+
+    public void setContentAvailable(boolean contentAvailable) {
+        this.contentAvailable = contentAvailable;
     }
 }

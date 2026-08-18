@@ -1,0 +1,23 @@
+{
+  "schoolId": "derivatives_advanced_markets",
+  "domainId": "advanced_markets",
+  "order": 17,
+  "iconKey": "timeline_outlined",
+  "contentAvailable": false,
+  "prerequisites": [],
+  "translations": {
+    "pt": {
+      "title": "Derivativos e Mercados Avançados",
+      "description": "Opções, futuros e swaps — proteção (hedge) e especulação, com os riscos envolvidos."
+    },
+    "en": {
+      "title": "Derivatives & Advanced Markets",
+      "description": "Options, futures and swaps — hedging and speculation, with the risks involved."
+    },
+    "es": {
+      "title": "Derivados y Mercados Avanzados",
+      "description": "Opciones, futuros y swaps — cobertura (hedge) y especulación, con los riesgos que implican."
+    }
+  },
+  "modules": []
+}

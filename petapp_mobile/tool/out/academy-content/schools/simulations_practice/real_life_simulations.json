@@ -1,0 +1,23 @@
+{
+  "schoolId": "real_life_simulations",
+  "domainId": "simulations_practice",
+  "order": 19,
+  "iconKey": "map_outlined",
+  "contentAvailable": false,
+  "prerequisites": [],
+  "translations": {
+    "pt": {
+      "title": "Simulações da Vida Real",
+      "description": "Cenários práticos — primeiro salário, primeira dívida, uma queda de mercado — para aplicar o que você aprendeu."
+    },
+    "en": {
+      "title": "Real-Life Financial Simulations",
+      "description": "Practical scenarios — first paycheck, first debt, a market downturn — to apply what you learned."
+    },
+    "es": {
+      "title": "Simulaciones de la Vida Real",
+      "description": "Escenarios prácticos — primer sueldo, primera deuda, una caída del mercado — para aplicar lo aprendido."
+    }
+  },
+  "modules": []
+}

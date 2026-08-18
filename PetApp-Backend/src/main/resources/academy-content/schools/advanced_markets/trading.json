@@ -1,0 +1,23 @@
+{
+  "schoolId": "trading",
+  "domainId": "advanced_markets",
+  "order": 18,
+  "iconKey": "candlestick_chart_outlined",
+  "contentAvailable": false,
+  "prerequisites": [],
+  "translations": {
+    "pt": {
+      "title": "Trading",
+      "description": "Day trade, swing trade e gestão de risco de curto prazo — sem prometer um caminho fácil."
+    },
+    "en": {
+      "title": "Trading",
+      "description": "Day trading, swing trading and short-term risk management — without promising an easy path."
+    },
+    "es": {
+      "title": "Trading",
+      "description": "Day trading, swing trading y gestión de riesgo de corto plazo — sin prometer un camino fácil."
+    }
+  },
+  "modules": []
+}

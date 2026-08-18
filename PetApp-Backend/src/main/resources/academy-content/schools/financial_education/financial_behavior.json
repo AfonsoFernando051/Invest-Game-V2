@@ -1,0 +1,23 @@
+{
+  "schoolId": "financial_behavior",
+  "domainId": "financial_education",
+  "order": 11,
+  "iconKey": "psychology_outlined",
+  "contentAvailable": false,
+  "prerequisites": [],
+  "translations": {
+    "pt": {
+      "title": "Comportamento Financeiro",
+      "description": "Como vieses, emoções e hábitos afetam suas decisões financeiras — às vezes mais do que o próprio mercado."
+    },
+    "en": {
+      "title": "Financial Behavior",
+      "description": "How biases, emotions and habits shape your financial decisions — sometimes more than the market itself."
+    },
+    "es": {
+      "title": "Comportamiento Financiero",
+      "description": "Cómo los sesgos, las emociones y los hábitos moldean tus decisiones financieras — a veces más que el propio mercado."
+    }
+  },
+  "modules": []
+}

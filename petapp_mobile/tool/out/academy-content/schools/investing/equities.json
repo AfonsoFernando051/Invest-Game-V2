@@ -1,0 +1,47 @@
+{
+  "schoolId": "equities",
+  "domainId": "investing",
+  "order": 5,
+  "iconKey": "trending_up",
+  "contentAvailable": false,
+  "prerequisites": [],
+  "translations": {
+    "pt": {
+      "title": "Ações e Renda Variável",
+      "description": "O que é ser sócio de uma empresa, como funciona a bolsa e como os dividendos são distribuídos."
+    },
+    "en": {
+      "title": "Equities & Variable Income",
+      "description": "What it means to be a part-owner of a company, how the stock market works and how dividends are paid."
+    },
+    "es": {
+      "title": "Acciones y Renta Variable",
+      "description": "Qué significa ser socio de una empresa, cómo funciona la bolsa y cómo se distribuyen los dividendos."
+    }
+  },
+  "modules": [
+    {
+      "moduleId": "stocks",
+      "order": 1,
+      "iconKey": "trending_up",
+      "xpReward": 0,
+      "contentAvailable": false,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Ações e Renda Variável",
+          "description": "O que significa ser sócio de uma empresa: preço, valor de mercado, lucro, dividendos e volatilidade."
+        },
+        "en": {
+          "title": "Stocks & Variable Income",
+          "description": "What it means to be a part-owner of a company: price, market value, profit, dividends and volatility."
+        },
+        "es": {
+          "title": "Acciones y Renta Variable",
+          "description": "Qué significa ser socio de una empresa: precio, valor de mercado, ganancias, dividendos y volatilidad."
+        }
+      },
+      "lessons": []
+    }
+  ]
+}
