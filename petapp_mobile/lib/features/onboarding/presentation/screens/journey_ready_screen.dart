@@ -6,9 +6,9 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
 import 'package:petrimonium/features/investment/presentation/screens/portfolio_choice_screen.dart';
+import 'package:petrimonium/features/onboarding/presentation/onboarding_constants.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/mission_reward_card.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
 import 'package:petrimonium/features/pet/data/models/pet_goal_enum.dart';
@@ -66,9 +66,6 @@ class _JourneyReadyScreenState extends State<JourneyReadyScreen> {
   Widget build(BuildContext context) {
     final goal = _goal;
     final profile = _profile;
-    final xpPerLesson =
-        AcademyCatalog.lessonById('foundations_compound_interest')?.xpReward ??
-        20;
 
     return OnboardingScaffold(
       intensity: BackgroundIntensity.balanced,
@@ -145,7 +142,7 @@ class _JourneyReadyScreenState extends State<JourneyReadyScreen> {
                   title: Translator.translate(
                     AppStrings.missionCompoundInterestTitle,
                   ),
-                  xp: xpPerLesson,
+                  xp: kStandardLessonXpReward,
                   completed: false,
                 ),
               ],

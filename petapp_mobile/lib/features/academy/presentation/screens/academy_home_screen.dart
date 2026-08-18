@@ -60,6 +60,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     super.initState();
     _controller = AcademyController(
       repository: DI.academyProgressRepository,
+      catalogRepository: DI.academyCatalogRepository,
       remoteDataSource: DI.academyRemoteDataSource,
     );
     _controller.addListener(_onChanged);
@@ -75,7 +76,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   // cooldown/priority rules decide whether it's actually shown; this just
   // avoids re-evaluating on every rebuild the ChangeNotifier triggers.
   void _notifyCompanionOnce() {
-    if (_companionNotified || _controller.isLoading) return;
+    if (_companionNotified || _controller.isLoading || _controller.isCatalogLoading) return;
     final reviewCount = _controller.reviewQueue.length;
     final nextLesson = _controller.nextLesson;
     if (reviewCount == 0 && nextLesson == null) return;
@@ -118,7 +119,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
       _fadeRoute(
-        LessonScreen(lesson: lesson, mascotController: widget.mascotController),
+        LessonScreen(lesson: lesson, catalog: _controller.snapshot!, mascotController: widget.mascotController),
       ),
     );
     _controller.load();
@@ -139,9 +140,10 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Rebuilds when the user switches language in Settings — curriculum
-    // content (AcademyCatalog) and this screen's chrome both key off
-    // `Translator.currentLanguage`, which only changes there.
+    // Rebuilds when the user switches language in Settings — this screen's
+    // chrome keys off `Translator.currentLanguage` directly, while the
+    // curriculum content itself is re-fetched by `_controller`'s own
+    // language listener (see `AcademyController._onLanguageChanged`).
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
       builder: (context, _, __) => _buildContent(context),
@@ -152,7 +154,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     final tokens = context.colors;
     final level = LevelCalculator.fromXp(widget.mascotController.profile.xp);
 
-    if (_controller.isLoading) {
+    if (_controller.isLoading || _controller.isCatalogLoading) {
       return const AppLoadingIndicator();
     }
 

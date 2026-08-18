@@ -63,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     _academyController = AcademyController(
       repository: DI.academyProgressRepository,
+      catalogRepository: DI.academyCatalogRepository,
       remoteDataSource: DI.academyRemoteDataSource,
     );
     _academyController.addListener(_onAcademyChanged);
@@ -98,7 +99,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Future<void> _startLesson(Lesson lesson) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(LessonScreen(lesson: lesson, mascotController: widget.mascotController)),
+      _fadeRoute(LessonScreen(lesson: lesson, catalog: _academyController.snapshot!, mascotController: widget.mascotController)),
     );
     _academyController.load();
   }
@@ -151,6 +152,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
             ContinueLearningCard(
               nextLesson: _academyController.nextLesson,
+              moduleTitle: _academyController.nextLesson == null
+                  ? null
+                  : _academyController.snapshot?.moduleById(_academyController.nextLesson!.moduleId)?.title,
               onStartLesson: () {
                 final lesson = _academyController.nextLesson;
                 if (lesson != null) _startLesson(lesson);
@@ -167,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(height: 16),
             ],
 
-            if (!_academyController.isLoading) ...[
+            if (!_academyController.isLoading && !_academyController.isCatalogLoading) ...[
               KnowledgeMapStrip(
                 modules: _academyController.modules,
                 statusFor: _academyController.statusFor,

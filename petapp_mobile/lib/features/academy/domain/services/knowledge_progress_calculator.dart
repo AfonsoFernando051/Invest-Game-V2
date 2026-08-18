@@ -1,9 +1,9 @@
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/utils/translator.dart';
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/knowledge_level.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 
 /// Derives **Knowledge Progress** — how much of the curriculum the learner
 /// has actually completed — kept deliberately separate from Game Level
@@ -16,23 +16,24 @@ import 'package:petrimonium/features/academy/domain/services/academy_catalog.dar
 /// sync with the School list — a school already is a competency grouping.
 ///
 /// Both are computed only against lessons in `contentAvailable` modules —
-/// the same boundary `AcademyCatalog.nextLessonToContinue`/`xpEarnedFor`
-/// already use — so progress reflects mastery of what's actually offered
-/// today, and doesn't retroactively drop every time a new school ships
-/// content. Pure functions over the catalog + completed ids, nothing stored.
+/// the same boundary `AcademyProgressCalculator.nextLessonToContinue`/
+/// `AcademyCatalogSnapshot.xpEarnedFor` already use — so progress reflects
+/// mastery of what's actually offered today, and doesn't retroactively drop
+/// every time a new school ships content. Pure functions over the catalog +
+/// completed ids, nothing stored.
 class KnowledgeProgressCalculator {
   const KnowledgeProgressCalculator._();
 
-  static double overallCompletionPercent(Set<String> completedLessonIds) {
+  static double overallCompletionPercent(AcademyCatalogSnapshot catalog, Set<String> completedLessonIds) {
     return _completionPercent(
-      AcademyCatalog.modules.where((m) => m.contentAvailable),
+      catalog.modules.where((m) => m.contentAvailable),
       completedLessonIds,
     );
   }
 
-  static double percentForSchool(String schoolId, Set<String> completedLessonIds) {
+  static double percentForSchool(AcademyCatalogSnapshot catalog, String schoolId, Set<String> completedLessonIds) {
     return _completionPercent(
-      AcademyCatalog.modulesForSchool(schoolId).where((m) => m.contentAvailable),
+      catalog.modulesForSchool(schoolId).where((m) => m.contentAvailable),
       completedLessonIds,
     );
   }
@@ -40,10 +41,10 @@ class KnowledgeProgressCalculator {
   /// Same as [percentForSchool], aggregated across every school belonging to
   /// [domain] — mirrors `AcademyProgressCalculator.domainStatus`'s
   /// aggregation shape.
-  static double percentForDomain(AcademyDomain domain, Set<String> completedLessonIds) {
+  static double percentForDomain(AcademyCatalogSnapshot catalog, AcademyDomain domain, Set<String> completedLessonIds) {
     return _completionPercent(
       domain.schoolIds
-          .expand(AcademyCatalog.modulesForSchool)
+          .expand(catalog.modulesForSchool)
           .where((m) => m.contentAvailable),
       completedLessonIds,
     );

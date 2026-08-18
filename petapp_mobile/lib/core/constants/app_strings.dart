@@ -177,9 +177,10 @@ class AppStrings {
   // Dashboard
   static const String levelUpAchieved = "levelUpAchieved";
 
-  // Academy — UI chrome only; curriculum content (module/lesson text) lives
-  // in AcademyCatalog itself, keyed off Translator.currentLanguage the same
-  // way this map is, since it's domain content, not generic UI copy.
+  // Academy — UI chrome only; curriculum content (module/lesson text) comes
+  // from the backend's Academy catalog API, already resolved to the
+  // requested language server-side — it's domain content, not generic UI
+  // copy, so it never goes through this Translator map.
   static const String academyLevelLabel = "academyLevelLabel";
   static const String academyXpEarnedLabel = "academyXpEarnedLabel";
   static const String academyContinueSectionLabel = "academyContinueSectionLabel";

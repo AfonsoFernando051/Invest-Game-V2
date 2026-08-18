@@ -12,7 +12,6 @@ import 'package:petrimonium/core/widgets/cosmic_background.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
@@ -38,6 +37,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
     super.initState();
     _controller = AcademyController(
       repository: DI.academyProgressRepository,
+      catalogRepository: DI.academyCatalogRepository,
       remoteDataSource: DI.academyRemoteDataSource,
     );
     _controller.addListener(_onChanged);
@@ -73,7 +73,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
   Future<void> _openLesson(Lesson lesson) async {
     HapticFeedback.selectionClick();
     await Navigator.of(context).push(
-      _fadeRoute(LessonScreen(lesson: lesson, mascotController: widget.mascotController)),
+      _fadeRoute(LessonScreen(lesson: lesson, catalog: _controller.snapshot!, mascotController: widget.mascotController)),
     );
     _controller.load();
   }
@@ -88,7 +88,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
 
   Widget _buildContent(BuildContext context) {
     final tokens = context.colors;
-    final lessons = AcademyCatalog.lessonsForModule(widget.module.id);
+    final lessons = _controller.snapshot?.lessonsForModule(widget.module.id) ?? const [];
     final completed = _controller.completedLessonCountFor(widget.module);
     final progress = lessons.isEmpty ? 0.0 : completed / lessons.length;
 
@@ -108,7 +108,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
       body: CosmicBackground(
         intensity: BackgroundIntensity.subtle,
         child: SafeArea(
-          child: _controller.isLoading
+          child: _controller.isLoading || _controller.isCatalogLoading
               ? const AppLoadingIndicator()
               : SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),
@@ -159,6 +159,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
                         LessonListTile(
                           lesson: lesson,
                           status: AcademyProgressCalculator.lessonStatus(
+                            catalog: _controller.snapshot!,
                             lesson: lesson,
                             completedIds: _controller.completedLessonIds,
                           ),

@@ -4,10 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:petrimonium/core/events/app_event.dart';
 import 'package:petrimonium/core/events/app_event_bus.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/pet/domain/enums/pet_animation_state.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
@@ -30,6 +30,7 @@ const int kDifficultyDetectionThreshold = 2;
 class LessonSessionController extends ChangeNotifier {
   LessonSessionController({
     required this.lesson,
+    required this.catalog,
     required AcademyProgressLocalRepository academyRepository,
     required MascotController mascotController,
     AcademyRemoteDataSource? academyRemoteDataSource,
@@ -38,6 +39,10 @@ class LessonSessionController extends ChangeNotifier {
         _academyRemoteDataSource = academyRemoteDataSource;
 
   final Lesson lesson;
+
+  /// The curriculum snapshot this lesson was opened from — used to resolve
+  /// [lesson]'s parent module/school (see [_recordMiss]/[_completeLesson]).
+  final AcademyCatalogSnapshot catalog;
   final AcademyProgressLocalRepository _academyRepository;
   final MascotController _mascotController;
   final AcademyRemoteDataSource? _academyRemoteDataSource;
@@ -90,9 +95,9 @@ class LessonSessionController extends ChangeNotifier {
   }
 
   Future<void> _recordMiss() async {
-    final module = AcademyCatalog.moduleById(lesson.moduleId);
+    final module = catalog.moduleById(lesson.moduleId);
     if (module == null) return;
-    final school = AcademyCatalog.schoolById(module.schoolId);
+    final school = catalog.schoolById(module.schoolId);
     if (school == null) return;
     final count = await _academyRepository.recordMiss(module.schoolId);
     // Exact match, not `>=`: fires once per struggle streak — the counter
@@ -122,11 +127,12 @@ class LessonSessionController extends ChangeNotifier {
     isCompleting = true;
     notifyListeners();
 
-    final module = AcademyCatalog.moduleById(lesson.moduleId);
-    final school = module == null ? null : AcademyCatalog.schoolById(module.schoolId);
+    final module = catalog.moduleById(lesson.moduleId);
+    final school = module == null ? null : catalog.schoolById(module.schoolId);
     final wasSchoolAlreadyComplete = school == null
         ? true
         : AcademyProgressCalculator.schoolStatus(
+              catalog: catalog,
               school: school,
               completedIds: await _academyRepository.loadCompletedLessonIds(),
             ) ==
@@ -140,6 +146,7 @@ class LessonSessionController extends ChangeNotifier {
 
     if (school != null && !wasSchoolAlreadyComplete) {
       final nowComplete = AcademyProgressCalculator.schoolStatus(
+            catalog: catalog,
             school: school,
             completedIds: await _academyRepository.loadCompletedLessonIds(),
           ) ==

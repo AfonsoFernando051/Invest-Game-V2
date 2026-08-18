@@ -5,7 +5,7 @@ import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/xp_bar.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
+import 'package:petrimonium/features/onboarding/presentation/onboarding_constants.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/mission_reward_card.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/onboarding_scaffold.dart';
 import 'package:petrimonium/features/onboarding/presentation/widgets/pet_hero_capsule.dart';
@@ -18,8 +18,8 @@ import 'package:petrimonium/features/pet/presentation/screens/financial_goal_scr
 /// (species/name are real by this point), with an illustrative level/XP bar
 /// (a worked example of *what progression looks like*, not the player's real
 /// 0 XP yet — that honest number is shown on the Journey Ready screen) and a
-/// real mission/XP reward pulled from `AcademyCatalog` so the number matches
-/// what the actual Academy will award.
+/// mission/XP reward matching [kStandardLessonXpReward], the real per-lesson
+/// value every lesson in the Academy catalog awards today.
 class GamificationIntroScreen extends StatefulWidget {
   const GamificationIntroScreen({super.key});
 
@@ -57,10 +57,6 @@ class _GamificationIntroScreenState extends State<GamificationIntroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final xpPerLesson =
-        AcademyCatalog.lessonById('foundations_compound_interest')?.xpReward ??
-        20;
-
     return OnboardingScaffold(
       intensity: BackgroundIntensity.balanced,
       step: 4,
@@ -139,7 +135,7 @@ class _GamificationIntroScreenState extends State<GamificationIntroScreen> {
             title: Translator.translate(
               AppStrings.missionCompoundInterestTitle,
             ),
-            xp: xpPerLesson,
+            xp: kStandardLessonXpReward,
           ),
         ],
       ),

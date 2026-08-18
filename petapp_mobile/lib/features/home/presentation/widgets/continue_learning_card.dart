@@ -6,7 +6,6 @@ import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/game_button.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 
 /// Home's primary CTA — the single most important thing on the screen
 /// (`docs/PRODUCT_VISION.md` §8: "what am I learning" and "what should I do
@@ -19,12 +18,19 @@ class ContinueLearningCard extends StatelessWidget {
   const ContinueLearningCard({
     super.key,
     required this.nextLesson,
+    required this.moduleTitle,
     required this.onStartLesson,
     required this.onOpenAcademy,
   });
 
   /// `null` once every available lesson has been completed.
   final Lesson? nextLesson;
+
+  /// [nextLesson]'s parent module title, resolved by the caller (which
+  /// already has the loaded catalog snapshot in scope) — `null` while the
+  /// catalog is still loading, in which case the title row is simply
+  /// omitted rather than shown blank.
+  final String? moduleTitle;
 
   final VoidCallback onStartLesson;
   final VoidCallback onOpenAcademy;
@@ -77,8 +83,6 @@ class ContinueLearningCard extends StatelessWidget {
       );
     }
 
-    final moduleTitle = AcademyCatalog.moduleById(lesson.moduleId)?.title;
-
     // Home's Level-1 primary action (`docs/PRODUCT_VISION.md` §8) gets a
     // static, low-key glow the other Home cards don't — just enough for it
     // to read as "the one thing to do here" without competing with the
@@ -113,7 +117,7 @@ class ContinueLearningCard extends StatelessWidget {
             const SizedBox(height: 10),
             if (moduleTitle != null) ...[
               Text(
-                moduleTitle,
+                moduleTitle!,
                 style: TextStyle(color: tokens.textTertiary, fontSize: 11, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 2),

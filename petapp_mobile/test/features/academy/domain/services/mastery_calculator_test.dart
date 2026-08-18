@@ -1,16 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petrimonium/features/academy/domain/entities/mastery_tier.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/mastery_calculator.dart';
 
+import '../../academy_test_fixtures.dart';
+
 void main() {
-  // Real school/module/lesson data from the pt catalog, mirroring
-  // academy_progress_calculator_test.dart's convention.
-  final school = AcademyCatalog.schools.firstWhere(
-    (s) => s.contentAvailable && AcademyCatalog.modulesForSchool(s.id).any((m) => m.lessonIds.length >= 2),
-  );
-  final module = AcademyCatalog.modulesForSchool(school.id).firstWhere((m) => m.lessonIds.length >= 2);
-  final lessons = AcademyCatalog.lessonsForModule(module.id);
+  final catalog = buildAcademyCatalogSnapshot();
+  final school = testSchool;
+  final lessons = catalog.lessonsForModule(testModule.id);
 
   group('lessonMasteryScore', () {
     test('not completed scores 0.0 regardless of perfect flag', () {
@@ -32,6 +29,7 @@ void main() {
   group('percentForSchool', () {
     test('nothing completed scores 0%', () {
       final percent = MasteryCalculator.percentForSchool(
+        catalog: catalog,
         schoolId: school.id,
         completedIds: {},
         perfectIds: {},
@@ -40,11 +38,10 @@ void main() {
     });
 
     test('all lessons completed perfectly scores 100%', () {
-      final allLessonIds = AcademyCatalog.modulesForSchool(school.id)
-          .where((m) => m.contentAvailable)
-          .expand((m) => m.lessonIds)
-          .toSet();
+      final allLessonIds =
+          catalog.modulesForSchool(school.id).where((m) => m.contentAvailable).expand((m) => m.lessonIds).toSet();
       final percent = MasteryCalculator.percentForSchool(
+        catalog: catalog,
         schoolId: school.id,
         completedIds: allLessonIds,
         perfectIds: allLessonIds,
@@ -54,11 +51,13 @@ void main() {
 
     test('a completed-but-imperfect lesson scores less than a completed-and-perfect one', () {
       final perfectOnly = MasteryCalculator.percentForSchool(
+        catalog: catalog,
         schoolId: school.id,
         completedIds: {lessons.first.id},
         perfectIds: {lessons.first.id},
       );
       final imperfectOnly = MasteryCalculator.percentForSchool(
+        catalog: catalog,
         schoolId: school.id,
         completedIds: {lessons.first.id},
         perfectIds: {},
@@ -71,11 +70,10 @@ void main() {
       // Completing every lesson without ever answering perfectly should read
       // as 100% complete but well below 100% mastery — the exact scenario
       // the brief (and DECISION-020) call out explicitly.
-      final allLessonIds = AcademyCatalog.modulesForSchool(school.id)
-          .where((m) => m.contentAvailable)
-          .expand((m) => m.lessonIds)
-          .toSet();
+      final allLessonIds =
+          catalog.modulesForSchool(school.id).where((m) => m.contentAvailable).expand((m) => m.lessonIds).toSet();
       final mastery = MasteryCalculator.percentForSchool(
+        catalog: catalog,
         schoolId: school.id,
         completedIds: allLessonIds,
         perfectIds: {},

@@ -1,6 +1,6 @@
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/mastery_tier.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 
 /// Derives **Mastery** — a performance-based signal, deliberately distinct
 /// from Progress/completion (`AcademyController.masteryFor`,
@@ -53,11 +53,12 @@ class MasteryCalculator {
   }
 
   static double percentForSchool({
+    required AcademyCatalogSnapshot catalog,
     required String schoolId,
     required Set<String> completedIds,
     required Set<String> perfectIds,
   }) {
-    final modules = AcademyCatalog.modulesForSchool(schoolId).where((m) => m.contentAvailable);
+    final modules = catalog.modulesForSchool(schoolId).where((m) => m.contentAvailable);
     var totalLessons = 0;
     var scoreSum = 0.0;
     for (final module in modules) {

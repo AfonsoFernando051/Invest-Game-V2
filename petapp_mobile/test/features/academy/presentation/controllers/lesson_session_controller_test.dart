@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:petrimonium/features/academy/data/datasources/academy_remote_datasource.dart';
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_completion_result.dart';
@@ -73,9 +74,16 @@ void main() {
     mockRemoteDataSource = MockAcademyRemoteDataSource();
   });
 
+  // This test never exercises catalog-dependent behavior (no
+  // ChoiceQuestionStep to miss, and `_completeLesson` degrades gracefully
+  // when the lesson's module isn't found in the catalog) — an empty
+  // snapshot is enough.
+  const emptyCatalog = AcademyCatalogSnapshot(domains: [], schools: [], modules: [], lessons: []);
+
   LessonSessionController buildController({AcademyRemoteDataSource? remoteDataSource}) {
     return LessonSessionController(
       lesson: lesson,
+      catalog: emptyCatalog,
       academyRepository: academyRepository,
       mascotController: mascotController,
       academyRemoteDataSource: remoteDataSource,

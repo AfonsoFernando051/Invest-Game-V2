@@ -1,40 +1,40 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/academy/domain/entities/knowledge_level.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/knowledge_progress_calculator.dart';
 
+import '../../academy_test_fixtures.dart';
+
 void main() {
+  final catalog = buildAcademyCatalogSnapshot();
+
   setUp(() {
     Translator.currentLanguage = 'pt';
   });
 
   group('overallCompletionPercent', () {
     test('is 0 when nothing is completed', () {
-      expect(KnowledgeProgressCalculator.overallCompletionPercent({}), 0);
+      expect(KnowledgeProgressCalculator.overallCompletionPercent(catalog, {}), 0);
     });
 
     test('is 1.0 when every lesson in every content-available module is completed', () {
-      final allLessonIds = AcademyCatalog.modules
-          .where((m) => m.contentAvailable)
-          .expand((m) => m.lessonIds)
-          .toSet();
+      final allLessonIds = catalog.modules.where((m) => m.contentAvailable).expand((m) => m.lessonIds).toSet();
 
-      expect(KnowledgeProgressCalculator.overallCompletionPercent(allLessonIds), 1.0);
+      expect(KnowledgeProgressCalculator.overallCompletionPercent(catalog, allLessonIds), 1.0);
     });
 
     test('ignores completed-lesson ids that belong to comingSoon/unavailable modules', () {
       // A random id that doesn't correspond to any real lesson shouldn't
       // inflate the denominator or numerator.
-      final percentWithJunk = KnowledgeProgressCalculator.overallCompletionPercent({'not-a-real-lesson-id'});
+      final percentWithJunk = KnowledgeProgressCalculator.overallCompletionPercent(catalog, {'not-a-real-lesson-id'});
       expect(percentWithJunk, 0);
     });
 
     test('is strictly between 0 and 1 for a partial completion set', () {
-      final firstModuleWithContent = AcademyCatalog.modules.firstWhere((m) => m.contentAvailable && m.lessonIds.isNotEmpty);
+      final firstModuleWithContent = catalog.modules.firstWhere((m) => m.contentAvailable && m.lessonIds.isNotEmpty);
       final partial = {firstModuleWithContent.lessonIds.first};
 
-      final percent = KnowledgeProgressCalculator.overallCompletionPercent(partial);
+      final percent = KnowledgeProgressCalculator.overallCompletionPercent(catalog, partial);
       expect(percent, greaterThan(0));
       expect(percent, lessThan(1));
     });
@@ -42,17 +42,15 @@ void main() {
 
   group('percentForSchool', () {
     test('is 0 for an unknown school id (no matching modules)', () {
-      expect(KnowledgeProgressCalculator.percentForSchool('does-not-exist', {}), 0);
+      expect(KnowledgeProgressCalculator.percentForSchool(catalog, 'does-not-exist', {}), 0);
     });
 
     test('is 1.0 when every lesson of that school\'s content-available modules is completed', () {
-      final school = AcademyCatalog.schools.firstWhere((s) => s.contentAvailable);
-      final schoolLessonIds = AcademyCatalog.modulesForSchool(school.id)
-          .where((m) => m.contentAvailable)
-          .expand((m) => m.lessonIds)
-          .toSet();
+      final school = catalog.schools.firstWhere((s) => s.contentAvailable);
+      final schoolLessonIds =
+          catalog.modulesForSchool(school.id).where((m) => m.contentAvailable).expand((m) => m.lessonIds).toSet();
 
-      expect(KnowledgeProgressCalculator.percentForSchool(school.id, schoolLessonIds), 1.0);
+      expect(KnowledgeProgressCalculator.percentForSchool(catalog, school.id, schoolLessonIds), 1.0);
     });
   });
 

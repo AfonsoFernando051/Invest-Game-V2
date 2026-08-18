@@ -41,6 +41,7 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
     super.initState();
     _controller = AcademyController(
       repository: DI.academyProgressRepository,
+      catalogRepository: DI.academyCatalogRepository,
       remoteDataSource: DI.academyRemoteDataSource,
     );
     _controller.addListener(_onChanged);
@@ -113,7 +114,7 @@ class _AcademyDomainDetailScreenState extends State<AcademyDomainDetailScreen> {
       body: CosmicBackground(
         intensity: BackgroundIntensity.subtle,
         child: SafeArea(
-          child: _controller.isLoading
+          child: _controller.isLoading || _controller.isCatalogLoading
               ? const AppLoadingIndicator()
               : SingleChildScrollView(
                   padding: const EdgeInsets.fromLTRB(20, 8, 20, 32),

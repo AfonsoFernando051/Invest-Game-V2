@@ -6,6 +6,7 @@ import 'package:petrimonium/core/theme/background_presets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/cosmic_background.dart';
 import 'package:petrimonium/core/widgets/game_button.dart';
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson_step.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/lesson_session_controller.dart';
@@ -22,9 +23,15 @@ import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_
 /// answer. Ends in [LessonCompleteCard] — a lesson always completes, there
 /// is no fail/restart state (see `docs/ACADEMY_ENGINE.md`, no lives/hearts).
 class LessonScreen extends StatefulWidget {
-  const LessonScreen({super.key, required this.lesson, required this.mascotController});
+  const LessonScreen({super.key, required this.lesson, required this.catalog, required this.mascotController});
 
   final Lesson lesson;
+
+  /// The curriculum snapshot [lesson] was opened from — forwarded to
+  /// [LessonSessionController]. Required from the caller rather than
+  /// fetched here since every screen that can navigate to a lesson already
+  /// has one loaded (see `AcademyController.snapshot`).
+  final AcademyCatalogSnapshot catalog;
   final MascotController mascotController;
 
   @override
@@ -39,6 +46,7 @@ class _LessonScreenState extends State<LessonScreen> {
     super.initState();
     _controller = LessonSessionController(
       lesson: widget.lesson,
+      catalog: widget.catalog,
       academyRepository: DI.academyProgressRepository,
       mascotController: widget.mascotController,
       academyRemoteDataSource: DI.academyRemoteDataSource,

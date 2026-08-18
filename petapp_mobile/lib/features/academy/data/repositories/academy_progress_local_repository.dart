@@ -1,5 +1,4 @@
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 
 /// Persists completed Academy lesson ids on-device. Mirrors
 /// `AchievementsLocalRepository`'s style exactly: entries are only ever
@@ -47,10 +46,6 @@ class AcademyProgressLocalRepository {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setStringList(_completedLessonIdsKey, merged.toList());
     return merged;
-  }
-
-  Future<int> totalXpEarned() async {
-    return AcademyCatalog.xpEarnedFor(await loadCompletedLessonIds());
   }
 
   /// Unions [serverLessonIds] into local storage — the same "only ever add,

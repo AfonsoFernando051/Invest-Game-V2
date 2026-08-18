@@ -1,7 +1,7 @@
 import 'package:petrimonium/core/constants/app_strings.dart';
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_recommendation.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 
 /// A rough per-lesson time estimate for the Review card ("~N min"). No real
@@ -19,18 +19,19 @@ class AcademyRecommendationService {
   /// Every completed lesson (in a `contentAvailable` module) that wasn't
   /// answered perfectly, in curriculum order — the Review queue.
   static List<Lesson> reviewQueue({
+    required AcademyCatalogSnapshot catalog,
     required Set<String> completedIds,
     required Set<String> perfectIds,
   }) {
     final imperfectIds = completedIds.difference(perfectIds);
     if (imperfectIds.isEmpty) return const [];
 
-    final orderedModules = [...AcademyCatalog.modules.where((m) => m.contentAvailable)]
+    final orderedModules = [...catalog.modules.where((m) => m.contentAvailable)]
       ..sort((a, b) => a.order.compareTo(b.order));
 
     final result = <Lesson>[];
     for (final module in orderedModules) {
-      for (final lesson in AcademyCatalog.lessonsForModule(module.id)) {
+      for (final lesson in catalog.lessonsForModule(module.id)) {
         if (imperfectIds.contains(lesson.id)) result.add(lesson);
       }
     }
@@ -40,10 +41,11 @@ class AcademyRecommendationService {
   /// Sum of [reviewQueue]'s lessons' step counts, converted to a rounded
   /// minute estimate (minimum 1 minute if the queue isn't empty).
   static int reviewEstimatedMinutes({
+    required AcademyCatalogSnapshot catalog,
     required Set<String> completedIds,
     required Set<String> perfectIds,
   }) {
-    final queue = reviewQueue(completedIds: completedIds, perfectIds: perfectIds);
+    final queue = reviewQueue(catalog: catalog, completedIds: completedIds, perfectIds: perfectIds);
     if (queue.isEmpty) return 0;
     final totalSteps = queue.fold<int>(0, (sum, lesson) => sum + lesson.steps.length);
     final seconds = totalSteps * kApproxSecondsPerLessonStep;
@@ -56,12 +58,13 @@ class AcademyRecommendationService {
   /// always offered first (this product's single strongest CTA per
   /// `docs/ACADEMY_ENGINE.md` §5), review is a secondary suggestion.
   static List<AcademyRecommendation> recommendationsFor({
+    required AcademyCatalogSnapshot catalog,
     required Set<String> completedIds,
     required Set<String> perfectIds,
   }) {
     final recommendations = <AcademyRecommendation>[];
 
-    final next = AcademyProgressCalculator.nextLessonToContinue(completedIds: completedIds);
+    final next = AcademyProgressCalculator.nextLessonToContinue(catalog: catalog, completedIds: completedIds);
     if (next != null) {
       recommendations.add(
         AcademyRecommendation(
@@ -72,7 +75,7 @@ class AcademyRecommendationService {
       );
     }
 
-    final queue = reviewQueue(completedIds: completedIds, perfectIds: perfectIds);
+    final queue = reviewQueue(catalog: catalog, completedIds: completedIds, perfectIds: perfectIds);
     if (queue.isNotEmpty) {
       recommendations.add(
         AcademyRecommendation(

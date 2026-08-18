@@ -1,8 +1,8 @@
+import 'package:petrimonium/features/academy/data/models/academy_catalog_snapshot.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
-import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 
 enum LessonStatus { locked, available, completed }
 
@@ -10,8 +10,8 @@ enum ModuleStatus { comingSoon, locked, available, inProgress, completed }
 
 enum SchoolStatus { comingSoon, locked, available, inProgress, completed }
 
-/// Pure functions deriving lesson/module progression state from
-/// [AcademyCatalog] (static) crossed with the set of completed lesson ids
+/// Pure functions deriving lesson/module progression state from an
+/// [AcademyCatalogSnapshot] crossed with the set of completed lesson ids
 /// (persisted). Nothing here is stored as a separate value that could drift
 /// from the source of truth.
 class AcademyProgressCalculator {
@@ -20,12 +20,13 @@ class AcademyProgressCalculator {
   /// A lesson unlocks once the previous lesson in its module is completed;
   /// the first lesson of a module is always available.
   static LessonStatus lessonStatus({
+    required AcademyCatalogSnapshot catalog,
     required Lesson lesson,
     required Set<String> completedIds,
   }) {
     if (completedIds.contains(lesson.id)) return LessonStatus.completed;
 
-    final moduleLessons = AcademyCatalog.lessonsForModule(lesson.moduleId);
+    final moduleLessons = catalog.lessonsForModule(lesson.moduleId);
     final index = moduleLessons.indexWhere((l) => l.id == lesson.id);
     if (index <= 0) return LessonStatus.available;
 
@@ -56,13 +57,14 @@ class AcademyProgressCalculator {
   /// prerequisite blocks it, otherwise derived from how many of those
   /// modules are complete.
   static SchoolStatus schoolStatus({
+    required AcademyCatalogSnapshot catalog,
     required School school,
     required Set<String> completedIds,
   }) {
     if (!school.contentAvailable) return SchoolStatus.comingSoon;
     if (school.prerequisites.any((id) => !completedIds.contains(id))) return SchoolStatus.locked;
 
-    final modules = AcademyCatalog.modulesForSchool(school.id).where((m) => m.contentAvailable).toList();
+    final modules = catalog.modulesForSchool(school.id).where((m) => m.contentAvailable).toList();
     if (modules.isEmpty) return SchoolStatus.comingSoon;
 
     final statuses = modules.map((m) => moduleStatus(module: m, completedIds: completedIds)).toList();
@@ -77,17 +79,18 @@ class AcademyProgressCalculator {
   /// schools with real content — see `AcademyDomain`'s doc comment on why
   /// domain status is always derived, never stored.
   static SchoolStatus domainStatus({
+    required AcademyCatalogSnapshot catalog,
     required AcademyDomain domain,
     required Set<String> completedIds,
   }) {
     final schools = domain.schoolIds
-        .map(AcademyCatalog.schoolById)
+        .map(catalog.schoolById)
         .whereType<School>()
         .where((s) => s.contentAvailable)
         .toList();
     if (schools.isEmpty) return SchoolStatus.comingSoon;
 
-    final statuses = schools.map((s) => schoolStatus(school: s, completedIds: completedIds)).toList();
+    final statuses = schools.map((s) => schoolStatus(catalog: catalog, school: s, completedIds: completedIds)).toList();
     if (statuses.every((s) => s == SchoolStatus.completed)) return SchoolStatus.completed;
     if (statuses.any((s) => s == SchoolStatus.completed || s == SchoolStatus.inProgress)) {
       return SchoolStatus.inProgress;
@@ -99,12 +102,12 @@ class AcademyProgressCalculator {
   /// not-yet-completed lesson of the first module with real content,
   /// scanning modules in curriculum order. `null` once every available
   /// lesson is completed.
-  static Lesson? nextLessonToContinue({required Set<String> completedIds}) {
-    final orderedModules = [...AcademyCatalog.modules]..sort((a, b) => a.order.compareTo(b.order));
+  static Lesson? nextLessonToContinue({required AcademyCatalogSnapshot catalog, required Set<String> completedIds}) {
+    final orderedModules = [...catalog.modules]..sort((a, b) => a.order.compareTo(b.order));
     for (final module in orderedModules) {
       if (moduleStatus(module: module, completedIds: completedIds) == ModuleStatus.locked) continue;
       if (!module.contentAvailable) continue;
-      for (final lesson in AcademyCatalog.lessonsForModule(module.id)) {
+      for (final lesson in catalog.lessonsForModule(module.id)) {
         if (!completedIds.contains(lesson.id)) return lesson;
       }
     }
