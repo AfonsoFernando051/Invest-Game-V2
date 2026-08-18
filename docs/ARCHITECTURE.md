@@ -48,7 +48,7 @@ Responsibilities:
 - Achievements
 - REST API
 
-Rankings/leaderboards are a deprecated MVP-era concept, not a current backend responsibility — see
+Rankings/leaderboards are a deprecated early-stage concept, not a current backend responsibility — see
 `FEATURES.md`'s "Deprecated / reconsidered concepts."
 
 ---
@@ -168,7 +168,7 @@ lib/
 
 **Gap:** the target groups gamification (XP, levels, missions, achievements) into its own feature; today it is
 split across `features/game/` (level calculation) and `features/portfolio/domain/services/` (mission and
-achievement catalogs). This consolidation is a Beta-stage refactor, not required for MVP V2 — see `ROADMAP.md`.
+achievement catalogs). This consolidation is a Beta-stage refactor, not required for the Alpha stage — see `ROADMAP.md`.
 The feature is called "Academy" in code and product copy (see `ACADEMY_ENGINE.md`) even though the conceptual
 pillar is named "Learning" in `PRODUCT_VISION.md`; both names refer to the same feature and do not need to be
 reconciled by renaming code.
@@ -193,8 +193,9 @@ API
 
 # State Management
 
-The current lightweight `ChangeNotifier` approach is an MVP-era implementation decision, not a permanent
-constraint. The target principle is:
+The current lightweight `ChangeNotifier` approach is a deliberate choice for the app's current size and
+complexity, not a permanent constraint — see `AI_RULES.md`'s Technical Debt Policy if it's ever kept past the
+point it stops fitting. The target principle is:
 
 > UI state and business state must remain separated.
 
@@ -311,7 +312,7 @@ Avoid duplicating UI code.
 # Domain Model (Target)
 
 Conceptual blueprint for the V2 domain — not an instruction to implement every entity immediately. See
-`ROADMAP.md` for what's staged into MVP V2 vs. Beta.
+`ROADMAP.md` for what's staged into Alpha vs. Beta.
 
 ```text
 USER
@@ -402,7 +403,7 @@ Scale only when necessary.
 
 Expected evolution:
 
-1. Stable MVP
+1. Stable Alpha-stage release
 2. Production usage
 3. Performance improvements
 4. Infrastructure improvements
@@ -418,7 +419,7 @@ AWS Lambda has been evaluated.
 
 Current decision:
 
-Do NOT migrate the backend to a serverless architecture during MVP development.
+Do NOT migrate the backend to a serverless architecture at the current stage of development.
 
 Reasons:
 
@@ -515,7 +516,9 @@ Prioritize testing:
 - Authentication
 - Financial calculations
 
-UI testing is secondary during MVP.
+These are non-negotiable, regardless of project stage — "MVP" is never a reason to skip testing
+business-critical logic (`AI_RULES.md`). Widget/UI tests are added where they protect a meaningful user flow
+(e.g. a lesson session's completion path) rather than for blanket coverage of every screen.
 
 ---
 

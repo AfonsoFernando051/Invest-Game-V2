@@ -5,7 +5,7 @@
 ## Status
 
 Design specification. Not yet implemented. In `ROADMAP.md`'s staging: this document's Phase 0 rows ≈
-**MVP V2**, Phase 3+/4+ rows ≈ **Beta or later**.
+**Alpha**, Phase 3+/4+ rows ≈ **Beta or later**.
 
 This document is the blueprint for turning real market/portfolio data into **educational moments** — not into
 a trading or "gameplay" mechanic in its own right. Under the V2 direction (`PRODUCT_VISION.md`), an event like
@@ -24,25 +24,26 @@ it.
 
 Three existing documents constrain this feature and were read before writing a single line of this spec:
 
-- **ROADMAP.md** lists "Market events" under *Future Features*, explicitly excluded from the MVP, and instructs:
-  "Avoid speculative development."
+- **ROADMAP.md** lists "Market events" under *Future Features*, explicitly excluded from the Alpha stage,
+  and instructs: "Avoid speculative development."
 - **AI_RULES.md** forbids introducing event sourcing, CQRS, microservices, or serverless architecture "unless there
-  is a clear reason," and says new systems should not delay MVP delivery.
+  is a clear reason," and says new systems should not delay delivery of the current roadmap stage.
 - **DECISIONS.md** (DECISION-003) accepts scheduled jobs and async workloads as the *only* sanctioned form of
   background processing for now — no message brokers, no service split.
 
 The brief asks for a system built for "millions of users," modeled on Supercell/Riot/Duolingo. That is the right
 target for the *idea*, not for the *first commit*. A senior engineer's job here is not to refuse the ambition — it's
-to sequence it so today's version is honest about what data actually exists and doesn't outrun a pre-launch MVP.
+to sequence it so today's version is honest about what data actually exists and doesn't outrun the current,
+production-scoped Alpha stage.
 
 So this document does two things at once:
 
 1. Designs the **full system** the brief asked for — every one of the 20 deliverables — as the north-star
    architecture, explicitly slotted into **ROADMAP Phase 3 (Growth)**, where "Notifications" and "Seasonal events"
    already live.
-2. Calls out, inline, a **Phase 0 slice** that is small enough to ship inside the current MVP without violating any
-   of the three documents above — because most of "Market Events" is really just *renaming and re-presenting* work
-   the app already does (see below), not a new system.
+2. Calls out, inline, a **Phase 0 slice** that is small enough to ship inside the current Alpha stage without
+   violating any of the three documents above — because most of "Market Events" is really just *renaming and
+   re-presenting* work the app already does (see below), not a new system.
 
 ### What already exists
 

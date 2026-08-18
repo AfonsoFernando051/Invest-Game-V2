@@ -7,7 +7,7 @@
 Phase 0 slice implemented (client-only), then expanded with a **School layer, Knowledge Progress track, and a
 new "Financial Life" school** by explicit user direction — see `DECISIONS.md` DECISION-018 for why this is a
 deliberate departure from the Phase-0-only scope this document originally settled on. Sections marked
-**Phase 3+** below are still design intent, not yet built. In `ROADMAP.md`'s staging: Phase 0 ≈ **MVP V2**,
+**Phase 3+** below are still design intent, not yet built. In `ROADMAP.md`'s staging: Phase 0 ≈ **Alpha**,
 Phase 3+ ≈ **Beta or later**.
 
 The Academy is the primary product engine under the V2 direction — see `PRODUCT_VISION.md` §4 ("Learning is
@@ -26,8 +26,10 @@ lives/hearts mechanic, and eight fully populated curriculum modules. Three exist
 the same way they already constrained `MARKET_EVENTS_ENGINE.md`:
 
 - **ROADMAP.md** and **FEATURES.md** list "Interactive tutorials" and "Investment quizzes" under *Future Features*,
-  explicitly excluded from the MVP. "Learning Content" itself is `Status: Planned`, not an MVP-priority feature.
-- **AI_RULES.md** says new systems must not delay MVP delivery and to "avoid introducing large new systems."
+  explicitly excluded from the Alpha stage. "Learning Content" itself is `Status: Planned`, not a
+  Alpha-priority feature.
+- **AI_RULES.md** says new systems must not delay delivery of the current roadmap stage and to "avoid
+  introducing large new systems."
 - **PROJECT_CONTEXT.md** states the game must never punish the user — the Pet "will never die, degrade, or severely
   penalize" the user for a bad outcome. A hearts-lose-on-wrong-answer mechanic, taken literally, violates this.
 
@@ -201,6 +203,60 @@ AcademyDomain
   Dívidas, Planejamento Financeiro, ...), search/filter UI, and per-domain pet nudges — see DECISION-019's
   Rationale for why.
 
+## 3d. Mastery, Recommendations, Review & Financial Lab (implemented — DECISION-020)
+
+Added on top of the Domain layer above, additively — no `School`/`AcademyModule`/`Lesson` id, content, or
+existing progress logic changed.
+
+```
+MasteryTier
+  exploring | understanding | applying | mastering
+
+AcademyRecommendation
+  type (continueLearning | review), lesson, reasonKey, reasonParams
+```
+
+- **Real Mastery, distinct from Progress.** `AcademyController.masteryFor` (per-school completion percent) was,
+  since DECISION-018, the only signal labeled "mastery" in the product — a school could read "100% mastered"
+  purely from finishing every lesson, regardless of how many questions were missed along the way.
+  `AcademyProgressLocalRepository.markLessonPerfect`/`loadPerfectLessonIds` now tracks, per lesson, whether
+  every question was answered correctly on the first try (monotonic: a later perfect replay can improve
+  Mastery, a later missed replay never regresses it). `MasteryCalculator.percentForSchool` scores each lesson
+  `0.0` (not completed) / `0.55` (completed, missed something) / `1.0` (completed perfectly) and averages over
+  the school's `contentAvailable` lessons — same aggregation shape as `KnowledgeProgressCalculator`, so Progress
+  and Mastery are always computed over the same lesson set and stay directly comparable.
+  `AcademyController.realMasteryFor`/`masteryTierFor` expose it; `MasteryBarRow`, `AcademyMasterySection`, and
+  `SchoolDetailScreen` now show Progress and Mastery as two distinct rows, never merged into one number.
+- **Recommendations.** `AcademyRecommendationService.recommendationsFor` returns up to two reason-annotated
+  suggestions: the existing `nextLessonToContinue` (continuing) and, when a completed lesson wasn't answered
+  perfectly, the oldest such lesson (review). Surfaced via `RecommendedForYouSection` — on `HomeScreen`,
+  filtered to the `review` type only, since `ContinueLearningCard` already covers `continueLearning` there (the
+  brief's own "one primary action per screen" principle).
+- **Review.** `AcademyRecommendationService.reviewQueue` is every completed-but-not-perfect lesson in
+  curriculum order; `AcademyReviewCard` ("Today's Review — N lessons, ~M min") on `AcademyHomeScreen` starts
+  the oldest one via the existing `LessonScreen` — no new multi-lesson session type. Review lessons grant **no
+  additional XP**: `LessonSessionController`'s existing rule ("the backend is the only source of truth for XP")
+  would be violated by fabricating a client-side "+10 XP." `FEATURES.md`'s target "Revision activity +10" XP
+  stays a documented backend follow-up. `reviewEstimatedMinutes` is a documented approximation (steps × ~40s),
+  not a measured per-lesson duration — no such field exists yet.
+- **Companion.** `PetMessageCatalog._academyNudge` prefers a review-due nudge over the plain continue nudge
+  when `AcademyController.reviewQueue` is non-empty (`AcademyHomeScreen._notifyCompanionOnce` passes
+  `reviewDueCount` through the existing `PetCompanionController.enterContext` call). No new `PetAnimationState`,
+  no Rive work — reuses `PetAnimationState.think`.
+- **Financial Lab.** `CompoundInterestCalculator` (pure, stateless) + `FinancialLabHomeScreen`/
+  `CompoundInterestLabScreen` under `features/academy/presentation/screens/financial_lab/` — sliders drive a
+  live `fl_chart` stacked-bar visualization (contributions vs. growth per year) and a dynamic explanatory
+  sentence comparing the current result against the previous input state, satisfying the "always explain why
+  the result changed" principle rather than being a bare calculator. Only Compound Interest is real; Inflation,
+  Fixed Income, Diversification, and Portfolio labs are shown as `contentAvailable: false`-style placeholders,
+  the exact pattern already proven for unauthored Schools. No persistence, no XP, no backend — a sandbox for
+  building intuition, not a graded activity.
+- **No backend changes** — same rationale as §3b/§3c: Mastery/Recommendations/Review are a client-side
+  progress-interpretation layer over the existing `completedLessonIds` contract; the Financial Lab has no
+  server dependency at all.
+- **Out of scope this pass** (see DECISION-020): new curriculum content, a prerequisite hard-lock→soft-guidance
+  UX change, new exercise types, and every other Financial Lab beyond Compound Interest.
+
 ## 4. Gamification Integration
 
 Lesson completion persists the lesson id via `AcademyProgressLocalRepository` (identical shape to
@@ -245,10 +301,15 @@ petapp_mobile/lib/features/academy/
     entities/school.dart                          # School layer
     entities/academy_domain.dart                  # Domain layer
     entities/knowledge_level.dart                  # Knowledge Progress
+    entities/mastery_tier.dart                      # Mastery
+    entities/academy_recommendation.dart            # Recommendations/Review
     services/academy_catalog.dart
     services/academy_domain_catalog.dart           # Domain layer
     services/academy_progress_calculator.dart
     services/knowledge_progress_calculator.dart    # Knowledge Progress
+    services/mastery_calculator.dart                # Mastery
+    services/academy_recommendation_service.dart    # Recommendations/Review
+    services/compound_interest_calculator.dart      # Financial Lab
     services/catalog/financial_life_catalog.dart   # School 1 content
   data/
     repositories/academy_progress_local_repository.dart
@@ -260,9 +321,15 @@ petapp_mobile/lib/features/academy/
     screens/school_detail_screen.dart              # School layer
     screens/module_detail_screen.dart
     screens/lesson_screen.dart
+    screens/financial_lab/financial_lab_home_screen.dart      # Financial Lab
+    screens/financial_lab/compound_interest_lab_screen.dart   # Financial Lab
     widgets/academy_domain_card.dart               # Domain layer
     widgets/school_card.dart                       # School layer
-    widgets/mastery_bar_row.dart                   # School layer
+    widgets/mastery_bar_row.dart                   # School/Mastery layer
+    widgets/mastery_tier_presentation.dart          # Mastery
+    widgets/recommended_for_you_section.dart        # Recommendations
+    widgets/academy_review_card.dart                # Review
+    widgets/financial_lab_entry_card.dart           # Financial Lab
     widgets/module_card.dart
     widgets/lesson_list_tile.dart
     widgets/academy_progress_bar.dart
@@ -283,10 +350,13 @@ follows the same `data → domain → presentation` shape, just one level higher
 These are not built. Each needs a real trigger (more content, real usage data, or a dependency that doesn't exist
 yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, measured problem" test.
 
-- **Backend-authoritative progress**: `POST /api/education/lessons/{id}/complete` + Flyway tables
-  (`education_modules`, `education_lessons`, `user_lesson_progress`), once local-only achievements/missions
-  themselves make that same migration (`MARKET_EVENTS_ENGINE.md` §6 already earmarks this as "the single
-  highest-value, lowest-risk first migration" for achievements — Academy should follow, not lead, that move).
+- ~~Backend-authoritative progress~~ — **delivered**, ahead of this document's original sequencing: the
+  backend now has a real `LearningController`/`LearningModuleJpaEntity`/`LearningLessonJpaEntity` (Flyway-backed,
+  `V4__learning_gamification_schema.sql` + `V9__seed_money_fundamentals_learning_catalog.sql`), and
+  `AcademyRemoteDataSource.completeLesson`/`getCompletedLessonIds` sync against it best-effort (§3b/§4). This
+  section was not updated when that shipped — flagging the gap here since it was found while writing §3d, not
+  something this pass's changes caused. Local-only achievements/missions have **not** made the same migration
+  yet, so Academy's XP composition (`TotalXpCalculator`) still reads their local state — see `FEATURES.md`.
 - **Remaining 17 schools' real content**, written and reviewed incrementally, one school/module at a time,
   validated against real user engagement with "Financial Life"/"Investment Fundamentals" first.
 - **Full Question-entity metadata** (the 2026 brief's ~20 fields: sub-competency, review date, source,
@@ -298,7 +368,7 @@ yet) before it's worth building, per `AI_RULES.md`'s "does it solve a real, meas
   wired through the same `TotalXpCalculator`, gated on the asset-details screen already having the indicator data
   (`IndicatorEducationCatalog`) — the natural next integration once Module 4 (Fundamental Analysis) has real content.
   This is the concrete implementation of "Educational Portfolio Intelligence" (`FEATURES.md`), the product's core
-  differentiator per `PRODUCT_VISION.md` §10 — currently the single highest-priority MVP V2 gap (`ROADMAP.md`).
+  differentiator per `PRODUCT_VISION.md` §10 — currently the single highest-priority Alpha-stage gap (`ROADMAP.md`).
 - **Paper trading step type**: a `SimulationStep` LessonStep subclass, gated on a simulated-allocation feature that
   doesn't exist yet.
 - **Streak**: plug into `MARKET_EVENTS_ENGINE.md`'s `STREAK_MAINTAINED`/`user_streak` design once that ships, rather
@@ -327,4 +397,4 @@ FEATURES.md, ROADMAP.md"):
 - `FEATURES.md`: "Learning Content" status updated to reference this document.
 - `DECISIONS.md`: new entry recording the Phase-0-slice scoping decision and the no-punishment (no lives/hearts)
   decision.
-- `ROADMAP.md`: Phase 1 (MVP) now references Academy Phase 0 as delivered; remaining phases referenced under Phase 3.
+- `ROADMAP.md`: the Alpha stage now references Academy Phase 0 as delivered; remaining phases referenced under Phase 3.

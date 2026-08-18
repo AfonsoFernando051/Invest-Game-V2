@@ -7,10 +7,34 @@ import 'package:petrimonium/features/academy/domain/services/academy_catalog.dar
 /// an achievement.
 class AcademyProgressLocalRepository {
   static const _completedLessonIdsKey = 'academy_completed_lesson_ids';
+  static const _perfectLessonIdsKey = 'academy_perfect_lesson_ids';
 
   Future<Set<String>> loadCompletedLessonIds() async {
     final prefs = await SharedPreferences.getInstance();
     return (prefs.getStringList(_completedLessonIdsKey) ?? const []).toSet();
+  }
+
+  /// Lesson ids completed with every question answered correctly on the
+  /// first try — the raw signal `MasteryCalculator` scores against. A subset
+  /// of [loadCompletedLessonIds]'s result by construction.
+  Future<Set<String>> loadPerfectLessonIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    return (prefs.getStringList(_perfectLessonIdsKey) ?? const []).toSet();
+  }
+
+  /// Marks [lessonId] as answered perfectly. Monotonic like
+  /// [markLessonCompleted] — once perfect, always perfect, even if a later
+  /// replay is missed — so Mastery can only improve via replay, never
+  /// regress, matching this repository's existing "permanent, like unlocking
+  /// an achievement" semantics.
+  Future<Set<String>> markLessonPerfect(String lessonId) async {
+    final existing = await loadPerfectLessonIds();
+    if (existing.contains(lessonId)) return existing;
+
+    final merged = {...existing, lessonId};
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_perfectLessonIdsKey, merged.toList());
+    return merged;
   }
 
   /// Adds [lessonId] to whatever was already persisted. A no-op if the

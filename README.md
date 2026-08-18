@@ -100,8 +100,12 @@ Invest Game V2 **is**:
 
 # Development philosophy
 
+Invest Game V2 is a long-term, production-grade financial education and investment platform under continuous
+development — not an MVP, prototype, or proof of concept (see `docs/AI_RULES.md`).
+
 - Learning-first: every feature is evaluated against `PRODUCT_VISION.md`'s core loop.
-- MVP-first within each stage: prove the loop before expanding it (`ROADMAP.md`).
+- Stage-scoped, production-quality delivery: prove the core loop on production-appropriate foundations before
+  expanding it (`ROADMAP.md`'s Alpha stage), rather than cutting corners to "just demonstrate the idea."
 - Prefer incremental improvements over large rewrites.
 - Reuse existing components and patterns before introducing new ones.
 - Technology exists to support the product — not define it.

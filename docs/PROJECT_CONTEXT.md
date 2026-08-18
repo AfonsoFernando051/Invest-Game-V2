@@ -89,7 +89,7 @@ See `ARCHITECTURE.md` and `DECISIONS.md` for the accepted stack and the reasonin
 5. Refine UX and visual polish.
 
 Large rewrites are avoided unless they solve a demonstrated, significant problem. See `ROADMAP.md` for the
-MVP / Beta / V1 staging of this order.
+Alpha / Beta / V1 staging of this order.
 
 ---
 

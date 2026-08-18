@@ -749,6 +749,125 @@ rationale as DECISION-018.
 
 ---
 
+# DECISION-020
+
+## Title
+
+Academy Mastery, Recommendations, Review & Financial Lab — Extending the School Layer Rather Than Rebuilding It
+
+### Status
+
+Accepted
+
+### Context
+
+A large product brief (near-identical in shape to the one that produced DECISION-018/019) requested a full
+adaptive-learning transformation of the Academy: mastery distinct from progress, personalized "what should I
+learn next" recommendations, a spaced-repetition-ready review loop, a Financial Lab simulation area, richer
+companion/mentor integration, and more. Investigation confirmed most of the structural ask already existed
+(School → Module → Lesson hierarchy, Domains, Knowledge Progress, prerequisites, a `ContinueLearningCard`,
+a real backend-authoritative learning API) and that "Mastery" was, by DECISION-018's own deliberate choice,
+modeled as per-school completion percent rather than a second taxonomy. The user, presented with this finding,
+chose to proceed with a substantial extension rather than a minimal increment — same pattern as DECISION-018.
+
+### Decision
+
+Add a genuinely performance-based Mastery signal, kept strictly distinct from Progress/completion:
+`AcademyProgressLocalRepository.markLessonPerfect`/`loadPerfectLessonIds` tracks whether a lesson was answered
+correctly on the first try (monotonic — mastery can improve on replay, never regress), and `MasteryCalculator`
+derives a 4-tier (`Exploring`/`Understanding`/`Applying`/`Mastering`) score from it, mirroring
+`KnowledgeProgressCalculator`'s aggregation shape exactly. `AcademyRecommendationService` derives "what should
+I do next" (continue, or review a not-yet-perfect lesson) and a review queue, surfaced via a "Today's Review"
+card on the Academy home and a "Recommended For You" section on Home (filtered to avoid duplicating the
+existing Continue card). A new Financial Lab area (`features/academy/presentation/screens/financial_lab/`)
+ships one real simulation — Compound Interest, pure client-side, no persistence, no XP — with the remaining
+labs from the brief shown as `contentAvailable: false`-style placeholders, mirroring the exact pattern already
+proven for unauthored Schools.
+
+No backend/Java changes, no new curriculum content, no prerequisite hard-lock→soft-guidance change, and no new
+exercise types — scoped deliberately to what's verifiable with `flutter analyze`/`flutter test` alone in this
+pass. See `ACADEMY_ENGINE.md` §3d for the full design.
+
+### Rationale
+
+- Mirrors DECISION-018/019's own precedent: a large brief lands, gets reconciled to an additive slice that
+  closes the highest-value genuine gaps without an in-place rebuild, preserving every existing id and contract.
+- Mastery-vs-Progress was the single biggest conceptual gap versus the brief's own product-review checklist —
+  worth closing properly rather than leaving "mastery" as a second name for the same completion number.
+- Review lessons intentionally grant no client-side XP: `LessonSessionController`'s existing rule ("the backend
+  is the only source of truth for XP") would be violated by fabricating a "+10 XP" locally; `FEATURES.md`'s
+  target "Revision activity +10" XP stays a documented backend follow-up, not implemented here.
+
+### Consequences
+
+- `AcademyController.masteryFor` keeps its name (call-site compatibility) but is now documented honestly as
+  Progress, not Mastery — `realMasteryFor`/`masteryTierFor` are the new, real Mastery accessors.
+- `docs/FEATURES.md`'s Learning Content status and `docs/ROADMAP.md` are updated to reflect these as delivered
+  ahead of their original Beta/V1 staging, same as DECISION-018 was reflected there.
+- Future schools/lessons need no changes to participate in Mastery/Review — both derive from the same
+  `completedLessonIds`/`perfectLessonIds` sets every school already uses.
+
+---
+
+# DECISION-021
+
+## Title
+
+Retiring "MVP" as the Product's Default Frame — Production-Grade Standards at Every Stage
+
+### Status
+
+Accepted
+
+### Context
+
+Since DECISION-004 ("MVP First"), the project's documentation and AI-assistant instructions have used "MVP" as
+the default frame for scoping decisions — appropriate for validating the initial product direction, but
+increasingly used, in practice, to justify shortcuts ("it's okay, this is just an MVP") beyond what DECISION-004
+ever intended. The user explicitly directed a project-wide mindset change: stop treating Invest Game V2 as an
+MVP/prototype/proof-of-concept, and instead treat it as a long-term, production-grade financial education and
+investment platform under continuous development, while preserving all valid existing architectural decisions
+(XP server authority, offline sync, no-punishment learning, existing domain boundaries, etc.) and without
+retroactively rewriting the historical record.
+
+### Decision
+
+This does **not** revise DECISION-004, DECISION-002, or DECISION-003 — they remain accurate historical records
+of what was decided, and why, at that point in the project's life. Instead, this decision **supersedes DECISION-004's
+framing going forward**: `docs/AI_RULES.md` and `docs/AGENTS.md` are updated to make "production-quality
+version of this feature" the default evaluating question (replacing "minimum version that demonstrates the
+idea"), and a `docs/AI_RULES.md` Technical Debt Policy is added so a genuinely necessary shortcut is documented
+explicitly (Why / Impact / Current workaround / Desired future state / Priority) instead of silently
+accumulating as unlabeled "MVP-era" code. `docs/ROADMAP.md`'s "MVP V2" stage is renamed to "Alpha" — the
+same stage, same scope and completion criteria, without the framing that implicitly invited corner-cutting.
+Every other doc's "MVP V2"/"MVP-era" reference to *this product's own* current or recent state is updated to
+match; references to the historical `Pet-Invest-App` MVP (the prior, superseded product this repository is
+derived from) are left untouched, since those describe a different, real, historical artifact.
+
+### Rationale
+
+- "Production-grade" is explicitly not "overengineered": `AI_RULES.md`'s existing KISS/DRY/YAGNI, "Preserve
+  the Architecture," and "Avoid" sections are kept in full — this decision changes the *quality bar* applied
+  to in-scope work, not the *scope* of what's built at once.
+- A named Technical Debt Policy gives future work (human or AI) a legitimate way to ship a necessary temporary
+  boundary without it silently calcifying into permanent, unlabeled architecture — closing the gap the old
+  "MVP First" framing left open.
+- Renaming the roadmap stage rather than restructuring it preserves every existing cross-reference's meaning
+  (`ACADEMY_ENGINE.md`/`MARKET_EVENTS_ENGINE.md`'s "Phase 0 ≈ [stage]" mapping, `FEATURES.md`'s status lines) —
+  a rename, not a re-plan.
+
+### Consequences
+
+- `docs/AI_RULES.md`, `docs/AGENTS.md`, `docs/ROADMAP.md`, `docs/ARCHITECTURE.md`, `docs/PRODUCT_VISION.md`,
+  `docs/FEATURES.md`, `docs/AI_MENTOR.md`, `docs/PROJECT_CONTEXT.md`, and `README.md` are updated in the same
+  pass as this decision.
+- Any future doc or code comment that frames a *current* shortcut as acceptable "because it's an MVP" should be
+  treated as stale — point back to this decision and `AI_RULES.md`'s Technical Debt Policy instead.
+- DECISION-002/003/004's historical text is intentionally left unedited — read them as "what was true and
+  decided then," not as current guidance.
+
+---
+
 # Future Decisions
 
 Whenever a significant architectural or product decision is made, add a new entry following the same structure.

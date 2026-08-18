@@ -62,7 +62,7 @@ Read the following files in order:
    - Domain-specific engine designs for Learning, Mentor, and Market Events
 
 9. `ROADMAP.md`
-   - MVP V2 / Beta / V1 staging
+   - Alpha / Beta / V1 staging
    - What's not planned
 
 10. `DECISIONS.md`
@@ -94,11 +94,18 @@ If multiple solutions exist, prefer the one that provides the best balance betwe
 
 ---
 
-# Current Development Phase
+# Product Maturity
 
-The project is currently focused on delivering the MVP.
+Invest Game V2 is a long-term, production-grade financial education and investment platform under continuous
+development — not an MVP, prototype, or proof of concept. Historical references to "MVP V2" describe the
+current roadmap *stage* (`ROADMAP.md`'s "Alpha" stage — see DECISION-021), not the product's ambition.
+Build every feature on production-appropriate foundations: correct, maintainable, testable, and extensible —
+see `AI_RULES.md` for the full standard. This does not mean building every future feature now; it means not
+choosing shortcuts that create predictable technical debt (see `AI_RULES.md`'s Technical Debt Policy for how
+to document an unavoidable one).
 
-The primary goal is completing existing features before introducing new ones.
+The primary goal is completing the Alpha stage's core loop (`ROADMAP.md`) to a production-quality bar
+before introducing new stages of work.
 
 Do not suggest large architectural changes or technology migrations unless explicitly requested.
 

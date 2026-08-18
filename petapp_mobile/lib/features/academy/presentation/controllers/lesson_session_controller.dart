@@ -48,6 +48,13 @@ class LessonSessionController extends ChangeNotifier {
   bool isCompleting = false;
   bool isComplete = false;
 
+  /// Whether every question step in this session was answered correctly on
+  /// the first try — feeds `AcademyProgressLocalRepository.markLessonPerfect`
+  /// (see `MasteryCalculator`). Flipped by the same wrong-answer branch that
+  /// already powers the pet's difficulty-detected nudge, so no new detection
+  /// logic is needed.
+  bool _hadAnyMiss = false;
+
   /// Whether the real XP/level shown elsewhere in the app has been updated
   /// to reflect this completion yet — false if the backend sync failed
   /// (offline), so nothing here shows a fabricated number.
@@ -76,6 +83,7 @@ class LessonSessionController extends ChangeNotifier {
     hasAnswered = true;
     final step = currentStep;
     if (step is ChoiceQuestionStep && index != step.correctIndex) {
+      _hadAnyMiss = true;
       unawaited(_recordMiss());
     }
     notifyListeners();
@@ -125,6 +133,7 @@ class LessonSessionController extends ChangeNotifier {
             SchoolStatus.completed;
 
     await _academyRepository.markLessonCompleted(lesson.id);
+    if (!_hadAnyMiss) await _academyRepository.markLessonPerfect(lesson.id);
     if (module != null) await _academyRepository.resetMisses(module.schoolId);
     _mascotController.triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));
     AppEventBus.instance.emit(LessonCompletedEvent(lesson.id));

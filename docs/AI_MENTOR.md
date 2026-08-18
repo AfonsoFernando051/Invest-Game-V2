@@ -11,7 +11,7 @@ extended to give deterministic financial instructions ("buy this," "sell this," 
 
 ## Status
 
-Phase 1 (MVP) implemented: a "Mentor" bottom-nav tab where the user's pet
+Phase 1 (Alpha stage) implemented: a "Mentor" bottom-nav tab where the user's pet
 answers investing questions, grounded in the user's real portfolio and pet
 context, following the product's long-term/educational philosophy and safety
 rules (no buy/sell recommendations, no price predictions, no return
@@ -44,8 +44,8 @@ lesson/asset screens instead of only a standing chat tab").
 ## Deferred (documented intent, not implemented)
 
 These were requested in the original feature spec but intentionally deferred
-to keep Phase 1 inside this project's MVP-first, avoid-speculative-development
-principles (`docs/AI_RULES.md`, `docs/DECISIONS.md`):
+to keep Phase 1 scoped to what the Alpha stage actually needs, per this project's
+avoid-speculative-development principles (`docs/AI_RULES.md`, `docs/DECISIONS.md`):
 
 - **Multiple AI providers wired up simultaneously / runtime switching.** The
   `GeminiChatPort` interface makes adding a second provider a contained

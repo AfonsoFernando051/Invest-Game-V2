@@ -15,6 +15,7 @@ import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/module_detail_screen.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_progress_bar.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/mastery_tier_presentation.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/module_card.dart';
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 
@@ -92,7 +93,9 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
   Widget _buildContent(BuildContext context) {
     final tokens = context.colors;
     final modules = _controller.modulesForSchool(widget.school);
-    final masteryPercent = _controller.masteryFor(widget.school);
+    final progressPercent = _controller.masteryFor(widget.school);
+    final realMasteryPercent = _controller.realMasteryFor(widget.school);
+    final masteryTier = _controller.masteryTierFor(widget.school);
 
     return Scaffold(
       extendBodyBehindAppBar: true,
@@ -141,14 +144,49 @@ class _SchoolDetailScreenState extends State<SchoolDetailScreen> {
                                 ],
                               ),
                               const SizedBox(height: 14),
-                              AcademyProgressBar(progress: masteryPercent),
+                              Text(
+                                Translator.translate(AppStrings.academyProgressLabel),
+                                style: TextStyle(color: tokens.textTertiary, fontSize: 10, fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(height: 4),
+                              AcademyProgressBar(progress: progressPercent),
                               const SizedBox(height: 6),
                               Text(
                                 Translator.translate(
                                   AppStrings.academyMasteryPercentLabel,
-                                  params: {'percent': '${(masteryPercent * 100).round()}'},
+                                  params: {'percent': '${(progressPercent * 100).round()}'},
                                 ),
                                 style: TextStyle(color: tokens.textTertiary, fontSize: 11),
+                              ),
+                              const SizedBox(height: 14),
+                              Text(
+                                Translator.translate(AppStrings.academyRealMasteryLabel),
+                                style: TextStyle(color: tokens.textTertiary, fontSize: 10, fontWeight: FontWeight.w700),
+                              ),
+                              const SizedBox(height: 4),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: AcademyProgressBar(
+                                      progress: realMasteryPercent,
+                                      color: MasteryTierPresentation.color(masteryTier),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 10),
+                                  Text(
+                                    '${(realMasteryPercent * 100).round()}%',
+                                    style: TextStyle(color: tokens.textTertiary, fontSize: 11, fontWeight: FontWeight.w600),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(height: 6),
+                              Text(
+                                Translator.translate(MasteryTierPresentation.labelKey(masteryTier)),
+                                style: TextStyle(
+                                  color: MasteryTierPresentation.color(masteryTier),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w700,
+                                ),
                               ),
                             ],
                           ),

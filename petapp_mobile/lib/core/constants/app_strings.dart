@@ -210,6 +210,48 @@ class AppStrings {
   static const String academyMasteryPercentLabel = "academyMasteryPercentLabel";
   static const String academyKnowledgeLevelLabel = "academyKnowledgeLevelLabel";
 
+  // Academy — real Mastery (performance-based, distinct from Progress/completion above)
+  static const String academyProgressLabel = "academyProgressLabel";
+  static const String academyRealMasteryLabel = "academyRealMasteryLabel";
+  static const String masteryTierExploring = "masteryTierExploring";
+  static const String masteryTierUnderstanding = "masteryTierUnderstanding";
+  static const String masteryTierApplying = "masteryTierApplying";
+  static const String masteryTierMastering = "masteryTierMastering";
+
+  // Academy — Recommended For You + Review
+  static const String academyRecommendedSectionLabel = "academyRecommendedSectionLabel";
+  static const String academyRecommendationContinueReason = "academyRecommendationContinueReason";
+  static const String academyRecommendationReviewReason = "academyRecommendationReviewReason";
+  static const String academyReviewCardTitle = "academyReviewCardTitle";
+  static const String academyReviewCardSubtitle = "academyReviewCardSubtitle";
+  static const String academyReviewStartButton = "academyReviewStartButton";
+  static const String academyReviewEmptyState = "academyReviewEmptyState";
+
+  // Academy — Financial Lab
+  static const String financialLabSectionLabel = "financialLabSectionLabel";
+  static const String financialLabTitle = "financialLabTitle";
+  static const String financialLabSubtitle = "financialLabSubtitle";
+  static const String compoundInterestLabTitle = "compoundInterestLabTitle";
+  static const String compoundInterestLabSubtitle = "compoundInterestLabSubtitle";
+  static const String labComingSoon = "labComingSoon";
+  static const String inflationLabTitle = "inflationLabTitle";
+  static const String fixedIncomeLabTitle = "fixedIncomeLabTitle";
+  static const String diversificationLabTitle = "diversificationLabTitle";
+  static const String portfolioLabTitle = "portfolioLabTitle";
+  static const String labInitialAmountLabel = "labInitialAmountLabel";
+  static const String labMonthlyContributionLabel = "labMonthlyContributionLabel";
+  static const String labAnnualReturnLabel = "labAnnualReturnLabel";
+  static const String labYearsLabel = "labYearsLabel";
+  static const String labFinalValueLabel = "labFinalValueLabel";
+  static const String labTotalContributionsLabel = "labTotalContributionsLabel";
+  static const String labTotalGrowthLabel = "labTotalGrowthLabel";
+  static const String labExplanationIncreaseYears = "labExplanationIncreaseYears";
+  static const String labExplanationDecreaseYears = "labExplanationDecreaseYears";
+  static const String labExplanationIncreaseReturn = "labExplanationIncreaseReturn";
+  static const String labExplanationDecreaseReturn = "labExplanationDecreaseReturn";
+  static const String labExplanationInitial = "labExplanationInitial";
+  static const String labYearTooltipLabel = "labYearTooltipLabel";
+
   // Dashboard — AppBar / bottom navigation shell
   static const String appBarPlayerNamedGreeting = "appBarPlayerNamedGreeting";
   static const String appBarPlayerGenericGreeting = "appBarPlayerGenericGreeting";
@@ -274,6 +316,7 @@ class AppStrings {
   static const String companionActionViewProgress = "companionActionViewProgress";
   static const String companionHomeXpToNextLevel = "companionHomeXpToNextLevel";
   static const String companionAcademyContinueLesson = "companionAcademyContinueLesson";
+  static const String companionAcademyReviewDue = "companionAcademyReviewDue";
   static const String companionPortfolioDiversified = "companionPortfolioDiversified";
   static const String companionMentorNudge = "companionMentorNudge";
   static const String companionProfileSummary = "companionProfileSummary";

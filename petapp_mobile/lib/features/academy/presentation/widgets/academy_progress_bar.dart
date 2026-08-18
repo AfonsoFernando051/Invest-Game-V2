@@ -7,15 +7,21 @@ import 'package:petrimonium/core/theme/app_color_tokens.dart';
 /// specific to portfolio onboarding, not reusable as-is for lesson/module
 /// progress.
 class AcademyProgressBar extends StatelessWidget {
-  const AcademyProgressBar({super.key, required this.progress, this.height = 8});
+  const AcademyProgressBar({super.key, required this.progress, this.height = 8, this.color});
 
   final double progress;
   final double height;
+
+  /// Overrides the default violet→cyan gradient with a single flat color —
+  /// used by Mastery bars to reflect the current `MasteryTier`'s color.
+  /// `null` (the default) keeps the original gradient everywhere else.
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
     final tokens = context.colors;
     final clamped = progress.clamp(0.0, 1.0);
+    final barColor = color;
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(height),
@@ -30,8 +36,11 @@ class AcademyProgressBar extends StatelessWidget {
               widthFactor: value,
               child: Container(
                 height: height,
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(colors: [AppColors.neonViolet, AppColors.neonCyan]),
+                decoration: BoxDecoration(
+                  color: barColor,
+                  gradient: barColor == null
+                      ? const LinearGradient(colors: [AppColors.neonViolet, AppColors.neonCyan])
+                      : null,
                 ),
               ),
             ),

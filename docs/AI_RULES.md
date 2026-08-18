@@ -67,20 +67,56 @@ Unless the user explicitly requests it.
 
 ---
 
-# MVP First
+# Production-Grade Standards, Not MVP Validation
 
-The current priority is delivering the MVP.
+Invest Game V2 is a long-term, production-grade financial education and investment platform under continuous
+development — not an MVP, prototype, proof of concept, or throwaway implementation. "MVP" may still describe
+*historical* context (e.g. the original Pet Invest App MVP this project superseded, or `ROADMAP.md`'s
+"Alpha" stage before it was renamed — see DECISION-021) but must not be used to justify a shortcut today.
 
-When suggesting improvements:
+The following reasoning is no longer acceptable:
 
-Always prefer:
+- "It's okay, this is just an MVP."
+- "We can hardcode this for now because it's early-stage."
+- "We don't need validation/tests because it's not production yet."
+- "We'll rewrite it properly later."
 
-- Completing unfinished features
-- Fixing bugs
-- Improving stability
-- Improving maintainability
+The evaluating question for new work is **"What is the production-quality version of this feature?"**, not
+"What is the minimum version that can demonstrate the idea?" This does not mean building every possible future
+feature now — see `AI_RULES.md`'s Keep Solutions Simple / Avoid sections below, which still apply in full.
+It means building today's scoped feature on foundations — domain logic, state management, error handling,
+validation, accessibility — that do not unnecessarily block tomorrow's features.
 
-Avoid introducing large new systems that delay delivery.
+The current priority is completing `ROADMAP.md`'s active stage (Alpha, then Beta, then V1) to a
+production-quality bar before expanding into the next one — still evaluate every new suggestion against:
+
+- Completing unfinished features to production quality (not just "working on the happy path")
+- Fixing bugs at the root cause, not with a workaround that hides them
+- Improving stability and maintainability
+- Avoiding large new systems that aren't required by the current roadmap stage
+
+---
+
+# Technical Debt Policy
+
+Technical debt is allowed. Hidden technical debt is not.
+
+Whenever a shortcut is genuinely necessary (e.g. a temporary client-side computation standing in for a
+not-yet-built backend endpoint), document it explicitly, in the code and/or in `DECISIONS.md` for anything
+significant, using this shape:
+
+```text
+Technical Debt
+Why: <the constraint that made the shortcut necessary>
+Impact: <what breaks or degrades because of it>
+Current workaround: <what's actually implemented today>
+Desired future state: <what should eventually replace it>
+Priority: <how urgent closing this gap is>
+```
+
+Do not normalize a permanent shortcut as if it were the intended architecture — a future reader (human or AI)
+should be able to tell, at a glance, that something is a deliberate temporary boundary rather than a design
+choice.
 
 ---
 
@@ -317,7 +353,7 @@ Before proposing a solution, ask:
 - Does this preserve the architecture?
 - Does this preserve the product vision?
 - Does this preserve the design language?
-- Is this appropriate for the MVP?
+- Is this appropriate for the current roadmap stage, built to a production-quality bar (not just the happy path)?
 - Is there a simpler solution?
 - Can existing code be reused?
 - Is the implementation maintainable?
@@ -363,7 +399,7 @@ A successful AI contribution should:
 - Improve maintainability
 - Respect existing decisions
 - Minimize implementation cost
-- Keep the project moving toward the MVP
+- Keep the project moving toward production quality, one well-scoped increment at a time
 
 ---
 

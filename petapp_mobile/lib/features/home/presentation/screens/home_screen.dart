@@ -4,11 +4,13 @@ import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_recommendation.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/module_detail_screen.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/recommended_for_you_section.dart';
 import 'package:petrimonium/features/home/presentation/widgets/continue_learning_card.dart';
 import 'package:petrimonium/features/home/presentation/widgets/knowledge_map_strip.dart';
 import 'package:petrimonium/features/home/presentation/widgets/learning_hero_card.dart';
@@ -109,6 +111,13 @@ class _HomeScreenState extends State<HomeScreen> {
     _academyController.load();
   }
 
+  /// Only the `review` recommendation, if any — `continueLearning` is
+  /// already this screen's `ContinueLearningCard`, so showing it again here
+  /// would be redundant (brief's own "one primary action per screen"
+  /// principle).
+  List<AcademyRecommendation> get _reviewRecommendations =>
+      _academyController.recommendations.where((r) => r.type == RecommendationType.review).toList();
+
   void _tapModuleChip(AcademyModule module) {
     final status = _academyController.statusFor(module);
     if (status == ModuleStatus.comingSoon || status == ModuleStatus.locked) return;
@@ -166,6 +175,11 @@ class _HomeScreenState extends State<HomeScreen> {
                 onTapModule: _tapModuleChip,
                 onViewAll: widget.onOpenAcademyTab,
               ),
+              const SizedBox(height: 16),
+            ],
+
+            if (_reviewRecommendations.isNotEmpty) ...[
+              RecommendedForYouSection(recommendations: _reviewRecommendations, onTapLesson: _startLesson),
               const SizedBox(height: 16),
             ],
 

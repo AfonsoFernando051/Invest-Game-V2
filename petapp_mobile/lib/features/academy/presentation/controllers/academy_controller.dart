@@ -4,12 +4,16 @@ import 'package:petrimonium/features/academy/data/repositories/academy_progress_
 import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_module.dart';
 import 'package:petrimonium/features/academy/domain/entities/knowledge_level.dart';
+import 'package:petrimonium/features/academy/domain/entities/academy_recommendation.dart';
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
+import 'package:petrimonium/features/academy/domain/entities/mastery_tier.dart';
 import 'package:petrimonium/features/academy/domain/entities/school.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_domain_catalog.dart';
 import 'package:petrimonium/features/academy/domain/services/academy_progress_calculator.dart';
+import 'package:petrimonium/features/academy/domain/services/academy_recommendation_service.dart';
 import 'package:petrimonium/features/academy/domain/services/knowledge_progress_calculator.dart';
+import 'package:petrimonium/features/academy/domain/services/mastery_calculator.dart';
 
 /// Owns the Academy module list / overview state: loads persisted progress
 /// and exposes derived status per module/lesson. Mirrors `PortfolioController`
@@ -26,6 +30,10 @@ class AcademyController extends ChangeNotifier {
 
   bool isLoading = true;
   Set<String> completedLessonIds = {};
+
+  /// Lessons completed with every question right on the first try — see
+  /// `MasteryCalculator`.
+  Set<String> perfectLessonIds = {};
 
   List<AcademyModule> get modules => AcademyCatalog.modules;
 
@@ -48,6 +56,7 @@ class AcademyController extends ChangeNotifier {
     notifyListeners();
 
     completedLessonIds = await _repository.loadCompletedLessonIds();
+    perfectLessonIds = await _repository.loadPerfectLessonIds();
 
     isLoading = false;
     notifyListeners();
@@ -93,10 +102,42 @@ class AcademyController extends ChangeNotifier {
     return module.lessonIds.where(completedLessonIds.contains).length;
   }
 
-  /// "Mastery" per school (the brief's term for competency progress) —
-  /// see `KnowledgeProgressCalculator`'s doc comment on why this is modeled
-  /// as per-school completion rather than a second taxonomy.
+  /// Progress per school: how much of its curriculum has been completed.
+  /// Despite the name (kept for call-site compatibility), this is
+  /// completion percent, not performance — see [realMasteryFor] for actual
+  /// Mastery, and `MasteryCalculator`'s doc comment for why the two are kept
+  /// distinct.
   double masteryFor(School school) {
     return KnowledgeProgressCalculator.percentForSchool(school.id, completedLessonIds);
   }
+
+  /// Real, performance-based Mastery per school — distinct from
+  /// [masteryFor]'s completion percent. See `MasteryCalculator`.
+  double realMasteryFor(School school) {
+    return MasteryCalculator.percentForSchool(
+      schoolId: school.id,
+      completedIds: completedLessonIds,
+      perfectIds: perfectLessonIds,
+    );
+  }
+
+  MasteryTier masteryTierFor(School school) => MasteryCalculator.tierForPercent(realMasteryFor(school));
+
+  /// "What should I do next" — continue, and (when relevant) review a
+  /// weak concept. See `AcademyRecommendationService`.
+  List<AcademyRecommendation> get recommendations => AcademyRecommendationService.recommendationsFor(
+        completedIds: completedLessonIds,
+        perfectIds: perfectLessonIds,
+      );
+
+  /// Completed lessons not yet answered perfectly, in curriculum order.
+  List<Lesson> get reviewQueue => AcademyRecommendationService.reviewQueue(
+        completedIds: completedLessonIds,
+        perfectIds: perfectLessonIds,
+      );
+
+  int get reviewEstimatedMinutes => AcademyRecommendationService.reviewEstimatedMinutes(
+        completedIds: completedLessonIds,
+        perfectIds: perfectLessonIds,
+      );
 }

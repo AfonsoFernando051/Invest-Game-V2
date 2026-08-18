@@ -178,9 +178,10 @@ screen, a quiz mistake), not treated as a fifth, disconnected destination.
 > **Current implementation gap:** the shipped bottom navigation
 > (`petapp_mobile/lib/features/dashboard/presentation/screens/dashboard_screen.dart`) has five tabs — Home,
 > Carteira (Wallet), Proventos (Passive Income), Academia, Mentor — with the Pet surfaced only as a widget on
-> Home, and Mentor as a standing top-level tab. This is pre-existing MVP-era navigation and is **not being
-> changed by this documentation pass** (no code changes here). It is recorded as a target-navigation gap for a
-> future Beta-stage pass — see `ARCHITECTURE.md`'s Current vs Target notes and `ROADMAP.md`.
+> Home, and Mentor as a standing top-level tab. This is a known navigation gap versus the target described
+> above, and is **not being changed by this documentation pass** (no code changes here). It is recorded as a
+> target-navigation gap for a future Beta-stage pass — see `ARCHITECTURE.md`'s Current vs Target notes and
+> `ROADMAP.md`.
 
 ## 8. Home
 

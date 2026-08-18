@@ -12,11 +12,14 @@ import 'package:petrimonium/features/academy/domain/entities/academy_domain.dart
 import 'package:petrimonium/features/academy/domain/entities/lesson.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:petrimonium/features/academy/presentation/screens/academy_domain_detail_screen.dart';
+import 'package:petrimonium/features/academy/presentation/screens/financial_lab/financial_lab_home_screen.dart';
 import 'package:petrimonium/features/academy/presentation/screens/lesson_screen.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_continue_card.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_domain_card.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_level_header.dart';
 import 'package:petrimonium/features/academy/presentation/widgets/academy_mastery_section.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/academy_review_card.dart';
+import 'package:petrimonium/features/academy/presentation/widgets/financial_lab_entry_card.dart';
 import 'package:petrimonium/features/game/domain/services/level_calculator.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_companion_controller.dart';
 import 'package:petrimonium/features/pet/presentation/companion/pet_context.dart';
@@ -73,12 +76,16 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
   // avoids re-evaluating on every rebuild the ChangeNotifier triggers.
   void _notifyCompanionOnce() {
     if (_companionNotified || _controller.isLoading) return;
+    final reviewCount = _controller.reviewQueue.length;
     final nextLesson = _controller.nextLesson;
-    if (nextLesson == null) return;
+    if (reviewCount == 0 && nextLesson == null) return;
     _companionNotified = true;
     widget.companionController.enterContext(
       PetContext.academy,
-      data: {'lessonTitle': nextLesson.title},
+      data: {
+        if (nextLesson != null) 'lessonTitle': nextLesson.title,
+        if (reviewCount > 0) 'reviewDueCount': '$reviewCount',
+      },
     );
   }
 
@@ -176,9 +183,26 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
               const SizedBox(height: AppSpacing.xxl + 4),
             ],
             if (masterySchools.isNotEmpty) ...[
-              AcademyMasterySection(schools: masterySchools, masteryFor: _controller.masteryFor),
+              AcademyMasterySection(
+                schools: masterySchools,
+                masteryFor: _controller.masteryFor,
+                realMasteryFor: _controller.realMasteryFor,
+                masteryTierFor: _controller.masteryTierFor,
+              ),
               const SizedBox(height: AppSpacing.xxl + 4),
             ],
+            if (_controller.reviewQueue.isNotEmpty) ...[
+              AcademyReviewCard(
+                lessonCount: _controller.reviewQueue.length,
+                estimatedMinutes: _controller.reviewEstimatedMinutes,
+                onStart: () => _openLesson(_controller.reviewQueue.first),
+              ),
+              const SizedBox(height: AppSpacing.xxl + 4),
+            ],
+            FinancialLabEntryCard(
+              onTap: () => Navigator.of(context).push(_fadeRoute(const FinancialLabHomeScreen())),
+            ),
+            const SizedBox(height: AppSpacing.xxl + 4),
             Text(
               Translator.translate(AppStrings.academyDomainsSectionLabel),
               style: AppTextStyles.caption.copyWith(

@@ -60,6 +60,9 @@ class PetMessageCatalog {
   }
 
   static PetMessage? _academyNudge(Map<String, String> data) {
+    final reviewDueCount = int.tryParse(data['reviewDueCount'] ?? '') ?? 0;
+    if (reviewDueCount > 0) return _reviewDueNudge(reviewDueCount);
+
     final lessonTitle = data['lessonTitle'];
     if (lessonTitle == null || lessonTitle.isEmpty) return null;
 
@@ -70,6 +73,25 @@ class PetMessageCatalog {
       trigger: PetMessageTrigger.pageEnter,
       textKey: AppStrings.companionAcademyContinueLesson,
       params: {'lessonTitle': lessonTitle},
+      mood: PetAnimationState.think,
+      action: const PetMessageAction(
+        labelKey: AppStrings.companionActionContinue,
+        destination: PetContext.academy,
+      ),
+    );
+  }
+
+  /// Offered instead of the plain continue nudge once lessons are due for
+  /// review (`AcademyController.reviewQueue`) — never punitive, just a
+  /// gentle reminder, same encouraging tone as every other pet nudge.
+  static PetMessage _reviewDueNudge(int count) {
+    return PetMessage(
+      id: 'academy_review_due',
+      context: PetContext.academy,
+      priority: PetMessagePriority.normal,
+      trigger: PetMessageTrigger.pageEnter,
+      textKey: AppStrings.companionAcademyReviewDue,
+      params: {'count': '$count'},
       mood: PetAnimationState.think,
       action: const PetMessageAction(
         labelKey: AppStrings.companionActionContinue,

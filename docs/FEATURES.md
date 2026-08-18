@@ -29,6 +29,11 @@ Teach investing concepts through short, interactive lessons — the primary prod
 - Lesson/module/school completion tracking, with per-module and per-school prerequisites.
 - XP awarded on completion.
 - Knowledge Progress (curriculum completion, 10-tier) shown alongside — never merged with — Game Level.
+- Progress (completion) and Mastery (performance) tracked and shown as two distinct numbers per school — see
+  `ACADEMY_ENGINE.md` §3d.
+- Personalized recommendations ("continue" / "review a weak concept") and a review queue for lessons not yet
+  answered perfectly.
+- A Financial Lab simulation area (Compound Interest today), separate from graded lesson content.
 
 ## Business Rules
 
@@ -38,8 +43,11 @@ Teach investing concepts through short, interactive lessons — the primary prod
   lost lives, no reset progress, no lesson failure state.
 - Knowledge progress (curriculum completion) is tracked separately from XP/game level — see
   `PRODUCT_VISION.md` §9. Completing the curriculum is never conflated with "being an advanced investor."
+- Mastery (performance) is tracked separately from Progress (completion) — a school can be 100% complete while
+  only partially mastered; neither is ever conflated with the other in copy or logic (`ACADEMY_ENGINE.md` §3d).
 - A prerequisite may only gate content that wasn't already reachable — no school/module already available to
   users can regress to locked (see `DECISIONS.md` DECISION-018).
+- Review activity never awards fabricated client-side XP — XP stays backend-authoritative (see XP System below).
 
 ## Status
 
@@ -47,12 +55,17 @@ Teach investing concepts through short, interactive lessons — the primary prod
 real content (School 1 "Financial Life" → Module 1 "Money Fundamentals", 10 lessons; School 3 "Investment
 Fundamentals" → the pre-existing "Fundamentos do Investidor" module, 6 lessons), 17 as "coming soon." Knowledge
 Progress (`KnowledgeLevel`, 10 tiers) implemented, derived from curriculum completion — kept visually and
-logically separate from Game Level. Progress persisted locally (`SharedPreferences`), not
-backend-authoritative. Full design in `ACADEMY_ENGINE.md`.
+logically separate from Game Level. Mastery (performance-based, distinct from completion), personalized
+Recommendations, a Review queue, and a Financial Lab (Compound Interest) are implemented — see
+`ACADEMY_ENGINE.md` §3d / `DECISIONS.md` DECISION-020. Progress persists locally-first
+(`SharedPreferences`), with best-effort backend sync (`AcademyRemoteDataSource`) reconciling completed-lesson
+ids across devices and returning the authoritative XP/level after each completion — not yet a fully
+backend-driven read model. Full design in `ACADEMY_ENGINE.md`.
 
-**Target:** remaining 17 schools' content, full Question-entity metadata/question-bank architecture,
-backend-authoritative progress, practical challenges connected to real held assets, Mentor/Portfolio
-integration.
+**Target:** remaining 17 schools' content, full Question-entity metadata/question-bank architecture, a fully
+backend-driven progress read model, revision-activity XP (`FEATURES.md`'s XP table already lists it; not yet
+wired), practical challenges connected to real held assets, Mentor/Portfolio integration, and the remaining
+Financial Lab simulations (Inflation, Fixed Income, Diversification, Portfolio).
 
 ---
 
@@ -283,8 +296,8 @@ A practical learning environment and investment tracker — not a trading termin
 **Current:** implemented as tracking/simulation. Backend `InvestmentController` exposes
 `/configure`, `/quote/{ticker}`, `/search`, `/summary`, `/allocation`, `/history`, `/dividends`,
 `/asset-details/{ticker}` — no buy/sell endpoints exist anywhere in the codebase. This already matches the
-target "no execution" principle; the old MVP-era "Buy Assets"/"Sell Assets" features below were aspirational
-and are being retired from the roadmap, not implemented.
+target "no execution" principle; the old Pet-Invest-App-era "Buy Assets"/"Sell Assets" features below were
+aspirational and are being retired from the roadmap, not implemented.
 
 ---
 
@@ -333,7 +346,7 @@ Connect lesson content to the user's real tracked portfolio — one of the produ
 ## Status
 
 **Target, not implemented.** Academy and Portfolio are intentionally decoupled today
-(`ACADEMY_ENGINE.md` §4) — this is the highest-priority MVP V2 gap. See `ROADMAP.md`.
+(`ACADEMY_ENGINE.md` §4) — this is the highest-priority Alpha-stage gap. See `ROADMAP.md`.
 
 ---
 
@@ -453,7 +466,7 @@ the V2 roadmap** as previously framed. They are recorded here, not silently dele
 pass's "do not delete information, reclassify it" rule.
 
 - **Ranking / leaderboards.** Previously "Priority: Medium." Under the learning-first direction, competitive
-  ranking is not a validated retention driver and is not part of MVP V2 or Beta. May be reconsidered in V1 as
+  ranking is not a validated retention driver and is not part of Alpha or Beta. May be reconsidered in V1 as
   a social feature, gated on user demand (`ROADMAP.md`).
 - **Buy/Sell execution ("Buy Assets"/"Sell Assets" features).** Previously "Planned." The product does not
   execute financial orders (`PRODUCT_VISION.md` §11) — this was never implemented and is retired from the
