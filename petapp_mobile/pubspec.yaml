@@ -48,6 +48,9 @@ dependencies:
   # `path_provider`/jni `dependency_overrides` above for the same class of
   # problem). 0.13.20 is the last release before that rewrite.
   rive: ^0.13.20
+  # Crash/error reporting. No-op (nothing sent, nothing crashes) until SENTRY_DSN is passed via
+  # --dart-define — see lib/main.dart and README.md for setup.
+  sentry_flutter: ^9.27.0
 
 dev_dependencies:
   flutter_test:

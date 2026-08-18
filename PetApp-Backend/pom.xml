@@ -86,6 +86,15 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-webmvc</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+			<version>8.0</version>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -133,10 +142,14 @@
 			<artifactId>spring-boot-resttestclient</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--
+			Not test-scoped: RestTemplateBuilder (org.springframework.boot.restclient) — used by
+			HttpClientConfig to give every outbound HTTP client a bounded timeout — lives here in
+			Boot 4's restructured modules, not in spring-boot-webmvc.
+		-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-restclient</artifactId>
-			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
@@ -169,6 +182,17 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<!--
+				Not bound to any lifecycle phase on purpose: scanning against the NVD feed is
+				slow and needs network access, so it shouldn't run on every local `mvn test`.
+				Run explicitly with `mvn org.owasp:dependency-check-maven:check`, e.g. as a
+				dedicated (non-blocking) CI step.
+			-->
+			<plugin>
+				<groupId>org.owasp</groupId>
+				<artifactId>dependency-check-maven</artifactId>
+				<version>12.1.0</version>
 			</plugin>
 		</plugins>
 	</build>

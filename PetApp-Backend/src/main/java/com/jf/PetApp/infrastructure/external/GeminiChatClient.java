@@ -29,8 +29,8 @@ public class GeminiChatClient implements GeminiChatPort {
     @Value("${api.gemini.baseUrl:https://generativelanguage.googleapis.com/v1beta}")
     private String baseUrl;
 
-    public GeminiChatClient() {
-        this.restTemplate = new RestTemplate();
+    public GeminiChatClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override

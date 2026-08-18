@@ -1,0 +1,26 @@
+name: Mobile CI
+
+on:
+  push:
+    branches: [main]
+    paths: ["petapp_mobile/**"]
+  pull_request:
+    paths: ["petapp_mobile/**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: petapp_mobile
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test

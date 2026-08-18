@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:petrimonium/core/constants/api_constants.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
 import 'package:petrimonium/core/theme/app_theme.dart';
@@ -13,13 +15,34 @@ import 'package:petrimonium/features/investment/presentation/screens/portfolio_c
 import 'package:petrimonium/features/onboarding/presentation/screens/journey_ready_screen.dart';
 import 'package:petrimonium/features/onboarding/presentation/screens/welcome_screen.dart';
 import 'package:petrimonium/features/pet/presentation/screens/financial_goal_screen.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
+
+// Build-time DSN for crash/error reporting, e.g.:
+//   flutter build apk --dart-define=SENTRY_DSN=https://xxx@o0.ingest.sentry.io/0
+// Left blank, SentryFlutter.init() below is a safe no-op (nothing is sent, nothing breaks) —
+// same "empty disables it" pattern as the backend's optional API keys.
+const String _sentryDsn = String.fromEnvironment('SENTRY_DSN');
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Translator.load();
-  await ThemeController.load();
-  await DI.onboardingStateRepository.incrementSessionCount();
-  runApp(const MyApp());
+  ApiConstants.assertConfiguredForRelease();
+
+  await SentryFlutter.init(
+    (options) {
+      options.dsn = _sentryDsn;
+      options.environment = kReleaseMode ? 'production' : 'development';
+      options.tracesSampleRate = kReleaseMode ? 0.2 : 0.0;
+    },
+    // SentryFlutter.init wraps this in its own error zone, so both Flutter framework errors
+    // (FlutterError.onError) and uncaught async errors reach Sentry automatically — no extra
+    // runZonedGuarded needed here.
+    appRunner: () async {
+      await Translator.load();
+      await ThemeController.load();
+      await DI.onboardingStateRepository.incrementSessionCount();
+      runApp(const MyApp());
+    },
+  );
 }
 
 class MyApp extends StatelessWidget {

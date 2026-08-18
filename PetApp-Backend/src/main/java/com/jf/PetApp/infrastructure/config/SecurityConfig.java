@@ -2,6 +2,7 @@ package com.jf.PetApp.infrastructure.config;
 
 import com.jf.PetApp.application.auth.port.TokenProvider;
 import com.jf.PetApp.application.user.port.UserRepository;
+import com.jf.PetApp.infrastructure.security.RequestIdFilter;
 import com.jf.PetApp.infrastructure.security.jwt.JwtAuthenticationFilter;
 import com.jf.PetApp.infrastructure.security.ratelimit.RateLimitingFilter;
 import org.springframework.beans.factory.annotation.Value;
@@ -47,10 +48,16 @@ public class SecurityConfig {
     }
 
     @Bean
+    public RequestIdFilter requestIdFilter() {
+        return new RequestIdFilter();
+    }
+
+    @Bean
     public SecurityFilterChain securityFilterChain(
         HttpSecurity http,
         JwtAuthenticationFilter jwtAuthenticationFilter,
-        RateLimitingFilter rateLimitingFilter
+        RateLimitingFilter rateLimitingFilter,
+        RequestIdFilter requestIdFilter
     ) throws Exception {
         http
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
@@ -61,15 +68,24 @@ public class SecurityConfig {
             .formLogin(form -> form.disable())
             .httpBasic(basic -> basic.disable())
             .logout(logout -> logout.disable())
-            .headers(headers -> headers.frameOptions(frame -> {
-                if (h2ConsoleEnabled) {
-                    frame.disable();
-                } else {
-                    frame.sameOrigin();
-                }
-            }))
+            .headers(headers -> headers
+                .frameOptions(frame -> {
+                    if (h2ConsoleEnabled) {
+                        frame.disable();
+                    } else {
+                        frame.sameOrigin();
+                    }
+                })
+                // A pure JSON API never renders untrusted HTML, so the strictest possible
+                // policy is safe — unlike HSTS/X-Frame-Options, Spring Security has no CSP
+                // default, so it has to be set explicitly or the header is simply absent.
+                .contentSecurityPolicy(csp ->
+                    csp.policyDirectives("default-src 'none'; frame-ancestors 'none'")
+                )
+            )
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/auth/**").permitAll()
+                .requestMatchers("/actuator/health", "/actuator/health/**").permitAll()
                 .anyRequest().authenticated()
             )
             .addFilterBefore(
@@ -82,6 +98,12 @@ public class SecurityConfig {
             .addFilterBefore(
                 rateLimitingFilter,
                 JwtAuthenticationFilter.class
+            )
+            // Runs first of all three: every request, including rate-limited/rejected ones,
+            // should carry a correlation id in its logs and response.
+            .addFilterBefore(
+                requestIdFilter,
+                RateLimitingFilter.class
             );
 
         return http.build();

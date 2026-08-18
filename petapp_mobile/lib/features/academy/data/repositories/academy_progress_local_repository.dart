@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class AcademyProgressLocalRepository {
   static const _completedLessonIdsKey = 'academy_completed_lesson_ids';
   static const _perfectLessonIdsKey = 'academy_perfect_lesson_ids';
+  static const _pendingSyncLessonIdsKey = 'academy_pending_sync_lesson_ids';
 
   Future<Set<String>> loadCompletedLessonIds() async {
     final prefs = await SharedPreferences.getInstance();
@@ -83,4 +84,34 @@ class AcademyProgressLocalRepository {
   }
 
   String _missCountKey(String schoolId) => 'academy_miss_count_$schoolId';
+
+  /// Lesson ids completed locally whose XP has not been confirmed synced to the backend yet
+  /// (the initial POST failed or the app never got a chance to try, e.g. completed while
+  /// offline). [AcademyController.load] retries these on every app start/reconciliation —
+  /// see [markPendingSync]/[clearPendingSync].
+  Future<Set<String>> loadPendingSyncLessonIds() async {
+    final prefs = await SharedPreferences.getInstance();
+    return (prefs.getStringList(_pendingSyncLessonIdsKey) ?? const []).toSet();
+  }
+
+  /// Recorded as soon as a lesson completes locally, before the sync attempt — so if the app
+  /// is killed mid-request, the completion is still known to need a retry later.
+  Future<void> markPendingSync(String lessonId) async {
+    final existing = await loadPendingSyncLessonIds();
+    if (existing.contains(lessonId)) return;
+
+    final merged = {...existing, lessonId};
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_pendingSyncLessonIdsKey, merged.toList());
+  }
+
+  /// Removed once the backend has confirmed the completion (an initial sync or a retry).
+  Future<void> clearPendingSync(String lessonId) async {
+    final existing = await loadPendingSyncLessonIds();
+    if (!existing.contains(lessonId)) return;
+
+    final updated = {...existing}..remove(lessonId);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList(_pendingSyncLessonIdsKey, updated.toList());
+  }
 }

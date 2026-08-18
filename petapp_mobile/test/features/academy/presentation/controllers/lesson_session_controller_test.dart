@@ -130,4 +130,33 @@ void main() {
     verify(() => mockRemoteDataSource.completeLesson('test_lesson')).called(1);
     expect(controller.xpSynced, isTrue);
   });
+
+  test('a failed sync leaves the lesson marked pending for AcademyController to retry', () async {
+    when(() => mockRemoteDataSource.completeLesson(any())).thenThrow(Exception('offline'));
+    final controller = buildController(remoteDataSource: mockRemoteDataSource);
+
+    await controller.advance();
+
+    expect(controller.xpSynced, isFalse);
+    expect(await academyRepository.loadPendingSyncLessonIds(), contains('test_lesson'));
+  });
+
+  test('a successful sync clears the pending-sync marker', () async {
+    when(() => mockRemoteDataSource.completeLesson(any())).thenAnswer((_) async => const LessonCompletionResult(
+          lessonId: 'test_lesson',
+          alreadyCompleted: false,
+          xpAwarded: 20,
+          moduleCompleted: false,
+          moduleXpAwarded: 0,
+          totalXp: 20,
+          level: 1,
+          xpIntoLevel: 20,
+          xpForNextLevel: 50,
+        ));
+    final controller = buildController(remoteDataSource: mockRemoteDataSource);
+
+    await controller.advance();
+
+    expect(await academyRepository.loadPendingSyncLessonIds(), isNot(contains('test_lesson')));
+  });
 }

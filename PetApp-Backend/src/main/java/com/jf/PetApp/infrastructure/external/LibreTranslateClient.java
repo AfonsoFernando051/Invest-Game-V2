@@ -32,8 +32,8 @@ public class LibreTranslateClient implements TranslationClient {
     @Value("${api.libretranslate.key:}")
     private String apiKey;
 
-    public LibreTranslateClient() {
-        this.restTemplate = new RestTemplate();
+    public LibreTranslateClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     @Override

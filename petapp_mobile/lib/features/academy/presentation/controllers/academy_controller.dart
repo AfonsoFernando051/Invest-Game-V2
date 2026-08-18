@@ -111,6 +111,27 @@ class AcademyController extends ChangeNotifier {
       } catch (_) {
         // Offline or backend unavailable — keep local-only progress.
       }
+
+      await _retryPendingSyncs(remote);
+    }
+  }
+
+  /// Re-attempts any lesson completions that finished locally but were never confirmed
+  /// synced (e.g. `LessonSessionController._syncCompletionToBackend` failed while offline).
+  /// `completeLesson` is idempotent on the backend (see `CompleteLessonUseCaseImpl`'s doc
+  /// comment) — replaying an already-recorded completion is always safe and just reports the
+  /// XP already earned, so there is no risk of double-granting XP here.
+  Future<void> _retryPendingSyncs(AcademyRemoteDataSource remote) async {
+    final pending = await _repository.loadPendingSyncLessonIds();
+    if (pending.isEmpty) return;
+
+    for (final lessonId in pending) {
+      try {
+        await remote.completeLesson(lessonId);
+        await _repository.clearPendingSync(lessonId);
+      } catch (_) {
+        // Still offline/unavailable — stays pending, retried on the next load().
+      }
     }
   }
 

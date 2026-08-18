@@ -1,0 +1,46 @@
+name: Backend CI
+
+on:
+  push:
+    branches: [main]
+    paths: ["PetApp-Backend/**"]
+  pull_request:
+    paths: ["PetApp-Backend/**"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: PetApp-Backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: Build and test
+        run: ./mvnw -B verify
+
+  dependency-check:
+    runs-on: ubuntu-latest
+    # Vulnerable-dependency scan against the NVD feed — informational for now (does not
+    # block merges) until the project has a process for triaging findings.
+    continue-on-error: true
+    defaults:
+      run:
+        working-directory: PetApp-Backend
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "21"
+          cache: maven
+
+      - name: OWASP dependency-check
+        run: ./mvnw -B org.owasp:dependency-check-maven:check

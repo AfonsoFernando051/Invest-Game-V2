@@ -4,6 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -20,18 +22,34 @@ public class JavaMailPasswordResetMailerAdapter implements PasswordResetMailerPo
     // inject at all. ObjectProvider defers that lookup to send-time instead of failing
     // context startup, so the blank-host dev fallback below is reachable.
     private final ObjectProvider<JavaMailSender> mailSenderProvider;
+    private final Environment environment;
 
     @Value("${app.mail.from:}")
     private String fromAddress;
 
-    public JavaMailPasswordResetMailerAdapter(ObjectProvider<JavaMailSender> mailSenderProvider) {
+    public JavaMailPasswordResetMailerAdapter(
+        ObjectProvider<JavaMailSender> mailSenderProvider,
+        Environment environment
+    ) {
         this.mailSenderProvider = mailSenderProvider;
+        this.environment = environment;
     }
 
     @Override
     public void sendPasswordResetEmail(String toEmail, String rawToken) {
         JavaMailSender mailSender = mailSenderProvider.getIfAvailable();
         if (mailSender == null) {
+            if (environment.acceptsProfiles(Profiles.of("prod"))) {
+                // Never log a live reset token in production, even as a fallback — a
+                // misconfigured spring.mail.host (the only way this branch is reached in
+                // prod) must fail loudly instead of silently leaking the secret to logs.
+                log.error(
+                    "spring.mail.host is not configured in the prod profile; cannot send " +
+                    "password reset email to {}. Refusing to log the reset token.",
+                    toEmail
+                );
+                throw new IllegalStateException("Password reset email delivery is not configured");
+            }
             // Dev-friendly fallback, same spirit as DotenvLoader being a no-op when .env is
             // absent: no SMTP configured locally, so the flow stays fully exercisable by
             // reading the code from the log instead of a real inbox.

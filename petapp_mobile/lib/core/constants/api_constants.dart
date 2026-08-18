@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 class ApiConstants {
   // Overridable per build without editing source, e.g.:
   //   flutter run --dart-define=API_BASE_URL=http://10.0.2.2:8081   (Android emulator)
@@ -8,6 +10,21 @@ class ApiConstants {
     'API_BASE_URL',
     defaultValue: 'http://localhost:8081',
   );
+
+  static const String _devDefaultBaseUrl = 'http://localhost:8081';
+
+  /// A release build that never received --dart-define=API_BASE_URL=... would otherwise
+  /// silently ship pointed at a developer's own machine — fail loudly and immediately
+  /// instead, rather than have every request quietly fail (or worse, quietly succeed against
+  /// the wrong backend) in front of a real user.
+  static void assertConfiguredForRelease() {
+    if (kReleaseMode && baseUrl == _devDefaultBaseUrl) {
+      throw StateError(
+        'API_BASE_URL was not set for this release build — it would point at '
+        'localhost. Build with --dart-define=API_BASE_URL=<real backend URL>.',
+      );
+    }
+  }
 
   static const String loginEndpoint = '/auth/login';
   static const String registerEndpoint = '/auth/register';

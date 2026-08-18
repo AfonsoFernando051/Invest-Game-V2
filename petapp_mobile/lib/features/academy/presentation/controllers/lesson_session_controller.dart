@@ -139,6 +139,9 @@ class LessonSessionController extends ChangeNotifier {
             SchoolStatus.completed;
 
     await _academyRepository.markLessonCompleted(lesson.id);
+    // Recorded before the sync attempt below — if it fails or the app is killed mid-request,
+    // AcademyController.load()'s reconciliation still knows to retry it later.
+    await _academyRepository.markPendingSync(lesson.id);
     if (!_hadAnyMiss) await _academyRepository.markLessonPerfect(lesson.id);
     if (module != null) await _academyRepository.resetMisses(module.schoolId);
     _mascotController.triggerEventAnimation(PetAnimationState.victory, duration: const Duration(seconds: 4));
@@ -173,12 +176,14 @@ class LessonSessionController extends ChangeNotifier {
     if (remote == null) return;
     try {
       final result = await remote.completeLesson(lesson.id);
+      await _academyRepository.clearPendingSync(lesson.id);
       await _mascotController.evaluateEvolution(_mascotController.profile.netWorth, result.totalXp);
       xpSynced = true;
       notifyListeners();
     } catch (_) {
-      // Offline or backend unavailable — the next `AcademyController.load()`
-      // reconciliation (or a future retry) will pick this up.
+      // Offline or backend unavailable — stays in the pending-sync set (see
+      // markPendingSync above), so `AcademyController.load()` retries it on the next launch
+      // or reconciliation.
     }
   }
 }

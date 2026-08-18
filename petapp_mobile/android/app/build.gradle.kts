@@ -1,3 +1,6 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
@@ -5,9 +8,22 @@ plugins {
     id("dev.flutter.flutter-gradle-plugin")
 }
 
+// Release signing credentials — never committed (android/.gitignore already excludes
+// key.properties, *.keystore, *.jks). Populate this file locally / in CI secrets from
+// key.properties.example. Falls back to debug signing when absent so `flutter run --release`
+// keeps working for local development without a real keystore.
+val keystorePropertiesFile = rootProject.file("key.properties")
+val keystoreProperties = Properties()
+val hasReleaseSigning = keystorePropertiesFile.exists()
+if (hasReleaseSigning) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
+}
+
 android {
-    namespace = "com.example.petrimonium"
-    compileSdk = flutter.compileSdkVersion
+    namespace = "com.jf.petrimonium"
+    // flutter_secure_storage requires compiling against SDK 37 — flutter.compileSdkVersion
+    // (36 as of this Flutter version) is a version behind, which fails the build below.
+    compileSdk = 37
     ndkVersion = flutter.ndkVersion
 
     compileOptions {
@@ -20,8 +36,7 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.petrimonium"
+        applicationId = "com.jf.petrimonium"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
@@ -30,11 +45,34 @@ android {
         versionName = flutter.versionName
     }
 
+    signingConfigs {
+        if (hasReleaseSigning) {
+            create("release") {
+                keyAlias = keystoreProperties["keyAlias"] as String
+                keyPassword = keystoreProperties["keyPassword"] as String
+                storeFile = file(keystoreProperties["storeFile"] as String)
+                storePassword = keystoreProperties["storePassword"] as String
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig = signingConfigs.getByName("debug")
+            // Real signing when key.properties is present (real builds/CI); debug signing
+            // otherwise so local `flutter run --release` still works without a keystore. A
+            // build submitted to a store MUST go through the key.properties path — see
+            // key.properties.example for setup.
+            signingConfig = if (hasReleaseSigning) {
+                signingConfigs.getByName("release")
+            } else {
+                signingConfigs.getByName("debug")
+            }
+            isMinifyEnabled = true
+            isShrinkResources = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
 }

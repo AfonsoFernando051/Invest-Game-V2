@@ -7,6 +7,10 @@ class ApiClient {
   final http.Client _client;
   final FlutterSecureStorage _secureStorage;
 
+  /// Without a bound, a stalled connection (dead wifi, backend hung) leaves the caller
+  /// awaiting forever — every request gets a `TimeoutException` instead past this point.
+  static const Duration _requestTimeout = Duration(seconds: 15);
+
   /// [client]/[secureStorage] are injectable so tests can substitute mocks —
   /// production code relies on the defaults.
   ApiClient({http.Client? client, FlutterSecureStorage? secureStorage})
@@ -38,31 +42,24 @@ class ApiClient {
     final headers = await _getHeaders();
     final url = Uri.parse('${ApiConstants.baseUrl}$endpoint');
 
-    return _client.post(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
-    );
+    return _client
+        .post(url, headers: headers, body: jsonEncode(body))
+        .timeout(_requestTimeout);
   }
 
   Future<http.Response> get(String endpoint) async {
     final headers = await _getHeaders();
     final url = Uri.parse('${ApiConstants.baseUrl}$endpoint');
 
-    return _client.get(
-      url,
-      headers: headers,
-    );
+    return _client.get(url, headers: headers).timeout(_requestTimeout);
   }
 
   Future<http.Response> put(String endpoint, dynamic body) async {
     final headers = await _getHeaders();
     final url = Uri.parse('${ApiConstants.baseUrl}$endpoint');
 
-    return _client.put(
-      url,
-      headers: headers,
-      body: jsonEncode(body),
-    );
+    return _client
+        .put(url, headers: headers, body: jsonEncode(body))
+        .timeout(_requestTimeout);
   }
 }

@@ -940,6 +940,98 @@ See `ACADEMY_ENGINE.md` §3e for the full design.
 
 ---
 
+# DECISION-023
+
+## Title
+
+Production-Readiness Hardening Pass — Observability, Resilience, and Release Configuration
+
+### Status
+
+Accepted
+
+### Context
+
+Following DECISION-021's "production-grade at every stage" framing, a production-readiness
+audit (backend + mobile, static review) found the app's core security design already sound
+(BCrypt, secrets via env vars, CORS fail-closed, no hardcoded credentials, `GlobalExceptionHandler`
+never leaking stack traces) but identified real operational gaps: no health checks, no outbound
+HTTP timeouts, a reset-token log leak path, no CI/CD or containerization, and — on mobile — the
+unedited Flutter template `applicationId`/bundle id, debug-signed release builds, and no
+crash/error reporting. The project owner directed fixing everything addressable without an
+external account/credential the owner alone can provide (a real keystore, a Sentry DSN, an Apple
+signing team).
+
+### Decision
+
+Backend: added Spring Boot Actuator (`/actuator/health` only, `permitAll`), a shared
+`RestTemplate` bean (`HttpClientConfig`) with bounded connect/read timeouts injected into
+`BrapiInvestmentApiClient`/`GeminiChatClient`/`LibreTranslateClient` (previously each built its
+own `RestTemplate` with no timeout at all), a `RequestIdFilter` + `logback-spring.xml`
+(JSON via `logstash-logback-encoder` in `prod`, a readable pattern otherwise) carrying a
+correlation id through every log line, explicit HikariCP pool settings in
+`application-prod.properties`, a CSP header in `SecurityConfig` (Spring Security has no default
+CSP, unlike HSTS/X-Frame-Options which were already on), the OWASP `dependency-check-maven`
+plugin (not bound to the default build — run explicitly / in CI, since it needs network access to
+the NVD feed), a multi-stage `Dockerfile`, and `.github/workflows/backend-ci.yml`
+(test + non-blocking dependency-check). `JavaMailPasswordResetMailerAdapter`'s dev-only fallback
+(logging the raw reset token when no `JavaMailSender` is configured) now throws instead of logging
+when the `prod` profile is active, so a misconfigured production SMTP setting fails loudly rather
+than leaking a live reset token to logs. Verified (no code change needed): every controller
+resolves its user from `SecurityUtils.getCurrentUserEmail()`, never from a client-supplied id —
+the audit's suspected IDOR/authorization gap doesn't exist in practice.
+
+Mobile: `applicationId`/namespace/iOS-macOS bundle id changed from the Flutter template default
+(`com.example.petrimonium`) to `com.jf.petrimonium` across Android, iOS, macOS, and Linux.
+Android release builds sign with a real keystore when `android/key.properties` exists (gitignored;
+`key.properties.example` documents the `keytool` command), falling back to debug signing only for
+local `flutter run --release`; release builds also enable `minifyEnabled`/`shrinkResources`.
+`compileSdk` bumped to 37 to match what `flutter_secure_storage` now requires (Flutter's own
+default was a version behind and failed the build). `sentry_flutter` is wired in `main.dart`
+behind a build-time `SENTRY_DSN` — a safe no-op until a real DSN is supplied. A release build now
+calls `ApiConstants.assertConfiguredForRelease()` at startup, which throws if `API_BASE_URL` was
+left at the `localhost` dev default, rather than silently shipping pointed at a developer machine.
+`ApiClient`'s HTTP calls now carry a 15s timeout. The Academy offline-sync gap — a lesson
+completed offline whose XP sync failed was never retried — is closed with a pending-sync set
+(`AcademyProgressLocalRepository.markPendingSync`/`clearPendingSync`) that
+`AcademyController.load()` retries on every app start/reconciliation; safe because
+`CompleteLessonUseCaseImpl` is already idempotent per lesson id. `.github/workflows/mobile-ci.yml`
+runs `flutter analyze` + `flutter test`.
+
+Explicitly **not** done in this pass, because each needs an input only the project owner can
+provide or a scope large enough to deserve its own reviewed change: a real Android keystore file
+(scaffolding only — see `key.properties.example`), a real Sentry DSN/account, iOS code signing
+(Apple Developer team + provisioning profile), JWT refresh/revocation, a Redis-backed
+(multi-instance-safe) rate limiter, LGPD data export/delete endpoints, custom app icon/splash
+(no source asset exists to use), and broad widget/integration test expansion.
+
+### Rationale
+
+- Every change here is either a config/wiring fix with no product-behavior change, or closes a
+  gap the audit found concrete evidence for (the offline-sync silent-failure comment in
+  `LessonSessionController` literally said "a future retry will pick this up" — that retry didn't
+  exist until now).
+- Deferred items all share one trait: completing them requires either a secret/account only the
+  owner holds, or is large/sensitive enough (auth token lifecycle, a new rate-limit backing store,
+  legal-facing data deletion) to warrant its own scoped review rather than folding into a broad
+  hardening pass.
+- `RestTemplate` timeouts and the reset-token log fix were the two items with a real, if narrow,
+  production failure mode (thread exhaustion under a slow provider; a secret in logs from a
+  misconfiguration) — prioritized accordingly over purely-additive items like Actuator.
+
+### Consequences
+
+- `docs/ARCHITECTURE.md`'s Logging/Security/Error Handling principles are now backed by concrete
+  implementations (correlation ids, CSP, bounded external-call timeouts) rather than being
+  aspirational-only.
+- Shipping a real Android/iOS release still requires the owner to run the `keytool` command in
+  `android/key.properties.example`, create a Sentry project, and configure iOS signing in Xcode —
+  none of that is deferrable to code.
+- Future outbound HTTP integrations should reuse the `HttpClientConfig` `RestTemplate` bean rather
+  than constructing a new `RestTemplate()`, to keep the timeout guarantee universal.
+
+---
+
 # Future Decisions
 
 Whenever a significant architectural or product decision is made, add a new entry following the same structure.

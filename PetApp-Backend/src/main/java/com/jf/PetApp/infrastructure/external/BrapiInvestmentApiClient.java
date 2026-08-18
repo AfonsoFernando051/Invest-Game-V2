@@ -35,8 +35,8 @@ public class BrapiInvestmentApiClient implements ExternalInvestmentApiPort {
     @Value("${api.brapi.baseUrl:https://brapi.dev}")
     private String baseUrl;
 
-    public BrapiInvestmentApiClient() {
-        this.restTemplate = new RestTemplate();
+    public BrapiInvestmentApiClient(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
     }
 
     private static String encode(String value) {

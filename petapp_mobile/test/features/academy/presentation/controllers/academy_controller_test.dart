@@ -4,6 +4,7 @@ import 'package:petrimonium/features/academy/data/datasources/academy_remote_dat
 import 'package:petrimonium/features/academy/data/repositories/academy_catalog_repository.dart';
 import 'package:petrimonium/features/academy/data/repositories/academy_progress_local_repository.dart';
 import 'package:petrimonium/features/academy/domain/entities/academy_recommendation.dart';
+import 'package:petrimonium/features/academy/domain/entities/lesson_completion_result.dart';
 import 'package:petrimonium/features/academy/domain/entities/mastery_tier.dart';
 import 'package:petrimonium/features/academy/presentation/controllers/academy_controller.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -136,5 +137,58 @@ void main() {
 
     expect(controller.reviewQueue, isEmpty);
     expect(controller.reviewEstimatedMinutes, 0);
+  });
+
+  group('pending-sync retry', () {
+    LessonCompletionResult resultFor(String lessonId) => LessonCompletionResult(
+          lessonId: lessonId,
+          alreadyCompleted: true,
+          xpAwarded: 0,
+          moduleCompleted: false,
+          moduleXpAwarded: 0,
+          totalXp: 120,
+          level: 2,
+          xpIntoLevel: 20,
+          xpForNextLevel: 50,
+        );
+
+    setUp(() {
+      // Every retry test needs the initial merge call to resolve — none of them are
+      // exercising that path, so it's stubbed to a no-op success here.
+      when(() => mockRemoteDataSource.getCompletedLessonIds()).thenAnswer((_) async => {});
+    });
+
+    test('load() retries a lesson left pending from a previous failed sync', () async {
+      await repository.markLessonCompleted(testLesson1.id);
+      await repository.markPendingSync(testLesson1.id);
+      when(() => mockRemoteDataSource.completeLesson(testLesson1.id))
+          .thenAnswer((_) async => resultFor(testLesson1.id));
+      final controller = buildController(remoteDataSource: mockRemoteDataSource);
+
+      await controller.load();
+
+      verify(() => mockRemoteDataSource.completeLesson(testLesson1.id)).called(1);
+      expect(await repository.loadPendingSyncLessonIds(), isEmpty);
+    });
+
+    test('load() leaves a lesson pending when the retry also fails (still offline)', () async {
+      await repository.markLessonCompleted(testLesson1.id);
+      await repository.markPendingSync(testLesson1.id);
+      when(() => mockRemoteDataSource.completeLesson(testLesson1.id)).thenThrow(Exception('offline'));
+      final controller = buildController(remoteDataSource: mockRemoteDataSource);
+
+      await controller.load();
+
+      expect(await repository.loadPendingSyncLessonIds(), {testLesson1.id});
+    });
+
+    test('load() does not retry anything when nothing is pending', () async {
+      await repository.markLessonCompleted(testLesson1.id);
+      final controller = buildController(remoteDataSource: mockRemoteDataSource);
+
+      await controller.load();
+
+      verifyNever(() => mockRemoteDataSource.completeLesson(any()));
+    });
   });
 }
