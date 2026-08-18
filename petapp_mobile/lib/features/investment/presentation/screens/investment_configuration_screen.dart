@@ -315,9 +315,15 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
           return option['symbol']?.toString() ?? option['stock']?.toString() ?? '';
         },
         onSelected: (Map<String, dynamic> selection) {
+          final symbol = selection['symbol']?.toString() ?? selection['stock']?.toString() ?? '';
           setState(() {
-            _nameController.text = selection['symbol']?.toString() ?? selection['stock']?.toString() ?? '';
+            _nameController.text = symbol;
             _priceController.text = selection['regularMarketPrice']?.toString() ?? selection['close']?.toString() ?? '';
+            // Only fill in a type the user hasn't picked yet — never override
+            // an explicit selection, and leave it untouched when the ticker
+            // is ambiguous (BDR/ETF-39/unit/free text) so they still choose.
+            _selectedType ??= TickerTypeClassifier.classify(symbol);
+            _formKey.currentState?.validate();
           });
         },
         fieldViewBuilder: (context, controller, focusNode, onEditingComplete) {
