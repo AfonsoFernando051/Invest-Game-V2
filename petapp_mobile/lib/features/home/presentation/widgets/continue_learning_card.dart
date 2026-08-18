@@ -36,8 +36,12 @@ class ContinueLearningCard extends StatelessWidget {
 
     if (lesson == null) {
       return GlassCard(
-        borderColor: AppColors.goldenBorder.withValues(alpha: 0.4),
+        borderColor: AppColors.goldenBorder.withValues(alpha: 0.55),
+        borderWidth: 1.5,
         borderRadius: 20,
+        boxShadow: [
+          BoxShadow(color: AppColors.goldenBorder.withValues(alpha: 0.16), blurRadius: 24, spreadRadius: 1),
+        ],
         child: Padding(
           padding: const EdgeInsets.all(18),
           child: Column(
@@ -75,9 +79,17 @@ class ContinueLearningCard extends StatelessWidget {
 
     final moduleTitle = AcademyCatalog.moduleById(lesson.moduleId)?.title;
 
+    // Home's Level-1 primary action (`docs/PRODUCT_VISION.md` §8) gets a
+    // static, low-key glow the other Home cards don't — just enough for it
+    // to read as "the one thing to do here" without competing with the
+    // pet's own ambient aura below it.
     return GlassCard(
-      borderColor: AppColors.goldenBorder.withValues(alpha: 0.45),
+      borderColor: AppColors.goldenBorder.withValues(alpha: 0.55),
+      borderWidth: 1.5,
       borderRadius: 20,
+      boxShadow: [
+        BoxShadow(color: AppColors.goldenBorder.withValues(alpha: 0.16), blurRadius: 24, spreadRadius: 1),
+      ],
       child: Padding(
         padding: const EdgeInsets.all(18),
         child: Column(

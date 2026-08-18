@@ -42,15 +42,11 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
   late AnimationController _floatController;
   late AnimationController _glowController;
   late AnimationController _bounceController;
-  late AnimationController _cardFloatController;
-  late AnimationController _personalityController;
 
   late Animation<double> _breatheAnimation;
   late Animation<double> _floatAnimation;
   late Animation<double> _glowAnimation;
   late Animation<double> _bounceAnimation;
-  late Animation<double> _cardFloatAnimation;
-  late Animation<double> _personalityAnimation;
 
   StreamSubscription<AccelerometerEvent>? _accelerometerSubscription;
   final ValueNotifier<Offset> _parallax = ValueNotifier(Offset.zero);
@@ -73,26 +69,21 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
     _floatAnimation =
         Tween<double>(begin: -6.0, end: 8.0).animate(CurvedAnimation(parent: _floatController, curve: Curves.easeInOut));
 
-    _glowController = AnimationController(vsync: this, duration: const Duration(milliseconds: 1500))
+    // Deliberately subtle and slow: this ambient aura sits behind the
+    // Level-2 companion, one card below Home's primary CTA
+    // (`ContinueLearningCard`) — it should read as calm presence, not
+    // compete for attention (`docs/DESIGN_SYSTEM.md`'s "avoid unnecessary
+    // visual complexity" / brief's "reduce competing highlights").
+    _glowController = AnimationController(vsync: this, duration: const Duration(milliseconds: 2200))
       ..repeat(reverse: true);
     _glowAnimation =
-        Tween<double>(begin: 0.1, end: 0.5).animate(CurvedAnimation(parent: _glowController, curve: Curves.easeInOut));
+        Tween<double>(begin: 0.06, end: 0.22).animate(CurvedAnimation(parent: _glowController, curve: Curves.easeInOut));
 
     _bounceController = AnimationController(vsync: this, duration: const Duration(milliseconds: 400));
     _bounceAnimation = TweenSequence([
       TweenSequenceItem(tween: Tween<double>(begin: 0, end: -30).chain(CurveTween(curve: Curves.easeOutCubic)), weight: 50),
       TweenSequenceItem(tween: Tween<double>(begin: -30, end: 0).chain(CurveTween(curve: Curves.bounceOut)), weight: 50),
     ]).animate(_bounceController);
-
-    _cardFloatController = AnimationController(vsync: this, duration: const Duration(milliseconds: 4200))
-      ..repeat(reverse: true);
-    _cardFloatAnimation = Tween<double>(begin: -3.0, end: 3.0)
-        .animate(CurvedAnimation(parent: _cardFloatController, curve: Curves.easeInOutSine));
-
-    _personalityController = AnimationController(vsync: this, duration: const Duration(milliseconds: 4600))
-      ..repeat(reverse: true);
-    _personalityAnimation = Tween<double>(begin: -0.035, end: 0.035)
-        .animate(CurvedAnimation(parent: _personalityController, curve: Curves.easeInOutSine));
   }
 
   // `sensors_plus` only ships a real platform implementation for
@@ -133,8 +124,6 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
     _floatController.dispose();
     _glowController.dispose();
     _bounceController.dispose();
-    _cardFloatController.dispose();
-    _personalityController.dispose();
     _parallax.dispose();
     super.dispose();
   }
@@ -181,25 +170,21 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
       clipBehavior: Clip.none,
       alignment: Alignment.bottomCenter,
       children: [
-        AnimatedBuilder(
-          animation: _cardFloatController,
-          builder: (context, child) => Transform.translate(offset: Offset(0, _cardFloatAnimation.value), child: child),
-          child: GlassCard(
-            backgroundColor: context.colors.surface.withValues(alpha: context.isDarkMode ? 0.5 : 0.94),
-            borderColor: auraColor.withValues(alpha: 0.3),
-            borderWidth: 1,
-            borderRadius: 24,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 18),
-              child: Column(
-                children: [
-                  _buildLevelHeader(context, level),
-                  const SizedBox(height: 20),
-                  _buildBackdrop(auraColor),
-                  const SizedBox(height: 12),
-                  _buildEvolutionBar(context, hasNextEvolution: hasNextEvolution, progress: evolutionProgress, nextRule: nextRule, profileXp: profile.xp, auraColor: auraColor),
-                ],
-              ),
+        GlassCard(
+          backgroundColor: context.colors.surface.withValues(alpha: context.isDarkMode ? 0.5 : 0.94),
+          borderColor: auraColor.withValues(alpha: 0.3),
+          borderWidth: 1,
+          borderRadius: 24,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0, horizontal: 18),
+            child: Column(
+              children: [
+                _buildLevelHeader(context, level),
+                const SizedBox(height: 20),
+                _buildBackdrop(auraColor),
+                const SizedBox(height: 12),
+                _buildEvolutionBar(context, hasNextEvolution: hasNextEvolution, progress: evolutionProgress, nextRule: nextRule, profileXp: profile.xp, auraColor: auraColor),
+              ],
             ),
           ),
         ),
@@ -241,7 +226,6 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
                         _breatheController,
                         _floatController,
                         _bounceController,
-                        _personalityController,
                         _parallax,
                       ]),
                       builder: (context, child) {
@@ -250,17 +234,14 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
                             _parallax.value.dx,
                             _parallax.value.dy + _floatAnimation.value + _bounceAnimation.value,
                           ),
-                          child: Transform.rotate(
-                            angle: _personalityAnimation.value,
-                            child: Transform.scale(
-                              scaleY: _breatheAnimation.value,
-                              scaleX: 1.0 + (1.0 - _breatheAnimation.value),
-                              child: Image.asset(
-                                PetAssets.imageFor(widget.mascotController.profile.specie.name),
-                                height: 220,
-                                fit: BoxFit.contain,
-                                errorBuilder: (_, __, ___) => const Icon(Icons.pets, size: 100, color: Colors.white70),
-                              ),
+                          child: Transform.scale(
+                            scaleY: _breatheAnimation.value,
+                            scaleX: 1.0 + (1.0 - _breatheAnimation.value),
+                            child: Image.asset(
+                              PetAssets.imageFor(widget.mascotController.profile.specie.name),
+                              height: 220,
+                              fit: BoxFit.contain,
+                              errorBuilder: (_, __, ___) => const Icon(Icons.pets, size: 100, color: Colors.white70),
                             ),
                           ),
                         );
@@ -389,8 +370,8 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
                 boxShadow: [
                   BoxShadow(
                     color: auraColor.withValues(alpha: _glowAnimation.value),
-                    blurRadius: 50 + (_glowAnimation.value * 20),
-                    spreadRadius: 10,
+                    blurRadius: 28 + (_glowAnimation.value * 16),
+                    spreadRadius: 4,
                   ),
                 ],
               ),
