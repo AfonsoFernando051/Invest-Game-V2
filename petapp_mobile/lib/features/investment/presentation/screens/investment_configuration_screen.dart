@@ -63,11 +63,40 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
   void initState() {
     super.initState();
     _loadAchievementBaseline();
+    _seedExistingHoldings();
   }
 
   Future<void> _loadAchievementBaseline() async {
     final unlocked = await DI.achievementsLocalRepository.loadUnlocked();
     if (mounted) setState(() => _alreadyUnlockedIds = unlocked.keys.toSet());
+  }
+
+  /// `POST /configure` replaces the user's entire portfolio with whatever
+  /// `_assets` holds at confirm time — it's an onboarding-style "set my
+  /// portfolio" call, not an append. This screen is also opened from the
+  /// Portfolio tab's "Investir" action for users who already have holdings,
+  /// so without this seeding, adding one new asset there would submit only
+  /// that asset and wipe every existing investment. Loading is best-effort:
+  /// a failure here just leaves this a normal empty-start onboarding form.
+  Future<void> _seedExistingHoldings() async {
+    try {
+      final holdings = await DI.portfolioRepository.fetchHoldings();
+      final existing = holdings
+          .expand((holding) => holding.lots)
+          .map((lot) => AssetRegistrationModel(
+                name: lot.ticker,
+                quantity: lot.quantity,
+                purchasePrice: lot.purchasePrice,
+                purchaseDate: _formatDate(lot.purchaseDate),
+                type: lot.type,
+              ))
+          .toList();
+      if (mounted && existing.isNotEmpty) {
+        setState(() => _assets.insertAll(0, existing));
+      }
+    } catch (_) {
+      // Best-effort — see doc comment above.
+    }
   }
 
   @override
