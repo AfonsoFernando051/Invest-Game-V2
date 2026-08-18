@@ -43,3 +43,9 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Per-developer DevTools preferences
+devtools_options.yaml
+
+# Sentry native crash-handler session artifacts (local runs only)
+.sentry-native/
