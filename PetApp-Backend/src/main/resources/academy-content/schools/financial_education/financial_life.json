@@ -1655,7 +1655,7 @@
       "order": 2,
       "iconKey": "account_balance_wallet_outlined",
       "xpReward": 0,
-      "contentAvailable": false,
+      "contentAvailable": true,
       "prerequisites": [],
       "translations": {
         "pt": {
@@ -1671,7 +1671,488 @@
           "description": "Flujo de caja, control de gastos y definición de objetivos financieros para organizar tu vida financiera del día a día."
         }
       },
-      "lessons": []
+      "lessons": [
+        {
+          "lessonId": "personal_financial_organization_cash_flow",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Fluxo de Caixa: Entradas e Saídas"
+            },
+            "en": {
+              "title": "Cash Flow: Money In and Money Out"
+            },
+            "es": {
+              "title": "Flujo de Caja: Entradas y Salidas"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O que é fluxo de caixa",
+                  "body": "Fluxo de caixa pessoal é simplesmente o dinheiro que entra (salário, renda extra, presentes) menos o dinheiro que sai (aluguel, comida, transporte, lazer) em um período — geralmente um mês. Quando entra mais do que sai, o fluxo é positivo e sobra dinheiro. Quando sai mais do que entra, o fluxo é negativo: mesmo com renda razoável, é possível terminar o mês no vermelho se os gastos não forem acompanhados."
+                },
+                "en": {
+                  "title": "What cash flow is",
+                  "body": "Personal cash flow is simply the money that comes in (salary, extra income, gifts) minus the money that goes out (rent, food, transport, leisure) over a period — usually a month. When more comes in than goes out, cash flow is positive and money is left over. When more goes out than comes in, cash flow is negative: even with a reasonable income, it's possible to end the month in the red if spending isn't tracked."
+                },
+                "es": {
+                  "title": "Qué es el flujo de caja",
+                  "body": "El flujo de caja personal es simplemente el dinero que entra (salario, ingresos extra, regalos) menos el dinero que sale (alquiler, comida, transporte, ocio) en un período — generalmente un mes. Cuando entra más de lo que sale, el flujo es positivo y sobra dinero. Cuando sale más de lo que entra, el flujo es negativo: incluso con un ingreso razonable, es posible terminar el mes en números rojos si los gastos no se controlan."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "A Marina recebe R$3.000 por mês. Somando aluguel (R$1.200), comida (R$700), transporte (R$300) e outras contas (R$400), seus gastos fixos chegam a R$2.600. Sobram R$400 — esse é o fluxo de caixa positivo dela. Já o Pedro ganha R$3.500, mas gasta R$3.800 somando tudo: seu fluxo é negativo em R$300 por mês, e essa diferença normalmente vira dívida no cartão de crédito."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Marina earns R$3,000 a month. Adding up rent (R$1,200), food (R$700), transport (R$300), and other bills (R$400), her fixed expenses total R$2,600. That leaves R$400 — her positive cash flow. Pedro, on the other hand, earns R$3,500 but spends R$3,800 in total: his cash flow is negative by R$300 a month, and that gap usually turns into credit card debt."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Marina gana R$3.000 al mes. Sumando alquiler (R$1.200), comida (R$700), transporte (R$300) y otras cuentas (R$400), sus gastos fijos llegan a R$2.600. Le quedan R$400 — ese es su flujo de caja positivo. Pedro, en cambio, gana R$3.500 pero gasta R$3.800 en total: su flujo es negativo en R$300 al mes, y esa diferencia normalmente se convierte en deuda de tarjeta de crédito."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "O que significa ter um fluxo de caixa negativo em um mês?",
+                  "options": [
+                    "Que a pessoa não tem nenhuma renda",
+                    "Que a pessoa está economizando mais do que o normal",
+                    "Que os gastos do mês foram maiores do que a renda recebida",
+                    "Que o dinheiro está guardado em investimentos"
+                  ],
+                  "explanation": "Fluxo de caixa negativo é só isso: no período analisado, saiu mais dinheiro do que entrou — independente de quanto a pessoa ganha, esse desequilíbrio é o que importa."
+                },
+                "en": {
+                  "prompt": "What does it mean to have negative cash flow in a given month?",
+                  "options": [
+                    "That the person has no income at all",
+                    "That the person is saving more than usual",
+                    "That the month's expenses were higher than the income received",
+                    "That the money is held in investments"
+                  ],
+                  "explanation": "Negative cash flow just means that, in the period measured, more money went out than came in — regardless of how much the person earns, it's that imbalance that matters."
+                },
+                "es": {
+                  "prompt": "¿Qué significa tener un flujo de caja negativo en un mes?",
+                  "options": [
+                    "Que la persona no tiene ningún ingreso",
+                    "Que la persona está ahorrando más de lo normal",
+                    "Que los gastos del mes fueron mayores que el ingreso recibido",
+                    "Que el dinero está guardado en inversiones"
+                  ],
+                  "explanation": "Flujo de caja negativo significa justamente eso: en el período analizado, salió más dinero del que entró — sin importar cuánto gane la persona, ese desequilibrio es lo que importa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O Rafael ganha R$4.000 por mês e normalmente gasta R$3.700, sobrando R$300. Neste mês, o carro dele quebrou e o conserto custou R$800 a mais do que o previsto. O que provavelmente aconteceu com o fluxo de caixa dele neste mês específico?",
+                  "options": [
+                    "Continuou positivo, porque ele ainda ganha mais do que gasta normalmente",
+                    "Ficou negativo neste mês, mesmo ele tendo uma renda estável",
+                    "Não muda nada, porque conserto de carro não conta como gasto",
+                    "Ficou positivo porque consertos são investimentos"
+                  ],
+                  "explanation": "Um gasto imprevisto de R$800, somado aos R$3.700 já previstos, ultrapassa a renda de R$4.000 — mesmo com renda estável, um mês específico pode ficar negativo por causa de um gasto fora do padrão. É exatamente esse tipo de imprevisto que uma reserva de emergência existe para absorver."
+                },
+                "en": {
+                  "prompt": "Rafael earns R$4,000 a month and usually spends R$3,700, leaving R$300. This month, his car broke down and the repair cost R$800 more than his usual budget. What most likely happened to his cash flow this specific month?",
+                  "options": [
+                    "It stayed positive, because he still earns more than he normally spends",
+                    "It went negative this month, even though his income is stable",
+                    "Nothing changes, because car repairs don't count as an expense",
+                    "It went positive because repairs are investments"
+                  ],
+                  "explanation": "An unplanned R$800 expense, added to his usual R$3,700, pushes total spending past his R$4,000 income — even with a stable income, one specific month can go negative because of an out-of-pattern expense. That's exactly the kind of surprise an emergency fund exists to absorb."
+                },
+                "es": {
+                  "prompt": "Rafael gana R$4.000 al mes y normalmente gasta R$3.700, quedándole R$300. Este mes, su auto se averió y la reparación costó R$800 más de lo previsto. ¿Qué probablemente pasó con su flujo de caja este mes específico?",
+                  "options": [
+                    "Siguió siendo positivo, porque él aún gana más de lo que normalmente gasta",
+                    "Se volvió negativo este mes, aunque su ingreso es estable",
+                    "No cambia nada, porque una reparación de auto no cuenta como gasto",
+                    "Se volvió positivo porque las reparaciones son inversiones"
+                  ],
+                  "explanation": "Un gasto imprevisto de R$800, sumado a los R$3.700 ya previstos, supera el ingreso de R$4.000 — incluso con un ingreso estable, un mes específico puede volverse negativo por un gasto fuera de lo común. Ese es exactamente el tipo de imprevisto que un fondo de emergencia existe para absorber."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Fluxo de caixa é a diferença entre tudo que entra e tudo que sai em um período.",
+                    "Fluxo positivo significa que sobra dinheiro; fluxo negativo significa que os gastos superaram a renda.",
+                    "Até uma renda estável pode gerar um mês de fluxo negativo por causa de um gasto imprevisto."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Cash flow is the difference between everything that comes in and everything that goes out over a period.",
+                    "Positive cash flow means money is left over; negative cash flow means expenses exceeded income.",
+                    "Even a stable income can produce one negative-cash-flow month because of an unplanned expense."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El flujo de caja es la diferencia entre todo lo que entra y todo lo que sale en un período.",
+                    "Flujo positivo significa que sobra dinero; flujo negativo significa que los gastos superaron el ingreso.",
+                    "Incluso un ingreso estable puede generar un mes de flujo negativo por un gasto imprevisto."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "personal_financial_organization_tracking_expenses",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Controlando seus Gastos"
+            },
+            "en": {
+              "title": "Tracking Your Expenses"
+            },
+            "es": {
+              "title": "Controlando tus Gastos"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Por que anotar os gastos importa",
+                  "body": "É comum subestimar quanto se gasta em categorias pequenas e frequentes — um cafezinho aqui, uma entrega ali. Sozinhos, esses valores parecem irrelevantes, mas somados ao longo do mês costumam surpreender. Controlar gastos significa registrar para onde o dinheiro vai, seja num aplicativo, numa planilha ou até num caderno — a ferramenta importa menos do que o hábito de registrar de forma consistente."
+                },
+                "en": {
+                  "title": "Why tracking expenses matters",
+                  "body": "It's common to underestimate how much gets spent on small, frequent categories — a coffee here, a delivery order there. Individually, these amounts seem irrelevant, but added up over a month they tend to surprise. Tracking expenses means recording where money actually goes, whether in an app, a spreadsheet, or even a notebook — the tool matters less than the habit of recording consistently."
+                },
+                "es": {
+                  "title": "Por qué anotar los gastos importa",
+                  "body": "Es común subestimar cuánto se gasta en categorías pequeñas y frecuentes — un café aquí, un pedido a domicilio allá. Solos, esos valores parecen irrelevantes, pero sumados a lo largo del mes suelen sorprender. Controlar los gastos significa registrar hacia dónde va el dinero, ya sea en una aplicación, una planilla o incluso un cuaderno — la herramienta importa menos que el hábito de registrar de forma constante."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "A Beatriz achava que gastava cerca de R$200 por mês com aplicativos de entrega de comida. Depois de anotar cada compra por 30 dias, descobriu que o total real foi R$550 — quase o triplo do que imaginava. Nenhuma compra individual parecia um problema; foi a soma delas, só visível depois de registrada, que revelou o padrão."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Beatriz thought she spent around R$200 a month on food delivery apps. After logging every purchase for 30 days, she found the real total was R$550 — almost triple what she imagined. No single purchase looked like a problem; it was the sum of them, only visible once tracked, that revealed the pattern."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Beatriz creía que gastaba cerca de R$200 al mes en aplicaciones de entrega de comida. Después de anotar cada compra durante 30 días, descubrió que el total real fue R$550 — casi el triple de lo que imaginaba. Ninguna compra individual parecía un problema; fue la suma de todas ellas, visible solo después de registrarla, la que reveló el patrón."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o principal benefício de anotar os gastos, mesmo os pequenos?",
+                  "options": [
+                    "Revelar padrões e somas que passam despercebidos quando cada gasto é avaliado isoladamente",
+                    "Garantir que o dinheiro renda juros automaticamente",
+                    "Eliminar totalmente a necessidade de ganhar mais dinheiro",
+                    "Servir apenas para declarar imposto de renda"
+                  ],
+                  "explanation": "O valor de anotar gastos está em enxergar o padrão somado ao longo do tempo — algo que a memória, avaliando compra por compra, normalmente não capta."
+                },
+                "en": {
+                  "prompt": "What's the main benefit of tracking expenses, even small ones?",
+                  "options": [
+                    "Revealing patterns and totals that go unnoticed when each expense is judged in isolation",
+                    "Guaranteeing the money automatically earns interest",
+                    "Completely eliminating the need to earn more money",
+                    "It's only useful for filing taxes"
+                  ],
+                  "explanation": "The value of tracking expenses is seeing the pattern that adds up over time — something memory, judging purchase by purchase, usually misses."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el principal beneficio de anotar los gastos, incluso los pequeños?",
+                  "options": [
+                    "Revelar patrones y sumas que pasan desapercibidos cuando cada gasto se evalúa aisladamente",
+                    "Garantizar que el dinero genere intereses automáticamente",
+                    "Eliminar por completo la necesidad de ganar más dinero",
+                    "Solo sirve para declarar impuestos"
+                  ],
+                  "explanation": "El valor de anotar los gastos está en ver el patrón que se acumula con el tiempo — algo que la memoria, evaluando compra por compra, normalmente no capta."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "O Thiago detesta preencher planilhas e sempre desiste depois de alguns dias. Qual abordagem tem mais chance de funcionar para ele no longo prazo?",
+                  "options": [
+                    "Forçar o uso de uma planilha complexa, já que é o método mais completo",
+                    "Desistir de controlar gastos, já que nenhum método é perfeito",
+                    "Usar um aplicativo que categoriza os gastos automaticamente a partir do cartão, exigindo pouco esforço manual",
+                    "Anotar tudo de memória no fim do mês"
+                  ],
+                  "explanation": "O melhor método de controle é o que a pessoa realmente mantém. Para quem não gosta de preencher planilhas manualmente, um app que automatiza o registro reduz o atrito e aumenta a chance de o hábito durar — o objetivo é consistência, não o método \"ideal\" no papel."
+                },
+                "en": {
+                  "prompt": "Thiago hates filling out spreadsheets and always gives up after a few days. Which approach is more likely to actually work for him long-term?",
+                  "options": [
+                    "Force himself to use a complex spreadsheet, since it's the most complete method",
+                    "Give up tracking expenses entirely, since no method is perfect",
+                    "Use an app that automatically categorizes expenses from his card, requiring little manual effort",
+                    "Try to recall everything from memory at the end of the month"
+                  ],
+                  "explanation": "The best tracking method is the one a person actually sticks with. For someone who dislikes manually filling spreadsheets, an app that automates the recording reduces friction and increases the odds the habit lasts — the goal is consistency, not the method that looks \"ideal\" on paper."
+                },
+                "es": {
+                  "prompt": "A Thiago le molesta llenar planillas y siempre desiste después de unos días. ¿Qué enfoque tiene más chances de funcionarle a largo plazo?",
+                  "options": [
+                    "Forzarse a usar una planilla compleja, ya que es el método más completo",
+                    "Dejar de controlar los gastos, ya que ningún método es perfecto",
+                    "Usar una aplicación que categoriza los gastos automáticamente a partir de la tarjeta, exigiendo poco esfuerzo manual",
+                    "Anotar todo de memoria al final del mes"
+                  ],
+                  "explanation": "El mejor método de control es el que la persona realmente mantiene. Para quien no le gusta llenar planillas manualmente, una app que automatiza el registro reduce la fricción y aumenta la chance de que el hábito dure — el objetivo es la consistencia, no el método \"ideal\" en el papel."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Gastos pequenos e frequentes costumam ser subestimados até serem somados.",
+                    "Anotar gastos revela padrões que a memória sozinha não captura.",
+                    "O melhor método de controle é aquele que a pessoa consegue manter de forma consistente."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Small, frequent expenses tend to be underestimated until they're added up.",
+                    "Tracking expenses reveals patterns memory alone doesn't catch.",
+                    "The best tracking method is the one a person can actually stick with consistently."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Los gastos pequeños y frecuentes suelen subestimarse hasta que se suman.",
+                    "Anotar los gastos revela patrones que la memoria sola no capta.",
+                    "El mejor método de control es el que la persona logra mantener de forma constante."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "personal_financial_organization_smart_goals",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Definindo Objetivos Financeiros"
+            },
+            "en": {
+              "title": "Setting Financial Goals"
+            },
+            "es": {
+              "title": "Definiendo Objetivos Financieros"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "De \"quero economizar\" a um objetivo real",
+                  "body": "\"Quero guardar dinheiro\" é uma intenção, não um objetivo — não diz quanto, para quê ou até quando. Um objetivo financeiro útil tem quatro partes: um valor específico, um prazo definido, um motivo claro (viagem, reserva de emergência, entrada de um imóvel) e um caminho mensal que leve até lá. Objetivos também têm horizontes diferentes: curto prazo (meses), médio prazo (1 a 5 anos) e longo prazo (aposentadoria, por exemplo) — cada um pede uma estratégia diferente, mas todos começam com a mesma pergunta: quanto e até quando."
+                },
+                "en": {
+                  "title": "From \"I want to save\" to a real goal",
+                  "body": "\"I want to save money\" is an intention, not a goal — it doesn't say how much, for what, or by when. A useful financial goal has four parts: a specific amount, a defined deadline, a clear reason (a trip, an emergency fund, a down payment), and a monthly path that gets there. Goals also have different horizons: short-term (months), medium-term (1 to 5 years), and long-term (retirement, for example) — each calls for a different strategy, but all start with the same question: how much, and by when."
+                },
+                "es": {
+                  "title": "De \"quiero ahorrar\" a un objetivo real",
+                  "body": "\"Quiero ahorrar dinero\" es una intención, no un objetivo — no dice cuánto, para qué ni hasta cuándo. Un objetivo financiero útil tiene cuatro partes: un monto específico, un plazo definido, un motivo claro (un viaje, un fondo de emergencia, la entrada de una propiedad) y un camino mensual que lleve hasta allí. Los objetivos también tienen horizontes distintos: corto plazo (meses), mediano plazo (1 a 5 años) y largo plazo (la jubilación, por ejemplo) — cada uno pide una estrategia diferente, pero todos empiezan con la misma pregunta: cuánto y hasta cuándo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "\"Quero uma reserva de emergência\" vira: \"Quero guardar R$6.000 em 12 meses, o que significa separar R$500 por mês.\" Agora dá para acompanhar o progresso mês a mês e saber, com um número, se está no caminho certo — em vez de uma vontade vaga que nunca se sabe se está sendo cumprida."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "\"I want an emergency fund\" becomes: \"I want to save R$6,000 in 12 months, which means setting aside R$500 a month.\" Now progress can be tracked month by month, with a number showing whether it's on track — instead of a vague wish with no way to know if it's actually being met."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "\"Quiero un fondo de emergencia\" se convierte en: \"Quiero ahorrar R$6.000 en 12 meses, lo que significa separar R$500 por mes.\" Ahora se puede seguir el progreso mes a mes y saber, con un número, si va por buen camino — en lugar de un deseo vago del que nunca se sabe si se está cumpliendo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "O que transforma \"quero economizar mais\" em um objetivo financeiro de verdade?",
+                  "options": [
+                    "Repetir a intenção com mais frequência",
+                    "Guardar qualquer valor que sobrar no fim do mês, sem meta definida",
+                    "Comparar com o que outras pessoas economizam",
+                    "Definir um valor específico, um prazo e o motivo por trás dele"
+                  ],
+                  "explanation": "Um objetivo só se torna acionável quando tem um número e um prazo — é isso que permite acompanhar o progresso e ajustar o plano se necessário."
+                },
+                "en": {
+                  "prompt": "What turns \"I want to save more\" into a real financial goal?",
+                  "options": [
+                    "Repeating the intention more often",
+                    "Saving whatever is left over at the end of the month, with no defined target",
+                    "Comparing it to what other people save",
+                    "Defining a specific amount, a deadline, and the reason behind it"
+                  ],
+                  "explanation": "A goal only becomes actionable once it has a number and a deadline — that's what allows progress to be tracked and the plan adjusted if needed."
+                },
+                "es": {
+                  "prompt": "¿Qué convierte \"quiero ahorrar más\" en un objetivo financiero real?",
+                  "options": [
+                    "Repetir la intención con más frecuencia",
+                    "Ahorrar lo que sobre al final del mes, sin una meta definida",
+                    "Compararse con lo que ahorran otras personas",
+                    "Definir un monto específico, un plazo y el motivo detrás de él"
+                  ],
+                  "explanation": "Un objetivo solo se vuelve accionable cuando tiene un número y un plazo — eso es lo que permite seguir el progreso y ajustar el plan si es necesario."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Compare estes dois objetivos: (A) \"Quero viajar ano que vem\"; (B) \"Quero guardar R$4.800 até dezembro para uma viagem, separando R$400 por mês\". Qual é mais fácil de acompanhar mês a mês, e por quê?",
+                  "options": [
+                    "O objetivo A, porque é mais simples de lembrar",
+                    "O objetivo B, porque tem valor, prazo e um passo mensal claro para verificar o progresso",
+                    "Os dois são igualmente fáceis de acompanhar",
+                    "Nenhum dos dois pode ser acompanhado, viagens são gastos imprevisíveis"
+                  ],
+                  "explanation": "O objetivo B pode ser conferido todo mês (\"separei os R$400 esse mês?\"), enquanto o objetivo A não oferece nenhum jeito de saber se está no caminho certo até o momento em que já é tarde para ajustar."
+                },
+                "en": {
+                  "prompt": "Compare these two goals: (A) \"I want to travel next year\"; (B) \"I want to save R$4,800 by December for a trip, setting aside R$400 a month\". Which one is easier to track month by month, and why?",
+                  "options": [
+                    "Goal A, because it's simpler to remember",
+                    "Goal B, because it has an amount, a deadline, and a clear monthly step to check progress against",
+                    "Both are equally easy to track",
+                    "Neither can be tracked — trips are unpredictable expenses"
+                  ],
+                  "explanation": "Goal B can be checked every month (\"did I set aside the R$400 this month?\"), while goal A offers no way to know if it's on track until it's already too late to adjust."
+                },
+                "es": {
+                  "prompt": "Compara estos dos objetivos: (A) \"Quiero viajar el año que viene\"; (B) \"Quiero ahorrar R$4.800 para diciembre para un viaje, separando R$400 por mes\". ¿Cuál es más fácil de seguir mes a mes, y por qué?",
+                  "options": [
+                    "El objetivo A, porque es más simple de recordar",
+                    "El objetivo B, porque tiene monto, plazo y un paso mensual claro para verificar el progreso",
+                    "Los dos son igual de fáciles de seguir",
+                    "Ninguno se puede seguir, los viajes son gastos impredecibles"
+                  ],
+                  "explanation": "El objetivo B se puede revisar cada mes (\"¿separé los R$400 este mes?\"), mientras que el objetivo A no ofrece ninguna manera de saber si va por buen camino hasta que ya es tarde para ajustar."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Uma intenção vaga (\"economizar mais\") não é a mesma coisa que um objetivo com valor e prazo.",
+                    "Objetivos têm horizontes diferentes: curto, médio e longo prazo, cada um com sua estratégia.",
+                    "Um objetivo com valor mensal claro pode ser acompanhado mês a mês — uma intenção vaga, não."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A vague intention (\"save more\") isn't the same as a goal with an amount and a deadline.",
+                    "Goals have different horizons: short, medium, and long term, each with its own strategy.",
+                    "A goal with a clear monthly amount can be tracked month by month — a vague intention can't."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Una intención vaga (\"ahorrar más\") no es lo mismo que un objetivo con monto y plazo.",
+                    "Los objetivos tienen horizontes distintos: corto, mediano y largo plazo, cada uno con su estrategia.",
+                    "Un objetivo con un monto mensual claro se puede seguir mes a mes — una intención vaga, no."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     },
     {
       "moduleId": "consumption",
