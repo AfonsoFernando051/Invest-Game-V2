@@ -55,7 +55,7 @@ class KnowledgeMapStrip extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         SizedBox(
-          height: 96,
+          height: 100,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: sorted.length,

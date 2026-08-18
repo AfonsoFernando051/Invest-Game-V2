@@ -118,19 +118,19 @@ class ModuleChip extends StatelessWidget {
                         ),
                     ],
                   ),
-                  const SizedBox(height: AppSpacing.xs + 2),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     module.title,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     textAlign: TextAlign.center,
-                    style: TextStyle(color: tokens.textPrimary, fontSize: 9.5, fontWeight: FontWeight.w600, height: 1.2),
+                    style: TextStyle(color: tokens.textPrimary, fontSize: 9.5, fontWeight: FontWeight.w600, height: 1.15),
                   ),
                   if (status == ModuleStatus.inProgress) ...[
-                    const SizedBox(height: 2),
+                    const SizedBox(height: 1),
                     Text(
                       '$completedLessons/${module.lessonIds.length}',
-                      style: TextStyle(color: accent, fontSize: 9, fontWeight: FontWeight.w600),
+                      style: TextStyle(color: accent, fontSize: 9, fontWeight: FontWeight.w600, height: 1.0),
                     ),
                   ],
                 ],
