@@ -15,6 +15,8 @@ import 'package:petrimonium/features/dashboard/presentation/screens/dashboard_sc
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
 import 'package:petrimonium/features/investment/data/models/asset_registration_model.dart';
 import 'package:petrimonium/features/investment/domain/services/pending_portfolio_stats_builder.dart';
+import 'package:petrimonium/features/investment/domain/services/ticker_type_classifier.dart';
+import 'package:petrimonium/features/portfolio/domain/entities/investment_type_display.dart';
 import 'package:petrimonium/features/investment/presentation/widgets/added_asset_tile.dart';
 import 'package:petrimonium/features/investment/presentation/widgets/investment_field_style.dart';
 import 'package:petrimonium/features/investment/presentation/widgets/investment_type_selector.dart';
@@ -109,6 +111,18 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
 
   String _formatDate(DateTime date) {
     return "${date.year}-${date.month.toString().padLeft(2, '0')}-${date.day.toString().padLeft(2, '0')}";
+  }
+
+  /// Blocks saving a ticker under the wrong type card — e.g. entering
+  /// `HGLG11` (a FII) while "Renda Fixa" is selected. Only fires when the
+  /// ticker's suffix strongly implies a specific type; free-text names
+  /// (Renda Fixa, crypto, "Outros") and ambiguous B3 suffixes (BDRs, ETFs,
+  /// units) are never second-guessed — see [TickerTypeClassifier].
+  String? _tickerTypeMismatch(String? tickerText) {
+    if (_selectedType == null || tickerText == null || tickerText.isEmpty) return null;
+    final detected = TickerTypeClassifier.classify(tickerText);
+    if (detected == null || detected == _selectedType) return null;
+    return 'Esse ticker parece ser ${detected.label}, não ${_selectedType!.label}.';
   }
 
   String _formatNum(double value) => value.truncateToDouble() == value ? value.toInt().toString() : value.toString();
@@ -290,7 +304,12 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
             return const Iterable<Map<String, dynamic>>.empty();
           }
           final results = await DI.investmentRepository.searchQuotes(textEditingValue.text);
-          return results;
+          if (_selectedType == null) return results;
+          return results.where((option) {
+            final symbol = (option['symbol'] ?? option['stock'] ?? '').toString();
+            final detected = TickerTypeClassifier.classify(symbol);
+            return detected == null || detected == _selectedType;
+          });
         },
         displayStringForOption: (Map<String, dynamic> option) {
           return option['symbol']?.toString() ?? option['stock']?.toString() ?? '';
@@ -312,7 +331,10 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
             onEditingComplete: onEditingComplete,
             style: TextStyle(color: context.colors.textPrimary),
             decoration: investmentInputDecoration(context, label: 'Nome/Ticker (ex: PETR4)'),
-            validator: (value) => value == null || value.isEmpty ? 'Campo obrigatório' : null,
+            validator: (value) {
+              if (value == null || value.isEmpty) return 'Campo obrigatório';
+              return _tickerTypeMismatch(value);
+            },
           );
         },
         optionsViewBuilder: (context, onSelected, options) {
@@ -531,11 +553,15 @@ class _InvestmentConfigurationScreenState extends State<InvestmentConfigurationS
               child: SingleChildScrollView(
                 child: Form(
                   key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
                   child: Column(
                     children: [
                       InvestmentTypeSelector(
                         selected: _selectedType,
-                        onChanged: (type) => setState(() => _selectedType = type),
+                        onChanged: (type) => setState(() {
+                          _selectedType = type;
+                          _formKey.currentState?.validate();
+                        }),
                       ),
                       const SizedBox(height: 16),
                       _buildAutocompleteField(),
