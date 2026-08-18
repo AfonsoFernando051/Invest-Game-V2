@@ -11,6 +11,12 @@ import 'custom_text_field.dart';
 import 'signup_action_button.dart';
 import 'already_have_account_button.dart';
 
+/// Mirrors the backend's `RegisterRequest` username size — see
+/// `PetApp-Backend/.../presentation/auth/dto/RegisterRequest.java`.
+const int _minNameLength = 3;
+
+final RegExp _emailPattern = RegExp(r'^[^@\s]+@[^@\s]+\.[^@\s]+$');
+
 class SignupForm extends StatefulWidget {
   const SignupForm({super.key});
 
@@ -24,6 +30,43 @@ class _SignupFormState extends State<SignupForm> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    // Re-renders on every keystroke so field-level validation below updates
+    // live, instead of only surfacing errors after a failed submit.
+    for (final controller in [
+      _nameController,
+      _emailController,
+      _passwordController,
+      _confirmPasswordController,
+    ]) {
+      controller.addListener(_onFieldChanged);
+    }
+  }
+
+  void _onFieldChanged() => setState(() {});
+
+  /// `null` while the field is empty (untouched) or valid — errors only
+  /// surface once there's something to correct.
+  String? get _nameError {
+    final name = _nameController.text.trim();
+    if (name.isEmpty || name.length >= _minNameLength) return null;
+    return 'Mínimo de $_minNameLength caracteres.';
+  }
+
+  String? get _emailError {
+    final email = _emailController.text.trim();
+    if (email.isEmpty || _emailPattern.hasMatch(email)) return null;
+    return 'Digite um e-mail válido.';
+  }
+
+  String? get _confirmPasswordError {
+    final confirm = _confirmPasswordController.text;
+    if (confirm.isEmpty || confirm == _passwordController.text) return null;
+    return 'As senhas não coincidem.';
+  }
 
   @override
   void dispose() {
@@ -40,19 +83,20 @@ class _SignupFormState extends State<SignupForm> {
     final password = _passwordController.text;
     final confirmPassword = _confirmPasswordController.text;
 
-    if (name.isEmpty || email.isEmpty || password.isEmpty) {
+    if (name.isEmpty || email.isEmpty || password.isEmpty || confirmPassword.isEmpty) {
       GameSnack.show(context, 'Preencha todos os campos obrigatórios.', isError: true);
       return;
     }
 
-    if (password != confirmPassword) {
-      GameSnack.show(context, 'As senhas não coincidem.', isError: true);
-      return;
-    }
-
+    // Field-level errors already surface live under each input as the user
+    // types (see _nameError/_emailError/_confirmPasswordError/
+    // _PasswordRequirementsChecklist) — this is the final gate before
+    // hitting the network, reusing the same checks as the single source of
+    // truth.
     final passwordError = PasswordPolicy.validate(password);
-    if (passwordError != null) {
-      GameSnack.show(context, passwordError, isError: true);
+    final firstError = _nameError ?? _emailError ?? _confirmPasswordError ?? passwordError;
+    if (firstError != null) {
+      GameSnack.show(context, firstError, isError: true);
       return;
     }
 
@@ -111,12 +155,14 @@ class _SignupFormState extends State<SignupForm> {
           hint: Translator.translate(AppStrings.nameHint),
           icon: Icons.person,
           controller: _nameController,
+          errorText: _nameError,
         ),
         const SizedBox(height: 16),
         CustomTextField(
           hint: Translator.translate(AppStrings.emailOrUserHint),
           icon: Icons.email,
           controller: _emailController,
+          errorText: _emailError,
         ),
         const SizedBox(height: 16),
         CustomTextField(
@@ -125,12 +171,17 @@ class _SignupFormState extends State<SignupForm> {
           obscure: true,
           controller: _passwordController,
         ),
+        if (_passwordController.text.isNotEmpty) ...[
+          const SizedBox(height: 10),
+          _PasswordRequirementsChecklist(password: _passwordController.text),
+        ],
         const SizedBox(height: 16),
         CustomTextField(
           hint: Translator.translate(AppStrings.confirmPasswordHint),
           icon: Icons.lock_outline,
           obscure: true,
           controller: _confirmPasswordController,
+          errorText: _confirmPasswordError,
         ),
         const SizedBox(height: 24),
         SignupActionButton(
@@ -140,6 +191,54 @@ class _SignupFormState extends State<SignupForm> {
         const SizedBox(height: 16),
         const AlreadyHaveAccountButton(),
       ],
+    );
+  }
+}
+
+/// Live checklist for [PasswordPolicy]'s rules — shown under the password
+/// field as the user types so they can see what's still missing instead of
+/// discovering it only after a failed submit.
+class _PasswordRequirementsChecklist extends StatelessWidget {
+  final String password;
+
+  const _PasswordRequirementsChecklist({required this.password});
+
+  @override
+  Widget build(BuildContext context) {
+    final rules = <String, bool>{
+      'Mínimo de ${PasswordPolicy.minLength} caracteres': password.length >= PasswordPolicy.minLength,
+      'Uma letra maiúscula': password.contains(RegExp(r'[A-Z]')),
+      'Uma letra minúscula': password.contains(RegExp(r'[a-z]')),
+      'Um número': password.contains(RegExp(r'[0-9]')),
+    };
+
+    final tokens = context.colors;
+    return Padding(
+      padding: const EdgeInsets.only(left: 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: rules.entries.map((rule) {
+          final met = rule.value;
+          final color = met ? tokens.success : tokens.textTertiary;
+          return Padding(
+            padding: const EdgeInsets.symmetric(vertical: 2),
+            child: Row(
+              children: [
+                Icon(
+                  met ? Icons.check_circle : Icons.circle_outlined,
+                  size: 14,
+                  color: color,
+                ),
+                const SizedBox(width: 8),
+                Flexible(
+                  child: Text(rule.key, style: TextStyle(color: color, fontSize: 12)),
+                ),
+              ],
+            ),
+          );
+        }).toList(),
+      ),
     );
   }
 }

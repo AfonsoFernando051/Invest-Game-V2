@@ -79,7 +79,12 @@ void main() {
       // Tap the signup button — a `GameButton` (premium gradient/glow CTA)
       // since the plain `ElevatedButton` it used to wrap was retired in
       // favor of the shared button component used across the app.
+      // The live password-requirements checklist below the password field
+      // pushes it past the fold once a password is entered, so scroll it
+      // into view first — same as a real user would on a small screen.
       final signupBtn = find.byType(GameButton).first;
+      await tester.ensureVisible(signupBtn);
+      await tester.pump();
       await tester.tap(signupBtn);
       
       await tester.pump(); // UI updates with loading state
