@@ -152,8 +152,28 @@ class _DashboardScreenState extends State<DashboardScreen> {
         _celebrating = _portfolioController.newlyUnlocked;
         _portfolioController.clearNewlyUnlocked();
       }
+      // The Proventos tab can disappear if the holdings that justified it
+      // (ações/FIIs/fundos) get sold off mid-session — bounce back to
+      // Carteira rather than leaving the user stranded on a tab with no nav
+      // item pointing at it.
+      if (_selectedIndex == DashboardTabRouter.passiveIncomeTab && !_visibleTabIndices.contains(_selectedIndex)) {
+        _selectedIndex = DashboardTabRouter.walletTab;
+      }
     });
   }
+
+  // ── Proventos tab visibility ─────────────────────────────────────────────
+  // Only shown when the wallet actually holds an asset type that pays out
+  // dividends/proventos (ações, FIIs, ETFs/fundos) — see
+  // `InvestmentTypePayout.paysDividends` and
+  // `PortfolioController.hasDividendPayingHoldings`.
+  List<int> get _visibleTabIndices => [
+        DashboardTabRouter.homeTab,
+        DashboardTabRouter.academyTab,
+        DashboardTabRouter.walletTab,
+        if (_portfolioController.hasDividendPayingHoldings) DashboardTabRouter.passiveIncomeTab,
+        DashboardTabRouter.mentorTab,
+      ];
 
   @override
   void dispose() {
@@ -529,8 +549,53 @@ class _DashboardScreenState extends State<DashboardScreen> {
   }
 
   // ── Bottom Nav ────────────────────────────────────────────────────────────
+  // Item content per logical tab (see `DashboardTabRouter`'s tab-index
+  // constants) — kept separate from `_visibleTabIndices` so hiding/showing
+  // Proventos doesn't duplicate icon/label definitions.
+  BottomNavigationBarItem _navItemFor(int tabIndex) {
+    return switch (tabIndex) {
+      DashboardTabRouter.homeTab => BottomNavigationBarItem(
+          icon: const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Icon(Icons.rocket_launch_outlined),
+          ),
+          activeIcon: const Padding(
+            padding: EdgeInsets.all(4.0),
+            child: Icon(Icons.rocket_launch),
+          ),
+          label: Translator.translate(AppStrings.navHome),
+        ),
+      DashboardTabRouter.academyTab => BottomNavigationBarItem(
+          icon: const Icon(Icons.school_outlined),
+          activeIcon: const Icon(Icons.school),
+          label: Translator.translate(AppStrings.navAcademy),
+        ),
+      DashboardTabRouter.walletTab => BottomNavigationBarItem(
+          icon: const Icon(Icons.diamond_outlined),
+          activeIcon: const Icon(Icons.diamond),
+          label: Translator.translate(AppStrings.navWallet),
+        ),
+      DashboardTabRouter.passiveIncomeTab => BottomNavigationBarItem(
+          icon: const Icon(Icons.payments_outlined),
+          activeIcon: const Icon(Icons.payments),
+          label: Translator.translate(AppStrings.navPassiveIncome),
+        ),
+      _ => BottomNavigationBarItem(
+          icon: const Icon(Icons.auto_awesome_outlined),
+          activeIcon: const Icon(Icons.auto_awesome),
+          label: Translator.translate(AppStrings.navMentor),
+        ),
+    };
+  }
+
   Widget _buildBottomNav() {
     final tokens = context.colors;
+    final visible = _visibleTabIndices;
+    // _selectedIndex is a logical tab id (`DashboardTabRouter`'s constants),
+    // not a position in the (possibly shorter) visible list — translate it
+    // so BottomNavigationBar's currentIndex/onTap stay in range even while
+    // Proventos is hidden.
+    final currentPosition = visible.indexOf(_selectedIndex);
     return Container(
       decoration: BoxDecoration(
         color: tokens.backgroundSecondary,
@@ -557,41 +622,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
         unselectedItemColor: tokens.textTertiary,
         selectedLabelStyle: AppTextStyles.caption.copyWith(fontWeight: FontWeight.w600),
         unselectedLabelStyle: AppTextStyles.caption,
-        currentIndex: _selectedIndex,
-        onTap: _onTabSelected,
-        items: [
-          BottomNavigationBarItem(
-            icon: const Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Icon(Icons.rocket_launch_outlined),
-            ),
-            activeIcon: const Padding(
-              padding: EdgeInsets.all(4.0),
-              child: Icon(Icons.rocket_launch),
-            ),
-            label: Translator.translate(AppStrings.navHome),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.school_outlined),
-            activeIcon: const Icon(Icons.school),
-            label: Translator.translate(AppStrings.navAcademy),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.diamond_outlined),
-            activeIcon: const Icon(Icons.diamond),
-            label: Translator.translate(AppStrings.navWallet),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.payments_outlined),
-            activeIcon: const Icon(Icons.payments),
-            label: Translator.translate(AppStrings.navPassiveIncome),
-          ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.auto_awesome_outlined),
-            activeIcon: const Icon(Icons.auto_awesome),
-            label: Translator.translate(AppStrings.navMentor),
-          ),
-        ],
+        currentIndex: currentPosition == -1 ? 0 : currentPosition,
+        onTap: (position) => _onTabSelected(visible[position]),
+        items: [for (final tabIndex in visible) _navItemFor(tabIndex)],
       ),
     );
   }

@@ -107,6 +107,11 @@ class PortfolioController extends ChangeNotifier {
 
   List<Achievement> get achievements => AchievementCatalog.resolve(_unlockedAchievements);
 
+  /// Whether the wallet currently holds any asset type that pays out
+  /// dividends/proventos (ações, FIIs, ETFs/fundos) — the Proventos tab is
+  /// only worth showing when this is true.
+  bool get hasDividendPayingHoldings => holdings.any((h) => h.type.paysDividends);
+
   PassiveIncomeEstimate get passiveIncome => PassiveIncomeEstimator.estimate(stats);
 
   List<InvestmentLot> get _allLots => holdings.expand((h) => h.lots).toList();

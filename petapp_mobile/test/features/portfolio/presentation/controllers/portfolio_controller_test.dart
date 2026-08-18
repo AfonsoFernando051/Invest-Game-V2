@@ -200,6 +200,33 @@ void main() {
     });
   });
 
+  group('hasDividendPayingHoldings', () {
+    test('false before any load (empty holdings)', () {
+      expect(controller.hasDividendPayingHoldings, isFalse);
+    });
+
+    test('true when the wallet holds stocks', () async {
+      repository.holdingsToReturn = _holdingList(type: InvestmentTypeEnum.STOCKS);
+      await controller.loadAll();
+      expect(controller.hasDividendPayingHoldings, isTrue);
+    });
+
+    test('true when the wallet holds FIIs (real estate)', () async {
+      repository.holdingsToReturn = _holdingList(type: InvestmentTypeEnum.REAL_ESTATE);
+      await controller.loadAll();
+      expect(controller.hasDividendPayingHoldings, isTrue);
+    });
+
+    test('false when the wallet only holds non-dividend-paying types', () async {
+      repository.holdingsToReturn = [
+        ..._holdingList(ticker: 'CDB1', type: InvestmentTypeEnum.FIXED_INCOME),
+        ..._holdingList(ticker: 'BTC', type: InvestmentTypeEnum.CRYPTO),
+      ];
+      await controller.loadAll();
+      expect(controller.hasDividendPayingHoldings, isFalse);
+    });
+  });
+
   group('loadAll — gamification', () {
     // Achievement *qualification* is now real, server-side logic (see
     // EvaluateAchievementsUseCaseImplTest.java) — this only verifies
