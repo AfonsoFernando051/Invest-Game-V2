@@ -24,7 +24,6 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 const String _sentryDsn = String.fromEnvironment('SENTRY_DSN');
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
   ApiConstants.assertConfiguredForRelease();
 
   await SentryFlutter.init(
@@ -33,9 +32,14 @@ void main() async {
       options.environment = kReleaseMode ? 'production' : 'development';
       options.tracesSampleRate = kReleaseMode ? 0.2 : 0.0;
     },
-    // SentryFlutter.init wraps this in its own error zone, so both Flutter framework errors
-    // (FlutterError.onError) and uncaught async errors reach Sentry automatically — no extra
-    // runZonedGuarded needed here.
+    // SentryFlutter.init wraps this in its own error zone (on web, where
+    // PlatformDispatcher.onError can't reliably catch Future errors), so both Flutter
+    // framework errors and uncaught async errors reach Sentry automatically — no extra
+    // runZonedGuarded needed here. Its own WidgetsFlutterBindingIntegration calls
+    // WidgetsFlutterBinding.ensureInitialized() for us as the first step, inside that same
+    // zone — calling it ourselves out here instead binds it to the wrong (outer) zone, which
+    // Flutter detects as a "Zone mismatch" at runApp() and — on web — leaves the app on a
+    // blank screen.
     appRunner: () async {
       await Translator.load();
       await ThemeController.load();
