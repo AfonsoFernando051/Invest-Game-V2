@@ -3,6 +3,9 @@ package com.jf.PetApp.infrastructure.repository.gamification;
 import com.jf.PetApp.application.gamification.port.XpEventRepositoryPort;
 import com.jf.PetApp.core.domain.gamification.XpEventType;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +68,41 @@ class XpEventRepositoryAdapterTest {
 
         assertThat(adapter.sumAmountByUserId(1L)).isEqualTo(20);
         assertThat(adapter.sumAmountByUserId(2L)).isEqualTo(20);
+    }
+
+    @Test
+    void countByUserIdAndEventTypeAndCreatedAtBetween_CountsOnlyMatchingEventTypeWithinTheWindow() {
+        Instant now = Instant.now();
+        adapter.save(1L, XpEventType.LESSON_COMPLETED, 20, "lesson1");
+        adapter.save(1L, XpEventType.LESSON_COMPLETED, 20, "lesson2");
+        adapter.save(1L, XpEventType.MODULE_COMPLETED, 50, "module1");
+
+        int count = adapter.countByUserIdAndEventTypeAndCreatedAtBetween(
+                1L, XpEventType.LESSON_COMPLETED, now.minus(1, ChronoUnit.HOURS), now.plus(1, ChronoUnit.HOURS));
+
+        assertThat(count).isEqualTo(2);
+    }
+
+    @Test
+    void countByUserIdAndEventTypeAndCreatedAtBetween_ExcludesEventsOutsideTheWindow() {
+        adapter.save(1L, XpEventType.LESSON_COMPLETED, 20, "lesson1");
+        Instant future = Instant.now().plus(2, ChronoUnit.HOURS);
+
+        int count = adapter.countByUserIdAndEventTypeAndCreatedAtBetween(
+                1L, XpEventType.LESSON_COMPLETED, future, future.plus(1, ChronoUnit.HOURS));
+
+        assertThat(count).isZero();
+    }
+
+    @Test
+    void countByUserIdAndEventTypeAndCreatedAtBetween_IsolatedPerUser() {
+        adapter.save(1L, XpEventType.LESSON_COMPLETED, 20, "lesson1");
+        adapter.save(2L, XpEventType.LESSON_COMPLETED, 20, "lesson1");
+        Instant now = Instant.now();
+
+        int count = adapter.countByUserIdAndEventTypeAndCreatedAtBetween(
+                1L, XpEventType.LESSON_COMPLETED, now.minus(1, ChronoUnit.HOURS), now.plus(1, ChronoUnit.HOURS));
+
+        assertThat(count).isEqualTo(1);
     }
 }

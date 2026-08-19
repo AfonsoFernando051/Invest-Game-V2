@@ -21,8 +21,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
+import com.jf.PetApp.application.gamification.port.MissionRepositoryPort;
 import com.jf.PetApp.application.gamification.port.XpEventRepositoryPort;
 import com.jf.PetApp.application.gamification.service.StreakService;
+import com.jf.PetApp.application.gamification.service.TotalXpCalculator;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LessonCompletionResult;
 import com.jf.PetApp.application.learning.port.LearningCatalogPort;
@@ -59,6 +61,9 @@ class CompleteLessonUseCaseImplTest {
     private AchievementRepositoryPort achievementRepositoryPort;
 
     @Mock
+    private MissionRepositoryPort missionRepositoryPort;
+
+    @Mock
     private StreakService streakService;
 
     private XpLedgerService xpLedgerService;
@@ -68,8 +73,10 @@ class CompleteLessonUseCaseImplTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         xpLedgerService = new XpLedgerService(xpEventRepositoryPort);
+        TotalXpCalculator totalXpCalculator =
+                new TotalXpCalculator(xpLedgerService, achievementRepositoryPort, missionRepositoryPort);
         useCase = new CompleteLessonUseCaseImpl(
-                userRepository, catalogPort, progressRepository, xpLedgerService, achievementRepositoryPort, streakService);
+                userRepository, catalogPort, progressRepository, xpLedgerService, totalXpCalculator, streakService);
 
         User user = new User();
         user.setId(USER_ID);

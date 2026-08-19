@@ -6,9 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
 import com.jf.PetApp.application.gamification.service.LevelCalculator;
-import com.jf.PetApp.application.gamification.service.XpLedgerService;
+import com.jf.PetApp.application.gamification.service.TotalXpCalculator;
 import com.jf.PetApp.application.learning.dto.LearningProgressResult;
 import com.jf.PetApp.application.learning.port.LearningCatalogPort;
 import com.jf.PetApp.application.learning.port.LessonProgressRepositoryPort;
@@ -23,20 +22,17 @@ public class GetLearningProgressUseCaseImpl implements GetLearningProgressUseCas
     private final UserRepository userRepository;
     private final LearningCatalogPort catalogPort;
     private final LessonProgressRepositoryPort progressRepository;
-    private final XpLedgerService xpLedgerService;
-    private final AchievementRepositoryPort achievementRepository;
+    private final TotalXpCalculator totalXpCalculator;
 
     public GetLearningProgressUseCaseImpl(
             UserRepository userRepository,
             LearningCatalogPort catalogPort,
             LessonProgressRepositoryPort progressRepository,
-            XpLedgerService xpLedgerService,
-            AchievementRepositoryPort achievementRepository) {
+            TotalXpCalculator totalXpCalculator) {
         this.userRepository = userRepository;
         this.catalogPort = catalogPort;
         this.progressRepository = progressRepository;
-        this.xpLedgerService = xpLedgerService;
-        this.achievementRepository = achievementRepository;
+        this.totalXpCalculator = totalXpCalculator;
     }
 
     @Override
@@ -55,7 +51,7 @@ public class GetLearningProgressUseCaseImpl implements GetLearningProgressUseCas
                 .map(ModuleCatalogEntry::moduleId)
                 .collect(Collectors.toSet());
 
-        int totalXp = xpLedgerService.totalXpFor(userId) + achievementRepository.totalXpFor(userId);
+        int totalXp = totalXpCalculator.totalXpFor(userId);
         PlayerLevel level = LevelCalculator.fromXp(totalXp);
 
         return new LearningProgressResult(

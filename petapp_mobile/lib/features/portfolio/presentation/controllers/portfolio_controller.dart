@@ -7,6 +7,7 @@ import 'package:petrimonium/features/investment/data/models/investment_type_enum
 import 'package:petrimonium/features/pet/presentation/mascot/controllers/mascot_controller.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/missions_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/achievement.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/allocation_slice.dart';
@@ -14,6 +15,7 @@ import 'package:petrimonium/features/portfolio/domain/entities/dividend_event.da
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/holding.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/investment_lot.dart';
+import 'package:petrimonium/features/portfolio/domain/entities/mission_status.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/passive_income_estimate.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_health.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_stats.dart';
@@ -38,12 +40,14 @@ class PortfolioController extends ChangeNotifier {
     required AchievementsLocalRepository achievementsLocalRepository,
     required AchievementsRepository achievementsRepository,
     required GamificationRepository gamificationRepository,
+    required MissionsRepository missionsRepository,
     MascotController? mascotController,
     AppEventBus? eventBus,
   })  : _repository = repository,
         _achievementsLocalRepository = achievementsLocalRepository,
         _achievementsRepository = achievementsRepository,
         _gamificationRepository = gamificationRepository,
+        _missionsRepository = missionsRepository,
         _mascotController = mascotController,
         _eventBus = eventBus ?? AppEventBus.instance;
 
@@ -51,6 +55,7 @@ class PortfolioController extends ChangeNotifier {
   final AchievementsLocalRepository _achievementsLocalRepository;
   final AchievementsRepository _achievementsRepository;
   final GamificationRepository _gamificationRepository;
+  final MissionsRepository _missionsRepository;
   final MascotController? _mascotController;
   final AppEventBus _eventBus;
 
@@ -76,6 +81,19 @@ class PortfolioController extends ChangeNotifier {
 
   void clearNewlyUnlocked() {
     newlyUnlocked = [];
+  }
+
+  /// The current period's real status for every mission
+  /// (`GET /api/v1/missions`), refreshed on every [loadAll] — see
+  /// [_evaluateGamification]. Empty until the first successful fetch.
+  List<MissionStatus> missions = [];
+
+  /// Mission codes newly completed on the *most recent* `loadAll()` call —
+  /// same "genuinely new this session" contract as [newlyUnlocked].
+  Set<String> newlyCompletedMissions = {};
+
+  void clearNewlyCompletedMissions() {
+    newlyCompletedMissions = {};
   }
 
   HistoryRange selectedRange = HistoryRange.m3;
@@ -257,13 +275,17 @@ class PortfolioController extends ChangeNotifier {
     });
   }
 
-  /// The backend is the sole authority on both achievement unlocks and XP.
-  /// [AchievementsRepository.evaluate] re-checks every achievement condition
-  /// against the user's real, server-side portfolio and persists any new
-  /// unlock; [GamificationRepository.fetchSummary] returns the real total
-  /// XP (learning + achievements) and level. Both calls are independently
-  /// best-effort — offline, this falls back to the last-known-real cache
-  /// rather than fabricating a number.
+  /// The backend is the sole authority on achievement unlocks, mission
+  /// progress, and XP. [AchievementsRepository.evaluate] re-checks every
+  /// achievement condition against the user's real, server-side portfolio
+  /// and persists any new unlock; [MissionsRepository.evaluate] does the
+  /// same for every mission's current daily/weekly period, purely from real
+  /// lesson/module completion history; [GamificationRepository.fetchSummary]
+  /// returns the real total XP (learning + achievements + missions) and
+  /// level. All three calls are independently best-effort — offline, the
+  /// achievement path falls back to the last-known-real cache rather than
+  /// fabricating a number; missions have no such cache (each period resets
+  /// anyway) and simply keep whatever was last successfully fetched.
   Future<void> _evaluateGamification() async {
     try {
       final result = await _achievementsRepository.evaluate();
@@ -285,6 +307,15 @@ class PortfolioController extends ChangeNotifier {
       // Offline or backend unavailable — fall back to the last-known-real
       // cached unlock state rather than showing nothing or fabricating one.
       _unlockedAchievements = await _achievementsLocalRepository.loadUnlocked();
+    }
+
+    try {
+      final result = await _missionsRepository.evaluate();
+      missions = result.missions;
+      newlyCompletedMissions = result.newlyCompletedCodes;
+    } catch (_) {
+      // Offline or backend unavailable — keep whatever mission state was
+      // last successfully fetched rather than showing nothing.
     }
 
     try {

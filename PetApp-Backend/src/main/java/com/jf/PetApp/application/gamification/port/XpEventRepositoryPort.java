@@ -1,5 +1,7 @@
 package com.jf.PetApp.application.gamification.port;
 
+import java.time.Instant;
+
 import com.jf.PetApp.core.domain.gamification.XpEventType;
 
 /**
@@ -14,4 +16,12 @@ public interface XpEventRepositoryPort {
 
     /** Sum of every XP event's amount for the user — the total XP source of truth. */
     int sumAmountByUserId(Long userId);
+
+    /**
+     * How many {@code eventType} events this user has in
+     * {@code [fromInclusive, toExclusive)} — the mission system's sole
+     * source of learning-progress signals (see {@code MissionContext}).
+     */
+    int countByUserIdAndEventTypeAndCreatedAtBetween(
+            Long userId, XpEventType eventType, Instant fromInclusive, Instant toExclusive);
 }

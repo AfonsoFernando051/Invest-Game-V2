@@ -115,18 +115,38 @@ that can drift from its history.
 
 ## Status
 
-**Current — contradicts the target principle above.** `PetProfile.xp` (Flutter,
-`features/pet/data/models/`) is a single mutable field, stored locally via `SharedPreferences`, with no
-backend representation at all (no `xp` column exists anywhere in the Spring Boot domain/entities). Worse,
-`mission_catalog.dart` and `achievement_catalog.dart` (both under `features/portfolio/domain/services/`)
-directly award XP for **portfolio value thresholds** (e.g. mission `portfolio_10k`/`portfolio_50k`: 150/400
-XP) and **profit** (achievement `positive_return`: 100 XP for `summary.totalGain > 0`). This is the single
-most important gap between the current implementation and the V2 product principle and should be the first
-gamification item addressed once the codebase evolves past this documentation pass — see `DECISIONS.md`.
+**Current — mostly aligned with the target principle above; ahead of what this section previously
+described.** Lesson/module completion is backend-authoritative via an actual `xp_events` ledger table
+(`XpLedgerService`, `POST /api/v1/learning/lessons/{lessonId}/complete`), idempotent per `(userId, eventType,
+sourceId)`, restricted to `XpEventType.LESSON_COMPLETED`/`MODULE_COMPLETED` — this already matches the
+Auditability target above for the learning path. `PetProfile.xp` (Flutter) is cache-first, not
+locally-authoritative: it always defers to the backend's `GET /api/v1/gamification/summary` when reachable,
+falling back to the last-known-real cached value only when offline.
 
-**Target:** backend-authoritative `XPEvent` log; catalog entries re-scoped so only learning/practice/mission
-actions grant XP; wealth- and profit-based rewards removed or reframed as non-XP acknowledgements (e.g. a
-timeline note, not a reward).
+Achievements are also backend-authoritative (`achievement_unlocks` table, evaluated live against real
+portfolio data on every `GET /api/v1/achievements`), and their total XP is summed into the same "total XP"
+the client displays alongside lesson/module XP. Per DECISION-014, `positive_return`, `portfolio_10k`, and
+`portfolio_50k` were already zeroed out in an earlier pass; a follow-up pass (see DECISION-014's resolution
+note in `DECISIONS.md`) closed the two that pass had missed — `first_dividend` and `dividend_hunter`, both
+conditioned on estimated passive income (a wealth-derived signal) — which is now zero-XP on both the backend
+`AchievementCatalog` and its Flutter display mirror, with regression tests on both sides.
+
+**Remaining, narrower gap:** `AchievementContext` (backend) has no learning-progress fields at all — the
+achievement system is structurally 100% portfolio-derived. `first_investment`, `diversification_master`,
+`etf_collector`, `hundred_days`, and `long_term_investor` don't reference dollar amounts (so they don't
+violate DECISION-014's letter), but they still reward *investment activity* rather than *learning activity* —
+a softer version of the same anti-pattern, and an open product question rather than a bug (see `DECISIONS.md`
+for how to record a decision on it).
+
+The mission system is now server-side and backend-authoritative (see Missions' Status below) — a `MissionCompletionJpaEntity`/`mission_completions` table alongside the existing `xp_events`/`achievement_unlocks` tables,
+all three summed by `TotalXpCalculator`. There is still no quiz-answer/mastery-gated XP model
+(`CompleteLessonUseCaseImpl` grants lesson XP on a completion POST, not on demonstrated quiz correctness) —
+that remains a real target-vs-current gap.
+
+**Target:** unify lesson/module XP, achievement XP, and mission XP into one auditable `XPEvent`-shaped log
+(today they are three separate tables summed by `TotalXpCalculator` — a step toward the target, not the full
+target); re-scope the achievement system to include learning/practice conditions, not just portfolio-derived
+ones.
 
 ---
 
@@ -222,29 +242,49 @@ shared AppBar, carrying one `PetCompanionController` for the whole session. Tapp
 
 ## Purpose
 
-Guide users through educational objectives via short-term goals. Full design intent in
-`MARKET_EVENTS_ENGINE.md` §11.
+Guide users through educational objectives via short-term goals. Simplified from the full "Market Events"
+brief in `MARKET_EVENTS_ENGINE.md` §11 (templates/instances/claim step/event-driven `GameplayReactionService`)
+to the smallest Alpha-appropriate slice — see Status below for what was actually built and why.
 
 ## Responsibilities
 
-- Daily missions: small educational actions (complete a lesson, answer a quiz, review a concept).
-- Weekly missions: larger educational actions (complete a module, complete a practical challenge).
-- Progress tracking and reward claim.
+- Daily missions: small educational actions (complete a lesson today; complete two lessons today).
+- Weekly missions: larger educational actions (complete three lessons this week; complete a module this
+  week).
+- Live progress tracking against the current daily/weekly period; auto-completion and XP grant on the next
+  evaluation once the target is met (no separate claim step — see Status).
 
 ## Business Rules
 
 - Missions should reinforce learning and analysis, not encourage excessive trading activity or portfolio
   growth for its own sake.
-- Rewards follow the XP System's rules above — no wealth-based mission rewards going forward.
+- Rewards follow the XP System's rules above — every mission condition is a lesson/module completion count,
+  never a wealth/profit/portfolio signal, from the first version (no wealth-tied mission ever existed to
+  migrate away from, unlike the achievement catalog).
 
 ## Status
 
-**Current:** `mission_catalog.dart` is a local, static catalog evaluated client-side against portfolio state.
-As noted under XP System, several current missions reward portfolio-value milestones directly — a target-vs-
-current contradiction, not a design intent.
+**Current: implemented, server-side, backend-authoritative.** `MissionCatalog` (backend,
+`application/gamification/mission/`) is a fixed catalog of four learning-only mission definitions
+(`daily_complete_lesson` +30 XP, `daily_complete_two_lessons` +60 XP, `weekly_complete_three_lessons` +100 XP,
+`weekly_complete_module` +150 XP), each conditioned purely on counting `LESSON_COMPLETED`/`MODULE_COMPLETED`
+`xp_events` rows within the mission's current period window (`MissionPeriodKeyCalculator` — ISO calendar date
+for daily, ISO week for weekly). `EvaluateMissionsUseCaseImpl` re-evaluates every mission live on each
+`GET /api/v1/missions` call and persists any newly-completed period instance to `mission_completions`
+(idempotent on `(user_id, mission_code, period_key)`, mirroring `achievement_unlocks`'s pattern) — safe to
+call as often as the client wants. Mission XP feeds into the same total XP as lesson/module and achievement
+XP via `TotalXpCalculator`. On the client, `MissionsRepository`/`MissionsRemoteDataSource` fetch this
+alongside achievements in `PortfolioController._evaluateGamification`, and a `MissionsSection` renders
+progress-bar mission cards on the Portfolio tab, next to `AchievementsSection`.
 
-**Target:** server-side mission templates (`missions`/`user_missions` tables per `MARKET_EVENTS_ENGINE.md`
-§6), instances re-scoped toward learning/practice actions.
+Deliberately simplified vs. `MARKET_EVENTS_ENGINE.md` §11's full brief: missions auto-complete and grant XP
+on evaluation rather than requiring a separate `POST /missions/{id}/claim` step, there's no `RewardLedgerService`/
+multi-currency reward bundle, and mission definitions are a fixed in-code catalog (like achievements) rather
+than server-configurable templates. Each of these can be added later without a breaking change if a real need
+emerges — none was speculative-built now (see `AI_RULES.md`'s Avoid-overengineering guidance).
+
+**Target:** review-activity and practice-challenge mission conditions once those systems exist; consider a
+claim step if silent auto-grant proves to feel anticlimactic in practice.
 
 ---
 
@@ -261,12 +301,17 @@ Reward important learning and engagement milestones.
 
 ## Status
 
-**Current:** `achievement_catalog.dart`, local static catalog with local unlock persistence
-(`achievements_local_repository.dart`). Includes at least one profit-based achievement (`positive_return`) —
-see XP System gap above.
+**Current:** backend-authoritative (`AchievementCatalog`/`achievement_unlocks`, evaluated live against real
+portfolio data via `EvaluateAchievementsUseCaseImpl`), not local/static as previously described here. The
+Flutter `achievement_catalog.dart` is a display-only mirror (title/description/icon, plus a preview XP total
+for the unlock-celebration overlay and pre-save onboarding preview) — the backend catalog is what actually
+persists unlocks and grants XP. Per DECISION-014, all portfolio-value/profit/passive-income-derived
+achievements (`positive_return`, `portfolio_10k`, `portfolio_50k`, `first_dividend`, `dividend_hunter`) are
+zero-XP milestones on both sides, with regression tests covering it. See the XP System's Status section above
+for the narrower open question around investment-activity-based (non-wealth) achievements.
 
-**Target:** unlock state migrates server-side first (`MARKET_EVENTS_ENGINE.md` §6 calls this "the single
-highest-value, lowest-risk first migration"); catalog definitions can remain client-side static data.
+**Target:** unify achievement XP into the same auditable event log as lesson/module XP (see XP System's
+Status above); re-scope the condition set to include learning/practice achievements, not just portfolio ones.
 
 ---
 

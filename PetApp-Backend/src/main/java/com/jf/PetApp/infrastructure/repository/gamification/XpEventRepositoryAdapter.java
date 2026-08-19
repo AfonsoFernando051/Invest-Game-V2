@@ -44,4 +44,10 @@ public class XpEventRepositoryAdapter implements XpEventRepositoryPort {
     public int sumAmountByUserId(Long userId) {
         return repository.sumAmountByUserId(userId);
     }
+
+    @Override
+    public int countByUserIdAndEventTypeAndCreatedAtBetween(
+            Long userId, XpEventType eventType, Instant fromInclusive, Instant toExclusive) {
+        return repository.countByUserIdAndEventTypeAndCreatedAtBetween(userId, eventType, fromInclusive, toExclusive);
+    }
 }

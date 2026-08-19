@@ -530,6 +530,27 @@ The current wealth/profit-tied catalog entries are a known, tracked gap (see `FE
 status) to be corrected in a future implementation pass — not fixed by this documentation update, which is
 docs-only.
 
+### Resolution update (post-acceptance)
+
+An earlier implementation pass zeroed `positive_return`, `portfolio_10k`, and `portfolio_50k` to 0 XP but
+missed two achievements conditioned on estimated passive income (a wealth-derived signal):
+`first_dividend` (was 75 XP) and `dividend_hunter` (was 250 XP). A follow-up pass zeroed both, on the backend
+`AchievementCatalog` and its Flutter display mirror, with regression tests on both sides asserting no
+wealth/profit/passive-income-derived achievement can grant nonzero XP. Lesson/module XP was, separately,
+already implemented as a real `xp_events` ledger table by the time of this fix — the "single mutable field"
+described in the Context above no longer describes the lesson/module path, only (structurally) the
+achievement system, whose XP still lives in a second table (`achievement_unlocks`) summed with the ledger in
+application code rather than unified into one event log. See `FEATURES.md`'s XP System and Achievements
+Status sections for the current, accurate state.
+
+Two related, still-open items this decision does not resolve: (1) `first_investment`,
+`diversification_master`, `etf_collector`, `hundred_days`, and `long_term_investor` reward *investment
+activity* rather than *learning activity* — not a wealth/profit violation, but arguably outside a strict
+learning-first reading of this decision, and worth an explicit product call rather than a silent default; (2)
+no server-side mission system exists at all yet (`mission_catalog.dart` referenced in the original Context has
+been removed from the codebase with nothing replacing it server-side), so the "mission completion" XP source
+named in the Decision above has no implementation to audit yet.
+
 ---
 
 # DECISION-015
@@ -1029,6 +1050,79 @@ provide or a scope large enough to deserve its own reviewed change: a real Andro
   none of that is deferrable to code.
 - Future outbound HTTP integrations should reuse the `HttpClientConfig` `RestTemplate` bean rather
   than constructing a new `RestTemplate()`, to keep the timeout guarantee universal.
+
+---
+
+# DECISION-024
+
+## Title
+
+Server-Side Mission System, Learning-Only From the First Line
+
+### Status
+
+Accepted
+
+### Context
+
+`FEATURES.md`'s Missions section and `ROADMAP.md`'s Gamification status both tracked "no server-side mission
+system exists at all" as an open gap — `mission_catalog.dart` (the old client-only, portfolio-conditioned
+catalog referenced in DECISION-014's original Context) had already been removed from the mobile codebase with
+nothing server-side replacing it. `MARKET_EVENTS_ENGINE.md` §11 describes a full mission system as part of a
+much larger "Market Events" brief (templates/instances tables, an event-driven `GameplayReactionService`, a
+multi-currency `RewardLedgerService`, a `POST /missions/{id}/claim` step) explicitly scoped to Phase 3+/Beta —
+building that whole brief now would be exactly the kind of speculative, out-of-stage development
+`AI_RULES.md` and `ROADMAP.md` warn against.
+
+### Decision
+
+Built the smallest production-quality mission system that closes the tracked gap, not the full Market Events
+brief. Backend: `MissionCatalog` (`application/gamification/mission/`) is a fixed catalog of four
+learning-only mission definitions — `daily_complete_lesson` (+30 XP), `daily_complete_two_lessons` (+60 XP),
+`weekly_complete_three_lessons` (+100 XP), `weekly_complete_module` (+150 XP) — each conditioned purely on
+counting existing `xp_events` rows (`LESSON_COMPLETED`/`MODULE_COMPLETED`) within the mission's current
+daily/weekly period window. No new event type, event bus, or reward-currency system was introduced — missions
+reuse the XP ledger's existing signals. `EvaluateMissionsUseCaseImpl` evaluates every mission live on
+`GET /api/v1/missions` and persists any newly-completed period instance to a new `mission_completions` table
+(idempotent on `(user_id, mission_code, period_key)`, the same pattern as `achievement_unlocks`) — auto-
+granting XP on evaluation rather than requiring a separate claim step. A new `TotalXpCalculator` service
+replaces the `xpLedgerService.totalXpFor(userId) + achievementRepository.totalXpFor(userId)` expression that
+had been duplicated across three use cases, now summing all three XP sources (ledger, achievements, missions)
+in one place. Mobile: `MissionsRepository`/`MissionsRemoteDataSource` fetch mission state alongside
+achievements in `PortfolioController._evaluateGamification`, and a `MissionsSection` renders progress-bar
+mission cards on the Portfolio tab next to `AchievementsSection` — the same placement precedent, not Home,
+since `home_screen.dart`'s own doc comment already documents missions/achievements as belonging to the
+Portfolio tab.
+
+### Rationale
+
+- Reuses `xp_events` as the sole progress signal instead of introducing a second event log or an
+  event-driven reaction service — missions are just a different aggregation over data the ledger already
+  captures, so no new architectural pattern was needed (per `AI_RULES.md`'s "Preserve the Architecture").
+- Auto-grant-on-evaluation (no claim step) mirrors the achievement system's already-proven, already-tested
+  shape exactly, rather than inventing a second UX/API pattern for essentially the same "did a real thing
+  happen server-side, act on it" problem.
+- Every mission condition is a lesson/module completion count from the first version — unlike achievements,
+  there was no pre-existing wealth-tied mission to migrate away from, so this is the "build it right the
+  first time" case DECISION-014's Consequences section anticipated needing eventually.
+- `TotalXpCalculator` was named after `ACADEMY_ENGINE.md` §7's own forward reference to a single-total-XP
+  service under that exact name — closing a second, smaller documented gap (three-way XP duplication) as a
+  direct consequence of adding a third XP source, not a separate unrelated refactor.
+
+### Consequences
+
+- XP now lives in three tables (`xp_events`, `achievement_unlocks`, `mission_completions`) summed by
+  `TotalXpCalculator` rather than one unified event log — still short of the full target `XPEvent`-shaped
+  single ledger `FEATURES.md`'s XP System describes, but a smaller, well-understood gap than before (three
+  known, tested sources instead of an ad hoc two-source sum duplicated three times in application code).
+  Unifying them into one table remains a Beta-stage candidate, not required now.
+- Deliberately deferred (see `FEATURES.md`'s Missions Status): a claim step, server-configurable mission
+  templates (vs. a fixed in-code catalog), non-XP reward currencies, and any mission condition beyond
+  lesson/module completion counts (e.g. quiz correctness, review activity) — each needs either a system that
+  doesn't exist yet (quiz-attempt tracking) or evidence the current shape is insufficient before adding
+  complexity.
+- `docs/FEATURES.md` and `docs/ROADMAP.md` are updated in the same change to reflect the mission system's new
+  Current status.
 
 ---
 

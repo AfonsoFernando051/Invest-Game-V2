@@ -21,9 +21,11 @@ import 'package:petrimonium/features/investment/data/repositories/investment_rep
 import 'package:petrimonium/features/mentor/data/datasources/mentor_remote_datasource.dart';
 import 'package:petrimonium/features/mentor/data/repositories/mentor_chat_repository.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/achievements_remote_datasource.dart';
+import 'package:petrimonium/features/portfolio/data/datasources/missions_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/portfolio_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/missions_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
 import 'package:petrimonium/features/settings/data/datasources/settings_remote_datasource.dart';
 import 'package:petrimonium/features/settings/data/repositories/settings_repository.dart';
@@ -110,6 +112,13 @@ class DI {
   // Not `final` so tests can replace it with a mock repository.
   static AchievementsRepository achievementsRepository = AchievementsRepository(
     remoteDataSource: _achievementsRemoteDataSource,
+  );
+
+  static final MissionsRemoteDataSource _missionsRemoteDataSource =
+      MissionsRemoteDataSource(apiClient: _apiClient);
+  // Not `final` so tests can replace it with a mock repository.
+  static MissionsRepository missionsRepository = MissionsRepository(
+    remoteDataSource: _missionsRemoteDataSource,
   );
 
   // Not `final` so tests can replace it with a mock repository.

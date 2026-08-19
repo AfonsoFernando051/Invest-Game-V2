@@ -1,5 +1,7 @@
 package com.jf.PetApp.infrastructure.repository.gamification;
 
+import java.time.Instant;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,4 +16,7 @@ public interface XpEventJpaRepository extends JpaRepository<XpEventJpaEntity, Lo
 
     @Query("select coalesce(sum(x.amount), 0) from XpEventJpaEntity x where x.userId = :userId")
     int sumAmountByUserId(@Param("userId") Long userId);
+
+    int countByUserIdAndEventTypeAndCreatedAtBetween(
+            Long userId, XpEventType eventType, Instant fromInclusive, Instant toExclusive);
 }

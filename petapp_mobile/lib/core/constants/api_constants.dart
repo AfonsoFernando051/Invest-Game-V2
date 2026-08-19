@@ -47,4 +47,5 @@ class ApiConstants {
 
   static const String gamificationSummaryEndpoint = '/api/v1/gamification/summary';
   static const String achievementsEndpoint = '/api/v1/achievements';
+  static const String missionsEndpoint = '/api/v1/missions';
 }

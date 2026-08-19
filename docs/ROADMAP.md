@@ -46,9 +46,15 @@ stage's original scope. See `ACADEMY_ENGINE.md`.
 - Levels derived from XP.
 - Basic achievements and missions.
 
-**Status:** implemented, but **XP is currently also awarded for portfolio value and profit thresholds** in
-`mission_catalog.dart` / `achievement_catalog.dart` — this contradicts the learning-first XP principle and is
-tracked as a required migration before Alpha can be considered complete. See `FEATURES.md` and `DECISIONS.md`.
+**Status:** implemented, and the wealth/profit-XP violation previously called out here is resolved — every
+portfolio-value/profit/passive-income-derived achievement is a zero-XP milestone (DECISION-014, updated with a
+resolution note), with regression tests on both the backend and Flutter catalogs. Lesson/module, achievement,
+and mission XP are all backend-authoritative (`xp_events`, `achievement_unlocks`, `mission_completions`
+tables, summed by `TotalXpCalculator`) — missions are a new, learning-only-from-day-one addition (four
+daily/weekly missions conditioned purely on lesson/module completion counts within the current period). One
+narrower item remains open: a handful of achievements still reward investment *activity* (not wealth amounts)
+rather than learning activity — an open product question, not a violation. See `FEATURES.md` and
+`DECISIONS.md`.
 
 ### Pet
 - Five species (Dog, Wolf, Fox, Bear, Lion), basic evolution stages, basic reward-driven progression.

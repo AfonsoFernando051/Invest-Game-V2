@@ -54,7 +54,9 @@ class AchievementCatalog {
       title: 'Primeiro Dividendo',
       description: 'Possui ao menos um ativo com geração de renda passiva.',
       icon: Icons.attach_money,
-      xpReward: 75,
+      // DECISION-014: XP must never reward passive-income/wealth signals.
+      // Kept as a milestone for flavor, but grants no XP.
+      xpReward: 0,
       qualifies: (s) => PassiveIncomeEstimator.estimate(s).monthlyEstimate > 0,
     ),
     _AchievementDef(
@@ -130,13 +132,18 @@ class AchievementCatalog {
       title: 'Caçador de Dividendos',
       description: 'Alcançou R\$1.000/ano em renda passiva estimada.',
       icon: Icons.paid,
-      xpReward: 250,
+      // DECISION-014: XP must never reward passive-income/wealth signals.
+      // Kept as a milestone for flavor, but grants no XP.
+      xpReward: 0,
       qualifies: (s) => PassiveIncomeEstimator.estimate(s).annualEstimate >= 1000,
     ),
   ];
 
-  /// XP granted for every achievement unlocked so far — the single source
-  /// feeding `MascotController.evaluateEvolution`'s `userXp` parameter.
+  /// XP preview for a set of achievement ids — used only for the unlock
+  /// celebration overlay and the pre-save onboarding preview (see the class
+  /// doc comment). Pet evolution itself is fed by the backend's real total
+  /// XP (`GamificationSummary.totalXp` via `PortfolioController._evaluateGamification`),
+  /// never by this local sum.
   static int totalXpFor(Set<String> unlockedIds) {
     return _defs.where((d) => unlockedIds.contains(d.id)).fold(0, (sum, d) => sum + d.xpReward);
   }

@@ -14,7 +14,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import com.jf.PetApp.application.gamification.port.AchievementRepositoryPort;
+import com.jf.PetApp.application.gamification.port.MissionRepositoryPort;
 import com.jf.PetApp.application.gamification.port.XpEventRepositoryPort;
+import com.jf.PetApp.application.gamification.service.TotalXpCalculator;
 import com.jf.PetApp.application.gamification.service.XpLedgerService;
 import com.jf.PetApp.application.learning.dto.LearningProgressResult;
 import com.jf.PetApp.application.learning.port.LearningCatalogPort;
@@ -44,14 +46,19 @@ class GetLearningProgressUseCaseImplTest {
     @Mock
     private AchievementRepositoryPort achievementRepositoryPort;
 
+    @Mock
+    private MissionRepositoryPort missionRepositoryPort;
+
     private GetLearningProgressUseCaseImpl useCase;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         XpLedgerService xpLedgerService = new XpLedgerService(xpEventRepositoryPort);
+        TotalXpCalculator totalXpCalculator =
+                new TotalXpCalculator(xpLedgerService, achievementRepositoryPort, missionRepositoryPort);
         useCase = new GetLearningProgressUseCaseImpl(
-                userRepository, catalogPort, progressRepository, xpLedgerService, achievementRepositoryPort);
+                userRepository, catalogPort, progressRepository, totalXpCalculator);
 
         User user = new User();
         user.setId(USER_ID);

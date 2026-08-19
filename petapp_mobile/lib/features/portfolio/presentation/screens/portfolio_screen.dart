@@ -11,6 +11,7 @@ import 'package:petrimonium/features/portfolio/presentation/widgets/asset_alloca
 import 'package:petrimonium/features/portfolio/presentation/widgets/hero_summary_section.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/holdings_section.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/achievements_section.dart';
+import 'package:petrimonium/features/portfolio/presentation/widgets/missions_section.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/quick_actions_fab.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/rpg_integration_card.dart';
 import 'package:petrimonium/features/portfolio/presentation/widgets/wealth_evolution_bar_card.dart';
@@ -93,6 +94,10 @@ class PortfolioScreen extends StatelessWidget {
                   currentStreak: controller.gamificationSummary?.currentStreak ?? 0,
                 ),
                 const SizedBox(height: 16),
+                if (controller.missions.isNotEmpty) ...[
+                  MissionsSection(missions: controller.missions),
+                  const SizedBox(height: 16),
+                ],
                 AchievementsSection(achievements: controller.achievements),
               ],
             ),

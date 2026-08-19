@@ -87,6 +87,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       achievementsLocalRepository: DI.achievementsLocalRepository,
       achievementsRepository: DI.achievementsRepository,
       gamificationRepository: DI.gamificationRepository,
+      missionsRepository: DI.missionsRepository,
       mascotController: _mascotController,
     );
     _initCompanionGreeting();

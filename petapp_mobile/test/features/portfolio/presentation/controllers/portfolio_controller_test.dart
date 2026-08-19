@@ -5,14 +5,17 @@ import 'package:petrimonium/features/game/domain/entities/gamification_summary.d
 import 'package:petrimonium/features/investment/data/models/investment_type_enum.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/achievements_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/datasources/portfolio_remote_datasource.dart';
+import 'package:petrimonium/features/portfolio/data/datasources/missions_remote_datasource.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_local_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/achievements_repository.dart';
+import 'package:petrimonium/features/portfolio/data/repositories/missions_repository.dart';
 import 'package:petrimonium/features/portfolio/data/repositories/portfolio_repository.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/achievement_evaluation_result.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/allocation_slice.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/dividend_event.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/history_point.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/holding.dart';
+import 'package:petrimonium/features/portfolio/domain/entities/mission_status.dart';
 import 'package:petrimonium/features/portfolio/domain/entities/portfolio_summary.dart';
 import 'package:petrimonium/features/portfolio/domain/enums/history_range.dart';
 import 'package:petrimonium/features/portfolio/presentation/controllers/portfolio_controller.dart';
@@ -100,6 +103,25 @@ class FakeGamificationRepository implements GamificationRepository {
   GamificationRemoteDataSource get remoteDataSource => throw UnimplementedError();
 }
 
+/// In-memory [MissionsRepository] double standing in for the real backend
+/// call — mission progress/completion logic itself now lives server-side
+/// (see `EvaluateMissionsUseCaseImplTest.java`), so this only verifies
+/// `PortfolioController` correctly orchestrates whatever the backend
+/// reports.
+class FakeMissionsRepository implements MissionsRepository {
+  MissionEvaluationResult resultToReturn = MissionEvaluationResult.empty;
+  Object? evaluateError;
+
+  @override
+  Future<MissionEvaluationResult> evaluate() async {
+    if (evaluateError != null) throw evaluateError!;
+    return resultToReturn;
+  }
+
+  @override
+  MissionsRemoteDataSource get remoteDataSource => throw UnimplementedError();
+}
+
 /// A single-lot [Holding] built the same way the real pipeline does
 /// (`Holding.fromLots`), so `firstPurchaseDate` and other lot-derived
 /// getters behave exactly as they would for real data.
@@ -120,6 +142,7 @@ void main() {
   late FakeAchievementsLocalRepository achievementsLocalRepository;
   late FakeAchievementsRepository achievementsRepository;
   late FakeGamificationRepository gamificationRepository;
+  late FakeMissionsRepository missionsRepository;
   late PortfolioController controller;
 
   setUp(() {
@@ -127,11 +150,13 @@ void main() {
     achievementsLocalRepository = FakeAchievementsLocalRepository();
     achievementsRepository = FakeAchievementsRepository();
     gamificationRepository = FakeGamificationRepository();
+    missionsRepository = FakeMissionsRepository();
     controller = PortfolioController(
       repository: repository,
       achievementsLocalRepository: achievementsLocalRepository,
       achievementsRepository: achievementsRepository,
       gamificationRepository: gamificationRepository,
+      missionsRepository: missionsRepository,
     );
   });
 
@@ -274,6 +299,61 @@ void main() {
 
       expect(controller.gamificationSummary?.totalXp, 275);
       expect(controller.gamificationSummary?.currentStreak, 2);
+    });
+  });
+
+  group('loadAll — missions', () {
+    test('populates missions and newly-completed codes from the backend', () async {
+      missionsRepository.resultToReturn = const MissionEvaluationResult(
+        missions: [
+          MissionStatus(
+            code: 'daily_complete_lesson',
+            period: MissionPeriod.daily,
+            periodKey: '2026-08-19',
+            progress: 1,
+            target: 1,
+            xpReward: 30,
+            completed: true,
+          ),
+        ],
+        newlyCompletedCodes: {'daily_complete_lesson'},
+        missionXpTotal: 30,
+      );
+
+      await controller.loadAll();
+
+      expect(controller.missions, hasLength(1));
+      expect(controller.missions.first.code, 'daily_complete_lesson');
+      expect(controller.newlyCompletedMissions, contains('daily_complete_lesson'));
+
+      controller.clearNewlyCompletedMissions();
+      expect(controller.newlyCompletedMissions, isEmpty);
+    });
+
+    test('a missions backend failure does not crash loadAll or clear prior mission state', () async {
+      missionsRepository.resultToReturn = const MissionEvaluationResult(
+        missions: [
+          MissionStatus(
+            code: 'daily_complete_lesson',
+            period: MissionPeriod.daily,
+            periodKey: '2026-08-19',
+            progress: 0,
+            target: 1,
+            xpReward: 30,
+            completed: false,
+          ),
+        ],
+        newlyCompletedCodes: {},
+        missionXpTotal: 0,
+      );
+      await controller.loadAll();
+      expect(controller.missions, hasLength(1));
+
+      missionsRepository.evaluateError = Exception('network down');
+      await controller.loadAll();
+
+      expect(controller.error, isNull);
+      expect(controller.missions, hasLength(1));
     });
   });
 

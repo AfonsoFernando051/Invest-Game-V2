@@ -20,7 +20,9 @@ public final class AchievementCatalog {
 
     public static final List<AchievementDefinition> DEFINITIONS = List.of(
             new AchievementDefinition("first_investment", 50, AchievementContext::hasHoldings),
-            new AchievementDefinition("first_dividend", 75, c -> c.monthlyPassiveIncomeEstimate() > 0),
+            // DECISION-014: XP must never reward passive-income/wealth signals.
+            // Kept as a milestone for flavor, but grants no XP.
+            new AchievementDefinition("first_dividend", 0, c -> c.monthlyPassiveIncomeEstimate() > 0),
             new AchievementDefinition("positive_return", 0, c -> c.totalGain() > 0),
             new AchievementDefinition("portfolio_10k", 0, c -> c.currentValue() >= 10_000),
             new AchievementDefinition("portfolio_50k", 0, c -> c.currentValue() >= 50_000),
@@ -30,5 +32,7 @@ public final class AchievementCatalog {
                     c -> c.firstPurchaseDate() != null && c.daysSinceFirstPurchase(java.time.LocalDate.now()) >= 100),
             new AchievementDefinition("long_term_investor", 500,
                     c -> c.firstPurchaseDate() != null && c.daysSinceFirstPurchase(java.time.LocalDate.now()) >= 365),
-            new AchievementDefinition("dividend_hunter", 250, c -> c.annualPassiveIncomeEstimate() >= 1_000));
+            // DECISION-014: XP must never reward passive-income/wealth signals.
+            // Kept as a milestone for flavor, but grants no XP.
+            new AchievementDefinition("dividend_hunter", 0, c -> c.annualPassiveIncomeEstimate() >= 1_000));
 }
