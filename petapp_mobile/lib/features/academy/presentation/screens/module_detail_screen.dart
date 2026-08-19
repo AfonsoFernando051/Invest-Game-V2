@@ -96,7 +96,7 @@ class _ModuleDetailScreenState extends State<ModuleDetailScreen> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
-      builder: (context, _, __) => _buildContent(context),
+      builder: (context, _, _) => _buildContent(context),
     );
   }
 

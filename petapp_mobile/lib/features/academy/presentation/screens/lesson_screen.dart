@@ -106,7 +106,7 @@ class _LessonScreenState extends State<LessonScreen> {
                 // switches language in Settings mid-lesson.
                 child: ValueListenableBuilder<String>(
                   valueListenable: Translator.languageNotifier,
-                  builder: (context, _, __) =>
+                  builder: (context, _, _) =>
                       _controller.isComplete ? _buildComplete(context) : _buildStep(context),
                 ),
               ),

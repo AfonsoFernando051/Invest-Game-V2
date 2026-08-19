@@ -280,7 +280,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     // otherwise flash the splash screen on every language switch).
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
-      builder: (context, _, __) => _buildScaffold(context),
+      builder: (context, _, _) => _buildScaffold(context),
     );
   }
 

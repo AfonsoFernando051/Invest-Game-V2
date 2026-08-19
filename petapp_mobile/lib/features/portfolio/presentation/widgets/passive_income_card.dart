@@ -60,7 +60,7 @@ class PassiveIncomeCard extends StatelessWidget {
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   itemCount: months.length,
-                  separatorBuilder: (_, __) => const SizedBox(width: 8),
+                  separatorBuilder: (_, _) => const SizedBox(width: 8),
                   itemBuilder: (context, i) => _monthChip(context, months[i], estimate.monthlyEstimate),
                 ),
               ),

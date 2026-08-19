@@ -214,7 +214,7 @@ class _RangeSelector extends StatelessWidget {
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
         itemCount: HistoryRange.values.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 6),
+        separatorBuilder: (_, _) => const SizedBox(width: 6),
         itemBuilder: (context, i) {
           final range = HistoryRange.values[i];
           final selected = controller.selectedRange == range;

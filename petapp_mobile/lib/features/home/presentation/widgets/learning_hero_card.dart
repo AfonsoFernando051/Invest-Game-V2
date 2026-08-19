@@ -241,7 +241,7 @@ class _LearningHeroCardState extends State<LearningHeroCard> with TickerProvider
                               PetAssets.imageFor(widget.mascotController.profile.specie.name),
                               height: 220,
                               fit: BoxFit.contain,
-                              errorBuilder: (_, __, ___) => const Icon(Icons.pets, size: 100, color: Colors.white70),
+                              errorBuilder: (_, _, _) => const Icon(Icons.pets, size: 100, color: Colors.white70),
                             ),
                           ),
                         );

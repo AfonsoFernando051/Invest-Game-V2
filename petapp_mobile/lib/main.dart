@@ -59,9 +59,9 @@ class MyApp extends StatelessWidget {
     // directly at build time.
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
-      builder: (context, _, __) => ValueListenableBuilder<ThemeMode>(
+      builder: (context, _, _) => ValueListenableBuilder<ThemeMode>(
         valueListenable: ThemeController.themeModeNotifier,
-        builder: (context, themeMode, __) => MaterialApp(
+        builder: (context, themeMode, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           themeMode: themeMode,
           theme: AppTheme.light,

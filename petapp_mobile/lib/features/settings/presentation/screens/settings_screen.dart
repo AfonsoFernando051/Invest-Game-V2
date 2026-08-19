@@ -142,7 +142,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
-      builder: (context, _, __) => _buildScaffold(context),
+      builder: (context, _, _) => _buildScaffold(context),
     );
   }
 

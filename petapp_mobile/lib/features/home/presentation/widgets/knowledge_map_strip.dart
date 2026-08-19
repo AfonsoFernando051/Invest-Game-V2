@@ -59,7 +59,7 @@ class KnowledgeMapStrip extends StatelessWidget {
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
             itemCount: sorted.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 8),
+            separatorBuilder: (_, _) => const SizedBox(width: 8),
             itemBuilder: (context, i) => ModuleChip(
               module: sorted[i],
               layout: ModuleChipLayout.vertical,

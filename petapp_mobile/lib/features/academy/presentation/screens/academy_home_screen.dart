@@ -155,7 +155,7 @@ class _AcademyHomeScreenState extends State<AcademyHomeScreen> {
     // language listener (see `AcademyController._onLanguageChanged`).
     return ValueListenableBuilder<String>(
       valueListenable: Translator.languageNotifier,
-      builder: (context, _, __) => _buildContent(context),
+      builder: (context, _, _) => _buildContent(context),
     );
   }
 
