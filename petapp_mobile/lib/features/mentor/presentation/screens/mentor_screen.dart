@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:petrimonium/core/constants/app_colors.dart';
 import 'package:petrimonium/core/constants/app_strings.dart';
 import 'package:petrimonium/core/di/dependency_injection.dart';
 import 'package:petrimonium/core/theme/app_color_tokens.dart';
+import 'package:petrimonium/core/theme/app_motion.dart';
 import 'package:petrimonium/core/utils/pet_assets.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/core/widgets/app_loading_indicator.dart';
 import 'package:petrimonium/core/widgets/glass_card.dart';
 import 'package:petrimonium/features/mentor/domain/entities/chat_message.dart';
 import 'package:petrimonium/features/mentor/presentation/controllers/mentor_chat_controller.dart';
+import 'package:petrimonium/features/mentor/presentation/screens/conversation_list_screen.dart';
 import 'package:petrimonium/features/mentor/presentation/widgets/chat_bubble.dart';
 import 'package:petrimonium/features/mentor/presentation/widgets/mentor_input_bar.dart';
 import 'package:petrimonium/features/mentor/presentation/widgets/suggested_prompt_chip.dart';
@@ -46,7 +47,8 @@ class _MentorScreenState extends State<MentorScreen> {
     super.initState();
     _controller = MentorChatController(repository: DI.mentorChatRepository);
     _controller.addListener(_onControllerChanged);
-    _controller.loadHistory();
+    _controller.loadConversation(null);
+    DI.mentorChatRepository.purgeLegacyLocalHistory();
     _fetchPetAvatar();
   }
 
@@ -83,37 +85,28 @@ class _MentorScreenState extends State<MentorScreen> {
     _controller.sendMessage(text, currentScreen: 'mentor');
   }
 
-  Future<void> _confirmClear() async {
-    final tokens = context.colors;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (_) => AlertDialog(
-        backgroundColor: tokens.surfaceElevated,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Text(
-          Translator.translate(AppStrings.mentorClearConversationTitle),
-          style: TextStyle(color: tokens.textPrimary, fontWeight: FontWeight.bold),
+  Route<T> _fadeRoute<T>(Widget page) {
+    return PageRouteBuilder<T>(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(
+        opacity: animation,
+        child: SlideTransition(
+          position: Tween(begin: const Offset(0, 0.04), end: Offset.zero)
+              .animate(CurvedAnimation(parent: animation, curve: Curves.easeOut)),
+          child: child,
         ),
-        content: Text(
-          Translator.translate(AppStrings.mentorClearConversationConfirm),
-          style: TextStyle(color: tokens.textSecondary),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(Translator.translate(AppStrings.cancelButton), style: const TextStyle(color: AppColors.neonCyan)),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(Translator.translate(AppStrings.clearButton), style: TextStyle(color: tokens.error)),
-          ),
-        ],
       ),
+      transitionDuration: AppMotion.pageTransition,
     );
+  }
 
-    if (confirmed == true) {
-      HapticFeedback.mediumImpact();
-      await _controller.clearConversation();
+  Future<void> _openHistory() async {
+    final result = await Navigator.of(context).push<int?>(_fadeRoute(const ConversationListScreen()));
+    if (result == null) return;
+    if (result == ConversationListScreen.newConversationSentinel) {
+      _controller.startNewChat();
+    } else {
+      await _controller.loadConversation(result);
     }
   }
 
@@ -225,9 +218,14 @@ class _MentorScreenState extends State<MentorScreen> {
             ),
           ),
           IconButton(
-            icon: Icon(Icons.refresh, color: tokens.textSecondary, size: 20),
-            tooltip: 'Limpar conversa',
-            onPressed: _controller.messages.isEmpty ? null : _confirmClear,
+            icon: Icon(Icons.add_comment_outlined, color: tokens.textSecondary, size: 20),
+            tooltip: Translator.translate(AppStrings.mentorNewChatTooltip),
+            onPressed: _controller.messages.isEmpty ? null : _controller.startNewChat,
+          ),
+          IconButton(
+            icon: Icon(Icons.history, color: tokens.textSecondary, size: 20),
+            tooltip: Translator.translate(AppStrings.mentorHistoryTooltip),
+            onPressed: _openHistory,
           ),
         ],
       ),

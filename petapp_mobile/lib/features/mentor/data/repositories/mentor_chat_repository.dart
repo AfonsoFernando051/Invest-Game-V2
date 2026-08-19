@@ -1,18 +1,16 @@
-import 'dart:convert';
-
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:petrimonium/core/utils/translator.dart';
 import 'package:petrimonium/features/mentor/data/datasources/mentor_remote_datasource.dart';
 import 'package:petrimonium/features/mentor/domain/entities/chat_message.dart';
+import 'package:petrimonium/features/mentor/domain/entities/conversation_summary.dart';
 import 'package:petrimonium/features/pet/data/models/investment_horizon_enum.dart';
 import 'package:petrimonium/features/pet/data/models/pet_goal_enum.dart';
 import 'package:petrimonium/features/pet/data/repositories/pet_preferences_repository.dart';
 
-/// One repository facade (mirrors `PortfolioRepository`'s single-class-per-
-/// feature style): sends messages to the backend, and persists the running
-/// conversation on-device via SharedPreferences under one JSON-encoded key —
-/// same list-persistence pattern as `AchievementsLocalRepository`. No backend
-/// chat-history table in Phase 1; the client resends recent turns each call.
+/// Facade over the Mentor conversation API. Conversations and messages are
+/// now persisted server-side, scoped to the authenticated user — this class
+/// no longer caches chat history on-device (see [purgeLegacyLocalHistory]
+/// for the one-time cleanup of the old shared cache that predates this).
 class MentorChatRepository {
   MentorChatRepository({
     required MentorRemoteDataSource remoteDataSource,
@@ -20,54 +18,46 @@ class MentorChatRepository {
   })  : _remoteDataSource = remoteDataSource,
         _petPreferencesRepository = petPreferencesRepository;
 
-  static const _historyKey = 'mentor_chat_history';
-  static const _maxHistoryTurnsSent = 10;
+  /// Key the old (pre-backend-persistence) SharedPreferences cache used —
+  /// shared by whoever was last logged in on a device, which was the bug
+  /// this whole feature replaces. Nothing reads it anymore; only purged.
+  static const _legacyHistoryKey = 'mentor_chat_history';
 
   final MentorRemoteDataSource _remoteDataSource;
   final PetPreferencesRepository _petPreferencesRepository;
 
-  Future<List<ChatMessage>> loadHistory() async {
+  Future<void> purgeLegacyLocalHistory() async {
     final prefs = await SharedPreferences.getInstance();
-    final raw = prefs.getString(_historyKey);
-    if (raw == null || raw.isEmpty) return [];
-
-    final decoded = jsonDecode(raw) as List<dynamic>;
-    return decoded.map((e) => ChatMessage.fromJson(e as Map<String, dynamic>)).toList();
+    await prefs.remove(_legacyHistoryKey);
   }
 
-  Future<void> saveHistory(List<ChatMessage> messages) async {
-    final prefs = await SharedPreferences.getInstance();
-    final encoded = jsonEncode(messages.map((m) => m.toJson()).toList());
-    await prefs.setString(_historyKey, encoded);
+  Future<List<ChatMessage>> loadConversation(int conversationId) {
+    return _remoteDataSource.getConversationMessages(conversationId);
   }
 
-  Future<void> clearHistory() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_historyKey);
+  Future<List<ConversationSummary>> listConversations() {
+    return _remoteDataSource.listConversations();
   }
 
-  Future<String> sendMessage({
+  Future<void> renameConversation(int conversationId, String title) {
+    return _remoteDataSource.renameConversation(conversationId, title);
+  }
+
+  Future<void> deleteConversation(int conversationId) {
+    return _remoteDataSource.deleteConversation(conversationId);
+  }
+
+  Future<MentorChatResult> sendMessage({
     required String message,
-    required List<ChatMessage> priorMessages,
+    int? conversationId,
     String? currentScreen,
   }) async {
     final goal = await _petPreferencesRepository.loadGoal();
     final horizon = await _petPreferencesRepository.loadHorizon();
 
-    final recent = priorMessages.length > _maxHistoryTurnsSent
-        ? priorMessages.sublist(priorMessages.length - _maxHistoryTurnsSent)
-        : priorMessages;
-
-    final history = recent
-        .map((m) => {
-              'role': m.role == ChatRole.user ? 'user' : 'mentor',
-              'text': m.text,
-            })
-        .toList();
-
     return _remoteDataSource.sendMessage(
       message: message,
-      history: history,
+      conversationId: conversationId,
       context: {
         'petGoal': goal.label,
         'investmentHorizon': horizon.label,

@@ -344,9 +344,18 @@ class AppStrings {
   static const String retryButtonLabel = "retryButtonLabel";
 
   // Mentor
-  static const String mentorClearConversationTitle = "mentorClearConversationTitle";
-  static const String mentorClearConversationConfirm = "mentorClearConversationConfirm";
-  static const String clearButton = "clearButton";
+  static const String mentorNewChatTooltip = "mentorNewChatTooltip";
+  static const String mentorHistoryTooltip = "mentorHistoryTooltip";
+  static const String mentorConversationHistoryTitle = "mentorConversationHistoryTitle";
+  static const String mentorNoConversationsTitle = "mentorNoConversationsTitle";
+  static const String mentorNoConversationsSubtitle = "mentorNoConversationsSubtitle";
+  static const String mentorConversationsLoadError = "mentorConversationsLoadError";
+  static const String mentorRenameConversationTitle = "mentorRenameConversationTitle";
+  static const String mentorRenameConversationHint = "mentorRenameConversationHint";
+  static const String mentorRenameConversationSave = "mentorRenameConversationSave";
+  static const String mentorDeleteConversationTitle = "mentorDeleteConversationTitle";
+  static const String mentorDeleteConversationConfirm = "mentorDeleteConversationConfirm";
+  static const String mentorDeleteConversationButton = "mentorDeleteConversationButton";
 
   // Investment configuration
   static const String initialPortfolioTitle = "initialPortfolioTitle";

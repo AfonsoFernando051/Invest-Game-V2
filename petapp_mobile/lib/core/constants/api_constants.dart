@@ -38,6 +38,8 @@ class ApiConstants {
   static const String settingsLanguageEndpoint = '/api/settings/language';
 
   static const String mentorChatEndpoint = '/api/mentor/chat';
+  static const String mentorConversationsEndpoint = '/api/mentor/conversations';
+  static String mentorConversationEndpoint(int id) => '/api/mentor/conversations/$id';
 
   static String learningLessonCompleteEndpoint(String lessonId) => '/api/v1/learning/lessons/$lessonId/complete';
   static const String learningProgressEndpoint = '/api/v1/learning/progress';

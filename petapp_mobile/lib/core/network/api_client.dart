@@ -62,4 +62,20 @@ class ApiClient {
         .put(url, headers: headers, body: jsonEncode(body))
         .timeout(_requestTimeout);
   }
+
+  Future<http.Response> patch(String endpoint, dynamic body) async {
+    final headers = await _getHeaders();
+    final url = Uri.parse('${ApiConstants.baseUrl}$endpoint');
+
+    return _client
+        .patch(url, headers: headers, body: jsonEncode(body))
+        .timeout(_requestTimeout);
+  }
+
+  Future<http.Response> delete(String endpoint) async {
+    final headers = await _getHeaders();
+    final url = Uri.parse('${ApiConstants.baseUrl}$endpoint');
+
+    return _client.delete(url, headers: headers).timeout(_requestTimeout);
+  }
 }

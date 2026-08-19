@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
+import 'package:petrimonium/features/mentor/data/datasources/mentor_remote_datasource.dart';
 import 'package:petrimonium/features/mentor/data/repositories/mentor_chat_repository.dart';
 import 'package:petrimonium/features/mentor/domain/entities/chat_message.dart';
 import 'package:petrimonium/features/mentor/presentation/controllers/mentor_chat_controller.dart';
@@ -10,38 +11,42 @@ void main() {
   late MockMentorChatRepository mockRepository;
   late MentorChatController controller;
 
-  setUpAll(() {
-    registerFallbackValue(<ChatMessage>[]);
-  });
-
   setUp(() {
     mockRepository = MockMentorChatRepository();
     controller = MentorChatController(repository: mockRepository);
-    when(() => mockRepository.saveHistory(any())).thenAnswer((_) async {});
   });
 
   tearDown(() {
     controller.dispose();
   });
 
-  group('loadHistory', () {
-    test('populates messages from the repository and clears the loading flag', () async {
+  group('loadConversation', () {
+    test('with an id, populates messages from the repository and clears the loading flag', () async {
       final history = [
         ChatMessage(id: '1', role: ChatRole.user, text: 'Oi', timestamp: DateTime(2024, 1, 1)),
         ChatMessage(id: '2', role: ChatRole.mentor, text: 'Olá!', timestamp: DateTime(2024, 1, 1)),
       ];
-      when(() => mockRepository.loadHistory()).thenAnswer((_) async => history);
+      when(() => mockRepository.loadConversation(7)).thenAnswer((_) async => history);
 
-      expect(controller.isLoadingHistory, isTrue);
-      await controller.loadHistory();
+      await controller.loadConversation(7);
 
       expect(controller.isLoadingHistory, isFalse);
       expect(controller.messages, history);
+      expect(controller.conversationId, 7);
+    });
+
+    test('with null, clears to a blank chat without calling the repository', () async {
+      await controller.loadConversation(null);
+
+      expect(controller.isLoadingHistory, isFalse);
+      expect(controller.messages, isEmpty);
+      expect(controller.conversationId, isNull);
+      verifyNever(() => mockRepository.loadConversation(any()));
     });
 
     test('messages is unmodifiable', () async {
-      when(() => mockRepository.loadHistory()).thenAnswer((_) async => []);
-      await controller.loadHistory();
+      when(() => mockRepository.loadConversation(1)).thenAnswer((_) async => []);
+      await controller.loadConversation(1);
 
       expect(() => controller.messages.add(
             ChatMessage(id: 'x', role: ChatRole.user, text: 'x', timestamp: DateTime.now()),
@@ -53,9 +58,9 @@ void main() {
     test('appends the user message immediately, then the revealed mentor reply', () async {
       when(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
-          )).thenAnswer((_) async => 'Claro, posso ajudar!');
+          )).thenAnswer((_) async => const MentorChatResult(reply: 'Claro, posso ajudar!', conversationId: 1));
 
       await controller.sendMessage('O que são dividendos?', currentScreen: 'mentor');
 
@@ -68,33 +73,34 @@ void main() {
       expect(controller.isSending, isFalse);
     });
 
-    test('passes the trimmed text and prior messages to the repository', () async {
+    test('adopts the conversationId returned by the repository on the first send', () async {
       when(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
-          )).thenAnswer((_) async => 'ok');
+          )).thenAnswer((_) async => const MentorChatResult(reply: 'ok', conversationId: 99));
+
+      expect(controller.conversationId, isNull);
+      await controller.sendMessage('Oi');
+
+      expect(controller.conversationId, 99);
+    });
+
+    test('passes the trimmed text and current conversationId to the repository', () async {
+      when(() => mockRepository.sendMessage(
+            message: any(named: 'message'),
+            conversationId: any(named: 'conversationId'),
+            currentScreen: any(named: 'currentScreen'),
+          )).thenAnswer((_) async => const MentorChatResult(reply: 'ok', conversationId: 1));
 
       await controller.sendMessage('  Qual missão devo completar?  ');
 
       final captured = verify(() => mockRepository.sendMessage(
             message: captureAny(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
           )).captured;
       expect(captured.single, 'Qual missão devo completar?');
-    });
-
-    test('persists history after the user message and again after the reply settles', () async {
-      when(() => mockRepository.sendMessage(
-            message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
-            currentScreen: any(named: 'currentScreen'),
-          )).thenAnswer((_) async => 'ok');
-
-      await controller.sendMessage('Oi');
-
-      verify(() => mockRepository.saveHistory(any())).called(2);
     });
 
     test('ignores a blank/whitespace-only message', () async {
@@ -103,7 +109,7 @@ void main() {
       expect(controller.messages, isEmpty);
       verifyNever(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
           ));
     });
@@ -111,11 +117,11 @@ void main() {
     test('ignores a new send while one is already in flight', () async {
       when(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
           )).thenAnswer((_) async {
         await Future<void>.delayed(const Duration(milliseconds: 20));
-        return 'ok';
+        return const MentorChatResult(reply: 'ok', conversationId: 1);
       });
 
       final first = controller.sendMessage('primeira');
@@ -132,7 +138,7 @@ void main() {
     test('reveals the fallback error reply and marks it as an error, without throwing', () async {
       when(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
           )).thenThrow(Exception('backend down'));
 
@@ -146,21 +152,20 @@ void main() {
     });
   });
 
-  group('clearConversation', () {
-    test('empties the message list and clears persisted history', () async {
+  group('startNewChat', () {
+    test('empties the message list and resets conversationId, without calling the repository', () async {
       when(() => mockRepository.sendMessage(
             message: any(named: 'message'),
-            priorMessages: any(named: 'priorMessages'),
+            conversationId: any(named: 'conversationId'),
             currentScreen: any(named: 'currentScreen'),
-          )).thenAnswer((_) async => 'ok');
-      when(() => mockRepository.clearHistory()).thenAnswer((_) async {});
+          )).thenAnswer((_) async => const MentorChatResult(reply: 'ok', conversationId: 1));
       await controller.sendMessage('Oi');
       expect(controller.messages, isNotEmpty);
 
-      await controller.clearConversation();
+      controller.startNewChat();
 
       expect(controller.messages, isEmpty);
-      verify(() => mockRepository.clearHistory()).called(1);
+      expect(controller.conversationId, isNull);
     });
   });
 }

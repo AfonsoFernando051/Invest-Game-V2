@@ -1,7 +1,8 @@
 package com.jf.PetApp.application.mentor.usecase;
 
 import com.jf.PetApp.application.mentor.dto.MentorChatRequest;
+import com.jf.PetApp.application.mentor.dto.MentorChatResponse;
 
 public interface GetMentorReplyUseCase {
-    String execute(String email, MentorChatRequest request);
+    MentorChatResponse execute(String email, MentorChatRequest request);
 }

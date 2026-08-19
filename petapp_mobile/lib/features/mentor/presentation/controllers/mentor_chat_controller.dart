@@ -8,32 +8,45 @@ import 'package:petrimonium/features/mentor/domain/entities/chat_message.dart';
 const String _fallbackErrorReply =
     'Hmm, algo deu errado ao pensar na resposta 🐾 Vamos tentar de novo daqui a pouco?';
 
-/// Drives the Mentor chat: message list, sending state, and a client-side
-/// typewriter reveal that simulates streaming over a normal request/response
-/// call (real SSE streaming is a documented future step, not implemented in
-/// Phase 1 — see docs/AI_MENTOR.md).
+/// Drives the Mentor chat: which conversation is open, its message list,
+/// sending state, and a client-side typewriter reveal that simulates
+/// streaming over a normal request/response call (real SSE streaming is a
+/// documented future step, not implemented in Phase 1 — see
+/// docs/AI_MENTOR.md). `conversationId` is `null` for a fresh/unsaved chat —
+/// the backend creates the conversation lazily on the first sent message.
 class MentorChatController extends ChangeNotifier {
   MentorChatController({required MentorChatRepository repository}) : _repository = repository;
 
   final MentorChatRepository _repository;
 
+  int? _conversationId;
   final List<ChatMessage> _messages = [];
   bool _isSending = false;
   bool _isLoadingHistory = true;
   Timer? _revealTimer;
 
+  int? get conversationId => _conversationId;
   List<ChatMessage> get messages => List.unmodifiable(_messages);
   bool get isSending => _isSending;
   bool get isLoadingHistory => _isLoadingHistory;
 
-  Future<void> loadHistory() async {
-    _isLoadingHistory = true;
+  /// Loads an existing conversation, or clears to a blank/new chat when
+  /// [conversationId] is `null`.
+  Future<void> loadConversation(int? conversationId) async {
+    _revealTimer?.cancel();
+    _conversationId = conversationId;
+    _messages.clear();
+    _isLoadingHistory = conversationId != null;
     notifyListeners();
 
-    final history = await _repository.loadHistory();
-    _messages
-      ..clear()
-      ..addAll(history);
+    if (conversationId == null) {
+      _isLoadingHistory = false;
+      notifyListeners();
+      return;
+    }
+
+    final history = await _repository.loadConversation(conversationId);
+    _messages.addAll(history);
 
     _isLoadingHistory = false;
     notifyListeners();
@@ -43,7 +56,6 @@ class MentorChatController extends ChangeNotifier {
     final trimmed = text.trim();
     if (trimmed.isEmpty || _isSending) return;
 
-    final priorMessages = List<ChatMessage>.of(_messages);
     _messages.add(ChatMessage(
       id: _newId(),
       role: ChatRole.user,
@@ -52,21 +64,20 @@ class MentorChatController extends ChangeNotifier {
     ));
     _isSending = true;
     notifyListeners();
-    await _repository.saveHistory(_messages);
 
     try {
-      final reply = await _repository.sendMessage(
+      final result = await _repository.sendMessage(
         message: trimmed,
-        priorMessages: priorMessages,
+        conversationId: _conversationId,
         currentScreen: currentScreen,
       );
-      await _revealReply(reply, isError: false);
+      _conversationId = result.conversationId;
+      await _revealReply(result.reply, isError: false);
     } catch (_) {
       await _revealReply(_fallbackErrorReply, isError: true);
     } finally {
       _isSending = false;
       notifyListeners();
-      await _repository.saveHistory(_messages);
     }
   }
 
@@ -108,11 +119,15 @@ class MentorChatController extends ChangeNotifier {
     return completer.future;
   }
 
-  Future<void> clearConversation() async {
+  /// Resets to a blank, unsaved chat — no backend call. Nothing is lost:
+  /// every message already sent was persisted server-side the moment it was
+  /// sent. Resuming a past conversation, or deleting one, happens from the
+  /// separate conversation history screen.
+  void startNewChat() {
     _revealTimer?.cancel();
+    _conversationId = null;
     _messages.clear();
     notifyListeners();
-    await _repository.clearHistory();
   }
 
   String _newId() => '${DateTime.now().microsecondsSinceEpoch}-${_messages.length}';
