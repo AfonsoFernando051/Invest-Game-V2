@@ -3,7 +3,7 @@
   "domainId": "portfolio_wealth",
   "order": 9,
   "iconKey": "dashboard_customize_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -24,8 +24,8 @@
       "moduleId": "portfolio_construction",
       "order": 1,
       "iconKey": "dashboard_customize_outlined",
-      "xpReward": 0,
-      "contentAvailable": false,
+      "xpReward": 100,
+      "contentAvailable": true,
       "prerequisites": [],
       "translations": {
         "pt": {
@@ -41,7 +41,1788 @@
           "description": "Perfil de riesgo, horizonte de tiempo y asignación entre renta fija, acciones y ETFs."
         }
       },
-      "lessons": []
+      "lessons": [
+        {
+          "lessonId": "portfolio_construction_what_is_a_portfolio",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "O Que É uma Carteira de Investimentos?"
+            },
+            "en": {
+              "title": "What Is an Investment Portfolio?"
+            },
+            "es": {
+              "title": "¿Qué Es una Cartera de Inversiones?"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Sua Carteira é um Conjunto, Não Peças Soltas",
+                  "body": "Você já sabe que diversificar significa espalhar seus investimentos entre diferentes ativos para reduzir o impacto de um problema isolado. O nome que damos a esse conjunto completo — tudo que você possui, do CDB ao ETF, da ação ao Tesouro Direto — é carteira (ou portfólio).\n\nA partir de agora, o foco muda. Em vez de olhar para cada investimento separadamente, você vai aprender a olhar para o conjunto. Isso importa porque o resultado que realmente afeta sua vida financeira não é o desempenho de um único ativo — é o resultado combinado de tudo que você tem investido, avaliado junto.\n\nUma carteira bem pensada não é só uma lista de produtos financeiros. É uma decisão sobre como esses produtos se combinam para buscar seus objetivos, dentro do risco que faz sentido para você."
+                },
+                "en": {
+                  "title": "Your Portfolio Is a Whole, Not Separate Pieces",
+                  "body": "You already know that diversifying means spreading your investments across different assets to reduce the impact of an isolated problem. The name for that complete set — everything you hold, from a CDB to an ETF, from stocks to Treasury bonds — is a portfolio.\n\nFrom here on, the focus shifts. Instead of looking at each investment separately, you'll learn to look at the whole. That matters because the result that actually affects your financial life isn't the performance of a single asset — it's the combined result of everything you have invested, considered together.\n\nA well-thought-out portfolio isn't just a list of financial products. It's a decision about how those products combine to pursue your goals, within a level of risk that makes sense for you."
+                },
+                "es": {
+                  "title": "Tu Cartera Es un Conjunto, No Piezas Sueltas",
+                  "body": "Ya sabes que diversificar significa repartir tus inversiones entre diferentes activos para reducir el impacto de un problema aislado. El nombre que le damos a ese conjunto completo — todo lo que tienes, desde un CDB hasta un ETF, desde acciones hasta el Tesoro Directo — es cartera (o portafolio).\n\nDe ahora en adelante, el enfoque cambia. En vez de mirar cada inversión por separado, vas a aprender a mirar el conjunto. Esto importa porque el resultado que realmente afecta tu vida financiera no es el desempeño de un solo activo — es el resultado combinado de todo lo que tienes invertido, visto en conjunto.\n\nUna cartera bien pensada no es solo una lista de productos financieros. Es una decisión sobre cómo esos productos se combinan para buscar tus objetivos, dentro del nivel de riesgo que tiene sentido para ti."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "O Caso de Marina",
+                  "body": "Marina investe em quatro lugares: um CDB de banco, Tesouro Selic, um ETF de ações e ações de duas empresas compradas diretamente. Em um mês, uma dessas ações cai 15% depois de um resultado trimestral fraco.\n\nOlhando só para essa ação, parece um mês ruim. Mas o CDB e o Tesouro Selic renderam o de sempre, praticamente sem oscilar, e o ETF ficou estável. Quando Marina soma tudo, sua carteira caiu menos de 2% no mês — porque aquela ação era só uma fatia do total, e as outras partes não se moveram na mesma direção.\n\nSe Marina tivesse colocado todo o dinheiro só naquela ação, o resultado do mês seria a queda de 15% inteira. É a diferença entre avaliar uma peça isolada e avaliar o conjunto."
+                },
+                "en": {
+                  "title": "Marina's Case",
+                  "body": "Marina invests in four places: a bank CDB, Treasury Selic, a stock ETF, and shares of two companies bought directly. In one month, one of those stocks drops 15% after a weak quarterly result.\n\nLooking only at that stock, it seems like a bad month. But the CDB and Treasury Selic earned their usual steady return, barely moving, and the ETF stayed flat. When Marina adds it all up, her portfolio fell less than 2% that month — because that stock was only a slice of the total, and the other parts didn't move in the same direction.\n\nIf Marina had put all her money into just that stock, the month's result would be the full 15% drop. That's the difference between evaluating an isolated piece and evaluating the whole."
+                },
+                "es": {
+                  "title": "El Caso de Marina",
+                  "body": "Marina invierte en cuatro lugares: un CDB de banco, Tesoro Selic, un ETF de acciones y acciones de dos empresas compradas directamente. En un mes, una de esas acciones cae 15% después de un resultado trimestral débil.\n\nMirando solo esa acción, parece un mes malo. Pero el CDB y el Tesoro Selic rindieron lo de siempre, casi sin moverse, y el ETF se mantuvo estable. Cuando Marina suma todo, su cartera cayó menos del 2% en el mes — porque esa acción era solo una porción del total, y las otras partes no se movieron en la misma dirección.\n\nSi Marina hubiera puesto todo su dinero solo en esa acción, el resultado del mes sería la caída completa del 15%. Esa es la diferencia entre evaluar una pieza aislada y evaluar el conjunto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que faz mais sentido avaliar o desempenho pelo resultado da carteira como um todo, em vez de olhar para cada ativo separadamente?",
+                  "options": [
+                    "Porque ativos individuais não têm risco, só a carteira toda tem",
+                    "Porque o que afeta sua vida financeira é o resultado combinado de tudo que você investe, e ativos diferentes tendem a se mover de formas diferentes",
+                    "Porque olhar ativo por ativo é proibido pelas corretoras",
+                    "Porque só ativos de renda fixa devem ser avaliados individualmente"
+                  ],
+                  "explanation": "O resultado que importa para seus objetivos é o da carteira inteira. Como ativos diferentes reagem de formas diferentes aos mesmos eventos, olhar só para um ativo isolado pode distorcer a percepção do que está realmente acontecendo com seu dinheiro."
+                },
+                "en": {
+                  "prompt": "Why does it make more sense to evaluate performance by the portfolio's overall result, rather than looking at each asset separately?",
+                  "options": [
+                    "Because individual assets carry no risk, only the whole portfolio does",
+                    "Because what affects your financial life is the combined result of everything you invest, and different assets tend to move in different ways",
+                    "Because looking at assets one by one is against brokerage rules",
+                    "Because only fixed income assets should be evaluated individually"
+                  ],
+                  "explanation": "The result that matters for your goals is the whole portfolio's result. Because different assets react differently to the same events, looking at just one isolated asset can distort your sense of what's really happening with your money."
+                },
+                "es": {
+                  "prompt": "¿Por qué tiene más sentido evaluar el desempeño por el resultado de la cartera en su conjunto, en vez de mirar cada activo por separado?",
+                  "options": [
+                    "Porque los activos individuales no tienen riesgo, solo la cartera completa lo tiene",
+                    "Porque lo que afecta tu vida financiera es el resultado combinado de todo lo que inviertes, y activos diferentes tienden a moverse de formas distintas",
+                    "Porque mirar activo por activo está prohibido por las corredoras",
+                    "Porque solo los activos de renta fija deben evaluarse individualmente"
+                  ],
+                  "explanation": "El resultado que importa para tus objetivos es el de la cartera entera. Como activos diferentes reaccionan de forma distinta a los mismos eventos, mirar solo un activo aislado puede distorsionar tu percepción de lo que realmente está pasando con tu dinero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual das opções abaixo melhor descreve o que é uma carteira de investimentos?",
+                  "options": [
+                    "O investimento único que rendeu mais no último ano",
+                    "Uma conta bancária específica para guardar dinheiro",
+                    "O conjunto de todos os investimentos que uma pessoa possui, considerados em conjunto",
+                    "Um produto financeiro vendido por corretoras"
+                  ],
+                  "explanation": "Carteira é o termo para o conjunto completo de investimentos que alguém possui — não um produto específico nem apenas o ativo que teve o melhor desempenho."
+                },
+                "en": {
+                  "prompt": "Which option below best describes what an investment portfolio is?",
+                  "options": [
+                    "The single investment that performed best over the last year",
+                    "A specific bank account for storing money",
+                    "The complete set of all investments a person holds, considered together",
+                    "A financial product sold by brokerages"
+                  ],
+                  "explanation": "Portfolio is the term for the complete set of investments someone holds — not a specific product, and not just the asset that performed best."
+                },
+                "es": {
+                  "prompt": "¿Cuál de las siguientes opciones describe mejor qué es una cartera de inversiones?",
+                  "options": [
+                    "La única inversión que rindió más en el último año",
+                    "Una cuenta bancaria específica para guardar dinero",
+                    "El conjunto de todas las inversiones que una persona posee, consideradas en conjunto",
+                    "Un producto financiero vendido por las corredoras"
+                  ],
+                  "explanation": "Cartera es el término para el conjunto completo de inversiones que alguien posee — no un producto específico, ni solo el activo que tuvo mejor desempeño."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Carteira (ou portfólio) é o conjunto completo de todos os investimentos que você possui, considerados em conjunto.",
+                    "O que afeta sua vida financeira é o resultado combinado da carteira, não o desempenho isolado de um único ativo.",
+                    "Ativos diferentes reagem de formas diferentes aos mesmos eventos — por isso avaliar o conjunto dá uma visão mais realista do que avaliar peça por peça."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A portfolio is the complete set of all the investments you hold, considered together.",
+                    "What affects your financial life is the portfolio's combined result, not the isolated performance of a single asset.",
+                    "Different assets react differently to the same events — which is why evaluating the whole gives a more realistic picture than evaluating piece by piece."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Cartera (o portafolio) es el conjunto completo de todas las inversiones que posees, consideradas en conjunto.",
+                    "Lo que afecta tu vida financiera es el resultado combinado de la cartera, no el desempeño aislado de un solo activo.",
+                    "Activos diferentes reaccionan de forma distinta a los mismos eventos — por eso evaluar el conjunto da una visión más realista que evaluar pieza por pieza."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_risk_profile",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Seu Perfil de Investidor"
+            },
+            "en": {
+              "title": "Your Risk Profile"
+            },
+            "es": {
+              "title": "Tu Perfil de Riesgo"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O Que é o Perfil de Investidor (Suitability)",
+                  "body": "Antes de montar uma carteira, corretoras e bancos são obrigados por regra da CVM (Comissão de Valores Mobiliários) a aplicar um questionário chamado de suitability. Ele avalia seus objetivos, sua situação financeira, sua experiência com investimentos, seu horizonte de tempo e sua tolerância a risco.\n\nCom base nas respostas, você é classificado em um de três perfis: conservador, moderado ou arrojado (também chamado de agressivo — é o mesmo perfil, só um sinônimo usado por algumas plataformas). Esse perfil não é uma etiqueta fixa para a vida toda: a regra exige que ele seja revisado pelo menos a cada 5 anos, já que sua situação e seus objetivos mudam com o tempo.\n\nO perfil existe para evitar que alguém acabe em investimentos incompatíveis com o que consegue suportar — nem em risco demais para seu momento, nem em risco de menos para o que precisa alcançar."
+                },
+                "en": {
+                  "title": "What the Investor (Suitability) Profile Is",
+                  "body": "Before building a portfolio, brokerages and banks are required by a CVM (Brazil's securities regulator) rule to apply a questionnaire called suitability. It assesses your objectives, financial situation, investment experience, time horizon, and risk tolerance.\n\nBased on your answers, you're classified into one of three profiles: conservative, moderate, or aggressive (some platforms use the word \"arrojado\" in Portuguese as a synonym — it's the same category, just different wording). This profile isn't a label fixed for life: the rule requires it to be reviewed at least every 5 years, since your situation and goals change over time.\n\nThe profile exists to keep someone from ending up in investments that don't match what they can actually handle — neither too much risk for their moment, nor too little risk for what they need to achieve."
+                },
+                "es": {
+                  "title": "Qué Es el Perfil de Inversor (Suitability)",
+                  "body": "Antes de armar una cartera, las corredoras y bancos están obligados por una norma de la CVM (el regulador de valores de Brasil) a aplicar un cuestionario llamado suitability. Este evalúa tus objetivos, tu situación financiera, tu experiencia con inversiones, tu horizonte de tiempo y tu tolerancia al riesgo.\n\nCon base en las respuestas, te clasifican en uno de tres perfiles: conservador, moderado o arrojado (también llamado agresivo — es la misma categoría, solo un sinónimo usado por algunas plataformas). Este perfil no es una etiqueta fija para toda la vida: la norma exige que se revise al menos cada 5 años, ya que tu situación y tus objetivos cambian con el tiempo.\n\nEl perfil existe para evitar que alguien termine en inversiones incompatibles con lo que realmente puede soportar — ni con demasiado riesgo para su momento, ni con muy poco riesgo para lo que necesita alcanzar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Dois Perfis, Duas Respostas Diferentes",
+                  "body": "Pedro, 58 anos, pretende se aposentar em 3 anos e já tem boa parte do patrimônio formado. No questionário de suitability, ele responde que tem baixa tolerância a oscilações e um horizonte curto. Resultado: perfil conservador.\n\nJuliana, 26 anos, está começando a investir agora, tem estabilidade no emprego e um horizonte de décadas pela frente. Ela responde que aceita ver o valor investido cair no curto prazo em troca de buscar mais retorno lá na frente. Resultado: perfil arrojado.\n\nNenhum dos dois perfis é 'melhor'. Cada um reflete a situação, o horizonte e a tolerância a risco de uma pessoa diferente — exatamente o que o questionário existe para captar."
+                },
+                "en": {
+                  "title": "Two Profiles, Two Different Answers",
+                  "body": "Pedro, 58, plans to retire in 3 years and has already built up most of his wealth. In the suitability questionnaire, he says he has low tolerance for swings and a short horizon. Result: conservative profile.\n\nJuliana, 26, is just starting to invest, has job stability, and has decades ahead of her. She says she can accept seeing her invested amount drop in the short term in exchange for seeking more return down the road. Result: aggressive profile.\n\nNeither profile is 'better.' Each reflects the situation, horizon, and risk tolerance of a different person — exactly what the questionnaire exists to capture."
+                },
+                "es": {
+                  "title": "Dos Perfiles, Dos Respuestas Diferentes",
+                  "body": "Pedro, de 58 años, planea jubilarse en 3 años y ya construyó la mayor parte de su patrimonio. En el cuestionario de suitability, responde que tiene baja tolerancia a las oscilaciones y un horizonte corto. Resultado: perfil conservador.\n\nJuliana, de 26 años, está empezando a invertir ahora, tiene estabilidad laboral y décadas por delante. Ella responde que acepta ver caer el valor invertido en el corto plazo a cambio de buscar más retorno más adelante. Resultado: perfil arrojado.\n\nNinguno de los dos perfiles es 'mejor'. Cada uno refleja la situación, el horizonte y la tolerancia al riesgo de una persona distinta — exactamente lo que el cuestionario existe para captar."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Segundo a regra da CVM sobre suitability, o que o questionário de perfil de investidor avalia?",
+                  "options": [
+                    "Apenas quanto dinheiro a pessoa tem disponível para investir",
+                    "Apenas a idade da pessoa",
+                    "Objetivos, situação financeira, experiência com investimentos, horizonte de tempo e tolerância a risco",
+                    "Apenas quais ativos estão em alta no momento"
+                  ],
+                  "explanation": "O suitability é uma avaliação mais ampla do que só o valor disponível — ele leva em conta objetivos, situação financeira, experiência, horizonte de tempo e tolerância a risco em conjunto."
+                },
+                "en": {
+                  "prompt": "According to the CVM's suitability rule, what does the investor profile questionnaire assess?",
+                  "options": [
+                    "Only how much money the person has available to invest",
+                    "Only the person's age",
+                    "Objectives, financial situation, investment experience, time horizon, and risk tolerance",
+                    "Only which assets are currently trending upward"
+                  ],
+                  "explanation": "Suitability is a broader assessment than just available funds — it takes into account objectives, financial situation, experience, time horizon, and risk tolerance together."
+                },
+                "es": {
+                  "prompt": "Según la norma de la CVM sobre suitability, ¿qué evalúa el cuestionario de perfil de inversor?",
+                  "options": [
+                    "Solo cuánto dinero tiene disponible la persona para invertir",
+                    "Solo la edad de la persona",
+                    "Objetivos, situación financiera, experiencia con inversiones, horizonte de tiempo y tolerancia al riesgo",
+                    "Solo qué activos están subiendo en ese momento"
+                  ],
+                  "explanation": "El suitability es una evaluación más amplia que solo el monto disponible — considera objetivos, situación financiera, experiencia, horizonte de tiempo y tolerancia al riesgo en conjunto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "De acordo com a regra da CVM, com que frequência o perfil de investidor deve ser revisado, no mínimo?",
+                  "options": [
+                    "A cada 5 anos, no mínimo",
+                    "Nunca — o perfil é definido uma vez e vale para sempre",
+                    "Todo mês",
+                    "Só quando o investidor solicitar por escrito"
+                  ],
+                  "explanation": "A regra exige revisão do perfil pelo menos a cada 5 anos, porque a situação, os objetivos e a tolerância a risco de uma pessoa podem mudar ao longo do tempo."
+                },
+                "en": {
+                  "prompt": "According to the CVM rule, how often must the investor profile be reviewed, at minimum?",
+                  "options": [
+                    "At least every 5 years",
+                    "Never — the profile is set once and lasts forever",
+                    "Every month",
+                    "Only when the investor requests it in writing"
+                  ],
+                  "explanation": "The rule requires the profile to be reviewed at least every 5 years, because a person's situation, goals, and risk tolerance can change over time."
+                },
+                "es": {
+                  "prompt": "Según la norma de la CVM, ¿con qué frecuencia mínima debe revisarse el perfil de inversor?",
+                  "options": [
+                    "Al menos cada 5 años",
+                    "Nunca — el perfil se define una vez y vale para siempre",
+                    "Cada mes",
+                    "Solo cuando el inversor lo solicite por escrito"
+                  ],
+                  "explanation": "La norma exige revisar el perfil al menos cada 5 años, porque la situación, los objetivos y la tolerancia al riesgo de una persona pueden cambiar con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Por regra da CVM, bancos e corretoras devem aplicar um questionário de suitability antes de indicar investimentos, avaliando objetivos, situação financeira, experiência, horizonte de tempo e tolerância a risco.",
+                    "Esse questionário classifica o investidor em conservador, moderado ou arrojado (também chamado de agressivo).",
+                    "O perfil deve ser revisado pelo menos a cada 5 anos, já que a situação e os objetivos de uma pessoa mudam com o tempo."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "By CVM rule, banks and brokerages must apply a suitability questionnaire before recommending investments, assessing objectives, financial situation, experience, time horizon, and risk tolerance.",
+                    "This questionnaire classifies the investor as conservative, moderate, or aggressive (also called \"arrojado\").",
+                    "The profile must be reviewed at least every 5 years, since a person's situation and goals change over time."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Por norma de la CVM, bancos y corredoras deben aplicar un cuestionario de suitability antes de recomendar inversiones, evaluando objetivos, situación financiera, experiencia, horizonte de tiempo y tolerancia al riesgo.",
+                    "Este cuestionario clasifica al inversor como conservador, moderado o arrojado (también llamado agresivo).",
+                    "El perfil debe revisarse al menos cada 5 años, ya que la situación y los objetivos de una persona cambian con el tiempo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_asset_allocation",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Alocação de Ativos"
+            },
+            "en": {
+              "title": "Asset Allocation"
+            },
+            "es": {
+              "title": "Asignación de Activos"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A Decisão Que Mais Pesa no Resultado",
+                  "body": "Alocação de ativos é a porcentagem da sua carteira destinada a cada grande categoria de investimento — por exemplo, quanto fica em renda fixa, quanto em ações, quanto em fundos ou ETFs. É uma decisão diferente de escolher qual ativo específico comprar dentro de cada categoria.\n\nEssa divisão entre categorias é amplamente considerada o principal fator que determina o risco e o retorno de uma carteira como um todo — mais até do que a escolha de qual ação ou qual CDB específico comprar dentro de cada fatia. Uma carteira com 80% em renda fixa e 20% em ações vai se comportar de um jeito bem diferente de uma com 20% em renda fixa e 80% em ações, mesmo que os ativos específicos escolhidos dentro de cada categoria sejam parecidos em qualidade.\n\nNão existe uma alocação universalmente 'certa' — ela depende do perfil de risco, do horizonte e dos objetivos de cada pessoa, temas que você já viu antes e vai conectar aqui."
+                },
+                "en": {
+                  "title": "The Decision That Weighs Most on the Result",
+                  "body": "Asset allocation is the percentage of your portfolio directed to each broad investment category — for example, how much goes into fixed income, how much into stocks, how much into funds or ETFs. It's a different decision from choosing which specific asset to buy within each category.\n\nThis split across categories is widely considered the primary factor driving a portfolio's overall risk and return — even more than which specific stock or CDB you pick within each slice. A portfolio with 80% in fixed income and 20% in stocks will behave quite differently from one with 20% in fixed income and 80% in stocks, even if the specific assets chosen within each category are similar in quality.\n\nThere's no universally 'correct' allocation — it depends on each person's risk profile, horizon, and goals, topics you've already seen and will connect here."
+                },
+                "es": {
+                  "title": "La Decisión Que Más Pesa en el Resultado",
+                  "body": "La asignación de activos es el porcentaje de tu cartera destinado a cada gran categoría de inversión — por ejemplo, cuánto va a renta fija, cuánto a acciones, cuánto a fondos o ETFs. Es una decisión distinta de elegir qué activo específico comprar dentro de cada categoría.\n\nEsta división entre categorías se considera ampliamente el principal factor que determina el riesgo y el retorno de una cartera en su conjunto — incluso más que la elección de qué acción o qué CDB específico comprar dentro de cada porción. Una cartera con 80% en renta fija y 20% en acciones se va a comportar de forma muy diferente a una con 20% en renta fija y 80% en acciones, incluso si los activos específicos elegidos dentro de cada categoría son parecidos en calidad.\n\nNo existe una asignación universalmente 'correcta' — depende del perfil de riesgo, el horizonte y los objetivos de cada persona, temas que ya viste antes y que vas a conectar aquí."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Duas Carteiras, Mesma Qualidade de Ativos",
+                  "body": "Imagine duas carteiras fictícias, ambas com R$ 20.000. A Carteira A tem 75% em Tesouro Selic e CDBs e 25% em um ETF de ações. A Carteira B tem 25% em Tesouro Selic e CDBs e 75% no mesmo ETF de ações.\n\nEm um mês de forte queda na bolsa, o ETF cai 10%. A Carteira A, por ter só 25% exposta a isso, sente um impacto bem menor no total do que a Carteira B, que tem 75% exposta. Os ativos escolhidos são exatamente os mesmos nas duas — a diferença inteira no resultado vem da proporção entre eles, ou seja, da alocação."
+                },
+                "en": {
+                  "title": "Two Portfolios, Same Asset Quality",
+                  "body": "Imagine two fictional portfolios, both worth R$20,000. Portfolio A has 75% in Treasury Selic and CDBs and 25% in a stock ETF. Portfolio B has 25% in Treasury Selic and CDBs and 75% in the same stock ETF.\n\nIn a month with a sharp stock market drop, the ETF falls 10%. Portfolio A, with only 25% exposed to that, feels a much smaller impact on the total than Portfolio B, which has 75% exposed. The chosen assets are exactly the same in both — the entire difference in outcome comes from the proportion between them, that is, from the allocation."
+                },
+                "es": {
+                  "title": "Dos Carteras, Misma Calidad de Activos",
+                  "body": "Imagina dos carteras ficticias, ambas de R$20.000. La Cartera A tiene 75% en Tesoro Selic y CDBs y 25% en un ETF de acciones. La Cartera B tiene 25% en Tesoro Selic y CDBs y 75% en el mismo ETF de acciones.\n\nEn un mes de fuerte caída en la bolsa, el ETF cae 10%. La Cartera A, al tener solo 25% expuesto a eso, siente un impacto mucho menor en el total que la Cartera B, que tiene 75% expuesto. Los activos elegidos son exactamente los mismos en ambas — toda la diferencia en el resultado viene de la proporción entre ellos, es decir, de la asignación."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é 'alocação de ativos'?",
+                  "options": [
+                    "A porcentagem da carteira destinada a cada grande categoria de investimento, como renda fixa ou ações",
+                    "A escolha de qual corretora usar para investir",
+                    "O nome de um imposto cobrado sobre investimentos",
+                    "A lista de todos os ativos disponíveis em uma corretora"
+                  ],
+                  "explanation": "Alocação de ativos é a divisão percentual da carteira entre grandes categorias — não a escolha da corretora nem um imposto."
+                },
+                "en": {
+                  "prompt": "What is 'asset allocation'?",
+                  "options": [
+                    "The percentage of the portfolio directed to each broad investment category, like fixed income or stocks",
+                    "The choice of which brokerage to use for investing",
+                    "The name of a tax charged on investments",
+                    "The list of all assets available at a brokerage"
+                  ],
+                  "explanation": "Asset allocation is the percentage split of the portfolio across broad categories — not the choice of brokerage, and not a tax."
+                },
+                "es": {
+                  "prompt": "¿Qué es la 'asignación de activos'?",
+                  "options": [
+                    "El porcentaje de la cartera destinado a cada gran categoría de inversión, como renta fija o acciones",
+                    "La elección de qué corredora usar para invertir",
+                    "El nombre de un impuesto cobrado sobre las inversiones",
+                    "La lista de todos los activos disponibles en una corredora"
+                  ],
+                  "explanation": "La asignación de activos es la división porcentual de la cartera entre grandes categorías — no la elección de la corredora ni un impuesto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Duas carteiras fictícias têm os mesmos ativos individuais, só que em proporções diferentes: a Carteira X tem 90% em ações e 10% em renda fixa; a Carteira Y tem 10% em ações e 90% em renda fixa. O que se pode esperar dessas duas carteiras em um mês de forte queda na bolsa?",
+                  "options": [
+                    "As duas vão cair exatamente o mesmo tanto, porque têm os mesmos ativos",
+                    "A Carteira X provavelmente vai sentir um impacto maior, porque tem uma proporção muito maior exposta a ações",
+                    "A Carteira Y provavelmente vai sentir um impacto maior, porque tem menos ativos",
+                    "É impossível dizer, porque alocação não influencia o resultado"
+                  ],
+                  "explanation": "Como a alocação de ativos é o principal fator de risco de uma carteira, a Carteira X — com 90% em ações — tende a sentir mais o impacto de uma queda na bolsa do que a Carteira Y, que tem só 10% exposta."
+                },
+                "en": {
+                  "prompt": "Two fictional portfolios hold the same individual assets, just in different proportions: Portfolio X has 90% in stocks and 10% in fixed income; Portfolio Y has 10% in stocks and 90% in fixed income. What should you expect from these two portfolios in a month with a sharp stock market drop?",
+                  "options": [
+                    "Both will fall by exactly the same amount, because they hold the same assets",
+                    "Portfolio X will likely feel a bigger impact, because it has a much larger share exposed to stocks",
+                    "Portfolio Y will likely feel a bigger impact, because it holds fewer assets",
+                    "It's impossible to say, because allocation doesn't influence the result"
+                  ],
+                  "explanation": "Since asset allocation is the primary driver of a portfolio's risk, Portfolio X — with 90% in stocks — tends to feel more impact from a stock market drop than Portfolio Y, which has only 10% exposed."
+                },
+                "es": {
+                  "prompt": "Dos carteras ficticias tienen los mismos activos individuales, solo que en proporciones diferentes: la Cartera X tiene 90% en acciones y 10% en renta fija; la Cartera Y tiene 10% en acciones y 90% en renta fija. ¿Qué se puede esperar de estas dos carteras en un mes de fuerte caída en la bolsa?",
+                  "options": [
+                    "Las dos van a caer exactamente lo mismo, porque tienen los mismos activos",
+                    "La Cartera X probablemente sentirá un impacto mayor, porque tiene una proporción mucho mayor expuesta a acciones",
+                    "La Cartera Y probablemente sentirá un impacto mayor, porque tiene menos activos",
+                    "Es imposible saberlo, porque la asignación no influye en el resultado"
+                  ],
+                  "explanation": "Como la asignación de activos es el principal factor de riesgo de una cartera, la Cartera X — con 90% en acciones — tiende a sentir más el impacto de una caída en la bolsa que la Cartera Y, que solo tiene el 10% expuesto."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Alocação de ativos é a porcentagem da carteira destinada a cada grande categoria de investimento, como renda fixa, ações ou fundos.",
+                    "Essa divisão entre categorias é amplamente considerada o principal fator que determina o risco e o retorno de uma carteira como um todo.",
+                    "Não existe uma alocação universalmente certa — ela depende do perfil de risco, do horizonte e dos objetivos de cada pessoa."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Asset allocation is the percentage of the portfolio directed to each broad investment category, such as fixed income, stocks, or funds.",
+                    "This split across categories is widely considered the primary driver of a portfolio's overall risk and return.",
+                    "There's no universally correct allocation — it depends on each person's risk profile, horizon, and goals."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La asignación de activos es el porcentaje de la cartera destinado a cada gran categoría de inversión, como renta fija, acciones o fondos.",
+                    "Esta división entre categorías se considera ampliamente el principal factor que determina el riesgo y el retorno de una cartera en su conjunto.",
+                    "No existe una asignación universalmente correcta — depende del perfil de riesgo, el horizonte y los objetivos de cada persona."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_horizon_and_allocation",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Horizonte e Alocação"
+            },
+            "en": {
+              "title": "Horizon and Allocation"
+            },
+            "es": {
+              "title": "Horizonte y Asignación"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Uma Carteira, Vários Objetivos ao Mesmo Tempo",
+                  "body": "Você já aprendeu a combinar o horizonte de um objetivo — curto, médio ou longo prazo — com a liquidez e o risco adequados para ele. Isso funciona bem quando você pensa em um objetivo por vez.\n\nMas, na prática, a maioria das pessoas persegue vários objetivos ao mesmo tempo com o mesmo conjunto de investimentos: uma reserva de emergência para daqui a poucos meses, uma viagem em 2 anos, e a aposentadoria em 30 anos. Sua carteira real é o resultado de misturar tudo isso em um único conjunto.\n\nNa prática, isso significa que uma única carteira costuma abrigar uma combinação de ativos de horizontes diferentes ao mesmo tempo — uma parte mais líquida e estável para o que é mais próximo, e uma parte que pode aceitar mais oscilação para o que é mais distante. Pensar na carteira inteira é pensar em como todos esses horizontes convivem dentro do mesmo conjunto."
+                },
+                "en": {
+                  "title": "One Portfolio, Several Goals at Once",
+                  "body": "You've already learned to match a goal's horizon — short, medium, or long term — with the liquidity and risk appropriate for it. That works well when you think about one goal at a time.\n\nBut in practice, most people pursue several goals at once with the same set of investments: an emergency fund for a few months from now, a trip in 2 years, and retirement in 30 years. Your actual portfolio is the result of blending all of that into a single set.\n\nIn practice, this means a single portfolio usually holds a combination of assets with different horizons at the same time — a more liquid, stable part for what's closer, and a part that can accept more swings for what's further away. Thinking about the whole portfolio means thinking about how all these horizons coexist within the same set."
+                },
+                "es": {
+                  "title": "Una Cartera, Varios Objetivos a la Vez",
+                  "body": "Ya aprendiste a combinar el horizonte de un objetivo — corto, mediano o largo plazo — con la liquidez y el riesgo adecuados para él. Eso funciona bien cuando piensas en un objetivo a la vez.\n\nPero, en la práctica, la mayoría de las personas persigue varios objetivos al mismo tiempo con el mismo conjunto de inversiones: un fondo de emergencia para dentro de pocos meses, un viaje en 2 años y la jubilación en 30 años. Tu cartera real es el resultado de mezclar todo eso en un solo conjunto.\n\nEn la práctica, esto significa que una sola cartera suele reunir una combinación de activos con horizontes diferentes al mismo tiempo — una parte más líquida y estable para lo más cercano, y una parte que puede aceptar más oscilación para lo más lejano. Pensar en la cartera entera es pensar en cómo conviven todos esos horizontes dentro del mismo conjunto."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "A Carteira de Rodrigo",
+                  "body": "Rodrigo tem três objetivos ao mesmo tempo: uma reserva de emergência (precisa estar disponível a qualquer momento), a troca de carro em 2 anos, e a aposentadoria em 25 anos. Em vez de ter três carteiras separadas, ele tem uma única carteira dividida mentalmente em fatias.\n\nUma fatia fica em Tesouro Selic, altamente líquida, reservada para emergências. Outra fatia fica em CDBs com vencimento perto de 2 anos, para o carro. E uma fatia maior fica em ações e ETFs, que ele não pretende tocar por décadas, para a aposentadoria.\n\nCada fatia reflete o horizonte do objetivo que ela atende, mas todas fazem parte da mesma carteira — e é o conjunto que Rodrigo acompanha."
+                },
+                "en": {
+                  "title": "Rodrigo's Portfolio",
+                  "body": "Rodrigo has three goals at once: an emergency fund (needs to be available at any moment), replacing his car in 2 years, and retirement in 25 years. Instead of having three separate portfolios, he has a single portfolio mentally divided into slices.\n\nOne slice sits in Treasury Selic, highly liquid, set aside for emergencies. Another slice sits in CDBs maturing around 2 years out, for the car. And a larger slice sits in stocks and ETFs, which he doesn't plan to touch for decades, for retirement.\n\nEach slice reflects the horizon of the goal it serves, but all of them are part of the same portfolio — and it's the whole that Rodrigo tracks."
+                },
+                "es": {
+                  "title": "La Cartera de Rodrigo",
+                  "body": "Rodrigo tiene tres objetivos a la vez: un fondo de emergencia (necesita estar disponible en cualquier momento), cambiar de auto en 2 años y la jubilación en 25 años. En vez de tener tres carteras separadas, tiene una sola cartera dividida mentalmente en porciones.\n\nUna porción está en Tesoro Selic, muy líquido, reservado para emergencias. Otra porción está en CDBs con vencimiento cercano a 2 años, para el auto. Y una porción mayor está en acciones y ETFs, que no piensa tocar durante décadas, para la jubilación.\n\nCada porción refleja el horizonte del objetivo al que sirve, pero todas forman parte de la misma cartera — y es el conjunto lo que Rodrigo sigue."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que uma única carteira costuma misturar ativos de horizontes diferentes?",
+                  "options": [
+                    "Porque é obrigatório por lei ter ativos de todos os prazos",
+                    "Porque ativos de curto prazo sempre rendem mais que os de longo prazo",
+                    "Porque misturar horizontes elimina todo o risco da carteira",
+                    "Porque a maioria das pessoas persegue vários objetivos com horizontes diferentes ao mesmo tempo, usando o mesmo conjunto de investimentos"
+                  ],
+                  "explanation": "As pessoas costumam ter vários objetivos simultâneos — como reserva de emergência, uma compra em alguns anos e a aposentadoria — e isso se reflete em uma carteira com fatias de horizontes diferentes."
+                },
+                "en": {
+                  "prompt": "Why does a single portfolio usually mix assets with different horizons?",
+                  "options": [
+                    "Because it's legally required to hold assets of every maturity",
+                    "Because short-term assets always yield more than long-term ones",
+                    "Because mixing horizons eliminates all portfolio risk",
+                    "Because most people pursue several goals with different horizons at the same time, using the same set of investments"
+                  ],
+                  "explanation": "People usually have several simultaneous goals — like an emergency fund, a purchase a few years out, and retirement — and that's reflected in a portfolio with slices of different horizons."
+                },
+                "es": {
+                  "prompt": "¿Por qué una sola cartera suele mezclar activos con horizontes diferentes?",
+                  "options": [
+                    "Porque es obligatorio por ley tener activos de todos los plazos",
+                    "Porque los activos de corto plazo siempre rinden más que los de largo plazo",
+                    "Porque mezclar horizontes elimina todo el riesgo de la cartera",
+                    "Porque la mayoría de las personas persigue varios objetivos con horizontes distintos al mismo tiempo, usando el mismo conjunto de inversiones"
+                  ],
+                  "explanation": "Las personas suelen tener varios objetivos simultáneos — como un fondo de emergencia, una compra dentro de algunos años y la jubilación — y eso se refleja en una cartera con porciones de horizontes distintos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Camila tem uma reserva de emergência, quer comprar um imóvel em 3 anos e também está guardando para a aposentadoria em 30 anos. Qual abordagem melhor reflete o que você aprendeu sobre horizonte e alocação?",
+                  "options": [
+                    "Ter fatias diferentes dentro da mesma carteira, cada uma com liquidez e risco compatíveis com o horizonte do objetivo que atende",
+                    "Colocar tudo em um único ativo de longo prazo, já que a aposentadoria é o objetivo mais distante",
+                    "Ignorar os objetivos de curto e médio prazo e focar só na aposentadoria",
+                    "Trocar de estratégia de investimento a cada mês, dependendo de qual objetivo está mais próximo"
+                  ],
+                  "explanation": "Como os objetivos de Camila têm horizontes diferentes, faz sentido que a carteira tenha fatias com liquidez e risco adequados a cada um — reserva de emergência em algo bem líquido, o imóvel em algo de médio prazo, e a aposentadoria em ativos de horizonte mais longo."
+                },
+                "en": {
+                  "prompt": "Camila has an emergency fund, wants to buy property in 3 years, and is also saving for retirement in 30 years. Which approach best reflects what you've learned about horizon and allocation?",
+                  "options": [
+                    "Have different slices within the same portfolio, each with liquidity and risk suited to the horizon of the goal it serves",
+                    "Put everything into a single long-term asset, since retirement is the most distant goal",
+                    "Ignore the short- and medium-term goals and focus only on retirement",
+                    "Switch investment strategy every month depending on which goal is closest"
+                  ],
+                  "explanation": "Since Camila's goals have different horizons, it makes sense for the portfolio to have slices with liquidity and risk suited to each — the emergency fund in something highly liquid, the property goal in something medium-term, and retirement in longer-horizon assets."
+                },
+                "es": {
+                  "prompt": "Camila tiene un fondo de emergencia, quiere comprar una propiedad en 3 años y también está ahorrando para la jubilación en 30 años. ¿Qué enfoque refleja mejor lo que aprendiste sobre horizonte y asignación?",
+                  "options": [
+                    "Tener porciones diferentes dentro de la misma cartera, cada una con liquidez y riesgo compatibles con el horizonte del objetivo al que sirve",
+                    "Poner todo en un único activo de largo plazo, ya que la jubilación es el objetivo más lejano",
+                    "Ignorar los objetivos de corto y mediano plazo y enfocarse solo en la jubilación",
+                    "Cambiar de estrategia de inversión cada mes, según cuál objetivo esté más cerca"
+                  ],
+                  "explanation": "Como los objetivos de Camila tienen horizontes distintos, tiene sentido que la cartera tenga porciones con liquidez y riesgo adecuados a cada uno — el fondo de emergencia en algo muy líquido, la propiedad en algo de mediano plazo y la jubilación en activos de horizonte más largo."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "A maioria das pessoas persegue vários objetivos com horizontes diferentes ao mesmo tempo, usando o mesmo conjunto de investimentos.",
+                    "Uma única carteira costuma abrigar fatias com liquidez e risco diferentes, cada uma alinhada ao horizonte do objetivo que atende.",
+                    "Pensar na carteira como um todo é pensar em como esses horizontes diferentes convivem dentro do mesmo conjunto."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Most people pursue several goals with different horizons at the same time, using the same set of investments.",
+                    "A single portfolio usually holds slices with different liquidity and risk, each aligned to the horizon of the goal it serves.",
+                    "Thinking about the portfolio as a whole means thinking about how these different horizons coexist within the same set."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La mayoría de las personas persigue varios objetivos con horizontes distintos al mismo tiempo, usando el mismo conjunto de inversiones.",
+                    "Una sola cartera suele reunir porciones con liquidez y riesgo diferentes, cada una alineada al horizonte del objetivo al que sirve.",
+                    "Pensar en la cartera como un todo es pensar en cómo conviven esos horizontes distintos dentro del mismo conjunto."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_correlation",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Correlação: Por Que a Diversificação Funciona"
+            },
+            "en": {
+              "title": "Correlation: Why Diversification Works"
+            },
+            "es": {
+              "title": "Correlación: Por Qué Funciona la Diversificación"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O Mecanismo Por Trás da Diversificação",
+                  "body": "Você já sabe que diversificar reduz o impacto de um problema isolado. Mas por que, exatamente, isso funciona? A resposta está em um conceito chamado correlação: o quanto dois ativos tendem a se mover na mesma direção, ao mesmo tempo.\n\nQuando dois ativos têm correlação alta, eles sobem e descem juntos — ter os dois na carteira não ajuda muito a suavizar oscilações, porque quando um cai, o outro provavelmente também cai. Quando dois ativos têm correlação baixa (ou negativa), eles não se movem em conjunto — um pode estar caindo enquanto o outro está subindo ou estável.\n\nÉ essa falta de sincronia entre ativos de baixa correlação que reduz as oscilações da carteira como um todo, de um jeito que juntar dois ativos parecidos, mas igualmente arriscados, não consegue fazer. Diversificar de verdade não é só 'ter vários ativos' — é ter ativos que não reagem todos da mesma forma aos mesmos eventos."
+                },
+                "en": {
+                  "title": "The Mechanism Behind Diversification",
+                  "body": "You already know that diversifying reduces the impact of an isolated problem. But why, exactly, does that work? The answer lies in a concept called correlation: how much two assets tend to move in the same direction, at the same time.\n\nWhen two assets have high correlation, they rise and fall together — holding both in a portfolio doesn't help smooth out swings much, because when one drops, the other probably drops too. When two assets have low (or negative) correlation, they don't move in sync — one might be falling while the other is rising or holding steady.\n\nIt's this lack of sync between low-correlation assets that reduces the whole portfolio's swings, in a way that combining two similar but equally risky assets can't achieve. Real diversification isn't just 'holding several assets' — it's holding assets that don't all react the same way to the same events."
+                },
+                "es": {
+                  "title": "El Mecanismo Detrás de la Diversificación",
+                  "body": "Ya sabes que diversificar reduce el impacto de un problema aislado. Pero, ¿por qué exactamente funciona esto? La respuesta está en un concepto llamado correlación: cuánto tienden a moverse dos activos en la misma dirección, al mismo tiempo.\n\nCuando dos activos tienen correlación alta, suben y bajan juntos — tener ambos en la cartera no ayuda mucho a suavizar las oscilaciones, porque cuando uno cae, el otro probablemente también cae. Cuando dos activos tienen correlación baja (o negativa), no se mueven en conjunto — uno puede estar cayendo mientras el otro sube o se mantiene estable.\n\nEs esa falta de sincronía entre activos de baja correlación lo que reduce las oscilaciones de la cartera en su conjunto, de una forma que combinar dos activos parecidos, pero igualmente riesgosos, no logra hacer. Diversificar de verdad no es solo 'tener varios activos' — es tener activos que no reaccionan todos de la misma forma ante los mismos eventos."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Duas Formas de Diversificar",
+                  "body": "Tiago monta uma carteira com ações de cinco bancos diferentes, achando que está diversificado. Mas bancos tendem a reagir de forma parecida às mesmas notícias — uma mudança na taxa de juros ou uma crise de crédito afeta todos ao mesmo tempo. A correlação entre eles é alta, então a diversificação de Tiago protege pouco.\n\nJá Fernanda monta uma carteira com Tesouro Selic, um ETF de ações e ações de uma empresa exportadora. Em um cenário de juros subindo, o Tesouro Selic tende a se beneficiar, enquanto ações podem sofrer. Como os ativos de Fernanda não reagem todos da mesma forma aos mesmos eventos, a correlação entre eles é mais baixa — e é isso que reduz as oscilações da carteira dela de forma mais eficaz do que a de Tiago."
+                },
+                "en": {
+                  "title": "Two Ways to Diversify",
+                  "body": "Tiago builds a portfolio with shares of five different banks, thinking he's diversified. But banks tend to react similarly to the same news — an interest rate change or a credit crisis affects them all at once. The correlation between them is high, so Tiago's diversification protects him only a little.\n\nFernanda, on the other hand, builds a portfolio with Treasury Selic, a stock ETF, and shares of an exporting company. In a scenario where interest rates rise, Treasury Selic tends to benefit, while stocks may suffer. Because Fernanda's assets don't all react the same way to the same events, the correlation between them is lower — and that's what reduces her portfolio's swings more effectively than Tiago's."
+                },
+                "es": {
+                  "title": "Dos Formas de Diversificar",
+                  "body": "Tiago arma una cartera con acciones de cinco bancos diferentes, pensando que está diversificado. Pero los bancos tienden a reaccionar de forma parecida ante las mismas noticias — un cambio en la tasa de interés o una crisis de crédito afecta a todos al mismo tiempo. La correlación entre ellos es alta, así que la diversificación de Tiago protege poco.\n\nFernanda, en cambio, arma una cartera con Tesoro Selic, un ETF de acciones y acciones de una empresa exportadora. En un escenario de tasas de interés subiendo, el Tesoro Selic tiende a beneficiarse, mientras que las acciones pueden sufrir. Como los activos de Fernanda no reaccionan todos de la misma forma ante los mismos eventos, la correlación entre ellos es más baja — y eso es lo que reduce las oscilaciones de su cartera de forma más eficaz que la de Tiago."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "O que significa dois ativos terem 'correlação alta'?",
+                  "options": [
+                    "Que os dois sempre têm o mesmo preço",
+                    "Que os dois são emitidos pela mesma instituição",
+                    "Que os dois têm o mesmo nível de liquidez",
+                    "Que os dois tendem a se mover na mesma direção, ao mesmo tempo"
+                  ],
+                  "explanation": "Correlação alta significa que os ativos tendem a subir e cair juntos, não que têm o mesmo preço, emissor ou liquidez."
+                },
+                "en": {
+                  "prompt": "What does it mean for two assets to have 'high correlation'?",
+                  "options": [
+                    "That the two always have the same price",
+                    "That the two are issued by the same institution",
+                    "That the two have the same level of liquidity",
+                    "That the two tend to move in the same direction, at the same time"
+                  ],
+                  "explanation": "High correlation means the assets tend to rise and fall together — not that they share the same price, issuer, or liquidity."
+                },
+                "es": {
+                  "prompt": "¿Qué significa que dos activos tengan 'correlación alta'?",
+                  "options": [
+                    "Que los dos siempre tienen el mismo precio",
+                    "Que los dos son emitidos por la misma institución",
+                    "Que los dos tienen el mismo nivel de liquidez",
+                    "Que los dos tienden a moverse en la misma dirección, al mismo tiempo"
+                  ],
+                  "explanation": "Correlación alta significa que los activos tienden a subir y bajar juntos, no que tengan el mismo precio, emisor o liquidez."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Bruno tem uma carteira só com ações de três companhias aéreas diferentes. Ele acredita estar bem diversificado porque são três empresas distintas. O que se pode dizer sobre isso?",
+                  "options": [
+                    "Ele está bem diversificado, porque são três ativos diferentes",
+                    "A diversificação dele é limitada, porque companhias aéreas tendem a ter correlação alta entre si, reagindo de forma parecida a eventos como o preço do combustível",
+                    "Não importa a correlação entre os ativos, só a quantidade de ativos diferentes",
+                    "Ele deveria vender tudo e comprar só um ativo, já que diversificação não funciona"
+                  ],
+                  "explanation": "Ter vários ativos do mesmo setor não garante diversificação eficaz, porque eles tendem a reagir de forma parecida aos mesmos eventos — ou seja, têm correlação alta entre si."
+                },
+                "en": {
+                  "prompt": "Bruno has a portfolio made up only of shares in three different airline companies. He believes he's well diversified because they're three distinct companies. What can be said about this?",
+                  "options": [
+                    "He is well diversified, because they're three different assets",
+                    "His diversification is limited, because airline companies tend to have high correlation with each other, reacting similarly to events like fuel prices",
+                    "Correlation between assets doesn't matter, only the number of different assets does",
+                    "He should sell everything and buy just one asset, since diversification doesn't work"
+                  ],
+                  "explanation": "Holding several assets from the same sector doesn't guarantee effective diversification, because they tend to react similarly to the same events — that is, they have high correlation with each other."
+                },
+                "es": {
+                  "prompt": "Bruno tiene una cartera compuesta solo por acciones de tres aerolíneas diferentes. Él cree que está bien diversificado porque son tres empresas distintas. ¿Qué se puede decir de esto?",
+                  "options": [
+                    "Está bien diversificado, porque son tres activos diferentes",
+                    "Su diversificación es limitada, porque las aerolíneas tienden a tener alta correlación entre sí, reaccionando de forma parecida a eventos como el precio del combustible",
+                    "La correlación entre activos no importa, solo la cantidad de activos diferentes",
+                    "Debería vender todo y comprar un solo activo, ya que la diversificación no funciona"
+                  ],
+                  "explanation": "Tener varios activos del mismo sector no garantiza una diversificación eficaz, porque tienden a reaccionar de forma parecida ante los mismos eventos — es decir, tienen correlación alta entre sí."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Correlação mede o quanto dois ativos tendem a se mover na mesma direção, ao mesmo tempo.",
+                    "Ativos com correlação baixa ou negativa reduzem as oscilações da carteira mais do que ativos com correlação alta, mesmo que ambos pareçam 'diversificação'.",
+                    "Diversificar de verdade é combinar ativos que não reagem todos da mesma forma aos mesmos eventos, não apenas ter uma quantidade grande de ativos."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Correlation measures how much two assets tend to move in the same direction, at the same time.",
+                    "Assets with low or negative correlation reduce a portfolio's swings more than assets with high correlation, even if both look like 'diversification.'",
+                    "Real diversification means combining assets that don't all react the same way to the same events, not just holding a large number of assets."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La correlación mide cuánto tienden a moverse dos activos en la misma dirección, al mismo tiempo.",
+                    "Los activos con correlación baja o negativa reducen las oscilaciones de la cartera más que los activos con correlación alta, aunque ambos parezcan 'diversificación'.",
+                    "Diversificar de verdad es combinar activos que no reaccionan todos de la misma forma ante los mismos eventos, no solo tener una gran cantidad de activos."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_drift",
+          "order": 6,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Desvio da Carteira (Drift)"
+            },
+            "en": {
+              "title": "Portfolio Drift"
+            },
+            "es": {
+              "title": "Desvío de la Cartera (Drift)"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quando a Carteira Sai do Lugar Sozinha",
+                  "body": "Depois de definir uma alocação — digamos, 70% em renda fixa e 30% em ações — você não precisa fazer nada para essa proporção começar a mudar. Basta o mercado se mover.\n\nSe as ações da carteira sobem bastante enquanto a renda fixa rende o de sempre, a fatia de ações cresce em valor e passa a representar uma porcentagem maior do total. Uma carteira que começou 70% renda fixa e 30% ações pode, meses depois, estar em 60% renda fixa e 40% ações — sem que o investidor tenha comprado ou vendido nada.\n\nEsse fenômeno se chama drift (desvio): a alocação real se afasta da alocação original só por causa da valorização ou desvalorização dos ativos ao longo do tempo. O problema é que isso muda o nível de risco da carteira sem que tenha havido nenhuma decisão deliberada — a carteira pode ficar mais arriscada (ou mais conservadora) do que o investidor pretendia, de forma silenciosa."
+                },
+                "en": {
+                  "title": "When the Portfolio Drifts on Its Own",
+                  "body": "After setting an allocation — say, 70% fixed income and 30% stocks — you don't need to do anything for that proportion to start changing. The market moving is enough.\n\nIf the stocks in the portfolio rise a lot while fixed income earns its usual steady return, the stock slice grows in value and starts to represent a larger percentage of the total. A portfolio that started at 70% fixed income and 30% stocks might, months later, be at 60% fixed income and 40% stocks — without the investor having bought or sold anything.\n\nThis phenomenon is called drift: the actual allocation moves away from the original target simply because of assets appreciating or depreciating over time. The problem is that this changes the portfolio's risk level without any deliberate decision being made — the portfolio can become riskier (or more conservative) than the investor intended, quietly."
+                },
+                "es": {
+                  "title": "Cuando la Cartera se Desvía Sola",
+                  "body": "Después de definir una asignación — digamos, 70% en renta fija y 30% en acciones — no necesitas hacer nada para que esa proporción empiece a cambiar. Basta con que el mercado se mueva.\n\nSi las acciones de la cartera suben bastante mientras la renta fija rinde lo de siempre, la porción de acciones crece en valor y pasa a representar un porcentaje mayor del total. Una cartera que empezó con 70% en renta fija y 30% en acciones puede, meses después, estar en 60% renta fija y 40% acciones — sin que el inversor haya comprado o vendido nada.\n\nEste fenómeno se llama drift (desvío): la asignación real se aleja de la asignación original solo por la valorización o desvalorización de los activos con el tiempo. El problema es que esto cambia el nivel de riesgo de la cartera sin que haya habido ninguna decisión deliberada — la cartera puede volverse más riesgosa (o más conservadora) de lo que el inversor pretendía, de forma silenciosa."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "A Carteira de Beatriz Depois de um Ano",
+                  "body": "Beatriz começa o ano com R$ 10.000: R$ 7.000 (70%) em Tesouro Selic e CDBs, e R$ 3.000 (30%) em um ETF de ações. Durante o ano, o ETF sobe 40% de valor, enquanto a renda fixa rende 10%.\n\nAo final do ano, a parte de renda fixa vale R$ 7.700 e a parte de ações vale R$ 4.200 — um total de R$ 11.900. Agora a renda fixa representa cerca de 65% da carteira, e as ações, cerca de 35%. Beatriz não comprou nem vendeu nada, mas sua carteira ficou mais exposta a ações do que ela originalmente planejou. Isso é o drift em ação."
+                },
+                "en": {
+                  "title": "Beatriz's Portfolio After a Year",
+                  "body": "Beatriz starts the year with R$10,000: R$7,000 (70%) in Treasury Selic and CDBs, and R$3,000 (30%) in a stock ETF. During the year, the ETF rises 40% in value, while fixed income earns 10%.\n\nBy year's end, the fixed income portion is worth R$7,700 and the stock portion is worth R$4,200 — a total of R$11,900. Now fixed income represents about 65% of the portfolio, and stocks about 35%. Beatriz didn't buy or sell anything, but her portfolio ended up more exposed to stocks than she originally planned. That's drift in action."
+                },
+                "es": {
+                  "title": "La Cartera de Beatriz Después de un Año",
+                  "body": "Beatriz empieza el año con R$10.000: R$7.000 (70%) en Tesoro Selic y CDBs, y R$3.000 (30%) en un ETF de acciones. Durante el año, el ETF sube 40% de valor, mientras que la renta fija rinde 10%.\n\nAl final del año, la parte de renta fija vale R$7.700 y la parte de acciones vale R$4.200 — un total de R$11.900. Ahora la renta fija representa cerca del 65% de la cartera, y las acciones, cerca del 35%. Beatriz no compró ni vendió nada, pero su cartera terminó más expuesta a acciones de lo que originalmente planeó. Eso es el drift en acción."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é 'drift' (desvio) de uma carteira?",
+                  "options": [
+                    "Quando a alocação real se afasta da alocação original só por causa da valorização ou desvalorização dos ativos ao longo do tempo",
+                    "Quando o investidor decide deliberadamente mudar sua alocação",
+                    "Quando um ativo é retirado da carteira por decisão da corretora",
+                    "Quando a corretora cobra uma taxa extra sobre a carteira"
+                  ],
+                  "explanation": "Drift é a mudança na alocação real causada pelo movimento do mercado, sem nenhuma decisão do investidor — diferente de uma mudança deliberada de estratégia."
+                },
+                "en": {
+                  "prompt": "What is portfolio 'drift'?",
+                  "options": [
+                    "When the actual allocation moves away from the original target simply because of assets appreciating or depreciating over time",
+                    "When the investor deliberately decides to change their allocation",
+                    "When an asset is removed from the portfolio by the brokerage's decision",
+                    "When the brokerage charges an extra fee on the portfolio"
+                  ],
+                  "explanation": "Drift is the change in actual allocation caused by market movement, without any decision from the investor — different from a deliberate change in strategy."
+                },
+                "es": {
+                  "prompt": "¿Qué es el 'drift' (desvío) de una cartera?",
+                  "options": [
+                    "Cuando la asignación real se aleja de la asignación original solo por la valorización o desvalorización de los activos con el tiempo",
+                    "Cuando el inversor decide deliberadamente cambiar su asignación",
+                    "Cuando un activo es retirado de la cartera por decisión de la corredora",
+                    "Cuando la corredora cobra una comisión extra sobre la cartera"
+                  ],
+                  "explanation": "El drift es el cambio en la asignación real causado por el movimiento del mercado, sin ninguna decisión del inversor — distinto de un cambio deliberado de estrategia."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um investidor definiu uma alocação de 50% renda fixa e 50% ações. Depois de dois anos de forte alta na bolsa, sem nenhuma movimentação, a carteira dele está em 35% renda fixa e 65% ações. O que isso representa?",
+                  "options": [
+                    "Nada mudou de fato, porque ele não comprou nem vendeu nada",
+                    "A carteira sofreu drift: ficou mais arriscada do que a alocação original pretendia, mesmo sem nenhuma decisão deliberada",
+                    "Isso é impossível, porque a alocação nunca muda sozinha",
+                    "A corretora deve ter cometido um erro no extrato"
+                  ],
+                  "explanation": "Mesmo sem nenhuma compra ou venda, a valorização das ações mudou a proporção real da carteira — ela ficou mais exposta a ações (mais arriscada) do que os 50/50 originais, o que é exatamente o drift."
+                },
+                "en": {
+                  "prompt": "An investor set an allocation of 50% fixed income and 50% stocks. After two years of a strong stock market rally, without any trading, their portfolio is now at 35% fixed income and 65% stocks. What does this represent?",
+                  "options": [
+                    "Nothing actually changed, since they didn't buy or sell anything",
+                    "The portfolio experienced drift: it became riskier than the original allocation intended, even without any deliberate decision",
+                    "This is impossible, because allocation never changes on its own",
+                    "The brokerage must have made an error on the statement"
+                  ],
+                  "explanation": "Even without any buying or selling, the stocks' appreciation changed the portfolio's actual proportions — it became more exposed to stocks (riskier) than the original 50/50, which is exactly what drift is."
+                },
+                "es": {
+                  "prompt": "Un inversor definió una asignación de 50% renta fija y 50% acciones. Después de dos años de fuerte alza en la bolsa, sin ningún movimiento, su cartera está ahora en 35% renta fija y 65% acciones. ¿Qué representa esto?",
+                  "options": [
+                    "Nada cambió en realidad, porque no compró ni vendió nada",
+                    "La cartera sufrió drift: se volvió más riesgosa de lo que pretendía la asignación original, aunque no hubo ninguna decisión deliberada",
+                    "Esto es imposible, porque la asignación nunca cambia sola",
+                    "La corredora debe haber cometido un error en el extracto"
+                  ],
+                  "explanation": "Aunque no hubo ninguna compra o venta, la valorización de las acciones cambió las proporciones reales de la cartera — quedó más expuesta a acciones (más riesgosa) que el 50/50 original, que es exactamente lo que es el drift."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Drift é o afastamento da alocação real em relação à alocação original, causado apenas pela valorização ou desvalorização dos ativos ao longo do tempo.",
+                    "O drift muda o nível de risco da carteira sem que o investidor tenha tomado nenhuma decisão deliberada.",
+                    "Uma carteira pode ficar mais arriscada (ou mais conservadora) do que o planejado só porque alguns ativos subiram ou caíram mais do que outros."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Drift is the gap between the actual allocation and the original target allocation, caused simply by assets appreciating or depreciating over time.",
+                    "Drift changes the portfolio's risk level without the investor having made any deliberate decision.",
+                    "A portfolio can become riskier (or more conservative) than planned just because some assets rose or fell more than others."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El drift es el alejamiento de la asignación real respecto a la asignación original, causado solo por la valorización o desvalorización de los activos con el tiempo.",
+                    "El drift cambia el nivel de riesgo de la cartera sin que el inversor haya tomado ninguna decisión deliberada.",
+                    "Una cartera puede volverse más riesgosa (o más conservadora) de lo planeado solo porque algunos activos subieron o bajaron más que otros."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_rebalancing",
+          "order": 7,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Rebalanceamento"
+            },
+            "en": {
+              "title": "Rebalancing"
+            },
+            "es": {
+              "title": "Reequilibrio"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Trazendo a Carteira de Volta ao Lugar",
+                  "body": "Depois que a carteira sofre drift e se afasta da alocação original, existem duas formas principais de corrigir isso — o que chamamos de rebalanceamento.\n\nA primeira é vender parte do que ficou 'acima do peso' e comprar mais do que ficou 'abaixo do peso', até a proporção voltar ao alvo original. A segunda é direcionar novos aportes para a categoria que está abaixo do peso, deixando o mercado fazer o resto do trabalho aos poucos — essa abordagem tem a vantagem de evitar custos de transação e possíveis impostos que vender ativos pode gerar.\n\nUma prática comum é rebalancear a cada 6 a 12 meses, ou quando o desvio passa de um certo limite (por exemplo, 5 pontos percentuais em relação ao alvo). Não existe uma regra única perfeita: rebalancear com muita frequência gera mais custos e fricção; rebalancear raramente demais deixa a carteira desalinhada por mais tempo. É um equilíbrio entre manter a alocação alinhada e evitar custos desnecessários."
+                },
+                "en": {
+                  "title": "Bringing the Portfolio Back in Line",
+                  "body": "After a portfolio drifts away from its original allocation, there are two main ways to correct it — what we call rebalancing.\n\nThe first is selling part of what became 'overweight' and buying more of what became 'underweight,' until the proportion returns to the original target. The second is directing new contributions to the underweight category, letting the market do the rest of the work gradually — this approach has the advantage of avoiding the transaction costs and potential taxes that selling assets can trigger.\n\nA common practice is to rebalance every 6 to 12 months, or when the drift passes a certain threshold (for example, 5 percentage points from the target). There's no single perfect rule: rebalancing too often generates more costs and friction; rebalancing too rarely leaves the portfolio misaligned for longer. It's a trade-off between keeping the allocation aligned and avoiding unnecessary costs."
+                },
+                "es": {
+                  "title": "Devolviendo la Cartera a su Lugar",
+                  "body": "Después de que la cartera sufre drift y se aleja de la asignación original, existen dos formas principales de corregirlo — lo que llamamos reequilibrio (rebalanceo).\n\nLa primera es vender parte de lo que quedó 'sobreponderado' y comprar más de lo que quedó 'infraponderado', hasta que la proporción vuelva al objetivo original. La segunda es dirigir los nuevos aportes hacia la categoría infraponderada, dejando que el mercado haga el resto del trabajo poco a poco — este enfoque tiene la ventaja de evitar los costos de transacción y los posibles impuestos que vender activos puede generar.\n\nUna práctica común es reequilibrar cada 6 a 12 meses, o cuando el desvío supera un cierto límite (por ejemplo, 5 puntos porcentuales respecto al objetivo). No existe una regla única perfecta: reequilibrar con demasiada frecuencia genera más costos y fricción; reequilibrar muy pocas veces deja la cartera desalineada por más tiempo. Es un equilibrio entre mantener la asignación alineada y evitar costos innecesarios."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "As Duas Formas de Beatriz Rebalancear",
+                  "body": "Lembra da carteira de Beatriz, que foi de 70/30 para 65/35 (renda fixa/ações) depois de um ano de alta na bolsa? Ela tem duas opções para voltar ao alvo original.\n\nOpção 1: vender uma parte do ETF de ações e usar o dinheiro para comprar mais Tesouro Selic e CDBs, até a proporção voltar para 70/30. Isso corrige o desvio imediatamente, mas pode gerar custos de transação e imposto sobre o ganho na venda do ETF.\n\nOpção 2: continuar fazendo aportes mensais, mas direcionar todo o novo dinheiro para renda fixa por um tempo, até a proporção se aproximar de 70/30 naturalmente, sem vender nada. Essa opção é mais lenta, mas evita os custos da venda."
+                },
+                "en": {
+                  "title": "Beatriz's Two Ways to Rebalance",
+                  "body": "Remember Beatriz's portfolio, which went from 70/30 to 65/35 (fixed income/stocks) after a year of stock market gains? She has two options to return to the original target.\n\nOption 1: sell part of the stock ETF and use the proceeds to buy more Treasury Selic and CDBs, until the proportion returns to 70/30. This corrects the drift immediately, but may generate transaction costs and tax on the gain from selling the ETF.\n\nOption 2: keep making monthly contributions, but direct all the new money into fixed income for a while, until the proportion approaches 70/30 naturally, without selling anything. This option is slower, but avoids the costs of selling."
+                },
+                "es": {
+                  "title": "Las Dos Formas de Beatriz para Reequilibrar",
+                  "body": "¿Recuerdas la cartera de Beatriz, que pasó de 70/30 a 65/35 (renta fija/acciones) después de un año de alza en la bolsa? Ella tiene dos opciones para volver al objetivo original.\n\nOpción 1: vender parte del ETF de acciones y usar el dinero para comprar más Tesoro Selic y CDBs, hasta que la proporción vuelva a 70/30. Esto corrige el desvío de inmediato, pero puede generar costos de transacción e impuesto sobre la ganancia en la venta del ETF.\n\nOpción 2: seguir haciendo aportes mensuales, pero dirigir todo el dinero nuevo hacia renta fija por un tiempo, hasta que la proporción se acerque a 70/30 de forma natural, sin vender nada. Esta opción es más lenta, pero evita los costos de la venta."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Quais são as duas formas principais de rebalancear uma carteira que sofreu drift?",
+                  "options": [
+                    "Vender o que está acima do peso e comprar o que está abaixo do peso, ou direcionar novos aportes para a categoria abaixo do peso",
+                    "Vender tudo e recomeçar do zero, ou esperar sem fazer nada",
+                    "Trocar de corretora, ou pedir um empréstimo para investir mais",
+                    "Comprar mais do que já está acima do peso, para aproveitar a alta"
+                  ],
+                  "explanation": "Rebalancear significa vender o excesso e comprar o que falta (ajuste direto), ou usar novos aportes para corrigir a proporção aos poucos — não trocar de corretora nem comprar mais do que já está acima do peso."
+                },
+                "en": {
+                  "prompt": "What are the two main ways to rebalance a portfolio that has drifted?",
+                  "options": [
+                    "Sell what's overweight and buy what's underweight, or direct new contributions to the underweight category",
+                    "Sell everything and start over from scratch, or wait without doing anything",
+                    "Switch brokerages, or take out a loan to invest more",
+                    "Buy more of what's already overweight, to ride the gains"
+                  ],
+                  "explanation": "Rebalancing means selling the excess and buying what's lacking (direct adjustment), or using new contributions to correct the proportion gradually — not switching brokerages or buying more of what's already overweight."
+                },
+                "es": {
+                  "prompt": "¿Cuáles son las dos formas principales de reequilibrar una cartera que sufrió drift?",
+                  "options": [
+                    "Vender lo que está sobreponderado y comprar lo que está infraponderado, o dirigir los nuevos aportes hacia la categoría infraponderada",
+                    "Vender todo y empezar de cero, o esperar sin hacer nada",
+                    "Cambiar de corredora, o pedir un préstamo para invertir más",
+                    "Comprar más de lo que ya está sobreponderado, para aprovechar el alza"
+                  ],
+                  "explanation": "Reequilibrar significa vender el exceso y comprar lo que falta (ajuste directo), o usar los nuevos aportes para corregir la proporción poco a poco — no cambiar de corredora ni comprar más de lo que ya está sobreponderado."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Um investidor quer corrigir o drift da carteira dele, mas prefere evitar pagar imposto sobre ganho de capital agora e evitar custos de transação. Qual abordagem combina melhor com essa preferência?",
+                  "options": [
+                    "Vender toda a categoria acima do peso de uma vez",
+                    "Não fazer nada e esperar que o drift se resolva sozinho",
+                    "Direcionar os novos aportes mensais para a categoria abaixo do peso, deixando a proporção se ajustar aos poucos",
+                    "Vender tudo e comprar só ativos de renda fixa"
+                  ],
+                  "explanation": "Direcionar novos aportes para a categoria abaixo do peso é uma forma de rebalancear sem vender ativos — evitando os custos de transação e o possível imposto sobre ganho de capital que uma venda geraria."
+                },
+                "en": {
+                  "prompt": "An investor wants to fix their portfolio's drift, but prefers to avoid paying capital gains tax now and to avoid transaction costs. Which approach best fits that preference?",
+                  "options": [
+                    "Sell the entire overweight category at once",
+                    "Do nothing and wait for the drift to resolve itself",
+                    "Direct new monthly contributions to the underweight category, letting the proportion adjust gradually",
+                    "Sell everything and buy only fixed income assets"
+                  ],
+                  "explanation": "Directing new contributions to the underweight category is a way to rebalance without selling assets — avoiding the transaction costs and possible capital gains tax that a sale would trigger."
+                },
+                "es": {
+                  "prompt": "Un inversor quiere corregir el drift de su cartera, pero prefiere evitar pagar impuesto sobre la ganancia de capital ahora y evitar costos de transacción. ¿Qué enfoque se ajusta mejor a esa preferencia?",
+                  "options": [
+                    "Vender toda la categoría sobreponderada de una vez",
+                    "No hacer nada y esperar a que el drift se resuelva solo",
+                    "Dirigir los nuevos aportes mensuales hacia la categoría infraponderada, dejando que la proporción se ajuste poco a poco",
+                    "Vender todo y comprar solo activos de renta fija"
+                  ],
+                  "explanation": "Dirigir los nuevos aportes hacia la categoría infraponderada es una forma de reequilibrar sin vender activos — evitando los costos de transacción y el posible impuesto sobre la ganancia de capital que una venta generaría."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Rebalancear é realinhar a carteira à alocação original depois que ela sofreu drift.",
+                    "As duas formas principais são: vender o que está acima do peso e comprar o que está abaixo do peso, ou direcionar novos aportes para a categoria abaixo do peso.",
+                    "Uma prática comum é rebalancear a cada 6 a 12 meses ou quando o desvio passa de um certo limite — é um equilíbrio entre manter a alocação alinhada e evitar custos e fricção desnecessários."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Rebalancing means realigning the portfolio to its original allocation after it has drifted.",
+                    "The two main ways are: selling what's overweight and buying what's underweight, or directing new contributions to the underweight category.",
+                    "A common practice is rebalancing every 6 to 12 months or when the drift passes a certain threshold — it's a trade-off between keeping the allocation aligned and avoiding unnecessary costs and friction."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Reequilibrar es realinear la cartera a su asignación original después de que sufrió drift.",
+                    "Las dos formas principales son: vender lo que está sobreponderado y comprar lo que está infraponderado, o dirigir los nuevos aportes hacia la categoría infraponderada.",
+                    "Una práctica común es reequilibrar cada 6 a 12 meses o cuando el desvío supera un cierto límite — es un equilibrio entre mantener la asignación alineada y evitar costos y fricción innecesarios."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_costs_and_taxes",
+          "order": 8,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Custos e Impostos na Carteira"
+            },
+            "en": {
+              "title": "Costs and Taxes Across a Portfolio"
+            },
+            "es": {
+              "title": "Costos e Impuestos en la Cartera"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um Fator a Mais na Hora de Decidir",
+                  "body": "Além de risco, retorno e correlação, montar e ajustar uma carteira também envolve custos — taxas de corretagem, taxas de administração de fundos e ETFs, e eventuais impostos sobre ganhos. Esses custos não aparecem no gráfico de rentabilidade, mas reduzem o resultado final que efetivamente fica no seu bolso.\n\nCada categoria de ativo e cada operação (comprar, vender, rebalancear) pode ter uma estrutura de custos diferente. Por isso, ao pensar na carteira como um todo, vale lembrar que decisões como vender para rebalancear, por exemplo, podem ter um custo tributário associado — e comparar essas decisões considerando custos e impostos, não só o retorno esperado.\n\nAs regras específicas de tributação de cada tipo de investimento são um tema denso o suficiente para merecer seu próprio módulo — aqui, o importante é saber que esse fator existe e entra na conta ao avaliar a carteira como um todo."
+                },
+                "en": {
+                  "title": "One More Factor in the Decision",
+                  "body": "Beyond risk, return, and correlation, building and adjusting a portfolio also involves costs — brokerage fees, management fees on funds and ETFs, and potential taxes on gains. These costs don't show up on a return chart, but they reduce the final result that actually lands in your pocket.\n\nEach asset category and each operation (buying, selling, rebalancing) can have a different cost structure. That's why, when thinking about the portfolio as a whole, it's worth remembering that decisions like selling to rebalance, for example, can carry an associated tax cost — and comparing those decisions by weighing costs and taxes, not just expected return.\n\nThe specific taxation rules for each type of investment are a dense enough topic to deserve their own module — here, what matters is knowing this factor exists and enters the equation when evaluating the portfolio as a whole."
+                },
+                "es": {
+                  "title": "Un Factor Más al Momento de Decidir",
+                  "body": "Además del riesgo, el retorno y la correlación, armar y ajustar una cartera también implica costos — comisiones de corretaje, comisiones de administración de fondos y ETFs, e impuestos eventuales sobre las ganancias. Estos costos no aparecen en el gráfico de rentabilidad, pero reducen el resultado final que realmente queda en tu bolsillo.\n\nCada categoría de activo y cada operación (comprar, vender, reequilibrar) puede tener una estructura de costos diferente. Por eso, al pensar en la cartera como un todo, vale la pena recordar que decisiones como vender para reequilibrar, por ejemplo, pueden tener un costo tributario asociado — y comparar esas decisiones considerando costos e impuestos, no solo el retorno esperado.\n\nLas reglas específicas de tributación de cada tipo de inversión son un tema lo bastante denso como para merecer su propio módulo — aquí, lo importante es saber que este factor existe y entra en la cuenta al evaluar la cartera como un todo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Duas Formas de Rebalancear, Custos Diferentes",
+                  "body": "Lembra das duas formas de rebalancear que você viu na lição anterior? Vender ativos para corrigir o desvio pode gerar corretagem e, dependendo do ativo, imposto sobre o ganho obtido na venda. Já direcionar novos aportes para a categoria abaixo do peso evita boa parte desses custos, mas é uma correção mais lenta.\n\nEsse é só um exemplo de como custos e impostos entram na análise da carteira como um todo — não como uma regra pronta sobre qual escolha é sempre melhor, mas como mais um fator a pesar junto com risco, retorno e a velocidade que você precisa para voltar ao alvo."
+                },
+                "en": {
+                  "title": "Two Ways to Rebalance, Different Costs",
+                  "body": "Remember the two ways to rebalance you saw in the previous lesson? Selling assets to correct the drift can generate brokerage fees and, depending on the asset, tax on the gain earned in the sale. Directing new contributions to the underweight category, on the other hand, avoids much of that cost, but it's a slower correction.\n\nThis is just one example of how costs and taxes enter into evaluating the portfolio as a whole — not as a ready-made rule about which choice is always better, but as one more factor to weigh alongside risk, return, and how quickly you need to get back to the target."
+                },
+                "es": {
+                  "title": "Dos Formas de Reequilibrar, Costos Diferentes",
+                  "body": "¿Recuerdas las dos formas de reequilibrar que viste en la lección anterior? Vender activos para corregir el desvío puede generar comisiones de corretaje y, según el activo, impuesto sobre la ganancia obtenida en la venta. Dirigir los nuevos aportes hacia la categoría infraponderada, en cambio, evita buena parte de esos costos, pero es una corrección más lenta.\n\nEste es solo un ejemplo de cómo los costos e impuestos entran en el análisis de la cartera como un todo — no como una regla fija sobre cuál elección es siempre mejor, sino como un factor más para sopesar junto con el riesgo, el retorno y la velocidad con la que necesitas volver al objetivo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que custos e impostos são relevantes ao avaliar decisões sobre a carteira, como rebalancear?",
+                  "options": [
+                    "Porque eles não afetam o resultado final, só o retorno bruto importa",
+                    "Porque reduzem o resultado que efetivamente fica no bolso do investidor, então entram na comparação entre diferentes decisões",
+                    "Porque são iguais para todos os tipos de ativos e operações",
+                    "Porque só existem em investimentos de renda fixa"
+                  ],
+                  "explanation": "Custos e impostos reduzem o resultado líquido do investidor, então fazem parte da avaliação de qualquer decisão sobre a carteira — não são iguais para todos os ativos nem irrelevantes para o resultado final."
+                },
+                "en": {
+                  "prompt": "Why are costs and taxes relevant when evaluating portfolio decisions, like rebalancing?",
+                  "options": [
+                    "Because they don't affect the final result, only the gross return matters",
+                    "Because they reduce the result that actually lands in the investor's pocket, so they factor into comparing different decisions",
+                    "Because they're the same for all types of assets and operations",
+                    "Because they only exist for fixed income investments"
+                  ],
+                  "explanation": "Costs and taxes reduce the investor's net result, so they factor into evaluating any portfolio decision — they aren't the same across all assets, nor irrelevant to the final result."
+                },
+                "es": {
+                  "prompt": "¿Por qué son relevantes los costos e impuestos al evaluar decisiones sobre la cartera, como reequilibrar?",
+                  "options": [
+                    "Porque no afectan el resultado final, solo importa el retorno bruto",
+                    "Porque reducen el resultado que realmente queda en el bolsillo del inversor, así que entran en la comparación entre distintas decisiones",
+                    "Porque son iguales para todos los tipos de activos y operaciones",
+                    "Porque solo existen en inversiones de renta fija"
+                  ],
+                  "explanation": "Los costos e impuestos reducen el resultado neto del inversor, así que forman parte de la evaluación de cualquier decisión sobre la cartera — no son iguales para todos los activos ni irrelevantes para el resultado final."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 4,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Montar e ajustar uma carteira envolve custos — corretagem, taxas de administração e, em algumas operações, impostos sobre ganhos.",
+                    "Esses custos reduzem o resultado final que efetivamente fica no bolso do investidor, então entram na comparação entre diferentes decisões sobre a carteira.",
+                    "As regras específicas de tributação de cada investimento serão exploradas em um módulo dedicado ao tema — aqui, o importante é saber que esse fator existe."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Building and adjusting a portfolio involves costs — brokerage fees, management fees, and, in some operations, taxes on gains.",
+                    "These costs reduce the final result that actually lands in the investor's pocket, so they factor into comparing different portfolio decisions.",
+                    "The specific taxation rules for each investment will be covered in a dedicated module — here, what matters is knowing this factor exists."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Armar y ajustar una cartera implica costos — comisiones de corretaje, comisiones de administración y, en algunas operaciones, impuestos sobre las ganancias.",
+                    "Estos costos reducen el resultado final que realmente queda en el bolsillo del inversor, así que entran en la comparación entre distintas decisiones sobre la cartera.",
+                    "Las reglas específicas de tributación de cada inversión se explorarán en un módulo dedicado al tema — aquí, lo importante es saber que este factor existe."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_building_your_allocation",
+          "order": 9,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Construindo Sua Alocação"
+            },
+            "en": {
+              "title": "Building Your Allocation"
+            },
+            "es": {
+              "title": "Construyendo Tu Asignación"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Juntando as Peças",
+                  "body": "Você já viu os ingredientes separados: o perfil de investidor (conservador, moderado ou arrojado) mostra sua tolerância a risco; o horizonte de cada objetivo mostra quando o dinheiro será usado; a alocação de ativos é a decisão que mais pesa no risco e retorno da carteira; e a correlação entre os ativos escolhidos afeta o quanto essa alocação realmente reduz oscilações.\n\nConstruir uma alocação é juntar essas peças: usar o perfil e os horizontes dos seus objetivos para decidir, em termos amplos, quanto direcionar para cada grande categoria — e, dentro de cada categoria, procurar ativos que não sejam todos altamente correlacionados entre si.\n\nImportante: não existe uma fórmula que dá a resposta 'certa' automaticamente. O que existe é um processo de raciocínio que combina esses fatores. Qualquer exemplo numérico que você vir a seguir é ilustrativo e fictício — não um modelo pronto para copiar, porque o que faz sentido para uma pessoa não necessariamente faz sentido para outra, mesmo com números parecidos."
+                },
+                "en": {
+                  "title": "Putting the Pieces Together",
+                  "body": "You've already seen the ingredients separately: the investor profile (conservative, moderate, or aggressive) shows your risk tolerance; each goal's horizon shows when the money will be used; asset allocation is the decision that weighs most on the portfolio's risk and return; and the correlation between the chosen assets affects how much that allocation actually reduces swings.\n\nBuilding an allocation means putting these pieces together: using your profile and your goals' horizons to decide, in broad terms, how much to direct to each major category — and, within each category, looking for assets that aren't all highly correlated with each other.\n\nImportant: there's no formula that automatically gives the 'right' answer. What exists is a reasoning process that combines these factors. Any numerical example you see next is illustrative and fictional — not a ready-made template to copy, because what makes sense for one person doesn't necessarily make sense for another, even with similar numbers."
+                },
+                "es": {
+                  "title": "Uniendo las Piezas",
+                  "body": "Ya viste los ingredientes por separado: el perfil de inversor (conservador, moderado o arrojado) muestra tu tolerancia al riesgo; el horizonte de cada objetivo muestra cuándo se usará el dinero; la asignación de activos es la decisión que más pesa en el riesgo y retorno de la cartera; y la correlación entre los activos elegidos afecta cuánto esa asignación realmente reduce las oscilaciones.\n\nConstruir una asignación es unir esas piezas: usar tu perfil y los horizontes de tus objetivos para decidir, en términos amplios, cuánto dirigir a cada gran categoría — y, dentro de cada categoría, buscar activos que no estén todos altamente correlacionados entre sí.\n\nImportante: no existe una fórmula que dé la respuesta 'correcta' automáticamente. Lo que existe es un proceso de razonamiento que combina estos factores. Cualquier ejemplo numérico que veas a continuación es ilustrativo y ficticio — no una plantilla lista para copiar, porque lo que tiene sentido para una persona no necesariamente tiene sentido para otra, incluso con números parecidos."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "A Alocação Ilustrativa de Otávio (Exemplo Fictício)",
+                  "body": "Otávio, 30 anos, perfil moderado, tem uma reserva de emergência já formada, um objetivo de médio prazo (trocar de carro em 3 anos) e o objetivo de longo prazo de aposentadoria. Puramente como ilustração de como as peças se conectam — não como uma receita a seguir — ele poderia pensar em algo como: uma fatia em renda fixa de alta liquidez para a reserva; uma fatia em renda fixa de prazo mais longo para o carro; e uma fatia maior dividida entre um ETF de ações brasileiras e um ETF de ações internacionais para a aposentadoria, escolhidos justamente por terem uma correlação não muito alta entre si.\n\nEsse exemplo específico é fictício e serve só para mostrar o raciocínio. Uma pessoa com perfil conservador, objetivos diferentes, ou um horizonte diferente para a aposentadoria chegaria a uma combinação diferente — e isso não seria 'errado', seria apropriado para a situação dela."
+                },
+                "en": {
+                  "title": "Otávio's Illustrative Allocation (Fictional Example)",
+                  "body": "Otávio, 30, moderate profile, already has an emergency fund built up, a medium-term goal (replacing his car in 3 years), and the long-term goal of retirement. Purely as an illustration of how the pieces connect — not as a recipe to follow — he might think about something like: a highly liquid fixed income slice for the emergency fund; a longer-term fixed income slice for the car; and a larger slice split between a Brazilian stock ETF and an international stock ETF for retirement, chosen precisely because they don't have very high correlation with each other.\n\nThis specific example is fictional and only serves to show the reasoning. Someone with a conservative profile, different goals, or a different retirement horizon would arrive at a different combination — and that wouldn't be 'wrong,' it would be appropriate for their situation."
+                },
+                "es": {
+                  "title": "La Asignación Ilustrativa de Otávio (Ejemplo Ficticio)",
+                  "body": "Otávio, de 30 años, perfil moderado, ya tiene un fondo de emergencia formado, un objetivo de mediano plazo (cambiar de auto en 3 años) y el objetivo de largo plazo de la jubilación. Puramente como ilustración de cómo se conectan las piezas — no como una receta a seguir — podría pensar en algo como: una porción en renta fija de alta liquidez para el fondo de emergencia; una porción en renta fija de plazo más largo para el auto; y una porción mayor dividida entre un ETF de acciones brasileñas y un ETF de acciones internacionales para la jubilación, elegidos justamente porque no tienen una correlación muy alta entre sí.\n\nEste ejemplo específico es ficticio y solo sirve para mostrar el razonamiento. Una persona con perfil conservador, objetivos diferentes, o un horizonte diferente para la jubilación llegaría a una combinación distinta — y eso no sería 'incorrecto', sería apropiado para su situación."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "Ao construir uma alocação, quais fatores devem ser combinados no raciocínio?",
+                  "options": [
+                    "Apenas o retorno passado dos ativos disponíveis",
+                    "Apenas a recomendação de um influenciador financeiro",
+                    "Apenas o valor total disponível para investir",
+                    "O perfil de investidor, o horizonte dos objetivos, e a correlação entre os ativos escolhidos dentro de cada categoria"
+                  ],
+                  "explanation": "Construir uma alocação envolve combinar perfil de risco, horizonte dos objetivos e correlação entre ativos — não seguir apenas retorno passado, recomendações de terceiros ou só o valor disponível."
+                },
+                "en": {
+                  "prompt": "When building an allocation, which factors should be combined in the reasoning?",
+                  "options": [
+                    "Only the past return of the available assets",
+                    "Only a financial influencer's recommendation",
+                    "Only the total amount available to invest",
+                    "The investor profile, the horizon of the goals, and the correlation between the chosen assets within each category"
+                  ],
+                  "explanation": "Building an allocation involves combining risk profile, goal horizons, and correlation between assets — not just following past returns, third-party recommendations, or just the amount available."
+                },
+                "es": {
+                  "prompt": "Al construir una asignación, ¿qué factores deben combinarse en el razonamiento?",
+                  "options": [
+                    "Solo el retorno pasado de los activos disponibles",
+                    "Solo la recomendación de un influencer financiero",
+                    "Solo el monto total disponible para invertir",
+                    "El perfil de inversor, el horizonte de los objetivos y la correlación entre los activos elegidos dentro de cada categoría"
+                  ],
+                  "explanation": "Construir una asignación implica combinar el perfil de riesgo, el horizonte de los objetivos y la correlación entre activos — no solo seguir el retorno pasado, recomendaciones de terceros o solo el monto disponible."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que o exemplo da alocação de Otávio não deve ser copiado diretamente por outra pessoa?",
+                  "options": [
+                    "Porque os números usados no exemplo estão incorretos",
+                    "Porque exemplos fictícios nunca ensinam nada de útil",
+                    "Porque a combinação apropriada depende do perfil, dos objetivos e do horizonte de cada pessoa, que variam de um investidor para outro",
+                    "Porque só existe uma alocação certa para todo mundo, e o exemplo mostra ela"
+                  ],
+                  "explanation": "A alocação apropriada depende de fatores individuais — perfil, objetivos e horizonte — que variam de pessoa para pessoa. Por isso um exemplo ilustrativo serve para mostrar o raciocínio, não como modelo universal."
+                },
+                "en": {
+                  "prompt": "Why shouldn't Otávio's allocation example be directly copied by someone else?",
+                  "options": [
+                    "Because the numbers used in the example are incorrect",
+                    "Because fictional examples never teach anything useful",
+                    "Because the appropriate combination depends on each person's profile, goals, and horizon, which vary from investor to investor",
+                    "Because there's only one correct allocation for everyone, and the example shows it"
+                  ],
+                  "explanation": "The appropriate allocation depends on individual factors — profile, goals, and horizon — which vary from person to person. That's why an illustrative example serves to show the reasoning, not as a universal template."
+                },
+                "es": {
+                  "prompt": "¿Por qué no se debería copiar directamente el ejemplo de la asignación de Otávio para otra persona?",
+                  "options": [
+                    "Porque los números usados en el ejemplo son incorrectos",
+                    "Porque los ejemplos ficticios nunca enseñan nada útil",
+                    "Porque la combinación apropiada depende del perfil, los objetivos y el horizonte de cada persona, que varían de un inversor a otro",
+                    "Porque solo existe una asignación correcta para todos, y el ejemplo la muestra"
+                  ],
+                  "explanation": "La asignación apropiada depende de factores individuales — perfil, objetivos y horizonte — que varían de persona a persona. Por eso un ejemplo ilustrativo sirve para mostrar el razonamiento, no como plantilla universal."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Construir uma alocação é combinar perfil de investidor, horizonte dos objetivos e correlação entre ativos em um único raciocínio.",
+                    "Não existe uma fórmula automática que dá a alocação 'certa' — existe um processo de decisão que pesa esses fatores.",
+                    "Qualquer exemplo numérico de alocação é ilustrativo, não um modelo para copiar — a combinação apropriada depende da situação de cada pessoa."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Building an allocation means combining investor profile, goal horizons, and correlation between assets into a single line of reasoning.",
+                    "There's no automatic formula that gives the 'right' allocation — there's a decision process that weighs these factors.",
+                    "Any numerical allocation example is illustrative, not a template to copy — the appropriate combination depends on each person's situation."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Construir una asignación es combinar el perfil de inversor, el horizonte de los objetivos y la correlación entre activos en un solo razonamiento.",
+                    "No existe una fórmula automática que dé la asignación 'correcta' — existe un proceso de decisión que pondera estos factores.",
+                    "Cualquier ejemplo numérico de asignación es ilustrativo, no una plantilla para copiar — la combinación apropiada depende de la situación de cada persona."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_reviewing_your_portfolio",
+          "order": 10,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Revisando Sua Carteira"
+            },
+            "en": {
+              "title": "Reviewing Your Portfolio"
+            },
+            "es": {
+              "title": "Revisando Tu Cartera"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quando Vale a Pena Revisar",
+                  "body": "Revisar uma carteira não é só sobre rebalancear por causa do drift. Faz sentido revisar quando algo muda de verdade: seu perfil de investidor foi atualizado, um objetivo mudou de horizonte (por exemplo, você decidiu antecipar uma compra), ou você percebe que os ativos que escolheu têm uma correlação mais alta do que imaginava.\n\nO objetivo dessa revisão não é reagir a cada notícia ou oscilação de curto prazo — é verificar, periodicamente, se a carteira ainda reflete o que você precisa dela. Uma carteira que fazia sentido há dois anos pode não fazer mais sentido se sua vida mudou."
+                },
+                "en": {
+                  "title": "When It's Worth Reviewing",
+                  "body": "Reviewing a portfolio isn't only about rebalancing because of drift. It makes sense to review when something genuinely changes: your investor profile was updated, a goal's horizon changed (for example, you decided to move up a purchase), or you realize the assets you chose have a higher correlation than you thought.\n\nThe point of this review isn't to react to every piece of news or short-term swing — it's to check, periodically, whether the portfolio still reflects what you need from it. A portfolio that made sense two years ago might not make sense anymore if your life has changed."
+                },
+                "es": {
+                  "title": "Cuándo Vale la Pena Revisar",
+                  "body": "Revisar una cartera no se trata solo de reequilibrar por el drift. Tiene sentido revisar cuando algo cambia de verdad: tu perfil de inversor fue actualizado, un objetivo cambió de horizonte (por ejemplo, decidiste adelantar una compra), o te das cuenta de que los activos que elegiste tienen una correlación más alta de lo que imaginabas.\n\nEl objetivo de esta revisión no es reaccionar a cada noticia u oscilación de corto plazo — es verificar, periódicamente, si la cartera todavía refleja lo que necesitas de ella. Una cartera que tenía sentido hace dos años puede que ya no lo tenga si tu vida cambió."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "O Caso de Renata",
+                  "body": "Renata montou a carteira dela há três anos: perfil moderado, com uma boa parte em ações pensando na aposentadoria daqui a 20 anos. Recentemente, dois eventos aconteceram: ela recebeu um diagnóstico que vai exigir tratamentos custosos nos próximos anos, e decidiu que vai precisar resgatar uma parte maior do dinheiro em breve, além do previsto.\n\nO horizonte de parte do dinheiro de Renata mudou de longo para médio prazo, e a tolerância a risco dela para essa fatia também deve mudar, já que ela vai precisar desse valor com mais liquidez e menos exposto a oscilações. Isso não significa abandonar a carteira toda — significa revisar a fatia afetada pela mudança, e provavelmente atualizar o perfil de investidor dela também."
+                },
+                "en": {
+                  "title": "Renata's Case",
+                  "body": "Renata built her portfolio three years ago: moderate profile, with a good portion in stocks with retirement in 20 years in mind. Recently, two events happened: she received a diagnosis that will require costly treatments over the next few years, and she decided she'll need to withdraw a larger portion of the money sooner than planned.\n\nThe horizon for part of Renata's money shifted from long-term to medium-term, and her risk tolerance for that slice should change too, since she'll need that amount with more liquidity and less exposure to swings. This doesn't mean abandoning the whole portfolio — it means reviewing the slice affected by the change, and likely updating her investor profile as well."
+                },
+                "es": {
+                  "title": "El Caso de Renata",
+                  "body": "Renata armó su cartera hace tres años: perfil moderado, con una buena parte en acciones pensando en la jubilación dentro de 20 años. Recientemente ocurrieron dos eventos: recibió un diagnóstico que requerirá tratamientos costosos en los próximos años, y decidió que necesitará retirar una parte mayor del dinero pronto, antes de lo previsto.\n\nEl horizonte de parte del dinero de Renata cambió de largo a mediano plazo, y su tolerancia al riesgo para esa porción también debería cambiar, ya que va a necesitar ese monto con más liquidez y menos expuesto a oscilaciones. Esto no significa abandonar toda la cartera — significa revisar la porción afectada por el cambio, y probablemente actualizar también su perfil de inversor."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "No caso de Renata, o que mudou e por que isso justifica uma revisão da carteira?",
+                  "options": [
+                    "Nada mudou de verdade, ela só deveria esperar o mercado se ajustar sozinho",
+                    "O horizonte de parte do dinheiro dela ficou mais curto e a necessidade de liquidez aumentou, então essa fatia da carteira deveria refletir menos risco e mais liquidez",
+                    "Ela deveria vender toda a carteira e não investir mais nada",
+                    "A mudança não afeta a carteira, só afeta o orçamento mensal dela"
+                  ],
+                  "explanation": "Como o horizonte de parte do dinheiro de Renata mudou de longo para médio prazo e a necessidade de liquidez aumentou, faz sentido revisar essa fatia da carteira para refletir menos risco e mais liquidez — sem necessariamente mexer no restante."
+                },
+                "en": {
+                  "prompt": "In Renata's case, what changed, and why does that justify a portfolio review?",
+                  "options": [
+                    "Nothing really changed, she should just wait for the market to adjust on its own",
+                    "The horizon for part of her money got shorter and her need for liquidity increased, so that slice of the portfolio should reflect less risk and more liquidity",
+                    "She should sell the entire portfolio and stop investing altogether",
+                    "The change doesn't affect the portfolio, only her monthly budget"
+                  ],
+                  "explanation": "Since the horizon for part of Renata's money shifted from long-term to medium-term and her need for liquidity increased, it makes sense to review that slice of the portfolio to reflect less risk and more liquidity — without necessarily touching the rest."
+                },
+                "es": {
+                  "prompt": "En el caso de Renata, ¿qué cambió y por qué eso justifica una revisión de la cartera?",
+                  "options": [
+                    "Nada cambió en realidad, ella debería solo esperar a que el mercado se ajuste solo",
+                    "El horizonte de parte de su dinero se acortó y su necesidad de liquidez aumentó, así que esa porción de la cartera debería reflejar menos riesgo y más liquidez",
+                    "Debería vender toda la cartera y no invertir nada más",
+                    "El cambio no afecta la cartera, solo afecta su presupuesto mensual"
+                  ],
+                  "explanation": "Como el horizonte de parte del dinero de Renata cambió de largo a mediano plazo y su necesidad de liquidez aumentó, tiene sentido revisar esa porción de la cartera para reflejar menos riesgo y más liquidez — sin necesariamente tocar el resto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual dessas situações é um bom motivo para revisar uma carteira, além do drift comum?",
+                  "options": [
+                    "O investidor teve uma mudança relevante de vida que altera o horizonte ou a tolerância a risco de um objetivo",
+                    "Uma ação da carteira teve um dia de queda de 1%",
+                    "Um amigo comentou que investiu em outro ativo",
+                    "O mercado abriu em alta hoje"
+                  ],
+                  "explanation": "Mudanças relevantes de vida — que alteram horizonte, tolerância a risco ou objetivos — são motivos sólidos para revisar a carteira. Oscilações diárias pequenas ou comentários de terceiros não são."
+                },
+                "en": {
+                  "prompt": "Which of these situations is a good reason to review a portfolio, beyond ordinary drift?",
+                  "options": [
+                    "The investor had a significant life change that alters the horizon or risk tolerance of a goal",
+                    "A stock in the portfolio had a 1% down day",
+                    "A friend mentioned they invested in a different asset",
+                    "The market opened higher today"
+                  ],
+                  "explanation": "Significant life changes — that alter horizon, risk tolerance, or goals — are solid reasons to review the portfolio. Small daily swings or third-party comments are not."
+                },
+                "es": {
+                  "prompt": "¿Cuál de estas situaciones es un buen motivo para revisar una cartera, más allá del drift habitual?",
+                  "options": [
+                    "El inversor tuvo un cambio relevante de vida que altera el horizonte o la tolerancia al riesgo de un objetivo",
+                    "Una acción de la cartera tuvo un día de caída del 1%",
+                    "Un amigo comentó que invirtió en otro activo",
+                    "El mercado abrió al alza hoy"
+                  ],
+                  "explanation": "Los cambios relevantes de vida — que alteran el horizonte, la tolerancia al riesgo o los objetivos — son motivos sólidos para revisar la cartera. Las pequeñas oscilaciones diarias o los comentarios de terceros no lo son."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Revisar uma carteira vai além de corrigir o drift — faz sentido quando o perfil de investidor, o horizonte de um objetivo ou a tolerância a risco mudam de verdade.",
+                    "Mudanças relevantes de vida podem alterar o horizonte de parte do dinheiro investido, exigindo ajuste na fatia afetada, não necessariamente na carteira inteira.",
+                    "O objetivo da revisão é verificar periodicamente se a carteira ainda reflete o que você precisa dela, não reagir a cada oscilação de curto prazo."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Reviewing a portfolio goes beyond correcting drift — it makes sense when the investor profile, a goal's horizon, or risk tolerance genuinely changes.",
+                    "Significant life changes can shift the horizon for part of the invested money, requiring an adjustment to the affected slice, not necessarily the whole portfolio.",
+                    "The point of a review is to periodically check whether the portfolio still reflects what you need from it, not to react to every short-term swing."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Revisar una cartera va más allá de corregir el drift — tiene sentido cuando el perfil de inversor, el horizonte de un objetivo o la tolerancia al riesgo cambian de verdad.",
+                    "Los cambios relevantes de vida pueden alterar el horizonte de parte del dinero invertido, exigiendo un ajuste en la porción afectada, no necesariamente en toda la cartera.",
+                    "El objetivo de la revisión es verificar periódicamente si la cartera todavía refleja lo que necesitas de ella, no reaccionar a cada oscilación de corto plazo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "portfolio_construction_final_challenge",
+          "order": 11,
+          "xpReward": 20,
+          "translations": {
+            "pt": {
+              "title": "Desafio da Carteira"
+            },
+            "en": {
+              "title": "Portfolio Challenge"
+            },
+            "es": {
+              "title": "Desafío de la Cartera"
+            }
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A Carteira de Larissa",
+                  "body": "Larissa tem 34 anos, perfil moderado, e monta sua carteira há 3 anos com três objetivos: uma reserva de emergência (já formada, em Tesouro Selic), a compra de um imóvel daqui a pouco mais de 1 ano (o plano original era em 4 anos, mas ela decidiu antecipar a compra), e a aposentadoria daqui a 28 anos.\n\nQuando começou, ela definiu 60% em renda fixa e 40% em ações para a parte de médio e longo prazo. As ações que ela escolheu são de cinco empresas diferentes, mas todas do setor de tecnologia. Nos últimos dois anos, essas ações subiram muito, e hoje essa parte da carteira está em 40% renda fixa e 60% ações — Larissa não fez nenhum ajuste desde que montou a carteira.\n\nNas próximas etapas, você vai analisar a situação de Larissa sob os ângulos que aprendeu neste módulo: drift, correlação, horizonte e rebalanceamento."
+                },
+                "en": {
+                  "title": "Larissa's Portfolio",
+                  "body": "Larissa is 34, has a moderate profile, and has been building her portfolio for 3 years with three goals: an emergency fund (already built up, in Treasury Selic), buying property a little over 1 year from now (the original plan was 4 years, but she decided to move up the purchase), and retirement in 28 years.\n\nWhen she started, she set 60% in fixed income and 40% in stocks for the medium- and long-term portion. The stocks she chose are from five different companies, but all in the technology sector. Over the past two years, those stocks rose a lot, and today that part of the portfolio sits at 40% fixed income and 60% stocks — Larissa hasn't made any adjustment since she built the portfolio.\n\nIn the next steps, you'll analyze Larissa's situation through the lenses you learned in this module: drift, correlation, horizon, and rebalancing."
+                },
+                "es": {
+                  "title": "La Cartera de Larissa",
+                  "body": "Larissa tiene 34 años, perfil moderado, y arma su cartera desde hace 3 años con tres objetivos: un fondo de emergencia (ya formado, en Tesoro Selic), la compra de una propiedad dentro de poco más de 1 año (el plan original era en 4 años, pero decidió adelantar la compra), y la jubilación dentro de 28 años.\n\nCuando empezó, definió 60% en renta fija y 40% en acciones para la parte de mediano y largo plazo. Las acciones que eligió son de cinco empresas diferentes, pero todas del sector tecnológico. En los últimos dos años, esas acciones subieron mucho, y hoy esa parte de la cartera está en 40% renta fija y 60% acciones — Larissa no hizo ningún ajuste desde que armó la cartera.\n\nEn los próximos pasos, vas a analizar la situación de Larissa desde los ángulos que aprendiste en este módulo: drift, correlación, horizonte y reequilibrio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 2,
+              "framing": "apply",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "O que aconteceu com a alocação de ações e renda fixa de Larissa nos últimos dois anos, e o que isso significa?",
+                  "options": [
+                    "Nada mudou, porque ela não comprou nem vendeu nada",
+                    "A carteira ficou mais conservadora, porque ações são sempre mais seguras que renda fixa",
+                    "Isso é impossível, porque a alocação definida no início nunca muda",
+                    "A carteira sofreu drift: a valorização das ações fez a fatia de ações crescer de 40% para 60%, deixando a carteira mais arriscada do que o planejado, sem nenhuma decisão deliberada de Larissa"
+                  ],
+                  "explanation": "A valorização das ações fez a proporção real se afastar da alocação original de 60/40 — esse é exatamente o fenômeno de drift, que aumenta o risco da carteira sem nenhuma ação deliberada do investidor."
+                },
+                "en": {
+                  "prompt": "What happened to Larissa's stock/fixed income allocation over the past two years, and what does that mean?",
+                  "options": [
+                    "Nothing changed, since she didn't buy or sell anything",
+                    "The portfolio became more conservative, because stocks are always safer than fixed income",
+                    "This is impossible, because the allocation set at the start never changes",
+                    "The portfolio experienced drift: the stocks' appreciation grew the stock slice from 40% to 60%, making the portfolio riskier than planned, without any deliberate decision from Larissa"
+                  ],
+                  "explanation": "The stocks' appreciation made the actual proportion drift away from the original 60/40 allocation — that's exactly the drift phenomenon, which increases the portfolio's risk without any deliberate action from the investor."
+                },
+                "es": {
+                  "prompt": "¿Qué pasó con la asignación de acciones y renta fija de Larissa en los últimos dos años, y qué significa eso?",
+                  "options": [
+                    "Nada cambió, porque ella no compró ni vendió nada",
+                    "La cartera se volvió más conservadora, porque las acciones son siempre más seguras que la renta fija",
+                    "Esto es imposible, porque la asignación definida al inicio nunca cambia",
+                    "La cartera sufrió drift: la valorización de las acciones hizo que la porción de acciones creciera del 40% al 60%, dejando la cartera más riesgosa de lo planeado, sin ninguna decisión deliberada de Larissa"
+                  ],
+                  "explanation": "La valorización de las acciones hizo que la proporción real se alejara de la asignación original de 60/40 — ese es exactamente el fenómeno de drift, que aumenta el riesgo de la cartera sin ninguna acción deliberada del inversor."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 3,
+              "translations": {
+                "pt": {
+                  "prompt": "As cinco ações escolhidas por Larissa são todas do setor de tecnologia. Do ponto de vista de correlação, o que isso sugere sobre a diversificação dessa fatia da carteira?",
+                  "options": [
+                    "A diversificação é excelente, porque são cinco ativos diferentes",
+                    "Correlação não importa quando as ações são de empresas de tecnologia",
+                    "Ela deveria ter comprado só uma ação em vez de cinco",
+                    "A diversificação dessa fatia é limitada, porque empresas do mesmo setor tendem a ter correlação alta, reagindo de forma parecida aos mesmos eventos"
+                  ],
+                  "explanation": "Mesmo sendo cinco empresas diferentes, todas do mesmo setor tendem a reagir de forma parecida às mesmas notícias e ciclos econômicos — ou seja, têm correlação alta entre si, o que limita o quanto essa escolha realmente reduz oscilações."
+                },
+                "en": {
+                  "prompt": "The five stocks Larissa chose are all in the technology sector. From a correlation standpoint, what does that suggest about the diversification of that slice of the portfolio?",
+                  "options": [
+                    "The diversification is excellent, because they're five different assets",
+                    "Correlation doesn't matter when the stocks are technology companies",
+                    "She should have bought just one stock instead of five",
+                    "The diversification of that slice is limited, because companies in the same sector tend to have high correlation, reacting similarly to the same events"
+                  ],
+                  "explanation": "Even though they're five different companies, all in the same sector tend to react similarly to the same news and economic cycles — that is, they have high correlation with each other, which limits how much this choice actually reduces swings."
+                },
+                "es": {
+                  "prompt": "Las cinco acciones que eligió Larissa son todas del sector tecnológico. Desde el punto de vista de la correlación, ¿qué sugiere esto sobre la diversificación de esa porción de la cartera?",
+                  "options": [
+                    "La diversificación es excelente, porque son cinco activos diferentes",
+                    "La correlación no importa cuando las acciones son de empresas tecnológicas",
+                    "Ella debería haber comprado solo una acción en vez de cinco",
+                    "La diversificación de esa porción es limitada, porque las empresas del mismo sector tienden a tener correlación alta, reaccionando de forma parecida a los mismos eventos"
+                  ],
+                  "explanation": "Aunque son cinco empresas diferentes, todas del mismo sector tienden a reaccionar de forma parecida ante las mismas noticias y ciclos económicos — es decir, tienen correlación alta entre sí, lo que limita cuánto esta elección realmente reduce las oscilaciones."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Larissa decidiu antecipar a compra do imóvel, que agora está a pouco mais de 1 ano de distância, em vez dos 4 anos originalmente planejados. O que isso sugere sobre a parte da carteira destinada a esse objetivo?",
+                  "options": [
+                    "Nada muda, porque o valor total da carteira continua o mesmo",
+                    "Ela deveria colocar ainda mais dinheiro em ações, já que a compra está mais próxima",
+                    "O horizonte desse objetivo ficou bem mais curto, então a parte destinada a ele deveria ter mais liquidez e menos exposição a oscilações do que teria com um horizonte de 4 anos",
+                    "Esse objetivo deixou de fazer parte da carteira, porque agora é de curto prazo"
+                  ],
+                  "explanation": "Como o horizonte encurtou bastante, a parte da carteira destinada à compra do imóvel deveria se mover para ativos mais líquidos e menos sujeitos a oscilações — o mesmo raciocínio de horizonte e liquidez que você já viu se aplica aqui."
+                },
+                "en": {
+                  "prompt": "Larissa decided to move up the property purchase, which is now a little over 1 year away instead of the originally planned 4 years. What does this suggest about the portion of the portfolio directed to that goal?",
+                  "options": [
+                    "Nothing changes, since the portfolio's total value stays the same",
+                    "She should put even more money into stocks, since the purchase is closer",
+                    "That goal's horizon got much shorter, so the portion directed to it should have more liquidity and less exposure to swings than it would with a 4-year horizon",
+                    "That goal is no longer part of the portfolio, because it's now short-term"
+                  ],
+                  "explanation": "Since the horizon shortened significantly, the portion of the portfolio directed to the property purchase should move toward more liquid assets less subject to swings — the same horizon-and-liquidity reasoning you've already seen applies here."
+                },
+                "es": {
+                  "prompt": "Larissa decidió adelantar la compra de la propiedad, que ahora está a poco más de 1 año de distancia en vez de los 4 años originalmente planeados. ¿Qué sugiere esto sobre la parte de la cartera destinada a ese objetivo?",
+                  "options": [
+                    "Nada cambia, porque el valor total de la cartera sigue siendo el mismo",
+                    "Debería poner aún más dinero en acciones, ya que la compra está más cerca",
+                    "El horizonte de ese objetivo se acortó mucho, así que la parte destinada a él debería tener más liquidez y menos exposición a oscilaciones de la que tendría con un horizonte de 4 años",
+                    "Ese objetivo dejó de formar parte de la cartera, porque ahora es de corto plazo"
+                  ],
+                  "explanation": "Como el horizonte se acortó bastante, la parte de la cartera destinada a la compra de la propiedad debería moverse hacia activos más líquidos y menos sujetos a oscilaciones — el mismo razonamiento de horizonte y liquidez que ya viste se aplica aquí."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 5,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Larissa quer corrigir o drift da fatia de ações e renda fixa, mas também não quer gerar um custo tributário grande de uma vez vendendo tudo. Considerando o que você aprendeu sobre rebalanceamento, qual abordagem é mais coerente com essa preferência?",
+                  "options": [
+                    "Vender toda a posição em ações de uma vez e converter tudo em renda fixa",
+                    "Não fazer nada, já que rebalancear nunca compensa",
+                    "Direcionar os próximos aportes para renda fixa, complementando com uma venda parcial das ações mais concentradas, se necessário, para acelerar o ajuste",
+                    "Comprar ainda mais ações do setor de tecnologia para aumentar a diversificação"
+                  ],
+                  "explanation": "Combinar novos aportes direcionados para a categoria abaixo do peso com uma venda parcial (não total) é uma forma de acelerar a correção do drift reduzindo o impacto tributário de uma venda grande de uma vez — coerente com a preferência de Larissa por evitar um custo tributário grande."
+                },
+                "en": {
+                  "prompt": "Larissa wants to fix the drift in her stock/fixed income slice, but also doesn't want to trigger a large tax cost all at once by selling everything. Considering what you learned about rebalancing, which approach best fits that preference?",
+                  "options": [
+                    "Sell the entire stock position at once and convert it all to fixed income",
+                    "Do nothing, since rebalancing is never worth it",
+                    "Direct upcoming contributions to fixed income, complementing with a partial sale of the most concentrated stocks if needed to speed up the adjustment",
+                    "Buy even more technology-sector stocks to increase diversification"
+                  ],
+                  "explanation": "Combining new contributions directed to the underweight category with a partial (not total) sale is a way to speed up the drift correction while reducing the tax impact of one large sale — consistent with Larissa's preference to avoid a big tax cost."
+                },
+                "es": {
+                  "prompt": "Larissa quiere corregir el drift de su porción de acciones y renta fija, pero tampoco quiere generar un costo tributario grande de una vez vendiendo todo. Considerando lo que aprendiste sobre reequilibrio, ¿qué enfoque es más coherente con esa preferencia?",
+                  "options": [
+                    "Vender toda la posición en acciones de una vez y convertir todo en renta fija",
+                    "No hacer nada, ya que reequilibrar nunca vale la pena",
+                    "Dirigir los próximos aportes hacia renta fija, complementando con una venta parcial de las acciones más concentradas, si es necesario, para acelerar el ajuste",
+                    "Comprar todavía más acciones del sector tecnológico para aumentar la diversificación"
+                  ],
+                  "explanation": "Combinar nuevos aportes dirigidos hacia la categoría infraponderada con una venta parcial (no total) es una forma de acelerar la corrección del drift reduciendo el impacto tributario de una venta grande de una sola vez — coherente con la preferencia de Larissa de evitar un costo tributario grande."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 6,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "A carteira de Larissa mostrou, na prática, como drift, correlação e horizonte podem afetar uma carteira ao mesmo tempo, sem nenhuma notícia dramática — só o passar do tempo e a valorização de alguns ativos.",
+                    "Concentrar ativos em um único setor, mesmo com vários papéis diferentes, tende a gerar correlação alta e diversificação limitada.",
+                    "Revisar e rebalancear uma carteira envolve considerar drift, correlação, horizonte de cada objetivo e o custo (incluindo tributário) de cada forma de ajuste — não existe uma única resposta certa, mas um raciocínio para chegar a uma decisão coerente com a situação de cada pessoa."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Larissa's portfolio showed, in practice, how drift, correlation, and horizon can affect a portfolio at the same time, without any dramatic news — just the passage of time and some assets appreciating.",
+                    "Concentrating assets in a single sector, even across several different stocks, tends to produce high correlation and limited diversification.",
+                    "Reviewing and rebalancing a portfolio involves weighing drift, correlation, each goal's horizon, and the cost (including tax cost) of each adjustment approach — there's no single correct answer, but a reasoning process for reaching a decision consistent with each person's situation."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La cartera de Larissa mostró, en la práctica, cómo el drift, la correlación y el horizonte pueden afectar una cartera al mismo tiempo, sin ninguna noticia dramática — solo el paso del tiempo y la valorización de algunos activos.",
+                    "Concentrar activos en un solo sector, incluso con varias acciones diferentes, tiende a generar correlación alta y diversificación limitada.",
+                    "Revisar y reequilibrar una cartera implica considerar el drift, la correlación, el horizonte de cada objetivo y el costo (incluido el tributario) de cada forma de ajuste — no existe una única respuesta correcta, sino un razonamiento para llegar a una decisión coherente con la situación de cada persona."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
