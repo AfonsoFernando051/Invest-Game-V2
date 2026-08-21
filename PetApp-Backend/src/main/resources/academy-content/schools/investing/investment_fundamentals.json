@@ -1003,6 +1003,800 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "investor_profile_and_system",
+      "order": 2,
+      "iconKey": "psychology_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["investor_foundations"],
+      "translations": {
+        "pt": {
+          "title": "Perfil de Investidor e Sistema Financeiro",
+          "description": "Como identificar seu perfil de risco, definir objetivos e horizonte de tempo, e entender como corretoras, bolsa e custódia funcionam."
+        },
+        "en": {
+          "title": "Investor Profile and the Financial System",
+          "description": "How to identify your risk profile, set goals and a time horizon, and understand how brokers, the exchange and custody work."
+        },
+        "es": {
+          "title": "Perfil de Inversor y Sistema Financiero",
+          "description": "Cómo identificar tu perfil de riesgo, definir objetivos y horizonte de tiempo, y entender cómo funcionan las correduras, la bolsa y la custodia."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "investor_profile_risk_tolerance",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Perfil de Investidor"},
+            "en": {"title": "Investor Profile"},
+            "es": {"title": "Perfil de Inversor"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Conservador, moderado ou arrojado",
+                  "body": "Perfil de investidor é o quanto de oscilação e risco você está disposto e capaz de suportar em busca de retorno. Costuma-se dividir em três perfis: conservador (prioriza segurança, aceita pouca oscilação), moderado (aceita alguma oscilação por um retorno maior) e arrojado (aceita bastante oscilação buscando o maior retorno possível no longo prazo)."
+                },
+                "en": {
+                  "title": "Conservative, moderate or aggressive",
+                  "body": "Investor profile is how much fluctuation and risk you're willing and able to handle in pursuit of return. It's usually split into three profiles: conservative (prioritizes safety, accepts little fluctuation), moderate (accepts some fluctuation for a higher potential return), and aggressive (accepts significant fluctuation while aiming for the highest possible long-term return)."
+                },
+                "es": {
+                  "title": "Conservador, moderado o arrojado",
+                  "body": "El perfil de inversor es cuánta oscilación y riesgo estás dispuesto y capaz de soportar en busca de retorno. Suele dividirse en tres perfiles: conservador (prioriza la seguridad, acepta poca oscilación), moderado (acepta algo de oscilación por un retorno mayor) y arrojado (acepta bastante oscilación buscando el mayor retorno posible a largo plazo)."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Duas pessoas recebem R$10.000. A conservadora prefere um investimento que quase não oscila, mesmo que renda menos. A arrojada aceita ver o valor cair 20% em um mês ruim, na expectativa de um retorno maior ao longo dos anos."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two people each receive R$10,000. The conservative one prefers an investment that barely fluctuates, even if it earns less. The aggressive one accepts seeing the value drop 20% in a bad month, expecting a higher return over the years."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos personas reciben R$10.000. La conservadora prefiere una inversión que casi no oscile, aunque rinda menos. La arrojada acepta ver el valor caer un 20% en un mes malo, esperando un retorno mayor con los años."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que define, principalmente, o perfil de investidor de alguém?",
+                  "options": [
+                    "A quantidade de dinheiro que a pessoa tem",
+                    "O quanto de oscilação e risco a pessoa está disposta e consegue suportar",
+                    "A idade da pessoa, sem exceções",
+                    "O tipo de investimento mais popular no momento"
+                  ],
+                  "explanation": "Perfil de investidor tem a ver com tolerância e capacidade de suportar oscilações — não com quanto dinheiro você tem ou o que está na moda."
+                },
+                "en": {
+                  "prompt": "What mainly defines someone's investor profile?",
+                  "options": [
+                    "How much money the person has",
+                    "How much fluctuation and risk the person is willing and able to handle",
+                    "The person's age, with no exceptions",
+                    "Whatever investment is most popular right now"
+                  ],
+                  "explanation": "Investor profile is about tolerance and capacity to handle fluctuations — not about how much money you have or what's trending."
+                },
+                "es": {
+                  "prompt": "¿Qué define principalmente el perfil de inversor de alguien?",
+                  "options": [
+                    "La cantidad de dinero que tiene la persona",
+                    "Cuánta oscilación y riesgo la persona está dispuesta y puede soportar",
+                    "La edad de la persona, sin excepciones",
+                    "El tipo de inversión más popular del momento"
+                  ],
+                  "explanation": "El perfil de inversor tiene que ver con la tolerancia y la capacidad de soportar oscilaciones — no con cuánto dinero tienes o qué está de moda."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma pessoa vai precisar do dinheiro em 6 meses para dar entrada em um imóvel. Mesmo que ela se considere \"arrojada\", o que faz mais sentido considerar?",
+                  "options": [
+                    "Investir tudo em algo de alto risco, já que o perfil é arrojado",
+                    "Ignorar o prazo, pois o perfil sempre define a escolha",
+                    "O prazo curto pesa contra assumir muita oscilação, mesmo com perfil arrojado",
+                    "Perfil de investidor não tem relação com prazo"
+                  ],
+                  "explanation": "Perfil de investidor é só uma parte da equação — o prazo em que o dinheiro será usado também limita quanto risco faz sentido assumir, mesmo para quem tem perfil arrojado."
+                },
+                "en": {
+                  "prompt": "Someone will need the money in 6 months for a house down payment. Even though they consider themselves 'aggressive', what makes more sense to consider?",
+                  "options": [
+                    "Investing everything in something high-risk, since the profile is aggressive",
+                    "Ignoring the time horizon, since profile always decides the choice",
+                    "The short time horizon weighs against taking on much fluctuation, even with an aggressive profile",
+                    "Investor profile has no relation to time horizon"
+                  ],
+                  "explanation": "Investor profile is only part of the equation — the time horizon for using the money also limits how much risk makes sense, even for someone with an aggressive profile."
+                },
+                "es": {
+                  "prompt": "Una persona necesitará el dinero en 6 meses para la entrada de una vivienda. Aunque se considere 'arrojada', ¿qué tiene más sentido considerar?",
+                  "options": [
+                    "Invertir todo en algo de alto riesgo, ya que el perfil es arrojado",
+                    "Ignorar el plazo, porque el perfil siempre define la elección",
+                    "El plazo corto pesa en contra de asumir mucha oscilación, incluso con perfil arrojado",
+                    "El perfil de inversor no tiene relación con el plazo"
+                  ],
+                  "explanation": "El perfil de inversor es solo una parte de la ecuación — el plazo en que se usará el dinero también limita cuánto riesgo tiene sentido asumir, incluso para quien tiene perfil arrojado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Perfil de investidor mede quanto risco e oscilação você está disposto e consegue suportar.",
+                    "Os três perfis comuns são conservador, moderado e arrojado.",
+                    "O prazo para usar o dinheiro também deve pesar na decisão, além do perfil."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Investor profile measures how much risk and fluctuation you're willing and able to handle.",
+                    "The three common profiles are conservative, moderate and aggressive.",
+                    "The time horizon for using the money should also weigh into the decision, not just the profile."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El perfil de inversor mide cuánto riesgo y oscilación estás dispuesto y puedes soportar.",
+                    "Los tres perfiles comunes son conservador, moderado y arrojado.",
+                    "El plazo para usar el dinero también debe pesar en la decisión, además del perfil."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "investor_profile_goals_horizon",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Objetivos e Horizonte de Tempo"},
+            "en": {"title": "Goals and Time Horizon"},
+            "es": {"title": "Objetivos y Horizonte de Tiempo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Para quê e para quando",
+                  "body": "Antes de escolher onde investir, vale a pena definir o objetivo (para quê esse dinheiro serve: reserva de emergência, aposentadoria, uma viagem) e o horizonte de tempo (quando você vai precisar dele). Esses dois fatores ajudam a decidir o quanto de risco e liquidez faz sentido buscar."
+                },
+                "en": {
+                  "title": "What for, and when",
+                  "body": "Before choosing where to invest, it's worth defining the goal (what this money is for: emergency fund, retirement, a trip) and the time horizon (when you'll need it). These two factors help decide how much risk and liquidity makes sense to look for."
+                },
+                "es": {
+                  "title": "Para qué y para cuándo",
+                  "body": "Antes de elegir dónde invertir, vale la pena definir el objetivo (para qué sirve ese dinero: fondo de emergencia, jubilación, un viaje) y el horizonte de tiempo (cuándo lo necesitarás). Estos dos factores ayudan a decidir cuánto riesgo y liquidez tiene sentido buscar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma reserva de emergência precisa de alta liquidez, já que pode ser necessária a qualquer momento. Já um objetivo de aposentadoria daqui a 30 anos permite considerar investimentos com menos liquidez imediata, já que o prazo é longo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An emergency fund needs high liquidity, since it might be needed at any moment. A retirement goal 30 years away, on the other hand, allows considering investments with less immediate liquidity, since the time horizon is long."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un fondo de emergencia necesita alta liquidez, ya que puede ser necesario en cualquier momento. En cambio, un objetivo de jubilación dentro de 30 años permite considerar inversiones con menos liquidez inmediata, ya que el plazo es largo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que uma reserva de emergência exige alta liquidez?",
+                  "options": [
+                    "Porque ela pode precisar ser usada a qualquer momento, sem aviso prévio",
+                    "Porque reservas de emergência não podem render nada",
+                    "Porque liquidez não tem relação com esse tipo de objetivo",
+                    "Porque o valor da reserva deve ser sempre alto"
+                  ],
+                  "explanation": "Uma emergência pode acontecer a qualquer momento — por isso o dinheiro precisa estar disponível rapidamente, mesmo que isso signifique abrir mão de algum retorno."
+                },
+                "en": {
+                  "prompt": "Why does an emergency fund require high liquidity?",
+                  "options": [
+                    "Because it might need to be used at any moment, without warning",
+                    "Because emergency funds can't earn anything",
+                    "Because liquidity has no relation to this kind of goal",
+                    "Because the fund's amount must always be large"
+                  ],
+                  "explanation": "An emergency can happen at any moment — that's why the money needs to be quickly available, even if it means giving up some return."
+                },
+                "es": {
+                  "prompt": "¿Por qué un fondo de emergencia exige alta liquidez?",
+                  "options": [
+                    "Porque puede necesitarse en cualquier momento, sin aviso previo",
+                    "Porque los fondos de emergencia no pueden rendir nada",
+                    "Porque la liquidez no tiene relación con este tipo de objetivo",
+                    "Porque el monto del fondo siempre debe ser alto"
+                  ],
+                  "explanation": "Una emergencia puede ocurrir en cualquier momento — por eso el dinero debe estar disponible rápidamente, incluso si eso significa renunciar a algo de retorno."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está definindo objetivos: uma viagem em 1 ano e a aposentadoria em 30 anos. O que faz mais sentido?",
+                  "options": [
+                    "Tratar os dois objetivos exatamente da mesma forma",
+                    "Ignorar o prazo e escolher só pelo maior retorno possível nos dois casos",
+                    "Considerar prazos e liquidez diferentes para cada objetivo, já que os horizontes são bem distintos",
+                    "Usar apenas um único investimento para ambos os objetivos, sem distinção"
+                  ],
+                  "explanation": "Objetivos com prazos muito diferentes costumam pedir estratégias diferentes — o dinheiro da viagem precisa de mais liquidez e previsibilidade no curto prazo do que o da aposentadoria."
+                },
+                "en": {
+                  "prompt": "You're defining goals: a trip in 1 year and retirement in 30 years. What makes the most sense?",
+                  "options": [
+                    "Treating both goals in exactly the same way",
+                    "Ignoring the time horizon and choosing only for the highest possible return in both cases",
+                    "Considering different time horizons and liquidity needs for each goal, since the horizons are quite different",
+                    "Using a single investment for both goals, with no distinction"
+                  ],
+                  "explanation": "Goals with very different time horizons usually call for different strategies — the trip money needs more short-term liquidity and predictability than the retirement money does."
+                },
+                "es": {
+                  "prompt": "Estás definiendo objetivos: un viaje en 1 año y la jubilación en 30 años. ¿Qué tiene más sentido?",
+                  "options": [
+                    "Tratar ambos objetivos exactamente de la misma forma",
+                    "Ignorar el plazo y elegir solo por el mayor retorno posible en ambos casos",
+                    "Considerar plazos y necesidades de liquidez diferentes para cada objetivo, ya que los horizontes son bien distintos",
+                    "Usar una única inversión para ambos objetivos, sin distinción"
+                  ],
+                  "explanation": "Objetivos con plazos muy diferentes suelen requerir estrategias diferentes — el dinero del viaje necesita más liquidez y previsibilidad a corto plazo que el de la jubilación."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Definir o objetivo e o horizonte de tempo ajuda a decidir onde investir.",
+                    "Objetivos de curto prazo pedem mais liquidez; objetivos de longo prazo permitem mais flexibilidade.",
+                    "Prazos diferentes costumam pedir estratégias diferentes."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Defining the goal and time horizon helps decide where to invest.",
+                    "Short-term goals call for more liquidity; long-term goals allow more flexibility.",
+                    "Different time horizons usually call for different strategies."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Definir el objetivo y el horizonte de tiempo ayuda a decidir dónde invertir.",
+                    "Los objetivos a corto plazo requieren más liquidez; los de largo plazo permiten más flexibilidad.",
+                    "Plazos diferentes suelen requerir estrategias diferentes."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_system_intermediaries",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Como Funciona o Sistema Financeiro"},
+            "en": {"title": "How the Financial System Works"},
+            "es": {"title": "Cómo Funciona el Sistema Financiero"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quem participa",
+                  "body": "O sistema financeiro conecta quem tem dinheiro sobrando (investidores) a quem precisa de dinheiro (empresas e governos). Bancos e corretoras são os intermediários mais comuns: eles dão acesso aos produtos financeiros e executam as operações. Órgãos reguladores, como a CVM no Brasil, fiscalizam esse mercado para proteger os investidores."
+                },
+                "en": {
+                  "title": "Who's involved",
+                  "body": "The financial system connects people with extra money (investors) to those who need money (companies and governments). Banks and brokers are the most common intermediaries: they give access to financial products and execute transactions. Regulators, like the CVM in Brazil, oversee this market to protect investors."
+                },
+                "es": {
+                  "title": "Quién participa",
+                  "body": "El sistema financiero conecta a quienes tienen dinero disponible (inversores) con quienes necesitan dinero (empresas y gobiernos). Los bancos y las correduras (brokers) son los intermediarios más comunes: dan acceso a los productos financieros y ejecutan las operaciones. Los organismos reguladores, como la CVM en Brasil, supervisan este mercado para proteger a los inversores."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Quando você compra uma ação por meio de uma corretora, ela executa a ordem de compra na bolsa de valores. O dinheiro sai da sua conta, passa pela corretora, e a ação passa a ser sua — tudo registrado e fiscalizado dentro desse sistema."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "When you buy a stock through a broker, they execute the buy order on the stock exchange. The money leaves your account, passes through the broker, and the stock becomes yours — all recorded and overseen within this system."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Cuando compras una acción a través de una correduría (broker), esta ejecuta la orden de compra en la bolsa de valores. El dinero sale de tu cuenta, pasa por la correduría, y la acción pasa a ser tuya — todo registrado y supervisado dentro de este sistema."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual o papel principal de uma corretora?",
+                  "options": [
+                    "Fiscalizar o mercado financeiro como um todo",
+                    "Dar acesso a produtos financeiros e executar as operações do investidor",
+                    "Imprimir dinheiro para os investidores",
+                    "Garantir que nenhum investimento vai dar prejuízo"
+                  ],
+                  "explanation": "A corretora é o intermediário que executa as ordens de compra e venda em nome do investidor — quem fiscaliza o mercado é o órgão regulador."
+                },
+                "en": {
+                  "prompt": "What is a broker's main role?",
+                  "options": [
+                    "Overseeing the financial market as a whole",
+                    "Giving access to financial products and executing the investor's transactions",
+                    "Printing money for investors",
+                    "Guaranteeing that no investment will ever lose money"
+                  ],
+                  "explanation": "The broker is the intermediary that executes buy and sell orders on the investor's behalf — the regulator is the one overseeing the market."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el papel principal de una correduría (broker)?",
+                  "options": [
+                    "Supervisar el mercado financiero en su conjunto",
+                    "Dar acceso a productos financieros y ejecutar las operaciones del inversor",
+                    "Imprimir dinero para los inversores",
+                    "Garantizar que ninguna inversión tendrá pérdidas"
+                  ],
+                  "explanation": "La correduría es el intermediario que ejecuta las órdenes de compra y venta en nombre del inversor — quien supervisa el mercado es el organismo regulador."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que existe um órgão regulador fiscalizando o mercado financeiro?",
+                  "options": [
+                    "Para garantir lucro a todos os investidores",
+                    "Para estabelecer regras e fiscalizar o mercado, buscando proteger os investidores e a integridade do sistema",
+                    "Porque é uma exigência sem propósito prático",
+                    "Para decidir em quais ativos cada pessoa deve investir"
+                  ],
+                  "explanation": "O regulador não garante lucro nem escolhe investimentos por você — ele estabelece regras e fiscaliza para tentar manter o mercado justo e transparente."
+                },
+                "en": {
+                  "prompt": "Why does a regulator oversee the financial market?",
+                  "options": [
+                    "To guarantee profit for all investors",
+                    "To set rules and oversee the market, aiming to protect investors and the system's integrity",
+                    "Because it's a requirement with no practical purpose",
+                    "To decide which assets each person should invest in"
+                  ],
+                  "explanation": "The regulator doesn't guarantee profit or pick investments for you — it sets rules and oversees the market to try to keep it fair and transparent."
+                },
+                "es": {
+                  "prompt": "¿Por qué existe un organismo regulador supervisando el mercado financiero?",
+                  "options": [
+                    "Para garantizar ganancias a todos los inversores",
+                    "Para establecer reglas y supervisar el mercado, buscando proteger a los inversores y la integridad del sistema",
+                    "Porque es una exigencia sin propósito práctico",
+                    "Para decidir en qué activos debe invertir cada persona"
+                  ],
+                  "explanation": "El regulador no garantiza ganancias ni elige inversiones por ti — establece reglas y supervisa para intentar mantener el mercado justo y transparente."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "O sistema financeiro conecta quem tem dinheiro sobrando a quem precisa dele.",
+                    "Bancos e corretoras são os intermediários mais comuns de acesso aos investimentos.",
+                    "Órgãos reguladores fiscalizam o mercado para proteger investidores."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "The financial system connects those with extra money to those who need it.",
+                    "Banks and brokers are the most common intermediaries for accessing investments.",
+                    "Regulators oversee the market to protect investors."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El sistema financiero conecta a quienes tienen dinero disponible con quienes lo necesitan.",
+                    "Los bancos y las correduras son los intermediarios más comunes para acceder a inversiones.",
+                    "Los organismos reguladores supervisan el mercado para proteger a los inversores."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_system_primary_secondary_market",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Mercado Primário e Secundário"},
+            "en": {"title": "Primary and Secondary Market"},
+            "es": {"title": "Mercado Primario y Secundario"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "De onde vem o dinheiro",
+                  "body": "No mercado primário, uma empresa vende ativos (como ações, em uma oferta pública inicial) diretamente para captar dinheiro novo. No mercado secundário — como a bolsa de valores no dia a dia — os investidores compram e vendem esses ativos entre si, sem que o dinheiro vá diretamente para a empresa."
+                },
+                "en": {
+                  "title": "Where the money comes from",
+                  "body": "In the primary market, a company sells assets (like stocks, in an initial public offering) directly to raise new money. In the secondary market — like the stock exchange on a typical day — investors buy and sell those assets among themselves, without the money going directly to the company."
+                },
+                "es": {
+                  "title": "De dónde viene el dinero",
+                  "body": "En el mercado primario, una empresa vende activos (como acciones, en una oferta pública inicial) directamente para captar dinero nuevo. En el mercado secundario — como la bolsa de valores en el día a día — los inversores compran y venden esos activos entre sí, sin que el dinero vaya directamente a la empresa."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Quando uma empresa faz sua oferta pública inicial (IPO) e vende ações pela primeira vez, isso é mercado primário — o dinheiro vai para a empresa. Depois disso, quando você compra essas ações de outro investidor na bolsa, é mercado secundário — o dinheiro vai para quem vendeu, não para a empresa."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "When a company does its initial public offering (IPO) and sells shares for the first time, that's the primary market — the money goes to the company. After that, when you buy those shares from another investor on the exchange, that's the secondary market — the money goes to whoever sold them, not to the company."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Cuando una empresa hace su oferta pública inicial (IPO) y vende acciones por primera vez, eso es mercado primario — el dinero va a la empresa. Después de eso, cuando compras esas acciones a otro inversor en la bolsa, es mercado secundario — el dinero va a quien las vendió, no a la empresa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Quando você compra uma ação de outro investidor pela bolsa, esse dinheiro vai para...",
+                  "options": [
+                    "A empresa que emitiu a ação",
+                    "O governo",
+                    "O investidor que vendeu a ação para você",
+                    "Ninguém, o dinheiro desaparece do sistema"
+                  ],
+                  "explanation": "No mercado secundário, a negociação acontece entre investidores — o dinheiro vai para quem vendeu o ativo, não para a empresa."
+                },
+                "en": {
+                  "prompt": "When you buy a stock from another investor through the exchange, that money goes to...",
+                  "options": [
+                    "The company that issued the stock",
+                    "The government",
+                    "The investor who sold you the stock",
+                    "Nobody, the money disappears from the system"
+                  ],
+                  "explanation": "In the secondary market, trading happens between investors — the money goes to whoever sold the asset, not to the company."
+                },
+                "es": {
+                  "prompt": "Cuando compras una acción a otro inversor a través de la bolsa, ese dinero va a...",
+                  "options": [
+                    "La empresa que emitió la acción",
+                    "El gobierno",
+                    "El inversor que te vendió la acción",
+                    "A nadie, el dinero desaparece del sistema"
+                  ],
+                  "explanation": "En el mercado secundario, la negociación ocurre entre inversores — el dinero va a quien vendió el activo, no a la empresa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma empresa precisa captar dinheiro novo para expandir suas operações. Em qual mercado isso acontece?",
+                  "options": [
+                    "No mercado secundário, comprando ações de investidores",
+                    "No mercado primário, emitindo novos ativos diretamente para investidores",
+                    "Em nenhum dos dois, empresas nunca captam dinheiro dessa forma",
+                    "Apenas em bancos, sem envolver o mercado financeiro"
+                  ],
+                  "explanation": "Captar dinheiro novo diretamente do público é justamente a função do mercado primário — é ali que a empresa emite ativos e recebe o valor captado."
+                },
+                "en": {
+                  "prompt": "A company needs to raise new money to expand its operations. In which market does that happen?",
+                  "options": [
+                    "In the secondary market, by buying shares from investors",
+                    "In the primary market, by issuing new assets directly to investors",
+                    "In neither, companies never raise money this way",
+                    "Only through banks, without involving the financial market"
+                  ],
+                  "explanation": "Raising new money directly from the public is exactly the primary market's function — that's where the company issues assets and receives the amount raised."
+                },
+                "es": {
+                  "prompt": "Una empresa necesita captar dinero nuevo para expandir sus operaciones. ¿En qué mercado ocurre esto?",
+                  "options": [
+                    "En el mercado secundario, comprando acciones a inversores",
+                    "En el mercado primario, emitiendo nuevos activos directamente a los inversores",
+                    "En ninguno de los dos, las empresas nunca captan dinero de esta forma",
+                    "Solo a través de bancos, sin involucrar al mercado financiero"
+                  ],
+                  "explanation": "Captar dinero nuevo directamente del público es justamente la función del mercado primario — allí es donde la empresa emite activos y recibe el monto captado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Mercado primário é onde a empresa capta dinheiro novo emitindo ativos.",
+                    "Mercado secundário é onde investidores negociam esses ativos entre si.",
+                    "No dia a dia, a maior parte da negociação na bolsa acontece no mercado secundário."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "The primary market is where a company raises new money by issuing assets.",
+                    "The secondary market is where investors trade those assets among themselves.",
+                    "Day to day, most trading on the exchange happens in the secondary market."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El mercado primario es donde la empresa capta dinero nuevo emitiendo activos.",
+                    "El mercado secundario es donde los inversores negocian esos activos entre sí.",
+                    "En el día a día, la mayor parte de la negociación en la bolsa ocurre en el mercado secundario."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_system_custody",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Custódia: Onde Fica Seu Dinheiro"},
+            "en": {"title": "Custody: Where Your Money Actually Sits"},
+            "es": {"title": "Custodia: Dónde Está Realmente tu Dinero"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Corretora não é dona do seu dinheiro",
+                  "body": "Custódia é o serviço de guardar e registrar formalmente a titularidade dos seus ativos. No Brasil, por exemplo, ativos como ações costumam ficar custodiados em uma instituição separada, e não diretamente com a corretora — mesmo que você opere por ela. Isso significa que, se a corretora enfrentar problemas, seus ativos custodiados continuam sendo seus."
+                },
+                "en": {
+                  "title": "The broker doesn't own your money",
+                  "body": "Custody is the service of holding and formally registering ownership of your assets. In Brazil, for example, assets like stocks are typically held by a separate custodian institution, not directly by the broker — even though you trade through it. That means if the broker runs into trouble, your custodied assets remain yours."
+                },
+                "es": {
+                  "title": "La correduría no es dueña de tu dinero",
+                  "body": "La custodia es el servicio de guardar y registrar formalmente la titularidad de tus activos. En Brasil, por ejemplo, activos como las acciones suelen estar custodiados en una institución separada, y no directamente en la correduría — aunque operes a través de ella. Esto significa que, si la correduría enfrenta problemas, tus activos custodiados siguen siendo tuyos."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Se uma corretora fecha as portas, as ações que você comprou por meio dela normalmente continuam registradas em seu nome na instituição de custódia — você pode transferi-las para outra corretora. Isso é diferente de perder o dinheiro."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "If a broker shuts down, the stocks you bought through it are normally still registered in your name at the custodian institution — you can transfer them to another broker. That's different from losing the money."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Si una correduría cierra, las acciones que compraste a través de ella normalmente siguen registradas a tu nombre en la institución de custodia — puedes transferirlas a otra correduría. Eso es distinto de perder el dinero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é custódia, no contexto de investimentos?",
+                  "options": [
+                    "O serviço de guardar e registrar formalmente a titularidade dos seus ativos",
+                    "Um tipo de imposto cobrado sobre investimentos",
+                    "O mesmo que uma corretora",
+                    "Um seguro contra perdas no mercado"
+                  ],
+                  "explanation": "Custódia é sobre onde e como a titularidade dos seus ativos é formalmente registrada — não é um imposto, nem um seguro, nem a corretora em si."
+                },
+                "en": {
+                  "prompt": "What is custody, in the context of investing?",
+                  "options": [
+                    "The service of holding and formally registering the ownership of your assets",
+                    "A type of tax charged on investments",
+                    "The same thing as a broker",
+                    "Insurance against market losses"
+                  ],
+                  "explanation": "Custody is about where and how the ownership of your assets is formally registered — it's not a tax, an insurance, or the broker itself."
+                },
+                "es": {
+                  "prompt": "¿Qué es la custodia, en el contexto de las inversiones?",
+                  "options": [
+                    "El servicio de guardar y registrar formalmente la titularidad de tus activos",
+                    "Un tipo de impuesto cobrado sobre las inversiones",
+                    "Lo mismo que una correduría",
+                    "Un seguro contra pérdidas en el mercado"
+                  ],
+                  "explanation": "La custodia trata sobre dónde y cómo se registra formalmente la titularidad de tus activos — no es un impuesto, ni un seguro, ni la correduría en sí."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está avaliando o risco de operar por uma corretora específica. Por que entender custódia ajuda nessa avaliação?",
+                  "options": [
+                    "Não ajuda, custódia é irrelevante para esse tipo de decisão",
+                    "Porque quanto maior a corretora, melhor é sempre a custódia",
+                    "Porque entender que seus ativos podem ficar registrados separadamente da corretora ajuda a avaliar o que aconteceria se ela enfrentasse problemas",
+                    "Porque custódia garante que você nunca terá prejuízo com seus investimentos"
+                  ],
+                  "explanation": "Saber como a custódia funciona ajuda a entender que o risco de operar por uma corretora não é necessariamente o mesmo risco de perder os ativos nela custodiados."
+                },
+                "en": {
+                  "prompt": "You're evaluating the risk of trading through a specific broker. Why does understanding custody help with that evaluation?",
+                  "options": [
+                    "It doesn't, custody is irrelevant to this kind of decision",
+                    "Because the bigger the broker, the better the custody always is",
+                    "Because understanding that your assets may be registered separately from the broker helps assess what would happen if it ran into trouble",
+                    "Because custody guarantees you'll never lose money on your investments"
+                  ],
+                  "explanation": "Knowing how custody works helps you understand that the risk of trading through a broker isn't necessarily the same as the risk of losing the assets held there."
+                },
+                "es": {
+                  "prompt": "Estás evaluando el riesgo de operar a través de una correduría específica. ¿Por qué entender la custodia ayuda en esa evaluación?",
+                  "options": [
+                    "No ayuda, la custodia es irrelevante para este tipo de decisión",
+                    "Porque cuanto más grande la correduría, siempre mejor es la custodia",
+                    "Porque entender que tus activos pueden estar registrados por separado de la correduría ayuda a evaluar qué pasaría si esta enfrentara problemas",
+                    "Porque la custodia garantiza que nunca tendrás pérdidas en tus inversiones"
+                  ],
+                  "explanation": "Saber cómo funciona la custodia ayuda a entender que el riesgo de operar a través de una correduría no es necesariamente el mismo riesgo de perder los activos custodiados allí."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Custódia é o registro formal da titularidade dos seus ativos, separado da corretora.",
+                    "Se uma corretora enfrenta problemas, ativos custodiados continuam sendo seus.",
+                    "Você concluiu o módulo sobre perfil de investidor e sistema financeiro."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Custody is the formal record of your assets' ownership, separate from the broker.",
+                    "If a broker runs into trouble, custodied assets remain yours.",
+                    "You've completed the module on investor profile and the financial system."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "La custodia es el registro formal de la titularidad de tus activos, separado de la correduría.",
+                    "Si una correduría enfrenta problemas, los activos custodiados siguen siendo tuyos.",
+                    "Completaste el módulo sobre perfil de inversor y sistema financiero."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
