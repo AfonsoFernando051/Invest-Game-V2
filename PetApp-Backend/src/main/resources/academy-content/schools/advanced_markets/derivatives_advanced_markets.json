@@ -659,6 +659,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "advanced_derivatives_strategies",
+      "order": 2,
+      "iconKey": "timeline_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["derivatives_basics"],
+      "translations": {
+        "pt": {
+          "title": "Estratégias e Riscos Avançados",
+          "description": "Swaps, margem e chamada de margem, opção coberta e risco de contraparte."
+        },
+        "en": {
+          "title": "Advanced Strategies and Risks",
+          "description": "Swaps, margin and margin calls, covered calls and counterparty risk."
+        },
+        "es": {
+          "title": "Estrategias y Riesgos Avanzados",
+          "description": "Swaps, margen y llamada de margen, opción cubierta y riesgo de contraparte."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "derivatives_swaps",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Swaps"},
+            "en": {"title": "Swaps"},
+            "es": {"title": "Swaps"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Trocando fluxos de pagamento",
+                  "body": "Um swap é um contrato em que duas partes concordam em trocar fluxos de pagamento futuros entre si, com base em regras definidas no contrato. Um dos tipos mais comuns é o swap de taxa de juros, em que uma parte troca pagamentos baseados em uma taxa fixa por pagamentos baseados em uma taxa variável, ou vice-versa. Diferente de opções e futuros, um swap normalmente não é negociado em bolsa, mas acordado diretamente entre as partes envolvidas."
+                },
+                "en": {
+                  "title": "Exchanging payment streams",
+                  "body": "A swap is a contract in which two parties agree to exchange future payment streams with each other, based on rules defined in the contract. One of the most common types is an interest rate swap, in which one party exchanges payments based on a fixed rate for payments based on a variable rate, or vice versa. Unlike options and futures, a swap normally isn't traded on an exchange, but agreed directly between the parties involved."
+                },
+                "es": {
+                  "title": "Intercambiando flujos de pago",
+                  "body": "Un swap es un contrato en el que dos partes acuerdan intercambiar flujos de pago futuros entre sí, con base en reglas definidas en el contrato. Uno de los tipos más comunes es el swap de tasa de interés, en el que una parte intercambia pagos basados en una tasa fija por pagos basados en una tasa variable, o viceversa. A diferencia de las opciones y los futuros, un swap normalmente no se negocia en bolsa, sino que se acuerda directamente entre las partes involucradas."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa tem uma dívida com taxa de juros variável e prefere ter previsibilidade nos pagamentos. Ela entra em um swap de juros, trocando seus pagamentos de taxa variável por pagamentos de taxa fixa com uma contraparte — na prática, transformando o perfil de risco da sua dívida sem precisar refinanciá-la."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A company has debt with a variable interest rate and prefers to have predictability in its payments. It enters into an interest rate swap, exchanging its variable-rate payments for fixed-rate payments with a counterparty — in practice, transforming its debt's risk profile without needing to refinance it."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa tiene una deuda con tasa de interés variable y prefiere tener previsibilidad en los pagos. Entra en un swap de tasas, intercambiando sus pagos de tasa variable por pagos de tasa fija con una contraparte — en la práctica, transformando el perfil de riesgo de su deuda sin necesidad de refinanciarla."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é um swap?",
+                  "options": [
+                    "Um tipo de ação negociada em bolsa",
+                    "Um contrato em que duas partes trocam fluxos de pagamento futuros entre si, com base em regras definidas",
+                    "Um imposto cobrado sobre operações de derivativos",
+                    "Uma taxa fixa cobrada por corretoras"
+                  ],
+                  "explanation": "Swap é um contrato de troca de fluxos de pagamento futuros entre duas partes, geralmente acordado diretamente, sem passar necessariamente por uma bolsa."
+                },
+                "en": {
+                  "prompt": "What is a swap?",
+                  "options": [
+                    "A type of stock traded on an exchange",
+                    "A contract in which two parties exchange future payment streams with each other, based on defined rules",
+                    "A tax charged on derivative transactions",
+                    "A fixed fee charged by brokers"
+                  ],
+                  "explanation": "A swap is a contract for exchanging future payment streams between two parties, usually agreed directly, without necessarily going through an exchange."
+                },
+                "es": {
+                  "prompt": "¿Qué es un swap?",
+                  "options": [
+                    "Un tipo de acción negociada en bolsa",
+                    "Un contrato en el que dos partes intercambian flujos de pago futuros entre sí, con base en reglas definidas",
+                    "Un impuesto cobrado sobre operaciones de derivados",
+                    "Una tasa fija cobrada por las correduras"
+                  ],
+                  "explanation": "El swap es un contrato de intercambio de flujos de pago futuros entre dos partes, generalmente acordado directamente, sin pasar necesariamente por una bolsa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma empresa com dívida em taxa variável está preocupada com uma possível alta nos juros no futuro. Como um swap de juros poderia ajudar nessa situação, com base no que você aprendeu?",
+                  "options": [
+                    "Um swap não teria nenhuma utilidade nessa situação",
+                    "A empresa poderia trocar seus pagamentos de taxa variável por pagamentos de taxa fixa, ganhando previsibilidade e reduzindo a exposição a uma alta futura de juros",
+                    "Um swap eliminaria completamente a dívida da empresa",
+                    "Swaps só podem ser usados para trocar moedas, nunca taxas de juros"
+                  ],
+                  "explanation": "Trocar exposição de taxa variável por taxa fixa através de um swap é um uso típico desse instrumento para reduzir a incerteza sobre pagamentos futuros de juros."
+                },
+                "en": {
+                  "prompt": "A company with variable-rate debt is worried about a possible future rise in interest rates. How could an interest rate swap help in this situation, based on what you learned?",
+                  "options": [
+                    "A swap would have no use in this situation",
+                    "The company could exchange its variable-rate payments for fixed-rate payments, gaining predictability and reducing exposure to a future rate hike",
+                    "A swap would completely eliminate the company's debt",
+                    "Swaps can only be used to exchange currencies, never interest rates"
+                  ],
+                  "explanation": "Exchanging variable-rate exposure for fixed-rate exposure through a swap is a typical use of this instrument to reduce uncertainty about future interest payments."
+                },
+                "es": {
+                  "prompt": "Una empresa con deuda a tasa variable está preocupada por una posible subida futura de las tasas de interés. ¿Cómo podría ayudar un swap de tasas en esta situación, según lo que aprendiste?",
+                  "options": [
+                    "Un swap no tendría ninguna utilidad en esta situación",
+                    "La empresa podría intercambiar sus pagos de tasa variable por pagos de tasa fija, ganando previsibilidad y reduciendo la exposición a una futura subida de tasas",
+                    "Un swap eliminaría por completo la deuda de la empresa",
+                    "Los swaps solo pueden usarse para intercambiar monedas, nunca tasas de interés"
+                  ],
+                  "explanation": "Intercambiar exposición de tasa variable por tasa fija a través de un swap es un uso típico de este instrumento para reducir la incertidumbre sobre pagos futuros de intereses."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Swap é um contrato de troca de fluxos de pagamento futuros entre duas partes.",
+                    "Um tipo comum é o swap de juros, trocando taxa fixa por variável, ou vice-versa.",
+                    "Swaps normalmente são acordados diretamente entre as partes, não em bolsa."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A swap is a contract for exchanging future payment streams between two parties.",
+                    "A common type is the interest rate swap, exchanging fixed for variable rate, or vice versa.",
+                    "Swaps are usually agreed directly between the parties, not on an exchange."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El swap es un contrato de intercambio de flujos de pago futuros entre dos partes.",
+                    "Un tipo común es el swap de tasas, intercambiando tasa fija por variable, o viceversa.",
+                    "Los swaps normalmente se acuerdan directamente entre las partes, no en bolsa."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_margin_call",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Margem e Chamada de Margem"},
+            "en": {"title": "Margin and Margin Calls"},
+            "es": {"title": "Margen y Llamada de Margen"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O depósito de garantia que pode ser cobrado",
+                  "body": "Margem é o valor que um investidor precisa manter depositado como garantia para operar com derivativos alavancados, como contratos futuros. Se o mercado se move contra a posição do investidor, e o valor depositado como margem cai abaixo de um nível mínimo exigido, a corretora emite uma chamada de margem — uma exigência para que o investidor deposite mais dinheiro rapidamente, sob risco de ter a posição encerrada à força (liquidada) se não o fizer a tempo."
+                },
+                "en": {
+                  "title": "The collateral deposit that can be demanded",
+                  "body": "Margin is the amount an investor needs to keep deposited as collateral to trade leveraged derivatives, like futures contracts. If the market moves against the investor's position, and the amount deposited as margin falls below a required minimum level, the broker issues a margin call — a demand for the investor to deposit more money quickly, risking having the position forcibly closed (liquidated) if they don't do so in time."
+                },
+                "es": {
+                  "title": "El depósito de garantía que puede ser exigido",
+                  "body": "El margen es el monto que un inversor necesita mantener depositado como garantía para operar con derivados apalancados, como los contratos futuros. Si el mercado se mueve en contra de la posición del inversor, y el monto depositado como margen cae por debajo de un nivel mínimo exigido, la correduría emite una llamada de margen — una exigencia para que el inversor deposite más dinero rápidamente, bajo riesgo de que la posición se cierre por la fuerza (se liquide) si no lo hace a tiempo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader opera um contrato futuro alavancado, depositando uma margem inicial de R$5.000. O mercado se move contra a posição, e as perdas acumuladas fazem o valor da margem cair para R$2.000, abaixo do mínimo exigido. A corretora emite uma chamada de margem, pedindo um depósito adicional em poucas horas; se o trader não conseguir depositar a tempo, a corretora pode liquidar a posição automaticamente para conter mais perdas."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader operates a leveraged futures contract, depositing an initial margin of R$5,000. The market moves against the position, and the accumulated losses cause the margin amount to fall to R$2,000, below the required minimum. The broker issues a margin call, requesting an additional deposit within a few hours; if the trader can't deposit in time, the broker can automatically liquidate the position to contain further losses."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader opera un contrato futuro apalancado, depositando un margen inicial de R$5.000. El mercado se mueve en contra de la posición, y las pérdidas acumuladas hacen que el valor del margen caiga a R$2.000, por debajo del mínimo exigido. La correduría emite una llamada de margen, pidiendo un depósito adicional en pocas horas; si el trader no logra depositar a tiempo, la correduría puede liquidar la posición automáticamente para contener más pérdidas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é uma chamada de margem?",
+                  "options": [
+                    "Um bônus oferecido pela corretora para novos clientes",
+                    "Uma exigência da corretora para que o investidor deposite mais dinheiro, quando o valor da margem cai abaixo do mínimo exigido",
+                    "Uma taxa cobrada apenas uma vez, no início da operação",
+                    "Um tipo de ordem usada para comprar ações"
+                  ],
+                  "explanation": "Chamada de margem é o pedido da corretora para que o investidor reponha o valor da margem, quando perdas acumuladas fazem esse valor cair abaixo do nível mínimo exigido."
+                },
+                "en": {
+                  "prompt": "What is a margin call?",
+                  "options": [
+                    "A bonus offered by the broker to new clients",
+                    "A broker's demand for the investor to deposit more money, when the margin amount falls below the required minimum",
+                    "A fee charged only once, at the start of the trade",
+                    "A type of order used to buy stocks"
+                  ],
+                  "explanation": "A margin call is the broker's request for the investor to replenish the margin amount, when accumulated losses cause that amount to fall below the required minimum level."
+                },
+                "es": {
+                  "prompt": "¿Qué es una llamada de margen?",
+                  "options": [
+                    "Un bono ofrecido por la correduría a nuevos clientes",
+                    "Una exigencia de la correduría para que el inversor deposite más dinero, cuando el valor del margen cae por debajo del mínimo exigido",
+                    "Una tasa cobrada solo una vez, al inicio de la operación",
+                    "Un tipo de orden usada para comprar acciones"
+                  ],
+                  "explanation": "La llamada de margen es la solicitud de la correduría para que el inversor reponga el valor del margen, cuando pérdidas acumuladas hacen que ese valor caiga por debajo del nivel mínimo exigido."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende alavancagem de outra lição — que ela amplifica ganhos e perdas na mesma proporção. Como isso se conecta com o risco de receber uma chamada de margem?",
+                  "options": [
+                    "Não se conecta, alavancagem e chamada de margem são conceitos completamente independentes",
+                    "Quanto maior a alavancagem, mais rápido perdas podem consumir o valor da margem depositada, aumentando a chance de uma chamada de margem em movimentos adversos do mercado",
+                    "Chamada de margem só acontece em operações sem nenhuma alavancagem",
+                    "Alavancagem elimina completamente a necessidade de manter uma margem"
+                  ],
+                  "explanation": "Alavancagem alta amplifica perdas rapidamente em relação ao capital depositado, o que aumenta a velocidade com que o valor da margem pode cair abaixo do mínimo exigido, disparando uma chamada de margem."
+                },
+                "en": {
+                  "prompt": "You already understand leverage from another lesson — that it amplifies gains and losses in the same proportion. How does this connect to the risk of receiving a margin call?",
+                  "options": [
+                    "It doesn't connect, leverage and margin calls are completely independent concepts",
+                    "The higher the leverage, the faster losses can consume the deposited margin amount, increasing the chance of a margin call during adverse market moves",
+                    "Margin calls only happen in trades with no leverage at all",
+                    "Leverage completely eliminates the need to maintain a margin"
+                  ],
+                  "explanation": "High leverage amplifies losses quickly relative to the deposited capital, which increases the speed at which the margin amount can fall below the required minimum, triggering a margin call."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el apalancamiento de otra lección — que amplifica ganancias y pérdidas en la misma proporción. ¿Cómo se conecta esto con el riesgo de recibir una llamada de margen?",
+                  "options": [
+                    "No se conecta, el apalancamiento y la llamada de margen son conceptos completamente independientes",
+                    "Cuanto mayor el apalancamiento, más rápido las pérdidas pueden consumir el valor del margen depositado, aumentando la posibilidad de una llamada de margen ante movimientos adversos del mercado",
+                    "La llamada de margen solo ocurre en operaciones sin ningún apalancamiento",
+                    "El apalancamiento elimina por completo la necesidad de mantener un margen"
+                  ],
+                  "explanation": "El alto apalancamiento amplifica las pérdidas rápidamente en relación al capital depositado, lo que aumenta la velocidad con la que el valor del margen puede caer por debajo del mínimo exigido, disparando una llamada de margen."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Margem é o valor depositado como garantia para operar derivativos alavancados.",
+                    "Chamada de margem exige um depósito adicional quando a margem cai abaixo do mínimo.",
+                    "Alavancagem alta aumenta a velocidade com que uma chamada de margem pode acontecer."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Margin is the amount deposited as collateral to trade leveraged derivatives.",
+                    "A margin call demands an additional deposit when margin falls below the minimum.",
+                    "High leverage increases how quickly a margin call can happen."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El margen es el monto depositado como garantía para operar derivados apalancados.",
+                    "La llamada de margen exige un depósito adicional cuando el margen cae por debajo del mínimo.",
+                    "El alto apalancamiento aumenta la velocidad con la que puede ocurrir una llamada de margen."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_covered_call",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Opção Coberta (Covered Call)"},
+            "en": {"title": "Covered Call"},
+            "es": {"title": "Opción Cubierta (Covered Call)"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Vendendo opções sobre ações que você já tem",
+                  "body": "Uma estratégia de opção coberta (covered call) consiste em vender uma opção de compra sobre uma ação que o investidor já possui em carteira. Ao vender a opção, o investidor recebe o prêmio imediatamente, gerando renda extra. Em troca, ele se compromete a vender a ação pelo preço combinado, caso o comprador da opção decida exercer o direito — o que geralmente acontece se a ação subir bastante, limitando o ganho adicional do investidor além daquele preço."
+                },
+                "en": {
+                  "title": "Selling options on stocks you already own",
+                  "body": "A covered call strategy consists of selling a call option on a stock the investor already owns in their portfolio. By selling the option, the investor receives the premium immediately, generating extra income. In exchange, they commit to selling the stock at the agreed price, if the option buyer decides to exercise the right — which generally happens if the stock rises a lot, limiting the investor's additional gain beyond that price."
+                },
+                "es": {
+                  "title": "Vendiendo opciones sobre acciones que ya tienes",
+                  "body": "Una estrategia de opción cubierta (covered call) consiste en vender una opción de compra sobre una acción que el inversor ya posee en su cartera. Al vender la opción, el inversor recibe la prima de inmediato, generando ingresos extra. A cambio, se compromete a vender la acción al precio acordado, si el comprador de la opción decide ejercer el derecho — algo que generalmente ocurre si la acción sube bastante, limitando la ganancia adicional del inversor más allá de ese precio."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor tem ações negociadas a R$50 e vende uma opção de compra com preço de exercício de R$55, recebendo um prêmio de R$2. Se a ação ficar abaixo de R$55, ele mantém o prêmio integral como renda extra. Se a ação subir para R$60, ele é obrigado a vender por R$55 — abrindo mão do ganho entre R$55 e R$60, mas mantendo o prêmio recebido e o lucro até o preço de exercício."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor holds shares trading at R$50 and sells a call option with a strike price of R$55, receiving a premium of R$2. If the stock stays below R$55, they keep the entire premium as extra income. If the stock rises to R$60, they're obligated to sell at R$55 — giving up the gain between R$55 and R$60, but keeping the premium received and the profit up to the strike price."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor tiene acciones negociadas a R$50 y vende una opción de compra con precio de ejercicio de R$55, recibiendo una prima de R$2. Si la acción se mantiene por debajo de R$55, conserva la prima íntegra como ingreso extra. Si la acción sube a R$60, está obligado a vender a R$55 — renunciando a la ganancia entre R$55 y R$60, pero conservando la prima recibida y la ganancia hasta el precio de ejercicio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza uma estratégia de opção coberta (covered call)?",
+                  "options": [
+                    "Comprar uma opção de compra sem possuir nenhuma ação",
+                    "Vender uma opção de compra sobre uma ação que o investidor já possui, recebendo um prêmio em troca do compromisso de vender a ação a um preço combinado",
+                    "Vender ações a descoberto, sem nenhuma relação com opções",
+                    "Um tipo de imposto cobrado sobre operações com opções"
+                  ],
+                  "explanation": "Covered call é vender uma opção de compra sobre uma ação já possuída, recebendo um prêmio, mas assumindo o compromisso de vender a ação se a opção for exercida."
+                },
+                "en": {
+                  "prompt": "What characterizes a covered call strategy?",
+                  "options": [
+                    "Buying a call option without owning any shares",
+                    "Selling a call option on a stock the investor already owns, receiving a premium in exchange for the commitment to sell the stock at an agreed price",
+                    "Short selling shares, with no relation to options",
+                    "A type of tax charged on options transactions"
+                  ],
+                  "explanation": "A covered call is selling a call option on a stock already owned, receiving a premium, but taking on the commitment to sell the stock if the option is exercised."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza a una estrategia de opción cubierta (covered call)?",
+                  "options": [
+                    "Comprar una opción de compra sin poseer ninguna acción",
+                    "Vender una opción de compra sobre una acción que el inversor ya posee, recibiendo una prima a cambio del compromiso de vender la acción a un precio acordado",
+                    "Vender acciones al descubierto, sin ninguna relación con opciones",
+                    "Un tipo de impuesto cobrado sobre operaciones con opciones"
+                  ],
+                  "explanation": "El covered call es vender una opción de compra sobre una acción ya poseída, recibiendo una prima, pero asumiendo el compromiso de vender la acción si la opción se ejerce."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende opções de outra lição. Se a ação subir muito além do preço de exercício combinado em uma covered call, o que acontece com o potencial de ganho do investidor que vendeu a opção?",
+                  "options": [
+                    "Ele ganha ilimitadamente, acompanhando toda a alta da ação",
+                    "Seu ganho fica limitado ao preço de exercício mais o prêmio recebido, mesmo que a ação suba muito além disso",
+                    "Ele é obrigado a comprar mais ações ao preço de mercado",
+                    "Ele perde automaticamente todas as ações que possuía"
+                  ],
+                  "explanation": "Ao vender a opção de compra, o investidor abre mão de qualquer ganho acima do preço de exercício, em troca do prêmio recebido — essa é a principal limitação dessa estratégia."
+                },
+                "en": {
+                  "prompt": "You already understand options from another lesson. If the stock rises well beyond the agreed strike price in a covered call, what happens to the potential gain of the investor who sold the option?",
+                  "options": [
+                    "They gain unlimited upside, tracking the stock's entire rise",
+                    "Their gain is capped at the strike price plus the premium received, even if the stock rises well beyond that",
+                    "They're required to buy more shares at the market price",
+                    "They automatically lose all the shares they owned"
+                  ],
+                  "explanation": "By selling the call option, the investor gives up any gain above the strike price, in exchange for the premium received — that's the main limitation of this strategy."
+                },
+                "es": {
+                  "prompt": "Ya entiendes las opciones de otra lección. Si la acción sube mucho más allá del precio de ejercicio acordado en un covered call, ¿qué pasa con el potencial de ganancia del inversor que vendió la opción?",
+                  "options": [
+                    "Gana de forma ilimitada, siguiendo toda la subida de la acción",
+                    "Su ganancia queda limitada al precio de ejercicio más la prima recibida, aunque la acción suba mucho más allá de eso",
+                    "Está obligado a comprar más acciones al precio de mercado",
+                    "Pierde automáticamente todas las acciones que poseía"
+                  ],
+                  "explanation": "Al vender la opción de compra, el inversor renuncia a cualquier ganancia por encima del precio de ejercicio, a cambio de la prima recibida — esa es la principal limitación de esta estrategia."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Covered call é vender uma opção de compra sobre uma ação já possuída.",
+                    "O investidor recebe um prêmio, gerando renda extra.",
+                    "Em troca, o ganho fica limitado ao preço de exercício, mesmo que a ação suba muito além dele."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A covered call is selling a call option on a stock already owned.",
+                    "The investor receives a premium, generating extra income.",
+                    "In exchange, the gain is capped at the strike price, even if the stock rises well beyond it."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El covered call es vender una opción de compra sobre una acción ya poseída.",
+                    "El inversor recibe una prima, generando ingresos extra.",
+                    "A cambio, la ganancia queda limitada al precio de ejercicio, aunque la acción suba mucho más allá de él."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_counterparty_risk",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco de Contraparte"},
+            "en": {"title": "Counterparty Risk"},
+            "es": {"title": "Riesgo de Contraparte"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "E se a outra parte do contrato não cumprir?",
+                  "body": "Risco de contraparte é a possibilidade de a outra parte de um contrato — como um derivativo — não cumprir com suas obrigações. Em contratos negociados em bolsa, como muitos futuros e opções, esse risco é reduzido porque a bolsa atua como intermediária entre as partes, através de uma câmara de compensação, que garante o cumprimento do contrato mesmo que uma das partes originais não consiga honrá-lo. Em contratos particulares, negociados diretamente entre duas partes fora de bolsa, esse risco tende a ser mais relevante."
+                },
+                "en": {
+                  "title": "What if the other party to the contract doesn't deliver?",
+                  "body": "Counterparty risk is the possibility that the other party in a contract — like a derivative — won't fulfill their obligations. In exchange-traded contracts, like many futures and options, this risk is reduced because the exchange acts as an intermediary between the parties, through a clearinghouse, which guarantees the contract is honored even if one of the original parties can't fulfill it. In private contracts, negotiated directly between two parties outside an exchange, this risk tends to be more significant."
+                },
+                "es": {
+                  "title": "¿Y si la otra parte del contrato no cumple?",
+                  "body": "El riesgo de contraparte es la posibilidad de que la otra parte de un contrato — como un derivado — no cumpla con sus obligaciones. En contratos negociados en bolsa, como muchos futuros y opciones, este riesgo se reduce porque la bolsa actúa como intermediaria entre las partes, a través de una cámara de compensación, que garantiza el cumplimiento del contrato aunque una de las partes originales no pueda honrarlo. En contratos privados, negociados directamente entre dos partes fuera de bolsa, este riesgo tiende a ser más relevante."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Duas empresas fecham um swap de juros diretamente entre si, sem intermediação de bolsa. Se uma delas enfrenta dificuldades financeiras graves e não consegue honrar os pagamentos combinados, a outra parte fica exposta a essa falha — diferente do que aconteceria em um contrato futuro padronizado, negociado em bolsa, onde a câmara de compensação assume esse risco entre as partes."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two companies enter into an interest rate swap directly with each other, with no exchange intermediation. If one of them faces serious financial trouble and can't honor the agreed payments, the other party is exposed to that failure — unlike what would happen in a standardized futures contract, traded on an exchange, where the clearinghouse assumes that risk between the parties."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos empresas cierran un swap de tasas directamente entre sí, sin intermediación de bolsa. Si una de ellas enfrenta dificultades financieras graves y no logra cumplir los pagos acordados, la otra parte queda expuesta a esa falla — a diferencia de lo que ocurriría en un contrato futuro estandarizado, negociado en bolsa, donde la cámara de compensación asume ese riesgo entre las partes."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é risco de contraparte?",
+                  "options": [
+                    "O risco de o preço de um ativo subjacente variar",
+                    "A possibilidade de a outra parte de um contrato não cumprir com suas obrigações",
+                    "Um tipo de taxa cobrada por bolsas de valores",
+                    "O risco de a inflação afetar o valor de um contrato"
+                  ],
+                  "explanation": "Risco de contraparte é especificamente sobre a chance de a outra parte envolvida em um contrato não conseguir honrar o que foi combinado."
+                },
+                "en": {
+                  "prompt": "What is counterparty risk?",
+                  "options": [
+                    "The risk that the price of an underlying asset will vary",
+                    "The possibility that the other party in a contract won't fulfill their obligations",
+                    "A type of fee charged by stock exchanges",
+                    "The risk of inflation affecting a contract's value"
+                  ],
+                  "explanation": "Counterparty risk is specifically about the chance that the other party involved in a contract won't be able to honor what was agreed."
+                },
+                "es": {
+                  "prompt": "¿Qué es el riesgo de contraparte?",
+                  "options": [
+                    "El riesgo de que el precio de un activo subyacente varíe",
+                    "La posibilidad de que la otra parte de un contrato no cumpla con sus obligaciones",
+                    "Un tipo de tasa cobrada por las bolsas de valores",
+                    "El riesgo de que la inflación afecte el valor de un contrato"
+                  ],
+                  "explanation": "El riesgo de contraparte trata específicamente sobre la posibilidad de que la otra parte involucrada en un contrato no logre cumplir lo acordado."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está comparando um contrato futuro padronizado, negociado em bolsa, com um contrato de derivativo particular, negociado diretamente com outra empresa, fora de bolsa. Como o risco de contraparte tende a diferir entre os dois?",
+                  "options": [
+                    "O risco de contraparte é sempre idêntico nos dois casos",
+                    "O contrato negociado em bolsa tende a ter risco de contraparte menor, já que a câmara de compensação da bolsa garante o cumprimento; o contrato particular expõe as partes diretamente uma à outra",
+                    "Contratos particulares nunca têm risco de contraparte",
+                    "Contratos negociados em bolsa sempre têm risco de contraparte maior"
+                  ],
+                  "explanation": "A câmara de compensação de uma bolsa reduz o risco de contraparte ao garantir o cumprimento do contrato entre as partes, algo que não existe da mesma forma em um contrato particular negociado diretamente."
+                },
+                "en": {
+                  "prompt": "You're comparing a standardized futures contract, traded on an exchange, with a private derivative contract, negotiated directly with another company, outside an exchange. How does counterparty risk tend to differ between the two?",
+                  "options": [
+                    "Counterparty risk is always identical in both cases",
+                    "The exchange-traded contract tends to have lower counterparty risk, since the exchange's clearinghouse guarantees fulfillment; the private contract exposes the parties directly to each other",
+                    "Private contracts never have counterparty risk",
+                    "Exchange-traded contracts always have higher counterparty risk"
+                  ],
+                  "explanation": "An exchange's clearinghouse reduces counterparty risk by guaranteeing the contract is fulfilled between the parties, something that doesn't exist in the same way in a private contract negotiated directly."
+                },
+                "es": {
+                  "prompt": "Estás comparando un contrato futuro estandarizado, negociado en bolsa, con un contrato de derivado privado, negociado directamente con otra empresa, fuera de bolsa. ¿Cómo tiende a diferir el riesgo de contraparte entre ambos?",
+                  "options": [
+                    "El riesgo de contraparte siempre es idéntico en ambos casos",
+                    "El contrato negociado en bolsa tiende a tener menor riesgo de contraparte, ya que la cámara de compensación de la bolsa garantiza el cumplimiento; el contrato privado expone a las partes directamente entre sí",
+                    "Los contratos privados nunca tienen riesgo de contraparte",
+                    "Los contratos negociados en bolsa siempre tienen mayor riesgo de contraparte"
+                  ],
+                  "explanation": "La cámara de compensación de una bolsa reduce el riesgo de contraparte al garantizar el cumplimiento del contrato entre las partes, algo que no existe de la misma forma en un contrato privado negociado directamente."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Risco de contraparte é a chance de a outra parte de um contrato não cumprir suas obrigações.",
+                    "Contratos negociados em bolsa têm esse risco reduzido pela câmara de compensação.",
+                    "Você concluiu o módulo de estratégias e riscos avançados de derivativos."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Counterparty risk is the chance the other party in a contract won't fulfill their obligations.",
+                    "Exchange-traded contracts have this risk reduced by the clearinghouse.",
+                    "You've completed the advanced derivatives strategies and risks module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El riesgo de contraparte es la posibilidad de que la otra parte de un contrato no cumpla sus obligaciones.",
+                    "Los contratos negociados en bolsa tienen este riesgo reducido por la cámara de compensación.",
+                    "Completaste el módulo de estrategias y riesgos avanzados de derivados."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -813,6 +813,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "risk_management_practice",
+      "order": 2,
+      "iconKey": "gpp_maybe_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["risk_types_basics"],
+      "translations": {
+        "pt": {
+          "title": "Gestão de Risco na Prática",
+          "description": "Correlação entre ativos, rebalanceamento de carteira, teste de cenários e seguro como proteção."
+        },
+        "en": {
+          "title": "Risk Management in Practice",
+          "description": "Correlation between assets, portfolio rebalancing, scenario testing and insurance as protection."
+        },
+        "es": {
+          "title": "Gestión de Riesgo en la Práctica",
+          "description": "Correlación entre activos, rebalanceo de cartera, prueba de escenarios y seguro como protección."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "risk_correlation",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Correlação entre Ativos"},
+            "en": {"title": "Correlation Between Assets"},
+            "es": {"title": "Correlación entre Activos"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Diversificar de verdade exige olhar como os ativos se movem juntos",
+                  "body": "Correlação mede o quanto dois ativos tendem a se mover na mesma direção. Ativos com correlação alta tendem a subir e cair juntos; ativos com correlação baixa ou negativa tendem a se comportar de forma mais independente, ou até oposta. Diversificar entre ativos com correlação alta entre si — mesmo que sejam ativos diferentes — oferece menos proteção real do que diversificar entre ativos com correlação mais baixa, já que os primeiros tendem a sofrer os mesmos problemas ao mesmo tempo."
+                },
+                "en": {
+                  "title": "Real diversification requires looking at how assets move together",
+                  "body": "Correlation measures how much two assets tend to move in the same direction. Assets with high correlation tend to rise and fall together; assets with low or negative correlation tend to behave more independently, or even oppositely. Diversifying across assets with high correlation to each other — even if they're technically different assets — offers less real protection than diversifying across assets with lower correlation, since the former tend to suffer the same problems at the same time."
+                },
+                "es": {
+                  "title": "Diversificar de verdad exige mirar cómo se mueven juntos los activos",
+                  "body": "La correlación mide cuánto tienden a moverse dos activos en la misma dirección. Los activos con alta correlación tienden a subir y bajar juntos; los activos con correlación baja o negativa tienden a comportarse de forma más independiente, o incluso opuesta. Diversificar entre activos con alta correlación entre sí — aunque sean técnicamente activos diferentes — ofrece menos protección real que diversificar entre activos con correlación más baja, ya que los primeros tienden a sufrir los mismos problemas al mismo tiempo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor compra ações de cinco bancos diferentes, achando que está diversificado. Como ações de bancos costumam ter correlação alta entre si — reagindo de forma parecida a mudanças na taxa de juros ou crises no setor financeiro — essa carteira está, na prática, bem menos diversificada do que pareceria à primeira vista, apesar de ter cinco ativos diferentes."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor buys shares of five different banks, thinking they're diversified. Since bank stocks usually have high correlation with each other — reacting similarly to interest rate changes or crises in the financial sector — this portfolio is, in practice, much less diversified than it would seem at first glance, despite having five different assets."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor compra acciones de cinco bancos diferentes, pensando que está diversificado. Como las acciones de bancos suelen tener alta correlación entre sí — reaccionando de forma parecida a cambios en la tasa de interés o crisis en el sector financiero — esta cartera está, en la práctica, bastante menos diversificada de lo que parecería a primera vista, a pesar de tener cinco activos diferentes."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que a correlação entre dois ativos mede?",
+                  "options": [
+                    "O preço absoluto de cada ativo",
+                    "O quanto dois ativos tendem a se mover na mesma direção",
+                    "A liquidez de um ativo específico",
+                    "A quantidade de dividendos pagos por um ativo"
+                  ],
+                  "explanation": "Correlação mede a relação entre os movimentos de dois ativos — se tendem a subir e cair juntos (correlação alta) ou de forma mais independente (correlação baixa)."
+                },
+                "en": {
+                  "prompt": "What does correlation between two assets measure?",
+                  "options": [
+                    "The absolute price of each asset",
+                    "How much two assets tend to move in the same direction",
+                    "A specific asset's liquidity",
+                    "The amount of dividends paid by an asset"
+                  ],
+                  "explanation": "Correlation measures the relationship between two assets' movements — whether they tend to rise and fall together (high correlation) or more independently (low correlation)."
+                },
+                "es": {
+                  "prompt": "¿Qué mide la correlación entre dos activos?",
+                  "options": [
+                    "El precio absoluto de cada activo",
+                    "Cuánto tienden a moverse dos activos en la misma dirección",
+                    "La liquidez de un activo específico",
+                    "La cantidad de dividendos pagados por un activo"
+                  ],
+                  "explanation": "La correlación mide la relación entre los movimientos de dos activos — si tienden a subir y bajar juntos (correlación alta) o de forma más independiente (correlación baja)."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende diversificação e risco de concentração de outras lições. Um investidor tem ações de cinco empresas diferentes, mas todas do mesmo setor, com correlação historicamente alta entre si. O que isso sugere sobre o nível real de diversificação dessa carteira?",
+                  "options": [
+                    "A carteira está perfeitamente diversificada, já que são cinco empresas diferentes",
+                    "Apesar de ter cinco ativos diferentes, a alta correlação entre eles sugere uma diversificação real menor do que o número de ativos sugere à primeira vista",
+                    "Correlação não tem relação nenhuma com diversificação",
+                    "Ter mais ativos sempre garante diversificação real, independentemente da correlação entre eles"
+                  ],
+                  "explanation": "O número de ativos diferentes, sozinho, não garante diversificação real — se esses ativos têm correlação alta entre si, eles tendem a sofrer os mesmos problemas ao mesmo tempo, reduzindo a proteção que a diversificação deveria oferecer."
+                },
+                "en": {
+                  "prompt": "You already understand diversification and concentration risk from other lessons. An investor holds shares of five different companies, but all from the same sector, with historically high correlation among them. What does this suggest about this portfolio's real level of diversification?",
+                  "options": [
+                    "The portfolio is perfectly diversified, since it's five different companies",
+                    "Despite having five different assets, the high correlation between them suggests a real diversification lower than the number of assets suggests at first glance",
+                    "Correlation has no relation at all to diversification",
+                    "Having more assets always guarantees real diversification, regardless of the correlation between them"
+                  ],
+                  "explanation": "The number of different assets, by itself, doesn't guarantee real diversification — if those assets have high correlation with each other, they tend to suffer the same problems at the same time, reducing the protection diversification should offer."
+                },
+                "es": {
+                  "prompt": "Ya entiendes la diversificación y el riesgo de concentración de otras lecciones. Un inversor tiene acciones de cinco empresas diferentes, pero todas del mismo sector, con correlación históricamente alta entre sí. ¿Qué sugiere esto sobre el nivel real de diversificación de esta cartera?",
+                  "options": [
+                    "La cartera está perfectamente diversificada, ya que son cinco empresas diferentes",
+                    "A pesar de tener cinco activos diferentes, la alta correlación entre ellos sugiere una diversificación real menor de lo que sugiere a primera vista el número de activos",
+                    "La correlación no tiene ninguna relación con la diversificación",
+                    "Tener más activos siempre garantiza diversificación real, sin importar la correlación entre ellos"
+                  ],
+                  "explanation": "El número de activos diferentes, por sí solo, no garantiza diversificación real — si esos activos tienen alta correlación entre sí, tienden a sufrir los mismos problemas al mismo tiempo, reduciendo la protección que la diversificación debería ofrecer."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Correlação mede o quanto dois ativos tendem a se mover juntos.",
+                    "Diversificar entre ativos com correlação alta oferece menos proteção real.",
+                    "O número de ativos diferentes, sozinho, não garante diversificação real."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Correlation measures how much two assets tend to move together.",
+                    "Diversifying across highly correlated assets offers less real protection.",
+                    "The number of different assets, by itself, doesn't guarantee real diversification."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La correlación mide cuánto tienden a moverse juntos dos activos.",
+                    "Diversificar entre activos con alta correlación ofrece menos protección real.",
+                    "El número de activos diferentes, por sí solo, no garantiza diversificación real."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_rebalancing",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Rebalanceamento de Carteira"},
+            "en": {"title": "Portfolio Rebalancing"},
+            "es": {"title": "Rebalanceo de Cartera"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Voltando à distribuição planejada",
+                  "body": "Com o passar do tempo, ativos diferentes de uma carteira se valorizam ou desvalorizam de forma desigual, fazendo com que a proporção original planejada entre eles se altere — um ativo que subiu bastante pode acabar representando uma fatia maior da carteira do que o planejado, aumentando a concentração nele sem uma decisão ativa nesse sentido. Rebalanceamento é o processo de ajustar a carteira periodicamente, vendendo parte do que cresceu além do planejado e comprando o que ficou abaixo, para devolver a carteira à distribuição original definida."
+                },
+                "en": {
+                  "title": "Returning to the planned distribution",
+                  "body": "Over time, different assets in a portfolio appreciate or depreciate unevenly, causing the originally planned proportion between them to shift — an asset that rose a lot might end up representing a larger slice of the portfolio than planned, increasing concentration in it without an active decision to that effect. Rebalancing is the process of periodically adjusting the portfolio, selling part of what grew beyond the plan and buying what fell below it, to bring the portfolio back to the originally defined distribution."
+                },
+                "es": {
+                  "title": "Volviendo a la distribución planeada",
+                  "body": "Con el paso del tiempo, activos diferentes de una cartera se valorizan o desvalorizan de forma desigual, haciendo que la proporción original planeada entre ellos cambie — un activo que subió bastante puede terminar representando una porción mayor de la cartera de lo planeado, aumentando la concentración en él sin una decisión activa en ese sentido. El rebalanceo es el proceso de ajustar la cartera periódicamente, vendiendo parte de lo que creció más allá de lo planeado y comprando lo que quedó por debajo, para devolver la cartera a la distribución original definida."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor define uma carteira com 60% em ações e 40% em renda fixa. Depois de um ano de forte alta nas ações, essa proporção muda para 75% em ações e 25% em renda fixa, sem nenhuma decisão ativa — apenas pela valorização desigual entre as duas classes. Ao rebalancear, ele vende parte das ações e compra mais renda fixa, voltando à proporção original de 60/40, e reduzindo a concentração que se formou passivamente."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor sets up a portfolio with 60% in stocks and 40% in fixed income. After a year of strong stock gains, that proportion shifts to 75% in stocks and 25% in fixed income, with no active decision — just from the uneven appreciation between the two classes. By rebalancing, they sell part of the stocks and buy more fixed income, returning to the original 60/40 proportion, and reducing the concentration that formed passively."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor define una cartera con el 60% en acciones y el 40% en renta fija. Después de un año de fuerte alza en las acciones, esa proporción cambia al 75% en acciones y el 25% en renta fija, sin ninguna decisión activa — solo por la valorización desigual entre ambas clases. Al rebalancear, vende parte de las acciones y compra más renta fija, volviendo a la proporción original de 60/40, y reduciendo la concentración que se formó pasivamente."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é rebalanceamento de carteira?",
+                  "options": [
+                    "Vender toda a carteira de uma só vez",
+                    "O processo de ajustar a carteira periodicamente para devolvê-la à distribuição original planejada entre os ativos",
+                    "Investir sempre no ativo que mais subiu recentemente",
+                    "Um tipo de imposto cobrado sobre a carteira"
+                  ],
+                  "explanation": "Rebalanceamento é ajustar as proporções da carteira de volta ao planejado originalmente, vendendo parte do que cresceu além da proporção e comprando o que ficou abaixo."
+                },
+                "en": {
+                  "prompt": "What is portfolio rebalancing?",
+                  "options": [
+                    "Selling the entire portfolio at once",
+                    "The process of periodically adjusting the portfolio to bring it back to the originally planned distribution between assets",
+                    "Always investing in whatever asset rose the most recently",
+                    "A type of tax charged on the portfolio"
+                  ],
+                  "explanation": "Rebalancing is adjusting the portfolio's proportions back to what was originally planned, selling part of what grew beyond the proportion and buying what fell below."
+                },
+                "es": {
+                  "prompt": "¿Qué es el rebalanceo de cartera?",
+                  "options": [
+                    "Vender toda la cartera de una sola vez",
+                    "El proceso de ajustar la cartera periódicamente para devolverla a la distribución originalmente planeada entre los activos",
+                    "Invertir siempre en el activo que más subió recientemente",
+                    "Un tipo de impuesto cobrado sobre la cartera"
+                  ],
+                  "explanation": "El rebalanceo es ajustar las proporciones de la cartera de vuelta a lo planeado originalmente, vendiendo parte de lo que creció más allá de la proporción y comprando lo que quedó por debajo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco de concentração de outra lição. Como a falta de rebalanceamento ao longo do tempo pode levar a esse tipo de risco, mesmo sem nenhuma decisão ativa do investidor?",
+                  "options": [
+                    "Não tem relação nenhuma, concentração só acontece por decisão ativa do investidor",
+                    "Um ativo que se valoriza bastante, sem rebalanceamento, passa a representar uma fatia cada vez maior da carteira, criando uma concentração passiva que o investidor pode nem perceber",
+                    "Rebalanceamento sempre aumenta o risco de concentração",
+                    "Carteiras nunca mudam de proporção ao longo do tempo, então rebalanceamento é desnecessário"
+                  ],
+                  "explanation": "Sem rebalanceamento, um ativo que se valoriza bastante acaba dominando cada vez mais a carteira, criando uma concentração que surge passivamente, sem nenhuma decisão consciente do investidor de aumentar aquela exposição."
+                },
+                "en": {
+                  "prompt": "You already understand concentration risk from another lesson. How can the lack of rebalancing over time lead to that kind of risk, even without any active decision by the investor?",
+                  "options": [
+                    "It has no relation at all, concentration only happens from an active decision by the investor",
+                    "An asset that appreciates a lot, with no rebalancing, comes to represent an increasingly larger slice of the portfolio, creating a passive concentration the investor might not even notice",
+                    "Rebalancing always increases concentration risk",
+                    "Portfolios never change proportion over time, so rebalancing is unnecessary"
+                  ],
+                  "explanation": "Without rebalancing, an asset that appreciates a lot ends up dominating more and more of the portfolio, creating a concentration that arises passively, with no conscious decision by the investor to increase that exposure."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo de concentración de otra lección. ¿Cómo puede la falta de rebalanceo con el tiempo llevar a ese tipo de riesgo, incluso sin ninguna decisión activa del inversor?",
+                  "options": [
+                    "No tiene ninguna relación, la concentración solo ocurre por decisión activa del inversor",
+                    "Un activo que se valoriza bastante, sin rebalanceo, pasa a representar una porción cada vez mayor de la cartera, creando una concentración pasiva que el inversor puede ni siquiera notar",
+                    "El rebalanceo siempre aumenta el riesgo de concentración",
+                    "Las carteras nunca cambian de proporción con el tiempo, así que el rebalanceo es innecesario"
+                  ],
+                  "explanation": "Sin rebalanceo, un activo que se valoriza bastante termina dominando cada vez más la cartera, creando una concentración que surge pasivamente, sin ninguna decisión consciente del inversor de aumentar esa exposición."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Rebalanceamento ajusta a carteira de volta à distribuição originalmente planejada.",
+                    "Sem rebalanceamento, ativos que se valorizam muito podem dominar a carteira com o tempo.",
+                    "Isso pode criar uma concentração passiva, sem nenhuma decisão ativa do investidor."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Rebalancing adjusts the portfolio back to the originally planned distribution.",
+                    "Without rebalancing, assets that appreciate a lot can come to dominate the portfolio over time.",
+                    "This can create passive concentration, with no active decision by the investor."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El rebalanceo ajusta la cartera de vuelta a la distribución originalmente planeada.",
+                    "Sin rebalanceo, activos que se valorizan mucho pueden llegar a dominar la cartera con el tiempo.",
+                    "Esto puede crear una concentración pasiva, sin ninguna decisión activa del inversor."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_stress_testing",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Testando Cenários (Stress Test)"},
+            "en": {"title": "Scenario Testing (Stress Test)"},
+            "es": {"title": "Prueba de Escenarios (Stress Test)"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Imaginando o pior antes que ele aconteça",
+                  "body": "Um teste de estresse (stress test) é o exercício de estimar como uma carteira se comportaria diante de cenários adversos específicos — como uma alta abrupta de juros, uma crise cambial, ou uma queda generalizada do mercado — antes que esses cenários realmente aconteçam. O objetivo não é prever o futuro com precisão, mas entender antecipadamente quais partes da carteira seriam mais afetadas em situações difíceis, para decidir com mais clareza se o nível de risco assumido está de acordo com o que o investidor realmente consegue suportar."
+                },
+                "en": {
+                  "title": "Imagining the worst before it happens",
+                  "body": "A stress test is the exercise of estimating how a portfolio would behave in specific adverse scenarios — like a sudden interest rate hike, a currency crisis, or a broad market downturn — before those scenarios actually happen. The goal isn't to predict the future with precision, but to understand ahead of time which parts of the portfolio would be most affected in difficult situations, in order to decide more clearly whether the level of risk taken on matches what the investor can actually handle."
+                },
+                "es": {
+                  "title": "Imaginando lo peor antes de que ocurra",
+                  "body": "Una prueba de estrés (stress test) es el ejercicio de estimar cómo se comportaría una cartera ante escenarios adversos específicos — como una subida abrupta de tasas, una crisis cambiaria, o una caída generalizada del mercado — antes de que esos escenarios realmente ocurran. El objetivo no es predecir el futuro con precisión, sino entender de antemano qué partes de la cartera se verían más afectadas en situaciones difíciles, para decidir con más claridad si el nivel de riesgo asumido está de acuerdo con lo que el inversor realmente puede soportar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor simula o que aconteceria com sua carteira se as ações caíssem 30% de uma vez, algo já visto historicamente em crises passadas. Ao ver o impacto estimado nesse cenário, ele percebe que perderia mais do que se sente confortável perdendo — um sinal de que talvez seu nível de exposição a ações esteja acima do que seu perfil de risco realmente suporta, mesmo sem essa queda ter acontecido ainda."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor simulates what would happen to their portfolio if stocks fell 30% at once, something already seen historically in past crises. Seeing the estimated impact in that scenario, they realize they'd lose more than they feel comfortable losing — a sign that their level of stock exposure might be above what their risk profile can actually handle, even though that drop hasn't happened yet."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor simula qué pasaría con su cartera si las acciones cayeran un 30% de golpe, algo ya visto históricamente en crisis pasadas. Al ver el impacto estimado en ese escenario, se da cuenta de que perdería más de lo que se siente cómodo perdiendo — una señal de que quizás su nivel de exposición a acciones esté por encima de lo que su perfil de riesgo realmente soporta, incluso sin que esa caída haya ocurrido todavía."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o objetivo de um teste de estresse (stress test) em uma carteira?",
+                  "options": [
+                    "Prever com certeza absoluta o que vai acontecer no futuro",
+                    "Estimar antecipadamente como a carteira se comportaria em cenários adversos específicos, para avaliar se o risco assumido é adequado",
+                    "Garantir que a carteira nunca terá prejuízo",
+                    "Aumentar automaticamente o retorno esperado da carteira"
+                  ],
+                  "explanation": "O teste de estresse simula cenários adversos para entender antecipadamente o impacto potencial sobre a carteira, ajudando a avaliar se o nível de risco assumido está adequado, sem pretender prever o futuro com certeza."
+                },
+                "en": {
+                  "prompt": "What is the goal of a stress test on a portfolio?",
+                  "options": [
+                    "Predicting with absolute certainty what will happen in the future",
+                    "Estimating ahead of time how the portfolio would behave in specific adverse scenarios, to assess whether the risk taken on is appropriate",
+                    "Guaranteeing the portfolio will never have a loss",
+                    "Automatically increasing the portfolio's expected return"
+                  ],
+                  "explanation": "The stress test simulates adverse scenarios to understand ahead of time the potential impact on the portfolio, helping assess whether the level of risk taken on is appropriate, without claiming to predict the future with certainty."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el objetivo de una prueba de estrés (stress test) en una cartera?",
+                  "options": [
+                    "Predecir con certeza absoluta lo que va a pasar en el futuro",
+                    "Estimar de antemano cómo se comportaría la cartera en escenarios adversos específicos, para evaluar si el riesgo asumido es adecuado",
+                    "Garantizar que la cartera nunca tendrá pérdidas",
+                    "Aumentar automáticamente el retorno esperado de la cartera"
+                  ],
+                  "explanation": "La prueba de estrés simula escenarios adversos para entender de antemano el impacto potencial sobre la cartera, ayudando a evaluar si el nivel de riesgo asumido es adecuado, sin pretender predecir el futuro con certeza."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende perfil de investidor de outra lição. Como um teste de estresse pode ajudar alguém a descobrir que seu nível de risco atual não está alinhado com seu perfil, antes de uma crise real acontecer?",
+                  "options": [
+                    "Não ajuda, só é possível descobrir isso depois que a crise já aconteceu de verdade",
+                    "Simulando um cenário adverso específico, a pessoa pode ver a perda estimada e comparar com o quanto ela realmente está disposta a suportar, ajustando a carteira antes que o cenário se torne realidade",
+                    "Teste de estresse serve apenas para aumentar o retorno esperado da carteira",
+                    "Perfil de investidor não tem relação nenhuma com testes de cenário"
+                  ],
+                  "explanation": "Ao estimar o impacto de um cenário adverso antes que ele aconteça, o investidor pode comparar essa perda estimada com sua real tolerância ao risco, e ajustar a carteira proativamente, em vez de descobrir o desalinhamento só durante uma crise real."
+                },
+                "en": {
+                  "prompt": "You already understand investor profile from another lesson. How can a stress test help someone discover their current risk level isn't aligned with their profile, before a real crisis happens?",
+                  "options": [
+                    "It doesn't help, that can only be discovered after the crisis has actually happened",
+                    "By simulating a specific adverse scenario, the person can see the estimated loss and compare it with how much they're actually willing to bear, adjusting the portfolio before the scenario becomes reality",
+                    "A stress test only serves to increase the portfolio's expected return",
+                    "Investor profile has no relation at all to scenario testing"
+                  ],
+                  "explanation": "By estimating the impact of an adverse scenario before it happens, the investor can compare that estimated loss with their real risk tolerance, and proactively adjust the portfolio, instead of discovering the mismatch only during a real crisis."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el perfil de inversor de otra lección. ¿Cómo puede una prueba de estrés ayudar a alguien a descubrir que su nivel de riesgo actual no está alineado con su perfil, antes de que ocurra una crisis real?",
+                  "options": [
+                    "No ayuda, eso solo se puede descubrir después de que la crisis ya haya ocurrido de verdad",
+                    "Simulando un escenario adverso específico, la persona puede ver la pérdida estimada y compararla con cuánto está realmente dispuesta a soportar, ajustando la cartera antes de que el escenario se vuelva realidad",
+                    "La prueba de estrés solo sirve para aumentar el retorno esperado de la cartera",
+                    "El perfil de inversor no tiene ninguna relación con las pruebas de escenario"
+                  ],
+                  "explanation": "Al estimar el impacto de un escenario adverso antes de que ocurra, el inversor puede comparar esa pérdida estimada con su tolerancia real al riesgo, y ajustar la cartera proactivamente, en lugar de descubrir el desajuste solo durante una crisis real."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Teste de estresse simula cenários adversos para estimar seu impacto sobre a carteira.",
+                    "O objetivo é avaliar antecipadamente se o risco assumido é adequado, não prever o futuro.",
+                    "Ele ajuda a comparar a perda estimada com a real tolerância ao risco do investidor."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A stress test simulates adverse scenarios to estimate their impact on the portfolio.",
+                    "The goal is to assess ahead of time whether the risk taken on is appropriate, not to predict the future.",
+                    "It helps compare the estimated loss with the investor's real risk tolerance."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La prueba de estrés simula escenarios adversos para estimar su impacto sobre la cartera.",
+                    "El objetivo es evaluar de antemano si el riesgo asumido es adecuado, no predecir el futuro.",
+                    "Ayuda a comparar la pérdida estimada con la tolerancia real al riesgo del inversor."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_insurance",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Seguro como Proteção de Risco"},
+            "en": {"title": "Insurance as Risk Protection"},
+            "es": {"title": "Seguro como Protección de Riesgo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Transferindo um risco específico para outra parte",
+                  "body": "Seguro é um instrumento que transfere um risco específico — como o de um imóvel pegar fogo, ou um problema de saúde grave — para uma seguradora, em troca do pagamento de um prêmio periódico. Diferente de investimentos, cujo objetivo é fazer o dinheiro crescer, o seguro tem como objetivo proteger contra eventos de baixa probabilidade, mas alto impacto financeiro, que poderiam comprometer significativamente o patrimônio ou os planos financeiros de uma pessoa se acontecessem sem essa proteção."
+                },
+                "en": {
+                  "title": "Transferring a specific risk to another party",
+                  "body": "Insurance is an instrument that transfers a specific risk — like a property catching fire, or a serious health problem — to an insurance company, in exchange for paying a periodic premium. Unlike investments, whose goal is to grow money, insurance aims to protect against low-probability, high-financial-impact events, which could significantly compromise a person's wealth or financial plans if they happened without that protection."
+                },
+                "es": {
+                  "title": "Transfiriendo un riesgo específico a otra parte",
+                  "body": "El seguro es un instrumento que transfiere un riesgo específico — como que un inmueble se incendie, o un problema de salud grave — a una aseguradora, a cambio del pago de una prima periódica. A diferencia de las inversiones, cuyo objetivo es hacer crecer el dinero, el seguro tiene como objetivo proteger contra eventos de baja probabilidad, pero alto impacto financiero, que podrían comprometer significativamente el patrimonio o los planes financieros de una persona si ocurrieran sin esa protección."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa paga um prêmio anual de seguro residencial. Na grande maioria dos anos, ela não usa o seguro e o prêmio pago parece, isoladamente, um custo sem retorno direto. Mas se um incêndio destruir o imóvel em algum desses anos, o seguro cobre um prejuízo que poderia comprometer boa parte, ou até todo, o patrimônio acumulado ao longo de anos de trabalho — o valor do seguro está justamente nessa proteção contra o evento raro, mas potencialmente devastador."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A person pays an annual homeowner's insurance premium. In the vast majority of years, they don't use the insurance and the premium paid looks, in isolation, like a cost with no direct return. But if a fire destroys the property in one of those years, the insurance covers a loss that could compromise a large part, or even all, of the wealth accumulated over years of work — the insurance's value lies exactly in that protection against the rare, but potentially devastating, event."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona paga una prima anual de seguro residencial. En la gran mayoría de los años, no usa el seguro y la prima pagada parece, aisladamente, un costo sin retorno directo. Pero si un incendio destruye el inmueble en alguno de esos años, el seguro cubre una pérdida que podría comprometer gran parte, o incluso todo, el patrimonio acumulado a lo largo de años de trabajo — el valor del seguro está justamente en esa protección contra el evento raro, pero potencialmente devastador."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o objetivo principal de um seguro?",
+                  "options": [
+                    "Fazer o dinheiro crescer ao longo do tempo, como um investimento",
+                    "Transferir um risco específico de baixa probabilidade, mas alto impacto financeiro, para uma seguradora",
+                    "Garantir retorno financeiro todos os anos",
+                    "Substituir completamente a necessidade de uma reserva de emergência"
+                  ],
+                  "explanation": "Seguro tem uma função diferente de investir: ele transfere um risco específico para a seguradora, protegendo contra eventos raros, mas de alto impacto financeiro, em troca de um prêmio periódico."
+                },
+                "en": {
+                  "prompt": "What is insurance's main goal?",
+                  "options": [
+                    "Growing money over time, like an investment",
+                    "Transferring a specific low-probability, but high-financial-impact risk, to an insurance company",
+                    "Guaranteeing a financial return every year",
+                    "Completely replacing the need for an emergency fund"
+                  ],
+                  "explanation": "Insurance has a different function from investing: it transfers a specific risk to the insurance company, protecting against rare, but high-financial-impact events, in exchange for a periodic premium."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el objetivo principal de un seguro?",
+                  "options": [
+                    "Hacer crecer el dinero con el tiempo, como una inversión",
+                    "Transferir un riesgo específico de baja probabilidad, pero alto impacto financiero, a una aseguradora",
+                    "Garantizar un retorno financiero todos los años",
+                    "Reemplazar por completo la necesidad de un fondo de emergencia"
+                  ],
+                  "explanation": "El seguro tiene una función diferente a la de invertir: transfiere un riesgo específico a la aseguradora, protegiendo contra eventos raros, pero de alto impacto financiero, a cambio de una prima periódica."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma pessoa diz: 'paguei seguro por 10 anos e nunca precisei usar, então foi dinheiro jogado fora'. Com base no que você aprendeu sobre o objetivo do seguro, o que está incompleto nesse raciocínio?",
+                  "options": [
+                    "Nada, se o seguro nunca foi usado, realmente foi um desperdício de dinheiro",
+                    "O valor do seguro está na proteção contra um evento raro mas de alto impacto — não precisar usá-lo na maioria dos anos é justamente o resultado esperado, não um fracasso do produto",
+                    "Seguro deveria sempre gerar algum retorno financeiro direto, como um investimento",
+                    "Seguro só vale a pena se for usado todos os anos"
+                  ],
+                  "explanation": "Seguro não é um investimento que deveria gerar retorno direto — seu valor está em proteger contra um evento raro e de alto impacto; não precisar usá-lo é o cenário mais comum e esperado, não uma falha da proteção."
+                },
+                "en": {
+                  "prompt": "Someone says: 'I paid insurance for 10 years and never needed to use it, so it was money thrown away.' Based on what you learned about insurance's purpose, what's incomplete about that reasoning?",
+                  "options": [
+                    "Nothing, if the insurance was never used, it really was a waste of money",
+                    "Insurance's value lies in the protection against a rare but high-impact event — not needing to use it in most years is exactly the expected outcome, not a product failure",
+                    "Insurance should always generate some direct financial return, like an investment",
+                    "Insurance is only worth it if it's used every year"
+                  ],
+                  "explanation": "Insurance isn't an investment expected to generate a direct return — its value is in protecting against a rare, high-impact event; not needing to use it is the most common and expected scenario, not a failure of the protection."
+                },
+                "es": {
+                  "prompt": "Alguien dice: 'pagué seguro durante 10 años y nunca lo necesité usar, así que fue dinero tirado'. Según lo que aprendiste sobre el objetivo del seguro, ¿qué es incompleto en ese razonamiento?",
+                  "options": [
+                    "Nada, si el seguro nunca se usó, realmente fue un desperdicio de dinero",
+                    "El valor del seguro está en la protección contra un evento raro pero de alto impacto — no necesitar usarlo en la mayoría de los años es justamente el resultado esperado, no un fracaso del producto",
+                    "El seguro debería siempre generar algún retorno financiero directo, como una inversión",
+                    "El seguro solo vale la pena si se usa todos los años"
+                  ],
+                  "explanation": "El seguro no es una inversión que debería generar un retorno directo — su valor está en proteger contra un evento raro y de alto impacto; no necesitar usarlo es el escenario más común y esperado, no una falla de la protección."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Seguro transfere um risco específico de baixa probabilidade e alto impacto para uma seguradora.",
+                    "Não usar o seguro na maioria dos anos é o cenário esperado, não um desperdício.",
+                    "Você concluiu o módulo de gestão de risco na prática."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Insurance transfers a specific low-probability, high-impact risk to an insurance company.",
+                    "Not using the insurance in most years is the expected scenario, not a waste.",
+                    "You've completed the risk management in practice module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El seguro transfiere un riesgo específico de baja probabilidad y alto impacto a una aseguradora.",
+                    "No usar el seguro en la mayoría de los años es el escenario esperado, no un desperdicio.",
+                    "Completaste el módulo de gestión de riesgo en la práctica."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
