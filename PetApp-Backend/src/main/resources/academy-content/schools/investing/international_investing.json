@@ -3,7 +3,7 @@
   "domainId": "investing",
   "order": 12,
   "iconKey": "public_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -19,5 +19,800 @@
       "description": "Diversificación geográfica, tipo de cambio, BDRs y activos en el exterior."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "international_investing_basics",
+      "order": 1,
+      "iconKey": "public_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos do Investimento Internacional",
+          "description": "Diversificação geográfica, risco cambial, BDRs, investir diretamente no exterior e tributação."
+        },
+        "en": {
+          "title": "International Investing Fundamentals",
+          "description": "Geographic diversification, exchange rate risk, BDRs, investing directly abroad and taxation."
+        },
+        "es": {
+          "title": "Fundamentos de la Inversión Internacional",
+          "description": "Diversificación geográfica, riesgo cambiario, BDR, invertir directamente en el exterior y tributación."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "international_geographic_diversification",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Diversificação Geográfica"},
+            "en": {"title": "Geographic Diversification"},
+            "es": {"title": "Diversificación Geográfica"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Não depender de um único país",
+                  "body": "Investir apenas em ativos de um único país significa que todo o seu patrimônio está exposto aos riscos específicos daquela economia — sua moeda, sua política, seus ciclos econômicos. Diversificação geográfica é distribuir investimentos entre diferentes países ou regiões, reduzindo a dependência do desempenho de uma única economia."
+                },
+                "en": {
+                  "title": "Not depending on a single country",
+                  "body": "Investing only in assets from a single country means your entire portfolio is exposed to that economy's specific risks — its currency, its politics, its economic cycles. Geographic diversification means spreading investments across different countries or regions, reducing dependence on the performance of a single economy."
+                },
+                "es": {
+                  "title": "No depender de un único país",
+                  "body": "Invertir solo en activos de un único país significa que todo tu patrimonio está expuesto a los riesgos específicos de esa economía — su moneda, su política, sus ciclos económicos. La diversificación geográfica es distribuir inversiones entre diferentes países o regiones, reduciendo la dependencia del desempeño de una sola economía."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor com 100% do patrimônio em ativos brasileiros sente todo o impacto se a economia brasileira passar por uma crise específica. Se parte desse patrimônio estivesse em ativos de outros países, o impacto de um problema isolado no Brasil tenderia a ser parcialmente amortecido pelo desempenho dos outros mercados."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor with 100% of their portfolio in Brazilian assets feels the full impact if the Brazilian economy goes through a specific crisis. If part of that portfolio were in assets from other countries, the impact of an isolated problem in Brazil would tend to be partially cushioned by the performance of the other markets."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor con el 100% de su patrimonio en activos brasileños siente todo el impacto si la economía brasileña atraviesa una crisis específica. Si parte de ese patrimonio estuviera en activos de otros países, el impacto de un problema aislado en Brasil tendería a ser parcialmente amortiguado por el desempeño de los otros mercados."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é diversificação geográfica?",
+                  "options": [
+                    "Investir apenas em empresas exportadoras",
+                    "Distribuir investimentos entre diferentes países ou regiões, reduzindo a dependência de uma única economia",
+                    "Trocar de corretora com frequência",
+                    "Investir apenas em moeda estrangeira física"
+                  ],
+                  "explanation": "Diversificação geográfica reduz a exposição concentrada aos riscos específicos de um único país ou economia, distribuindo investimentos entre diferentes regiões."
+                },
+                "en": {
+                  "prompt": "What is geographic diversification?",
+                  "options": [
+                    "Investing only in exporting companies",
+                    "Spreading investments across different countries or regions, reducing dependence on a single economy",
+                    "Frequently switching brokers",
+                    "Investing only in physical foreign currency"
+                  ],
+                  "explanation": "Geographic diversification reduces concentrated exposure to the specific risks of a single country or economy, by spreading investments across different regions."
+                },
+                "es": {
+                  "prompt": "¿Qué es la diversificación geográfica?",
+                  "options": [
+                    "Invertir solo en empresas exportadoras",
+                    "Distribuir inversiones entre diferentes países o regiones, reduciendo la dependencia de una sola economía",
+                    "Cambiar de correduría con frecuencia",
+                    "Invertir solo en moneda extranjera física"
+                  ],
+                  "explanation": "La diversificación geográfica reduce la exposición concentrada a los riesgos específicos de un solo país o economía, distribuyendo inversiones entre diferentes regiones."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco de concentração de outra lição. Como esse conceito se aplica especificamente a ter 100% do patrimônio em um único país?",
+                  "options": [
+                    "Não se aplica, risco de concentração só existe dentro de uma mesma classe de ativos",
+                    "Ter todo o patrimônio em um único país é uma forma de concentração — nesse caso, concentração geográfica, com os mesmos riscos de amplificar o impacto de um problema isolado",
+                    "Concentração geográfica é sempre segura, diferente de outros tipos de concentração",
+                    "Só existe risco de concentração em ações de um único setor"
+                  ],
+                  "explanation": "Concentrar todo o patrimônio em um único país é uma forma específica de risco de concentração — os problemas daquela economia específica afetam desproporcionalmente todo o patrimônio."
+                },
+                "en": {
+                  "prompt": "You already understand concentration risk from another lesson. How does that concept apply specifically to having 100% of your portfolio in a single country?",
+                  "options": [
+                    "It doesn't apply, concentration risk only exists within the same asset class",
+                    "Having all your wealth in a single country is a form of concentration — in this case, geographic concentration, with the same risk of amplifying the impact of an isolated problem",
+                    "Geographic concentration is always safe, unlike other types of concentration",
+                    "Concentration risk only exists in stocks from a single sector"
+                  ],
+                  "explanation": "Concentrating all your wealth in a single country is a specific form of concentration risk — that specific economy's problems disproportionately affect your entire portfolio."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo de concentración de otra lección. ¿Cómo se aplica ese concepto específicamente a tener el 100% del patrimonio en un solo país?",
+                  "options": [
+                    "No se aplica, el riesgo de concentración solo existe dentro de una misma clase de activos",
+                    "Tener todo el patrimonio en un solo país es una forma de concentración — en este caso, concentración geográfica, con los mismos riesgos de amplificar el impacto de un problema aislado",
+                    "La concentración geográfica siempre es segura, a diferencia de otros tipos de concentración",
+                    "El riesgo de concentración solo existe en acciones de un único sector"
+                  ],
+                  "explanation": "Concentrar todo el patrimonio en un solo país es una forma específica de riesgo de concentración — los problemas de esa economía específica afectan desproporcionadamente todo el patrimonio."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Diversificação geográfica reduz a dependência de uma única economia.",
+                    "Concentrar tudo em um país é uma forma de risco de concentração.",
+                    "Um problema isolado em um país tende a ter impacto amortecido em uma carteira internacionalmente diversificada."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Geographic diversification reduces dependence on a single economy.",
+                    "Concentrating everything in one country is a form of concentration risk.",
+                    "An isolated problem in one country tends to have a cushioned impact on an internationally diversified portfolio."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La diversificación geográfica reduce la dependencia de una sola economía.",
+                    "Concentrar todo en un país es una forma de riesgo de concentración.",
+                    "Un problema aislado en un país tiende a tener un impacto amortiguado en una cartera diversificada internacionalmente."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "international_exchange_rate_risk",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco Cambial"},
+            "en": {"title": "Exchange Rate Risk"},
+            "es": {"title": "Riesgo Cambiario"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um risco extra, para o bem e para o mal",
+                  "body": "Ao investir em ativos denominados em outra moeda, o retorno final em reais depende não só do desempenho do ativo em si, mas também da variação da taxa de câmbio entre as duas moedas durante o período. Se a moeda estrangeira se valoriza frente ao real, isso amplifica o retorno; se ela se desvaloriza, o efeito é o oposto — mesmo que o ativo em si tenha ido bem na moeda original."
+                },
+                "en": {
+                  "title": "An extra risk, for better or worse",
+                  "body": "When investing in assets denominated in another currency, the final return in your home currency depends not only on the asset's own performance, but also on how the exchange rate between the two currencies moves during the period. If the foreign currency appreciates against your home currency, that amplifies the return; if it depreciates, the effect is the opposite — even if the asset itself did well in its original currency."
+                },
+                "es": {
+                  "title": "Un riesgo extra, para bien y para mal",
+                  "body": "Al invertir en activos denominados en otra moneda, el retorno final en tu moneda local depende no solo del desempeño del activo en sí, sino también de la variación del tipo de cambio entre ambas monedas durante el período. Si la moneda extranjera se aprecia frente a tu moneda local, eso amplifica el retorno; si se deprecia, el efecto es el opuesto — incluso si el activo en sí tuvo un buen desempeño en su moneda original."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor brasileiro compra um ativo nos Estados Unidos que sobe 10% em dólar ao longo de um ano. Se, no mesmo período, o dólar se valorizou 5% frente ao real, o retorno em reais fica próximo de 15%. Mas se o dólar se desvalorizou 5% frente ao real no período, o retorno em reais fica próximo de apenas 5%, mesmo com o ativo tendo subido os mesmos 10% em dólar."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A Brazilian investor buys an asset in the United States that rises 10% in dollars over a year. If, in the same period, the dollar appreciated 5% against the real, the return in reals comes out close to 15%. But if the dollar depreciated 5% against the real over the period, the return in reals comes out to only about 5%, even though the asset rose the same 10% in dollars."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor brasileño compra un activo en Estados Unidos que sube un 10% en dólares durante un año. Si, en el mismo período, el dólar se apreció un 5% frente al real, el retorno en reales queda cerca del 15%. Pero si el dólar se depreció un 5% frente al real en el período, el retorno en reales queda cerca de solo el 5%, aunque el activo haya subido el mismo 10% en dólares."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é risco cambial, no contexto de investimentos internacionais?",
+                  "options": [
+                    "O risco de um ativo estrangeiro nunca pagar dividendos",
+                    "A incerteza sobre como a variação da taxa de câmbio vai afetar o retorno final em moeda local",
+                    "O risco de um país proibir investimentos estrangeiros",
+                    "A garantia de que investimentos internacionais sempre rendem mais"
+                  ],
+                  "explanation": "Risco cambial é a incerteza adicional criada pela variação da taxa de câmbio, que pode amplificar ou reduzir o retorno de um investimento estrangeiro quando convertido de volta para a moeda local."
+                },
+                "en": {
+                  "prompt": "What is exchange rate risk, in the context of international investing?",
+                  "options": [
+                    "The risk that a foreign asset will never pay dividends",
+                    "The uncertainty about how the exchange rate's variation will affect the final return in local currency",
+                    "The risk that a country will ban foreign investments",
+                    "The guarantee that international investments always earn more"
+                  ],
+                  "explanation": "Exchange rate risk is the additional uncertainty created by the exchange rate's fluctuation, which can amplify or reduce a foreign investment's return once converted back to local currency."
+                },
+                "es": {
+                  "prompt": "¿Qué es el riesgo cambiario, en el contexto de las inversiones internacionales?",
+                  "options": [
+                    "El riesgo de que un activo extranjero nunca pague dividendos",
+                    "La incertidumbre sobre cómo la variación del tipo de cambio afectará el retorno final en moneda local",
+                    "El riesgo de que un país prohíba las inversiones extranjeras",
+                    "La garantía de que las inversiones internacionales siempre rinden más"
+                  ],
+                  "explanation": "El riesgo cambiario es la incertidumbre adicional creada por la variación del tipo de cambio, que puede amplificar o reducir el retorno de una inversión extranjera al convertirlo de vuelta a la moneda local."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está avaliando um investimento em dólar que teve um ótimo desempenho na moeda original. Por que não basta olhar apenas esse número para saber o quanto você realmente ganhou em reais?",
+                  "options": [
+                    "Porque basta sempre olhar o desempenho na moeda original, o câmbio nunca importa",
+                    "Porque a variação da taxa de câmbio no período também afeta o retorno final convertido para reais, para cima ou para baixo",
+                    "Porque investimentos em dólar nunca podem ser convertidos de volta para reais",
+                    "Porque o desempenho em dólar é sempre irrelevante para investidores brasileiros"
+                  ],
+                  "explanation": "O retorno final em reais combina o desempenho do ativo na moeda original com a variação cambial do período — os dois fatores precisam ser considerados juntos, não isoladamente."
+                },
+                "en": {
+                  "prompt": "You're evaluating a dollar-denominated investment that performed great in its original currency. Why isn't that number alone enough to know how much you actually gained in your home currency?",
+                  "options": [
+                    "Because it's always enough to look at performance in the original currency, exchange rates never matter",
+                    "Because the exchange rate's variation over the period also affects the final return once converted back to your home currency, either up or down",
+                    "Because dollar investments can never be converted back to your home currency",
+                    "Because performance in dollars is always irrelevant for investors outside the US"
+                  ],
+                  "explanation": "The final return in your home currency combines the asset's performance in its original currency with the period's exchange rate variation — both factors need to be considered together, not in isolation."
+                },
+                "es": {
+                  "prompt": "Estás evaluando una inversión en dólares que tuvo un excelente desempeño en la moneda original. ¿Por qué no basta con mirar solo ese número para saber cuánto ganaste realmente en tu moneda local?",
+                  "options": [
+                    "Porque siempre basta con mirar el desempeño en la moneda original, el tipo de cambio nunca importa",
+                    "Porque la variación del tipo de cambio en el período también afecta el retorno final convertido a tu moneda local, hacia arriba o hacia abajo",
+                    "Porque las inversiones en dólares nunca pueden convertirse de vuelta a tu moneda local",
+                    "Porque el desempeño en dólares siempre es irrelevante para inversores fuera de Estados Unidos"
+                  ],
+                  "explanation": "El retorno final en tu moneda local combina el desempeño del activo en su moneda original con la variación cambiaria del período — ambos factores deben considerarse juntos, no de forma aislada."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Retorno de investimentos internacionais combina desempenho do ativo e variação cambial.",
+                    "A moeda estrangeira se valorizando amplifica o retorno; se desvalorizando, o reduz.",
+                    "Risco cambial é uma camada extra de incerteza sobre investimentos em outra moeda."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Return on international investments combines asset performance and exchange rate variation.",
+                    "The foreign currency appreciating amplifies the return; depreciating reduces it.",
+                    "Exchange rate risk is an extra layer of uncertainty on investments in another currency."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El retorno de inversiones internacionales combina el desempeño del activo y la variación cambiaria.",
+                    "La moneda extranjera apreciándose amplifica el retorno; depreciándose, lo reduce.",
+                    "El riesgo cambiario es una capa extra de incertidumbre sobre inversiones en otra moneda."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "international_bdrs",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "BDRs"},
+            "en": {"title": "BDRs"},
+            "es": {"title": "BDR"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Ações estrangeiras negociadas localmente",
+                  "body": "BDR (Brazilian Depositary Receipt) é um certificado negociado na bolsa brasileira que representa ações de uma empresa listada no exterior, sem que o investidor precise abrir conta em uma corretora estrangeira. Uma instituição depositária mantém as ações originais custodiadas fora do país e emite os BDRs correspondentes, que replicam o desempenho do ativo original — incluindo a exposição à variação cambial da moeda em que a ação original é negociada."
+                },
+                "en": {
+                  "title": "Foreign stocks traded locally",
+                  "body": "A BDR (Brazilian Depositary Receipt) is a certificate traded on the Brazilian stock exchange that represents shares of a company listed abroad, without the investor needing to open an account with a foreign broker. A depositary institution holds the original shares in custody abroad and issues the corresponding BDRs, which track the original asset's performance — including exposure to exchange rate variation in the currency the original stock trades in."
+                },
+                "es": {
+                  "title": "Acciones extranjeras negociadas localmente",
+                  "body": "El BDR (Brazilian Depositary Receipt) es un certificado negociado en la bolsa brasileña que representa acciones de una empresa listada en el exterior, sin que el inversor necesite abrir una cuenta en una correduría extranjera. Una institución depositaria mantiene las acciones originales custodiadas fuera del país y emite los BDR correspondientes, que replican el desempeño del activo original — incluyendo la exposición a la variación cambiaria de la moneda en que se negocia la acción original."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor brasileiro compra um BDR que representa ações de uma empresa de tecnologia listada nos Estados Unidos. Ele negocia esse BDR pela mesma corretora que já usa no Brasil, em reais, mas o desempenho do BDR segue o da ação original em dólar, combinado com a variação cambial entre as duas moedas."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A Brazilian investor buys a BDR that represents shares of a technology company listed in the United States. They trade that BDR through the same broker they already use in Brazil, in reals, but the BDR's performance follows the original stock's performance in dollars, combined with the exchange rate variation between the two currencies."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor brasileño compra un BDR que representa acciones de una empresa de tecnología listada en Estados Unidos. Negocia ese BDR a través de la misma correduría que ya usa en Brasil, en reales, pero el desempeño del BDR sigue al de la acción original en dólares, combinado con la variación cambiaria entre ambas monedas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é um BDR?",
+                  "options": [
+                    "Um título de renda fixa emitido pelo governo brasileiro",
+                    "Um certificado negociado na bolsa brasileira que representa ações de uma empresa listada no exterior",
+                    "Um tipo de conta bancária em moeda estrangeira",
+                    "Um imposto cobrado sobre investimentos internacionais"
+                  ],
+                  "explanation": "BDR é um certificado que permite negociar, na bolsa local, um ativo que representa ações de uma empresa estrangeira, sem precisar de conta em corretora no exterior."
+                },
+                "en": {
+                  "prompt": "What is a BDR?",
+                  "options": [
+                    "A fixed-income instrument issued by the Brazilian government",
+                    "A certificate traded on the Brazilian stock exchange that represents shares of a company listed abroad",
+                    "A type of foreign-currency bank account",
+                    "A tax charged on international investments"
+                  ],
+                  "explanation": "A BDR is a certificate that allows trading, on the local exchange, an asset that represents shares of a foreign company, without needing an account with a broker abroad."
+                },
+                "es": {
+                  "prompt": "¿Qué es un BDR?",
+                  "options": [
+                    "Un título de renta fija emitido por el gobierno brasileño",
+                    "Un certificado negociado en la bolsa brasileña que representa acciones de una empresa listada en el exterior",
+                    "Un tipo de cuenta bancaria en moneda extranjera",
+                    "Un impuesto cobrado sobre inversiones internacionales"
+                  ],
+                  "explanation": "El BDR es un certificado que permite negociar, en la bolsa local, un activo que representa acciones de una empresa extranjera, sin necesidad de una cuenta en una correduría en el exterior."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco cambial de outra lição. Um BDR de uma empresa americana também carrega esse risco?",
+                  "options": [
+                    "Não, BDRs são negociados em reais, então não têm nenhuma exposição cambial",
+                    "Sim, porque o BDR replica o desempenho da ação original em dólar, então a variação cambial entre real e dólar afeta o retorno mesmo sendo negociado em reais",
+                    "Não, o risco cambial só existe para quem investe diretamente no exterior",
+                    "Sim, mas apenas se o investidor sacar o dinheiro em espécie"
+                  ],
+                  "explanation": "Mesmo negociado em reais na bolsa brasileira, o BDR reflete o desempenho do ativo original em sua moeda de origem — por isso carrega a mesma exposição ao risco cambial que investir diretamente naquele ativo lá fora."
+                },
+                "en": {
+                  "prompt": "You already understand exchange rate risk from another lesson. Does a BDR of an American company also carry that risk?",
+                  "options": [
+                    "No, BDRs are traded in reals, so they have no currency exposure at all",
+                    "Yes, because the BDR tracks the original stock's performance in dollars, so the exchange rate variation between reals and dollars affects the return even though it's traded in reals",
+                    "No, exchange rate risk only exists for people investing directly abroad",
+                    "Yes, but only if the investor withdraws the money in cash"
+                  ],
+                  "explanation": "Even though it's traded in reals on the Brazilian exchange, the BDR reflects the original asset's performance in its home currency — so it carries the same exposure to exchange rate risk as investing directly in that asset abroad."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo cambiario de otra lección. ¿Un BDR de una empresa estadounidense también conlleva ese riesgo?",
+                  "options": [
+                    "No, los BDR se negocian en reales, así que no tienen ninguna exposición cambiaria",
+                    "Sí, porque el BDR replica el desempeño de la acción original en dólares, así que la variación cambiaria entre real y dólar afecta el retorno aunque se negocie en reales",
+                    "No, el riesgo cambiario solo existe para quien invierte directamente en el exterior",
+                    "Sí, pero solo si el inversor retira el dinero en efectivo"
+                  ],
+                  "explanation": "Aunque se negocie en reales en la bolsa brasileña, el BDR refleja el desempeño del activo original en su moneda de origen — por eso conlleva la misma exposición al riesgo cambiario que invertir directamente en ese activo en el exterior."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "BDR representa, na bolsa local, ações de uma empresa listada no exterior.",
+                    "Ele permite investir em empresas estrangeiras sem abrir conta em corretora no exterior.",
+                    "Mesmo negociado em reais, o BDR carrega a exposição cambial do ativo original."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A BDR represents, on the local exchange, shares of a company listed abroad.",
+                    "It allows investing in foreign companies without opening an account with a broker abroad.",
+                    "Even traded in reals, the BDR carries the original asset's currency exposure."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El BDR representa, en la bolsa local, acciones de una empresa listada en el exterior.",
+                    "Permite invertir en empresas extranjeras sin abrir una cuenta en una correduría en el exterior.",
+                    "Aunque se negocie en reales, el BDR conlleva la exposición cambiaria del activo original."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "international_direct_foreign_investing",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Investir Diretamente no Exterior"},
+            "en": {"title": "Investing Directly Abroad"},
+            "es": {"title": "Invertir Directamente en el Exterior"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Outra forma de acessar o mercado internacional",
+                  "body": "Além dos BDRs, é possível investir diretamente no exterior, abrindo conta em uma corretora internacional e comprando ativos — como ações ou ETFs — negociados fora do país. Essa via costuma dar acesso a um universo maior de ativos do que os disponíveis via BDR, mas também envolve etapas adicionais, como transferências internacionais, possível burocracia para declarar bens no exterior, e a necessidade de lidar diretamente com outra moeda."
+                },
+                "en": {
+                  "title": "Another way to access the international market",
+                  "body": "Besides BDRs, it's possible to invest directly abroad, by opening an account with an international broker and buying assets — like stocks or ETFs — traded outside the country. This route usually gives access to a wider universe of assets than what's available via BDRs, but it also involves extra steps, like international transfers, possible paperwork to declare assets held abroad, and the need to deal directly with another currency."
+                },
+                "es": {
+                  "title": "Otra forma de acceder al mercado internacional",
+                  "body": "Además de los BDR, es posible invertir directamente en el exterior, abriendo una cuenta en una correduría internacional y comprando activos — como acciones o ETF — negociados fuera del país. Esta vía suele dar acceso a un universo más amplio de activos que los disponibles vía BDR, pero también implica pasos adicionales, como transferencias internacionales, posible burocracia para declarar bienes en el exterior, y la necesidad de lidiar directamente con otra moneda."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor abre conta em uma corretora americana, transfere dinheiro convertido em dólar e compra um ETF que replica um índice de ações internacional que não tem BDR equivalente disponível na bolsa brasileira — ampliando o leque de opções além do que estaria acessível apenas via BDRs."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor opens an account with a US broker, transfers money converted into dollars, and buys an ETF that tracks an international stock index with no equivalent BDR available on the Brazilian exchange — expanding their options beyond what would be accessible through BDRs alone."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor abre una cuenta en una correduría estadounidense, transfiere dinero convertido a dólares y compra un ETF que replica un índice de acciones internacional que no tiene un BDR equivalente disponible en la bolsa brasileña — ampliando el abanico de opciones más allá de lo accesible solo vía BDR."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que diferencia investir diretamente no exterior de investir via BDR?",
+                  "options": [
+                    "Não existe diferença nenhuma entre as duas formas",
+                    "Investir diretamente exige abrir conta em corretora internacional e dá acesso a um universo maior de ativos, mas envolve etapas adicionais",
+                    "BDR só pode ser negociado em corretoras estrangeiras",
+                    "Investir diretamente no exterior elimina completamente o risco cambial"
+                  ],
+                  "explanation": "Investir diretamente no exterior amplia o leque de ativos disponíveis, mas exige abrir conta fora do país e lidar com etapas como transferências internacionais e possível burocracia adicional."
+                },
+                "en": {
+                  "prompt": "What differentiates investing directly abroad from investing via BDR?",
+                  "options": [
+                    "There's no difference at all between the two",
+                    "Investing directly requires opening an account with an international broker and gives access to a wider universe of assets, but involves extra steps",
+                    "BDRs can only be traded through foreign brokers",
+                    "Investing directly abroad completely eliminates exchange rate risk"
+                  ],
+                  "explanation": "Investing directly abroad widens the range of available assets, but requires opening an account outside the country and dealing with steps like international transfers and possible extra paperwork."
+                },
+                "es": {
+                  "prompt": "¿Qué diferencia invertir directamente en el exterior de invertir vía BDR?",
+                  "options": [
+                    "No existe ninguna diferencia entre ambas formas",
+                    "Invertir directamente exige abrir una cuenta en una correduría internacional y da acceso a un universo más amplio de activos, pero implica pasos adicionales",
+                    "El BDR solo puede negociarse en correduras extranjeras",
+                    "Invertir directamente en el exterior elimina por completo el riesgo cambiario"
+                  ],
+                  "explanation": "Invertir directamente en el exterior amplía el abanico de activos disponibles, pero exige abrir una cuenta fuera del país y lidiar con pasos como transferencias internacionales y posible burocracia adicional."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você quer investir em um ETF internacional específico que não tem BDR correspondente na bolsa brasileira. O que essa situação sugere sobre suas opções?",
+                  "options": [
+                    "Que não existe forma nenhuma de acessar esse ativo",
+                    "Que investir diretamente no exterior, abrindo conta em uma corretora internacional, pode ser o caminho necessário para acessar esse ativo específico",
+                    "Que você deveria desistir de qualquer diversificação internacional",
+                    "Que BDRs sempre cobrem 100% dos ativos disponíveis no exterior"
+                  ],
+                  "explanation": "Nem todo ativo estrangeiro tem um BDR equivalente disponível na bolsa local — nesses casos, investir diretamente no exterior costuma ser o caminho para acessar aquele ativo específico."
+                },
+                "en": {
+                  "prompt": "You want to invest in a specific international ETF that has no corresponding BDR on the Brazilian exchange. What does this situation suggest about your options?",
+                  "options": [
+                    "That there's no way at all to access this asset",
+                    "That investing directly abroad, by opening an account with an international broker, might be the necessary path to access this specific asset",
+                    "That you should give up on any international diversification",
+                    "That BDRs always cover 100% of the assets available abroad"
+                  ],
+                  "explanation": "Not every foreign asset has an equivalent BDR available on the local exchange — in those cases, investing directly abroad tends to be the way to access that specific asset."
+                },
+                "es": {
+                  "prompt": "Quieres invertir en un ETF internacional específico que no tiene un BDR correspondiente en la bolsa brasileña. ¿Qué sugiere esta situación sobre tus opciones?",
+                  "options": [
+                    "Que no existe ninguna forma de acceder a ese activo",
+                    "Que invertir directamente en el exterior, abriendo una cuenta en una correduría internacional, puede ser el camino necesario para acceder a ese activo específico",
+                    "Que deberías renunciar a cualquier diversificación internacional",
+                    "Que los BDR siempre cubren el 100% de los activos disponibles en el exterior"
+                  ],
+                  "explanation": "No todo activo extranjero tiene un BDR equivalente disponible en la bolsa local — en esos casos, invertir directamente en el exterior suele ser el camino para acceder a ese activo específico."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Investir diretamente no exterior exige abrir conta em corretora internacional.",
+                    "Essa via dá acesso a um universo maior de ativos do que o disponível via BDR.",
+                    "Também envolve etapas adicionais, como transferências internacionais e possível burocracia."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Investing directly abroad requires opening an account with an international broker.",
+                    "This route gives access to a wider universe of assets than what's available via BDR.",
+                    "It also involves extra steps, like international transfers and possible paperwork."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Invertir directamente en el exterior exige abrir una cuenta en una correduría internacional.",
+                    "Esta vía da acceso a un universo más amplio de activos que el disponible vía BDR.",
+                    "También implica pasos adicionales, como transferencias internacionales y posible burocracia."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "international_double_taxation",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Tributação de Investimentos no Exterior"},
+            "en": {"title": "Taxation of Foreign Investments"},
+            "es": {"title": "Tributación de Inversiones en el Exterior"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Duas jurisdições, duas possíveis cobranças",
+                  "body": "Investimentos internacionais podem estar sujeitos a regras tributárias de mais de um país: o país onde o ativo está localizado e o país de residência do investidor. Muitos países têm acordos para evitar a chamada bitributação — cobrar imposto duas vezes sobre o mesmo rendimento — mas as regras variam bastante conforme o tipo de ativo, o país e a forma de investir (diretamente ou via BDR). Por isso, entender a tributação aplicável é parte importante de qualquer investimento internacional, e as regras podem mudar ao longo do tempo."
+                },
+                "en": {
+                  "title": "Two jurisdictions, two possible charges",
+                  "body": "International investments can be subject to tax rules from more than one country: the country where the asset is located and the investor's country of residence. Many countries have agreements to avoid so-called double taxation — charging tax twice on the same income — but the rules vary quite a bit depending on the type of asset, the country, and the way of investing (directly or via BDR). That's why understanding the applicable taxation is an important part of any international investment, and the rules can change over time."
+                },
+                "es": {
+                  "title": "Dos jurisdicciones, dos posibles cobros",
+                  "body": "Las inversiones internacionales pueden estar sujetas a reglas tributarias de más de un país: el país donde está ubicado el activo y el país de residencia del inversor. Muchos países tienen acuerdos para evitar la llamada doble tributación — cobrar impuesto dos veces sobre el mismo rendimiento — pero las reglas varían bastante según el tipo de activo, el país y la forma de invertir (directamente o vía BDR). Por eso, entender la tributación aplicable es una parte importante de cualquier inversión internacional, y las reglas pueden cambiar con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor brasileiro que recebe dividendos de uma ação americana pode ter esse valor tributado nos Estados Unidos antes mesmo de chegar até ele, e ainda precisar declarar esse rendimento no Brasil, seguindo as regras brasileiras vigentes — que podem ou não permitir compensar o imposto já pago no exterior, dependendo do tipo de rendimento e do acordo entre os países."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A Brazilian investor who receives dividends from an American stock might have that amount taxed in the United States even before it reaches them, and still need to declare that income in Brazil, following Brazil's current rules — which may or may not allow offsetting the tax already paid abroad, depending on the type of income and the agreement between the countries."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor brasileño que recibe dividendos de una acción estadounidense puede tener ese monto gravado en Estados Unidos incluso antes de que le llegue, y aún necesitar declarar ese rendimiento en Brasil, siguiendo las reglas brasileñas vigentes — que pueden o no permitir compensar el impuesto ya pagado en el exterior, dependiendo del tipo de rendimiento y del acuerdo entre los países."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é bitributação?",
+                  "options": [
+                    "Um tipo de investimento que rende o dobro",
+                    "A cobrança de imposto duas vezes sobre o mesmo rendimento, em países diferentes",
+                    "Um imposto exclusivo sobre BDRs",
+                    "Uma taxa cobrada apenas por corretoras internacionais"
+                  ],
+                  "explanation": "Bitributação é quando o mesmo rendimento é tributado tanto no país de origem do ativo quanto no país de residência do investidor — muitos acordos internacionais existem justamente para evitar essa dupla cobrança."
+                },
+                "en": {
+                  "prompt": "What is double taxation?",
+                  "options": [
+                    "A type of investment that earns double",
+                    "Charging tax twice on the same income, in different countries",
+                    "A tax exclusive to BDRs",
+                    "A fee charged only by international brokers"
+                  ],
+                  "explanation": "Double taxation is when the same income is taxed both in the asset's country of origin and in the investor's country of residence — many international agreements exist specifically to avoid this double charge."
+                },
+                "es": {
+                  "prompt": "¿Qué es la doble tributación?",
+                  "options": [
+                    "Un tipo de inversión que rinde el doble",
+                    "El cobro de impuesto dos veces sobre el mismo rendimiento, en países diferentes",
+                    "Un impuesto exclusivo sobre los BDR",
+                    "Una tasa cobrada solo por correduras internacionales"
+                  ],
+                  "explanation": "La doble tributación es cuando el mismo rendimiento se grava tanto en el país de origen del activo como en el país de residencia del inversor — muchos acuerdos internacionales existen justamente para evitar este doble cobro."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está pensando em investir diretamente no exterior e ouve alguém dizer 'a tributação de investimentos internacionais é sempre a mesma, não precisa nem pesquisar'. Por que essa afirmação deve ser vista com cautela?",
+                  "options": [
+                    "Porque ela está certa, todas as regras tributárias internacionais são sempre idênticas",
+                    "Porque as regras variam conforme o tipo de ativo, o país e a forma de investir, e ainda podem mudar ao longo do tempo — por isso vale sempre confirmar a legislação vigente",
+                    "Porque investimentos internacionais nunca são tributados em lugar nenhum",
+                    "Porque bitributação é sempre impossível de acontecer"
+                  ],
+                  "explanation": "Assim como você viu antes com a isenção de LCI e LCA, regras tributárias podem ser específicas e mudar com o tempo — vale sempre confirmar a legislação vigente para o tipo de ativo e país envolvidos, em vez de assumir uma regra genérica."
+                },
+                "en": {
+                  "prompt": "You're considering investing directly abroad and hear someone say 'taxation of international investments is always the same, no need to even look it up.' Why should that statement be viewed with caution?",
+                  "options": [
+                    "Because it's correct, all international tax rules are always identical",
+                    "Because the rules vary depending on the type of asset, the country, and the way of investing, and can still change over time — so it's always worth confirming the current legislation",
+                    "Because international investments are never taxed anywhere",
+                    "Because double taxation is always impossible to happen"
+                  ],
+                  "explanation": "Just like you saw earlier with the LCI and LCA exemption, tax rules can be specific and change over time — it's always worth confirming the legislation currently in force for the type of asset and countries involved, instead of assuming a generic rule."
+                },
+                "es": {
+                  "prompt": "Estás considerando invertir directamente en el exterior y escuchas a alguien decir 'la tributación de las inversiones internacionales siempre es la misma, ni hace falta investigar'. ¿Por qué esa afirmación debe verse con cautela?",
+                  "options": [
+                    "Porque es correcta, todas las reglas tributarias internacionales son siempre idénticas",
+                    "Porque las reglas varían según el tipo de activo, el país y la forma de invertir, y aún pueden cambiar con el tiempo — por eso siempre vale la pena confirmar la legislación vigente",
+                    "Porque las inversiones internacionales nunca se gravan en ningún lugar",
+                    "Porque la doble tributación siempre es imposible que ocurra"
+                  ],
+                  "explanation": "Tal como viste antes con la exención de la LCI y la LCA, las reglas tributarias pueden ser específicas y cambiar con el tiempo — siempre vale la pena confirmar la legislación vigente para el tipo de activo y los países involucrados, en lugar de asumir una regla genérica."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Investimentos internacionais podem estar sujeitos a regras tributárias de mais de um país.",
+                    "Acordos entre países buscam evitar a bitributação, mas as regras variam bastante.",
+                    "Você concluiu o módulo de fundamentos do investimento internacional."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "International investments can be subject to tax rules from more than one country.",
+                    "Agreements between countries aim to avoid double taxation, but the rules vary quite a bit.",
+                    "You've completed the international investing fundamentals module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Las inversiones internacionales pueden estar sujetas a reglas tributarias de más de un país.",
+                    "Los acuerdos entre países buscan evitar la doble tributación, pero las reglas varían bastante.",
+                    "Completaste el módulo de fundamentos de la inversión internacional."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

@@ -3,7 +3,7 @@
   "domainId": "portfolio_wealth",
   "order": 14,
   "iconKey": "beach_access_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -19,5 +19,800 @@
       "description": "Previsión privada, tributación y planificación para la jubilación."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "retirement_basics",
+      "order": 1,
+      "iconKey": "beach_access_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos da Aposentadoria",
+          "description": "Por que começar cedo, o papel do INSS, PGBL x VGBL, regimes de tributação e como escolher um plano."
+        },
+        "en": {
+          "title": "Retirement Fundamentals",
+          "description": "Why start early, the role of public pension, PGBL vs. VGBL, tax regimes, and how to choose a plan."
+        },
+        "es": {
+          "title": "Fundamentos de la Jubilación",
+          "description": "Por qué empezar temprano, el papel de la previsión pública, PGBL vs. VGBL, regímenes de tributación y cómo elegir un plan."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "retirement_why_start_early",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Por que Começar Cedo"},
+            "en": {"title": "Why Start Early"},
+            "es": {"title": "Por qué Empezar Temprano"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O tempo trabalha a seu favor",
+                  "body": "Planejar a aposentadoria é, na prática, aplicar o conceito de juros compostos com um horizonte muito longo — geralmente décadas. Quanto mais cedo você começa a guardar e investir para esse objetivo, mais tempo os aportes têm para crescer, e menor precisa ser o valor investido por mês para chegar a um patrimônio equivalente no final."
+                },
+                "en": {
+                  "title": "Time works in your favor",
+                  "body": "Planning for retirement is, in practice, applying the concept of compound interest over a very long horizon — usually decades. The earlier you start setting aside and investing for this goal, the more time your contributions have to grow, and the smaller the monthly amount needs to be to reach an equivalent nest egg at the end."
+                },
+                "es": {
+                  "title": "El tiempo trabaja a tu favor",
+                  "body": "Planificar la jubilación es, en la práctica, aplicar el concepto de interés compuesto con un horizonte muy largo — generalmente décadas. Cuanto antes empieces a ahorrar e invertir para este objetivo, más tiempo tendrán tus aportes para crecer, y menor necesita ser el monto invertido por mes para llegar a un patrimonio equivalente al final."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa que começa a investir R$300 por mês aos 25 anos, a uma taxa de 8% ao ano, chega aos 65 anos com um patrimônio consideravelmente maior do que alguém que começa a investir R$600 por mês, o dobro, mas só aos 45 anos — mesmo colocando bem menos dinheiro total ao longo da vida. O tempo extra de crescimento composto compensa boa parte da diferença."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone who starts investing R$300 a month at age 25, at a rate of 8% a year, reaches age 65 with considerably more wealth than someone who starts investing R$600 a month, double that, but only at age 45 — even though they put in much less total money over their lifetime. The extra time for compound growth makes up for a large part of the difference."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona que empieza a invertir R$300 al mes a los 25 años, a una tasa del 8% anual, llega a los 65 años con un patrimonio considerablemente mayor que alguien que empieza a invertir R$600 al mes, el doble, pero recién a los 45 años — aunque haya puesto mucho menos dinero total a lo largo de su vida. El tiempo extra de crecimiento compuesto compensa gran parte de la diferencia."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que começar a investir para a aposentadoria mais cedo tende a exigir um aporte mensal menor para chegar a um resultado equivalente?",
+                  "options": [
+                    "Porque investimentos de longo prazo têm taxas garantidas mais altas",
+                    "Porque o tempo extra permite que o efeito dos juros compostos atue por mais tempo sobre o valor investido",
+                    "Porque não existe diferença real entre começar cedo ou tarde",
+                    "Porque o governo aumenta o rendimento de quem começa mais jovem"
+                  ],
+                  "explanation": "Quanto mais tempo o dinheiro fica investido, mais o efeito de juros sobre juros se acumula — por isso, começar cedo permite aportes menores para o mesmo resultado final."
+                },
+                "en": {
+                  "prompt": "Why does starting to invest for retirement earlier tend to require a smaller monthly contribution to reach an equivalent result?",
+                  "options": [
+                    "Because long-term investments have guaranteed higher rates",
+                    "Because the extra time allows the effect of compound interest to act for longer on the amount invested",
+                    "Because there's no real difference between starting early or late",
+                    "Because the government increases the return for people who start younger"
+                  ],
+                  "explanation": "The longer money stays invested, the more the effect of interest on interest accumulates — that's why starting early allows for smaller contributions to reach the same final result."
+                },
+                "es": {
+                  "prompt": "¿Por qué empezar a invertir para la jubilación antes suele requerir un aporte mensual menor para llegar a un resultado equivalente?",
+                  "options": [
+                    "Porque las inversiones a largo plazo tienen tasas garantizadas más altas",
+                    "Porque el tiempo extra permite que el efecto del interés compuesto actúe durante más tiempo sobre el monto invertido",
+                    "Porque no existe una diferencia real entre empezar temprano o tarde",
+                    "Porque el gobierno aumenta el rendimiento de quien empieza más joven"
+                  ],
+                  "explanation": "Cuanto más tiempo el dinero permanece invertido, más se acumula el efecto de intereses sobre intereses — por eso, empezar temprano permite aportes menores para el mismo resultado final."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você tem 22 anos e pensa 'aposentadoria é assunto para depois dos 40'. Com base no que você aprendeu sobre juros compostos e tempo, o que vale a pena reconsiderar nesse pensamento?",
+                  "options": [
+                    "Nada, esperar até os 40 não faz nenhuma diferença",
+                    "Que adiar o início reduz justamente o recurso mais valioso desse tipo de planejamento: o tempo disponível para o dinheiro crescer",
+                    "Que só quem ganha muito bem deveria pensar em aposentadoria",
+                    "Que aposentadoria só depende do INSS, então não há necessidade de planejamento pessoal"
+                  ],
+                  "explanation": "Adiar o início do planejamento reduz o tempo disponível para o efeito dos juros compostos — mesmo aportes pequenos, começados cedo, tendem a ter um impacto desproporcional no resultado final."
+                },
+                "en": {
+                  "prompt": "You're 22 and think 'retirement is something to worry about after 40.' Based on what you learned about compound interest and time, what's worth reconsidering in that thought?",
+                  "options": [
+                    "Nothing, waiting until 40 makes no difference at all",
+                    "That delaying the start reduces exactly the most valuable resource in this kind of planning: the time available for the money to grow",
+                    "That only people who earn a lot should think about retirement",
+                    "That retirement only depends on public pension, so no personal planning is needed"
+                  ],
+                  "explanation": "Delaying the start of planning reduces the time available for the compound interest effect — even small contributions, started early, tend to have a disproportionate impact on the final result."
+                },
+                "es": {
+                  "prompt": "Tienes 22 años y piensas 'la jubilación es un tema para después de los 40'. Según lo que aprendiste sobre el interés compuesto y el tiempo, ¿qué vale la pena reconsiderar en ese pensamiento?",
+                  "options": [
+                    "Nada, esperar hasta los 40 no hace ninguna diferencia",
+                    "Que posponer el inicio reduce justamente el recurso más valioso de este tipo de planificación: el tiempo disponible para que el dinero crezca",
+                    "Que solo quien gana muy bien debería pensar en la jubilación",
+                    "Que la jubilación solo depende de la previsión pública, así que no hace falta una planificación personal"
+                  ],
+                  "explanation": "Posponer el inicio de la planificación reduce el tiempo disponible para el efecto del interés compuesto — incluso aportes pequeños, comenzados temprano, tienden a tener un impacto desproporcionado en el resultado final."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Planejar a aposentadoria é aplicar juros compostos em um horizonte de décadas.",
+                    "Começar cedo permite aportes mensais menores para o mesmo resultado final.",
+                    "Adiar o início reduz o recurso mais valioso desse tipo de planejamento: o tempo."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Planning for retirement is applying compound interest over a decades-long horizon.",
+                    "Starting early allows for smaller monthly contributions to reach the same final result.",
+                    "Delaying the start reduces the most valuable resource in this kind of planning: time."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Planificar la jubilación es aplicar el interés compuesto en un horizonte de décadas.",
+                    "Empezar temprano permite aportes mensuales menores para el mismo resultado final.",
+                    "Posponer el inicio reduce el recurso más valioso de este tipo de planificación: el tiempo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_inss_baseline",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Previdência Pública como Base"},
+            "en": {"title": "Public Pension as a Baseline"},
+            "es": {"title": "Previsión Pública como Base"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um ponto de partida, não o plano todo",
+                  "body": "No Brasil, o INSS (Instituto Nacional do Seguro Social) é o sistema público de previdência, financiado por contribuições de trabalhadores e empresas ao longo da vida profissional. Ele funciona como uma base de renda na aposentadoria, mas, para muitas pessoas, o valor recebido é menor do que o necessário para manter o padrão de vida anterior — por isso, é comum complementar essa base com planejamento e investimentos próprios."
+                },
+                "en": {
+                  "title": "A starting point, not the whole plan",
+                  "body": "In Brazil, INSS (National Social Security Institute) is the public pension system, funded by contributions from workers and companies throughout their working life. It works as a baseline income in retirement, but for many people, the amount received is lower than what's needed to maintain their previous standard of living — which is why it's common to supplement this baseline with personal planning and investments."
+                },
+                "es": {
+                  "title": "Un punto de partida, no el plan completo",
+                  "body": "En Brasil, el INSS (Instituto Nacional del Seguro Social) es el sistema de previsión pública, financiado por contribuciones de trabajadores y empresas a lo largo de la vida laboral. Funciona como una base de ingresos en la jubilación, pero, para muchas personas, el monto recibido es menor de lo necesario para mantener el nivel de vida anterior — por eso es común complementar esa base con planificación e inversiones propias."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa que ganhava R$8.000 por mês trabalhando pode se aposentar recebendo um valor bem menor pelo INSS, já que o sistema público tem um teto de benefício. Para manter um padrão de vida parecido, ela provavelmente vai precisar de uma fonte de renda complementar construída ao longo da vida profissional."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone who earned R$8,000 a month while working might retire receiving a much smaller amount from INSS, since the public system has a benefit cap. To maintain a similar standard of living, they'll likely need a supplementary income source built up over their working life."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona que ganaba R$8.000 al mes trabajando puede jubilarse recibiendo un monto bastante menor por el INSS, ya que el sistema público tiene un tope de beneficio. Para mantener un nivel de vida similar, probablemente necesitará una fuente de ingresos complementaria construida a lo largo de su vida laboral."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o papel do INSS no planejamento de aposentadoria?",
+                  "options": [
+                    "Garantir sozinho o mesmo padrão de vida que a pessoa tinha trabalhando",
+                    "Servir como uma base de renda pública, que para muitas pessoas precisa ser complementada",
+                    "Substituir completamente qualquer necessidade de investir",
+                    "Pagar sempre o valor integral do último salário recebido"
+                  ],
+                  "explanation": "O INSS funciona como uma base do sistema previdenciário, mas, devido ao teto de benefícios, costuma não ser suficiente sozinho para manter o padrão de vida anterior de quem ganhava acima da média."
+                },
+                "en": {
+                  "prompt": "What is INSS's role in retirement planning?",
+                  "options": [
+                    "Guaranteeing on its own the same standard of living the person had while working",
+                    "Serving as a baseline public income, which for many people needs to be supplemented",
+                    "Completely replacing any need to invest",
+                    "Always paying the full amount of the last salary received"
+                  ],
+                  "explanation": "INSS works as a baseline of the pension system, but due to the benefit cap, it usually isn't enough on its own to maintain the previous standard of living for people who earned above average."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el papel del INSS en la planificación de la jubilación?",
+                  "options": [
+                    "Garantizar por sí solo el mismo nivel de vida que la persona tenía trabajando",
+                    "Servir como una base de ingresos públicos, que para muchas personas necesita ser complementada",
+                    "Reemplazar por completo cualquier necesidad de invertir",
+                    "Pagar siempre el monto íntegro del último salario recibido"
+                  ],
+                  "explanation": "El INSS funciona como una base del sistema previsional, pero debido al tope de beneficios, normalmente no es suficiente por sí solo para mantener el nivel de vida anterior de quienes ganaban por encima del promedio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você ganha bem acima da média e sabe que o INSS tem um teto de benefício. Como essa informação deveria influenciar seu planejamento para a aposentadoria?",
+                  "options": [
+                    "Não deveria influenciar em nada, o INSS sempre cobre tudo",
+                    "Sugere que vale a pena considerar formas de complementar essa renda futura, já que o benefício público provavelmente ficará abaixo do que você ganha hoje",
+                    "Significa que não vale a pena nem se preocupar com aposentadoria",
+                    "Indica que o INSS vai aumentar automaticamente o teto para acompanhar seu salário"
+                  ],
+                  "explanation": "Saber que existe um teto de benefício ajuda a dimensionar a diferença entre a renda futura esperada do INSS e o padrão de vida atual — essa diferença é o que o planejamento complementar busca cobrir."
+                },
+                "en": {
+                  "prompt": "You earn well above average and know that INSS has a benefit cap. How should that information influence your retirement planning?",
+                  "options": [
+                    "It shouldn't influence anything, INSS always covers everything",
+                    "It suggests it's worth considering ways to supplement that future income, since the public benefit will likely fall below what you earn today",
+                    "It means there's no point even worrying about retirement",
+                    "It indicates INSS will automatically raise the cap to match your salary"
+                  ],
+                  "explanation": "Knowing there's a benefit cap helps you gauge the gap between the expected future income from INSS and your current standard of living — that gap is what supplementary planning aims to cover."
+                },
+                "es": {
+                  "prompt": "Ganas bien por encima del promedio y sabes que el INSS tiene un tope de beneficio. ¿Cómo debería influir esa información en tu planificación de la jubilación?",
+                  "options": [
+                    "No debería influir en nada, el INSS siempre cubre todo",
+                    "Sugiere que vale la pena considerar formas de complementar ese ingreso futuro, ya que el beneficio público probablemente quedará por debajo de lo que ganas hoy",
+                    "Significa que ni siquiera vale la pena preocuparse por la jubilación",
+                    "Indica que el INSS aumentará automáticamente el tope para igualar tu salario"
+                  ],
+                  "explanation": "Saber que existe un tope de beneficio ayuda a dimensionar la diferencia entre el ingreso futuro esperado del INSS y el nivel de vida actual — esa diferencia es lo que la planificación complementaria busca cubrir."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "INSS é o sistema público de previdência, financiado por contribuições ao longo da vida profissional.",
+                    "Ele funciona como uma base de renda, limitada por um teto de benefício.",
+                    "Para muitas pessoas, vale a pena planejar uma fonte de renda complementar."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "INSS is the public pension system, funded by contributions throughout working life.",
+                    "It works as a baseline income, limited by a benefit cap.",
+                    "For many people, it's worth planning a supplementary income source."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El INSS es el sistema de previsión pública, financiado por contribuciones a lo largo de la vida laboral.",
+                    "Funciona como una base de ingresos, limitada por un tope de beneficio.",
+                    "Para muchas personas, vale la pena planificar una fuente de ingresos complementaria."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_pgbl_vgbl",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "PGBL x VGBL"},
+            "en": {"title": "PGBL vs. VGBL"},
+            "es": {"title": "PGBL vs. VGBL"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A diferença está na declaração de imposto de renda",
+                  "body": "PGBL e VGBL são dois tipos de planos de previdência privada oferecidos no Brasil, e a principal diferença entre eles está no tratamento tributário. No PGBL, as contribuições podem ser deduzidas da base de cálculo do Imposto de Renda, até o limite de 12% da renda bruta anual, mas apenas para quem faz a declaração completa — em compensação, todo o valor resgatado no futuro é tributado. No VGBL, não há dedução na hora de contribuir, mas o imposto no resgate incide apenas sobre o rendimento, não sobre o valor total aplicado."
+                },
+                "en": {
+                  "title": "The difference is in the tax return",
+                  "body": "PGBL and VGBL are two types of private pension plans offered in Brazil, and the main difference between them is in their tax treatment. With PGBL, contributions can be deducted from the income tax base, up to a limit of 12% of gross annual income, but only for those who file the full (itemized) tax return — in exchange, the entire withdrawn amount is taxed in the future. With VGBL, there's no deduction when contributing, but tax on withdrawal applies only to the earnings, not to the total amount invested."
+                },
+                "es": {
+                  "title": "La diferencia está en la declaración de impuestos",
+                  "body": "El PGBL y el VGBL son dos tipos de planes de previsión privada ofrecidos en Brasil, y la principal diferencia entre ellos está en el tratamiento tributario. En el PGBL, las contribuciones pueden deducirse de la base de cálculo del Impuesto sobre la Renta, hasta el límite del 12% del ingreso bruto anual, pero solo para quienes hacen la declaración completa — a cambio, todo el monto rescatado en el futuro es gravado. En el VGBL, no hay deducción al momento de contribuir, pero el impuesto al rescate se aplica solo sobre el rendimiento, no sobre el monto total invertido."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa que faz a declaração completa do Imposto de Renda e contribui para um PGBL pode reduzir o imposto a pagar naquele ano, dentro do limite de 12% da renda. Outra pessoa, que faz a declaração simplificada e não teria esse benefício de dedução, pode preferir um VGBL, já que no futuro só pagará imposto sobre o que o investimento rendeu, não sobre o total investido."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone who files the itemized income tax return and contributes to a PGBL can reduce the tax owed for that year, within the 12%-of-income limit. Someone else, who files the simplified return and wouldn't get that deduction benefit, might prefer a VGBL, since in the future they'll only pay tax on what the investment earned, not on the total amount invested."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona que hace la declaración completa del Impuesto sobre la Renta y contribuye a un PGBL puede reducir el impuesto a pagar ese año, dentro del límite del 12% del ingreso. Otra persona, que hace la declaración simplificada y no tendría ese beneficio de deducción, puede preferir un VGBL, ya que en el futuro solo pagará impuesto sobre lo que la inversión rindió, no sobre el total invertido."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a principal diferença entre PGBL e VGBL?",
+                  "options": [
+                    "PGBL nunca paga imposto, e VGBL sempre paga",
+                    "PGBL permite deduzir contribuições do Imposto de Renda (para quem faz a declaração completa), mas tributa o resgate total; VGBL não permite dedução, mas tributa só o rendimento no resgate",
+                    "Não existe diferença real entre os dois",
+                    "VGBL só pode ser contratado por empresas, nunca por pessoas físicas"
+                  ],
+                  "explanation": "A diferença central está em quando e sobre o quê incide o imposto: PGBL tributa o valor total resgatado, mas permite deduzir contribuições; VGBL não permite dedução, mas tributa só o ganho."
+                },
+                "en": {
+                  "prompt": "What is the main difference between PGBL and VGBL?",
+                  "options": [
+                    "PGBL never pays tax, and VGBL always does",
+                    "PGBL allows deducting contributions from income tax (for those filing the itemized return), but taxes the full withdrawal; VGBL doesn't allow a deduction, but taxes only the earnings on withdrawal",
+                    "There's no real difference between the two",
+                    "VGBL can only be contracted by companies, never by individuals"
+                  ],
+                  "explanation": "The key difference is when and on what the tax applies: PGBL taxes the total amount withdrawn, but allows deducting contributions; VGBL doesn't allow a deduction, but taxes only the gain."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la principal diferencia entre PGBL y VGBL?",
+                  "options": [
+                    "El PGBL nunca paga impuesto, y el VGBL siempre paga",
+                    "El PGBL permite deducir contribuciones del Impuesto sobre la Renta (para quienes hacen la declaración completa), pero grava el rescate total; el VGBL no permite deducción, pero grava solo el rendimiento en el rescate",
+                    "No existe una diferencia real entre ambos",
+                    "El VGBL solo puede ser contratado por empresas, nunca por personas físicas"
+                  ],
+                  "explanation": "La diferencia central está en cuándo y sobre qué se aplica el impuesto: el PGBL grava el monto total rescatado, pero permite deducir contribuciones; el VGBL no permite deducción, pero grava solo la ganancia."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já aprendeu que o PGBL só compensa a dedução fiscal para quem faz a declaração completa do Imposto de Renda. Se alguém faz apenas a declaração simplificada, o que isso sugere sobre a escolha entre PGBL e VGBL?",
+                  "options": [
+                    "Que essa pessoa deveria escolher PGBL de qualquer forma, o benefício se aplica sempre",
+                    "Que, sem o benefício da dedução, o VGBL tende a fazer mais sentido, já que evita a tributação sobre o valor total no resgate",
+                    "Que nenhum dos dois faz sentido para quem faz a declaração simplificada",
+                    "Que a escolha entre os dois não depende do tipo de declaração de imposto de renda"
+                  ],
+                  "explanation": "O principal atrativo do PGBL é a dedução fiscal, disponível só para quem faz a declaração completa — sem esse benefício, tributar apenas o rendimento no resgate, como faz o VGBL, tende a ser mais vantajoso."
+                },
+                "en": {
+                  "prompt": "You already learned that PGBL's tax deduction only pays off for people who file the itemized income tax return. If someone files only the simplified return, what does that suggest about choosing between PGBL and VGBL?",
+                  "options": [
+                    "That this person should choose PGBL anyway, the benefit always applies",
+                    "That, without the deduction benefit, VGBL tends to make more sense, since it avoids taxation on the full amount at withdrawal",
+                    "That neither option makes sense for someone filing the simplified return",
+                    "That the choice between the two doesn't depend on the type of tax return filed"
+                  ],
+                  "explanation": "PGBL's main appeal is the tax deduction, available only to those filing the itemized return — without that benefit, taxing only the earnings at withdrawal, as VGBL does, tends to be more advantageous."
+                },
+                "es": {
+                  "prompt": "Ya aprendiste que la deducción fiscal del PGBL solo vale la pena para quienes hacen la declaración completa del Impuesto sobre la Renta. Si alguien hace solo la declaración simplificada, ¿qué sugiere esto sobre la elección entre PGBL y VGBL?",
+                  "options": [
+                    "Que esa persona debería elegir PGBL de todas formas, el beneficio siempre se aplica",
+                    "Que, sin el beneficio de la deducción, el VGBL tiende a tener más sentido, ya que evita la tributación sobre el monto total en el rescate",
+                    "Que ninguno de los dos tiene sentido para quien hace la declaración simplificada",
+                    "Que la elección entre ambos no depende del tipo de declaración de impuestos"
+                  ],
+                  "explanation": "El principal atractivo del PGBL es la deducción fiscal, disponible solo para quienes hacen la declaración completa — sin ese beneficio, gravar solo el rendimiento en el rescate, como hace el VGBL, tiende a ser más ventajoso."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "PGBL permite deduzir contribuições do IR, mas tributa o valor total no resgate.",
+                    "VGBL não permite dedução, mas tributa apenas o rendimento no resgate.",
+                    "A dedução do PGBL só vale para quem faz a declaração completa do Imposto de Renda."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "PGBL allows deducting contributions from income tax, but taxes the full amount at withdrawal.",
+                    "VGBL doesn't allow a deduction, but taxes only the earnings at withdrawal.",
+                    "PGBL's deduction only pays off for those filing the itemized income tax return."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El PGBL permite deducir contribuciones del IR, pero grava el monto total en el rescate.",
+                    "El VGBL no permite deducción, pero grava solo el rendimiento en el rescate.",
+                    "La deducción del PGBL solo vale la pena para quienes hacen la declaración completa del Impuesto sobre la Renta."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_tax_regimes",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Regime Regressivo x Progressivo"},
+            "en": {"title": "Regressive vs. Progressive Tax Regime"},
+            "es": {"title": "Régimen Regresivo vs. Progresivo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Duas formas de tributar o resgate",
+                  "body": "Ao contratar um plano de previdência privada, é preciso escolher entre dois regimes de tributação. No regime progressivo, a alíquota segue a tabela do Imposto de Renda normal, que pode chegar a 27,5%, dependendo do valor resgatado. No regime regressivo, a alíquota começa mais alta (35%) e diminui quanto mais tempo o dinheiro fica investido, podendo chegar a 10% após 10 anos ou mais — mas essa escolha costuma ser irreversível depois de feita."
+                },
+                "en": {
+                  "title": "Two ways to tax the withdrawal",
+                  "body": "When taking out a private pension plan, you need to choose between two tax regimes. Under the progressive regime, the rate follows the regular income tax table, which can reach 27.5%, depending on the amount withdrawn. Under the regressive regime, the rate starts higher (35%) and decreases the longer the money stays invested, potentially reaching 10% after 10 years or more — but this choice is usually irreversible once made."
+                },
+                "es": {
+                  "title": "Dos formas de gravar el rescate",
+                  "body": "Al contratar un plan de previsión privada, hay que elegir entre dos regímenes de tributación. En el régimen progresivo, la alícuota sigue la tabla del Impuesto sobre la Renta normal, que puede llegar al 27,5%, dependiendo del monto rescatado. En el régimen regresivo, la alícuota empieza más alta (35%) y disminuye cuanto más tiempo permanece el dinero invertido, pudiendo llegar al 10% después de 10 años o más — pero esta elección suele ser irreversible una vez hecha."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa planejando resgatar o dinheiro só daqui a 20 anos, para a aposentadoria, tende a se beneficiar do regime regressivo, já que a alíquota vai caindo até o mínimo de 10% ao longo do tempo. Já alguém que pretende resgatar em poucos anos pode preferir o regime progressivo, evitando começar com uma alíquota tão alta quanto os 35% iniciais do regressivo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone planning to withdraw the money only 20 years from now, for retirement, tends to benefit from the regressive regime, since the rate keeps dropping to a minimum of 10% over time. Someone who plans to withdraw within a few years might prefer the progressive regime, avoiding starting out with a rate as high as the regressive regime's initial 35%."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona que planea rescatar el dinero recién dentro de 20 años, para la jubilación, tiende a beneficiarse del régimen regresivo, ya que la alícuota va bajando hasta el mínimo del 10% con el tiempo. Alguien que planea rescatar en pocos años puede preferir el régimen progresivo, evitando empezar con una alícuota tan alta como el 35% inicial del regresivo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que acontece com a alíquota no regime regressivo à medida que o tempo passa?",
+                  "options": [
+                    "Ela aumenta progressivamente até 35%",
+                    "Ela diminui quanto mais tempo o dinheiro fica investido, podendo chegar a 10%",
+                    "Ela permanece sempre fixa em 27,5%",
+                    "Ela é sempre igual à do regime progressivo"
+                  ],
+                  "explanation": "No regime regressivo, a alíquota começa alta e diminui com o tempo — recompensando quem deixa o dinheiro investido por mais tempo."
+                },
+                "en": {
+                  "prompt": "What happens to the tax rate under the regressive regime as time passes?",
+                  "options": [
+                    "It progressively increases up to 35%",
+                    "It decreases the longer the money stays invested, potentially reaching 10%",
+                    "It always stays fixed at 27.5%",
+                    "It's always the same as the progressive regime's"
+                  ],
+                  "explanation": "Under the regressive regime, the rate starts high and decreases over time — rewarding those who leave the money invested for longer."
+                },
+                "es": {
+                  "prompt": "¿Qué pasa con la alícuota en el régimen regresivo a medida que pasa el tiempo?",
+                  "options": [
+                    "Aumenta progresivamente hasta el 35%",
+                    "Disminuye cuanto más tiempo el dinero permanece invertido, pudiendo llegar al 10%",
+                    "Permanece siempre fija en el 27,5%",
+                    "Siempre es igual a la del régimen progresivo"
+                  ],
+                  "explanation": "En el régimen regresivo, la alícuota empieza alta y disminuye con el tiempo — recompensando a quien deja el dinero invertido por más tiempo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está escolhendo o regime de tributação de um plano que pretende usar apenas daqui a 25 anos, na aposentadoria. Com base no que você aprendeu, qual fator pesa a favor do regime regressivo nesse caso?",
+                  "options": [
+                    "O regime regressivo é sempre melhor, independentemente do prazo",
+                    "Como o resgate está muito distante, há tempo suficiente para a alíquota regressiva cair até seu patamar mínimo, algo que não seria possível em prazos curtos",
+                    "O regime progressivo não pode ser usado em planos de previdência",
+                    "A escolha do regime não tem nenhum impacto no valor final"
+                  ],
+                  "explanation": "O regime regressivo favorece quem tem um prazo longo, já que a alíquota cai com o tempo — em prazos curtos, começar com a alíquota inicial alta de 35% pode não compensar."
+                },
+                "en": {
+                  "prompt": "You're choosing the tax regime for a plan you intend to use only 25 years from now, in retirement. Based on what you learned, what factor weighs in favor of the regressive regime in this case?",
+                  "options": [
+                    "The regressive regime is always better, regardless of the time frame",
+                    "Since the withdrawal is far in the future, there's enough time for the regressive rate to drop to its minimum level, something that wouldn't be possible over short time frames",
+                    "The progressive regime can't be used in pension plans",
+                    "The choice of regime has no impact on the final amount"
+                  ],
+                  "explanation": "The regressive regime favors those with a long time frame, since the rate drops over time — over short time frames, starting with the high initial 35% rate might not pay off."
+                },
+                "es": {
+                  "prompt": "Estás eligiendo el régimen de tributación de un plan que piensas usar recién dentro de 25 años, en la jubilación. Según lo que aprendiste, ¿qué factor pesa a favor del régimen regresivo en este caso?",
+                  "options": [
+                    "El régimen regresivo siempre es mejor, sin importar el plazo",
+                    "Como el rescate está muy lejano, hay tiempo suficiente para que la alícuota regresiva baje hasta su nivel mínimo, algo que no sería posible en plazos cortos",
+                    "El régimen progresivo no puede usarse en planes de previsión",
+                    "La elección del régimen no tiene ningún impacto en el monto final"
+                  ],
+                  "explanation": "El régimen regresivo favorece a quien tiene un plazo largo, ya que la alícuota baja con el tiempo — en plazos cortos, empezar con la alta alícuota inicial del 35% puede no compensar."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Regime progressivo segue a tabela normal do Imposto de Renda.",
+                    "Regime regressivo começa em 35% e cai até 10% conforme o tempo passa.",
+                    "A escolha entre os dois costuma ser irreversível e depende do prazo esperado até o resgate."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "The progressive regime follows the regular income tax table.",
+                    "The regressive regime starts at 35% and drops to 10% as time passes.",
+                    "The choice between the two is usually irreversible and depends on the expected time until withdrawal."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El régimen progresivo sigue la tabla normal del Impuesto sobre la Renta.",
+                    "El régimen regresivo empieza en el 35% y baja hasta el 10% a medida que pasa el tiempo.",
+                    "La elección entre ambos suele ser irreversible y depende del plazo esperado hasta el rescate."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_choosing_plan",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Fatores para Escolher um Plano"},
+            "en": {"title": "Factors for Choosing a Plan"},
+            "es": {"title": "Factores para Elegir un Plan"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Além do nome PGBL ou VGBL",
+                  "body": "Escolher um plano de previdência privada envolve mais do que decidir entre PGBL e VGBL ou entre os regimes de tributação. A taxa de administração (cobrada anualmente sobre o patrimônio) e, quando existe, a taxa de carregamento (cobrada sobre os aportes) afetam diretamente o retorno líquido ao longo de décadas. A composição da carteira do plano — em quais ativos ele efetivamente investe — também varia bastante entre instituições, mesmo dentro da mesma categoria de produto."
+                },
+                "en": {
+                  "title": "Beyond the PGBL or VGBL label",
+                  "body": "Choosing a private pension plan involves more than deciding between PGBL and VGBL or between tax regimes. The administration fee (charged annually on the balance) and, when it exists, the loading fee (charged on contributions) directly affect net returns over decades. The plan's portfolio composition — what assets it actually invests in — also varies a lot between institutions, even within the same product category."
+                },
+                "es": {
+                  "title": "Más allá del nombre PGBL o VGBL",
+                  "body": "Elegir un plan de previsión privada implica más que decidir entre PGBL y VGBL o entre los regímenes de tributación. La tasa de administración (cobrada anualmente sobre el patrimonio) y, cuando existe, la tasa de carga (cobrada sobre los aportes) afectan directamente el retorno neto a lo largo de décadas. La composición de la cartera del plan — en qué activos invierte efectivamente — también varía bastante entre instituciones, incluso dentro de la misma categoría de producto."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Dois planos VGBL, do mesmo tipo, têm taxas de administração de 1% e 3% ao ano, respectivamente. Ao longo de 30 anos, essa diferença de 2 pontos percentuais ao ano, composta ano após ano, pode representar uma diferença enorme no patrimônio final acumulado — mesmo que os dois planos invistam em ativos parecidos."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two VGBL plans, of the same type, have administration fees of 1% and 3% a year, respectively. Over 30 years, that 2-percentage-point difference per year, compounded year after year, can represent an enormous difference in the final accumulated balance — even if both plans invest in similar assets."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos planes VGBL, del mismo tipo, tienen tasas de administración del 1% y el 3% anual, respectivamente. A lo largo de 30 años, esa diferencia de 2 puntos porcentuales al año, compuesta año tras año, puede representar una diferencia enorme en el patrimonio final acumulado — aunque ambos planes inviertan en activos similares."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que a taxa de administração de um plano de previdência é um fator tão relevante ao longo de décadas?",
+                  "options": [
+                    "Porque ela é cobrada apenas uma vez, no início do plano",
+                    "Porque, cobrada todo ano sobre o patrimônio, pequenas diferenças se acumulam de forma significativa ao longo de um horizonte de décadas",
+                    "Porque taxas de administração não têm nenhum impacto no retorno final",
+                    "Porque ela é sempre igual em qualquer instituição"
+                  ],
+                  "explanation": "Como a taxa de administração incide repetidamente, ano após ano, sobre um patrimônio que cresce, mesmo diferenças pequenas na taxa se acumulam de forma significativa em prazos longos."
+                },
+                "en": {
+                  "prompt": "Why is a pension plan's administration fee such a relevant factor over decades?",
+                  "options": [
+                    "Because it's charged only once, at the start of the plan",
+                    "Because, charged every year on the balance, small differences accumulate significantly over a decades-long horizon",
+                    "Because administration fees have no impact on the final return",
+                    "Because it's always the same across any institution"
+                  ],
+                  "explanation": "Since the administration fee applies repeatedly, year after year, on a growing balance, even small differences in the fee accumulate significantly over long time frames."
+                },
+                "es": {
+                  "prompt": "¿Por qué la tasa de administración de un plan de previsión es un factor tan relevante a lo largo de décadas?",
+                  "options": [
+                    "Porque se cobra una sola vez, al inicio del plan",
+                    "Porque, cobrada cada año sobre el patrimonio, pequeñas diferencias se acumulan de forma significativa a lo largo de un horizonte de décadas",
+                    "Porque las tasas de administración no tienen ningún impacto en el retorno final",
+                    "Porque siempre es igual en cualquier institución"
+                  ],
+                  "explanation": "Como la tasa de administración se aplica repetidamente, año tras año, sobre un patrimonio que crece, incluso diferencias pequeñas en la tasa se acumulan de forma significativa en plazos largos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende PGBL x VGBL e os regimes de tributação. Um amigo diz que escolheu um plano só olhando se era PGBL ou VGBL, sem checar mais nada. O que ele pode estar deixando de investigar?",
+                  "options": [
+                    "Nada, PGBL ou VGBL é a única informação relevante",
+                    "A taxa de administração, eventual taxa de carregamento, e em quais ativos o plano efetivamente investe — fatores que também afetam bastante o resultado final",
+                    "O nome da instituição financeira, que é o único fator que realmente importa",
+                    "Se o plano tem uma cor bonita no aplicativo"
+                  ],
+                  "explanation": "A escolha entre PGBL e VGBL, e entre os regimes de tributação, é só parte da decisão — taxas e composição da carteira também têm um impacto relevante no resultado ao longo de décadas."
+                },
+                "en": {
+                  "prompt": "You already understand PGBL vs. VGBL and the tax regimes. A friend says they chose a plan just by looking at whether it was PGBL or VGBL, without checking anything else. What might they be failing to investigate?",
+                  "options": [
+                    "Nothing, PGBL or VGBL is the only relevant information",
+                    "The administration fee, any loading fee, and what assets the plan actually invests in — factors that also significantly affect the final result",
+                    "The financial institution's name, which is the only factor that really matters",
+                    "Whether the plan has a nice color in the app"
+                  ],
+                  "explanation": "The choice between PGBL and VGBL, and between tax regimes, is only part of the decision — fees and portfolio composition also have a significant impact on the result over decades."
+                },
+                "es": {
+                  "prompt": "Ya entiendes PGBL vs. VGBL y los regímenes de tributación. Un amigo dice que eligió un plan solo mirando si era PGBL o VGBL, sin revisar nada más. ¿Qué podría estar dejando de investigar?",
+                  "options": [
+                    "Nada, PGBL o VGBL es la única información relevante",
+                    "La tasa de administración, una eventual tasa de carga, y en qué activos invierte efectivamente el plan — factores que también afectan bastante el resultado final",
+                    "El nombre de la institución financiera, que es el único factor que realmente importa",
+                    "Si el plan tiene un color bonito en la aplicación"
+                  ],
+                  "explanation": "La elección entre PGBL y VGBL, y entre los regímenes de tributación, es solo parte de la decisión — las tasas y la composición de la cartera también tienen un impacto relevante en el resultado a lo largo de décadas."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Taxas de administração e carregamento afetam bastante o retorno acumulado em décadas.",
+                    "A composição da carteira do plano varia entre instituições, mesmo dentro da mesma categoria.",
+                    "Você concluiu o módulo de fundamentos da aposentadoria."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Administration and loading fees significantly affect returns accumulated over decades.",
+                    "The plan's portfolio composition varies between institutions, even within the same category.",
+                    "You've completed the retirement fundamentals module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Las tasas de administración y carga afectan bastante el retorno acumulado en décadas.",
+                    "La composición de la cartera del plan varía entre instituciones, incluso dentro de la misma categoría.",
+                    "Completaste el módulo de fundamentos de la jubilación."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
