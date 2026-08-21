@@ -659,6 +659,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "more_real_life_scenarios",
+      "order": 2,
+      "iconKey": "map_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["real_life_scenarios"],
+      "translations": {
+        "pt": {
+          "title": "Mais Cenários da Vida Real",
+          "description": "Comprar um imóvel financiado, perder o emprego, receber uma herança e investir em um negócio próprio."
+        },
+        "en": {
+          "title": "More Real-Life Scenarios",
+          "description": "Buying a financed property, losing your job, receiving an inheritance, and investing in your own business."
+        },
+        "es": {
+          "title": "Más Escenarios de la Vida Real",
+          "description": "Comprar un inmueble financiado, perder el empleo, recibir una herencia e invertir en un negocio propio."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "simulation_buying_financed_property",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Comprando um Imóvel Financiado"},
+            "en": {"title": "Simulation: Buying a Financed Property"},
+            "es": {"title": "Simulación: Comprando un Inmueble Financiado"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você está decidindo entre comprar um imóvel financiado agora ou continuar investindo enquanto aluga, para comprar à vista mais adiante. Você já entende sistemas de amortização, custo de oportunidade e juros compostos — esta simulação pede para aplicar esses conceitos a uma das decisões financeiras mais significativas que muitas pessoas tomam ao longo da vida."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You're deciding between buying a financed property now or continuing to invest while renting, to buy in cash later. You already understand amortization systems, opportunity cost, and compound interest — this simulation asks you to apply those concepts to one of the most significant financial decisions many people make over their lifetime."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Estás decidiendo entre comprar un inmueble financiado ahora o seguir invirtiendo mientras alquilas, para comprar al contado más adelante. Ya entiendes los sistemas de amortización, el costo de oportunidad y el interés compuesto — esta simulación te pide aplicar esos conceptos a una de las decisiones financieras más significativas que muchas personas toman a lo largo de la vida."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Financiar um imóvel significa pagar juros ao longo de muitos anos, mas permite morar no imóvel imediatamente. Continuar alugando e investindo significa acumular um patrimônio que pode, eventualmente, comprar o imóvel à vista, evitando os juros do financiamento — mas exige disciplina para realmente investir a diferença, em vez de gastá-la, e depende de quanto o valor do imóvel sobe nesse meio tempo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Financing a property means paying interest over many years, but allows living in the property immediately. Continuing to rent and invest means accumulating wealth that could, eventually, buy the property in cash, avoiding the financing's interest — but it requires discipline to actually invest the difference, instead of spending it, and depends on how much the property's value rises in the meantime."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Financiar un inmueble significa pagar intereses durante muchos años, pero permite vivir en el inmueble de inmediato. Seguir alquilando e invirtiendo significa acumular un patrimonio que puede, eventualmente, comprar el inmueble al contado, evitando los intereses del financiamiento — pero exige disciplina para realmente invertir la diferencia, en lugar de gastarla, y depende de cuánto suba el valor del inmueble mientras tanto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende que sistemas de amortização como Price geram um custo total de juros ao longo do financiamento. Antes de decidir financiar um imóvel, o que vale a pena calcular e comparar?",
+                  "options": [
+                    "Apenas o valor da parcela mensal, sem considerar mais nada",
+                    "O custo total de juros pagos ao longo de todo o financiamento, comparado ao que esse dinheiro poderia render se fosse investido enquanto se aluga um imóvel parecido",
+                    "O financiamento nunca deve ser comparado com nenhuma alternativa",
+                    "Basta escolher o financiamento com a parcela mais baixa, sem olhar o prazo total"
+                  ],
+                  "explanation": "Comparar o custo total de juros do financiamento com o retorno potencial de investir e alugar, considerando o prazo e o custo de oportunidade envolvidos, ajuda a tomar essa decisão de forma mais informada."
+                },
+                "en": {
+                  "prompt": "You already understand that amortization systems like Price generate a total interest cost over the loan. Before deciding to finance a property, what's worth calculating and comparing?",
+                  "options": [
+                    "Only the monthly installment value, without considering anything else",
+                    "The total interest cost paid over the entire loan, compared to what that money could earn if invested while renting a similar property",
+                    "Financing should never be compared with any alternative",
+                    "It's enough to choose the financing with the lowest installment, without looking at the total term"
+                  ],
+                  "explanation": "Comparing the loan's total interest cost with the potential return of investing and renting, considering the term and opportunity cost involved, helps make this decision more informedly."
+                },
+                "es": {
+                  "prompt": "Ya entiendes que sistemas de amortización como el Price generan un costo total de intereses a lo largo del financiamiento. Antes de decidir financiar un inmueble, ¿qué vale la pena calcular y comparar?",
+                  "options": [
+                    "Solo el valor de la cuota mensual, sin considerar nada más",
+                    "El costo total de intereses pagados a lo largo de todo el financiamiento, comparado con lo que ese dinero podría rendir si se invirtiera mientras se alquila un inmueble parecido",
+                    "El financiamiento nunca debe compararse con ninguna alternativa",
+                    "Basta con elegir el financiamiento con la cuota más baja, sin mirar el plazo total"
+                  ],
+                  "explanation": "Comparar el costo total de intereses del financiamiento con el retorno potencial de invertir y alquilar, considerando el plazo y el costo de oportunidad involucrados, ayuda a tomar esta decisión de forma más informada."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Alguém diz: 'alugar é sempre jogar dinheiro fora, financiar é sempre a melhor escolha'. Com base no que você aprendeu sobre custo de oportunidade, o que está incompleto nessa afirmação?",
+                  "options": [
+                    "Nada, financiar é sempre objetivamente melhor do que alugar",
+                    "O aluguel tem um custo real, mas financiar também tem um custo real em juros — a melhor escolha depende de comparar os dois custos e o retorno potencial do dinheiro que não foi usado na entrada e nas parcelas mais altas",
+                    "Alugar nunca envolve nenhum tipo de custo",
+                    "Financiamento nunca envolve juros, apenas o aluguel envolve custo"
+                  ],
+                  "explanation": "Tanto alugar quanto financiar envolvem custos reais — a decisão mais informada compara o custo total do financiamento com o custo de morar de aluguel mais o retorno potencial de investir a diferença, em vez de assumir que uma opção é sempre superior."
+                },
+                "en": {
+                  "prompt": "Someone says: 'renting is always throwing money away, financing is always the best choice.' Based on what you learned about opportunity cost, what's incomplete about that statement?",
+                  "options": [
+                    "Nothing, financing is always objectively better than renting",
+                    "Renting has a real cost, but financing also has a real cost in interest — the best choice depends on comparing both costs and the potential return of the money not used on the down payment and higher installments",
+                    "Renting never involves any type of cost",
+                    "Financing never involves interest, only renting involves cost"
+                  ],
+                  "explanation": "Both renting and financing involve real costs — the more informed decision compares the loan's total cost with the cost of renting plus the potential return of investing the difference, instead of assuming one option is always superior."
+                },
+                "es": {
+                  "prompt": "Alguien dice: 'alquilar siempre es tirar el dinero, financiar siempre es la mejor elección'. Según lo que aprendiste sobre el costo de oportunidad, ¿qué es incompleto en esa afirmación?",
+                  "options": [
+                    "Nada, financiar siempre es objetivamente mejor que alquilar",
+                    "El alquiler tiene un costo real, pero financiar también tiene un costo real en intereses — la mejor elección depende de comparar ambos costos y el retorno potencial del dinero no usado en la entrada y en las cuotas más altas",
+                    "Alquilar nunca implica ningún tipo de costo",
+                    "El financiamiento nunca implica intereses, solo el alquiler implica costo"
+                  ],
+                  "explanation": "Tanto alquilar como financiar implican costos reales — la decisión más informada compara el costo total del financiamiento con el costo de vivir de alquiler más el retorno potencial de invertir la diferencia, en lugar de asumir que una opción siempre es superior."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Financiar um imóvel envolve um custo real de juros ao longo de muitos anos.",
+                    "Continuar alugando e investindo é uma alternativa com seu próprio custo e potencial de retorno.",
+                    "A melhor escolha depende de comparar os dois cenários, não de assumir que um é sempre superior."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "Financing a property involves a real interest cost over many years.",
+                    "Continuing to rent and invest is an alternative with its own cost and return potential.",
+                    "The best choice depends on comparing both scenarios, not assuming one is always superior."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "Financiar un inmueble implica un costo real de intereses a lo largo de muchos años.",
+                    "Seguir alquilando e invirtiendo es una alternativa con su propio costo y potencial de retorno.",
+                    "La mejor elección depende de comparar ambos escenarios, no de asumir que uno siempre es superior."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_job_loss",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Perda de Emprego"},
+            "en": {"title": "Simulation: Job Loss"},
+            "es": {"title": "Simulación: Pérdida de Empleo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você perdeu o emprego inesperadamente e não sabe quanto tempo vai levar para conseguir uma nova posição. Você já entende reserva de emergência, risco de liquidez e vieses como aversão à perda — esta simulação pede para aplicar esses conceitos em um momento de instabilidade financeira real, quando decisões precisam ser tomadas sob pressão."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You unexpectedly lost your job and don't know how long it will take to find a new position. You already understand emergency funds, liquidity risk, and biases like loss aversion — this simulation asks you to apply those concepts in a moment of real financial instability, when decisions need to be made under pressure."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Perdiste el empleo inesperadamente y no sabes cuánto tiempo tardarás en conseguir una nueva posición. Ya entiendes el fondo de emergencia, el riesgo de liquidez y sesgos como la aversión a la pérdida — esta simulación te pide aplicar esos conceptos en un momento de inestabilidad financiera real, cuando hay que tomar decisiones bajo presión."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa com reserva de emergência equivalente a 6 meses de despesas consegue manter seus investimentos de longo prazo intactos enquanto procura um novo emprego, usando a reserva líquida para cobrir as despesas do dia a dia. Sem essa reserva, ela provavelmente precisaria resgatar investimentos de longo prazo em condições desfavoráveis, ou recorrer a dívidas caras, justamente no pior momento para isso."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone with an emergency fund equivalent to 6 months of expenses manages to keep their long-term investments intact while looking for a new job, using the liquid reserve to cover day-to-day expenses. Without that reserve, they would likely need to withdraw long-term investments under unfavorable conditions, or resort to expensive debt, at exactly the worst moment to do so."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona con un fondo de emergencia equivalente a 6 meses de gastos logra mantener sus inversiones a largo plazo intactas mientras busca un nuevo empleo, usando la reserva líquida para cubrir los gastos del día a día. Sin esa reserva, probablemente necesitaría rescatar inversiones a largo plazo en condiciones desfavorables, o recurrir a deudas caras, justo en el peor momento para hacerlo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você acabou de perder o emprego e tem uma reserva de emergência equivalente a 6 meses de despesas, além de investimentos de longo prazo. Qual fonte de recursos faz mais sentido usar primeiro para cobrir as despesas do dia a dia?",
+                  "options": [
+                    "Os investimentos de longo prazo, resgatando-os imediatamente, mesmo em condições desfavoráveis",
+                    "A reserva de emergência, já que ela foi construída justamente para situações como essa, preservando os investimentos de longo prazo",
+                    "Um novo empréstimo com juros altos, evitando tocar em qualquer reserva",
+                    "Não faz diferença qual fonte usar primeiro"
+                  ],
+                  "explanation": "A reserva de emergência existe exatamente para cobrir imprevistos como a perda de emprego, permitindo que investimentos de longo prazo continuem intactos até que a situação se resolva."
+                },
+                "en": {
+                  "prompt": "You just lost your job and have an emergency fund equivalent to 6 months of expenses, plus long-term investments. Which source of funds makes the most sense to use first to cover day-to-day expenses?",
+                  "options": [
+                    "The long-term investments, withdrawing them immediately, even under unfavorable conditions",
+                    "The emergency fund, since it was built exactly for situations like this, preserving the long-term investments",
+                    "A new high-interest loan, avoiding touching any reserve",
+                    "It doesn't matter which source is used first"
+                  ],
+                  "explanation": "The emergency fund exists exactly to cover unexpected events like job loss, allowing long-term investments to remain intact until the situation resolves."
+                },
+                "es": {
+                  "prompt": "Acabas de perder el empleo y tienes un fondo de emergencia equivalente a 6 meses de gastos, además de inversiones a largo plazo. ¿Qué fuente de recursos tiene más sentido usar primero para cubrir los gastos del día a día?",
+                  "options": [
+                    "Las inversiones a largo plazo, rescatándolas de inmediato, incluso en condiciones desfavorables",
+                    "El fondo de emergencia, ya que se construyó justamente para situaciones como esta, preservando las inversiones a largo plazo",
+                    "Un nuevo préstamo con intereses altos, evitando tocar cualquier reserva",
+                    "No hace diferencia qué fuente usar primero"
+                  ],
+                  "explanation": "El fondo de emergencia existe exactamente para cubrir imprevistos como la pérdida de empleo, permitiendo que las inversiones a largo plazo permanezcan intactas hasta que la situación se resuelva."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Depois de dois meses sem recolocação, você sente um forte impulso de resgatar tudo dos investimentos de longo prazo 'por segurança', mesmo ainda tendo parte da reserva de emergência disponível. O que você já aprendeu sobre aversão à perda sugere sobre esse impulso?",
+                  "options": [
+                    "Que resgatar tudo imediatamente é sempre a decisão mais racional nessa situação",
+                    "Que esse impulso pode estar sendo amplificado pela ansiedade da situação, e vale reavaliar com calma se a reserva de emergência ainda cobre o período estimado antes de tomar uma decisão precipitada sobre os investimentos de longo prazo",
+                    "Aversão à perda não tem relação nenhuma com situações de desemprego",
+                    "Investimentos de longo prazo devem sempre ser resgatados ao primeiro sinal de instabilidade"
+                  ],
+                  "explanation": "Momentos de estresse financeiro tendem a amplificar reações emocionais — reavaliar a situação com calma, considerando quanto da reserva de emergência ainda resta, ajuda a evitar decisões precipitadas guiadas pela ansiedade."
+                },
+                "en": {
+                  "prompt": "After two months without finding a new job, you feel a strong urge to withdraw everything from your long-term investments 'for safety,' even though you still have part of the emergency fund available. What does what you learned about loss aversion suggest about that urge?",
+                  "options": [
+                    "That withdrawing everything immediately is always the most rational decision in this situation",
+                    "That this urge might be amplified by the situation's anxiety, and it's worth calmly reassessing whether the emergency fund still covers the estimated period before making a hasty decision about the long-term investments",
+                    "Loss aversion has no relation at all to unemployment situations",
+                    "Long-term investments should always be withdrawn at the first sign of instability"
+                  ],
+                  "explanation": "Moments of financial stress tend to amplify emotional reactions — calmly reassessing the situation, considering how much of the emergency fund remains, helps avoid hasty decisions driven by anxiety."
+                },
+                "es": {
+                  "prompt": "Después de dos meses sin recolocarte, sientes un fuerte impulso de rescatar todo de tus inversiones a largo plazo 'por seguridad', aunque todavía tienes parte del fondo de emergencia disponible. ¿Qué sugiere sobre ese impulso lo que aprendiste sobre la aversión a la pérdida?",
+                  "options": [
+                    "Que rescatar todo de inmediato siempre es la decisión más racional en esta situación",
+                    "Que ese impulso puede estar siendo amplificado por la ansiedad de la situación, y vale la pena reevaluar con calma si el fondo de emergencia todavía cubre el período estimado antes de tomar una decisión precipitada sobre las inversiones a largo plazo",
+                    "La aversión a la pérdida no tiene ninguna relación con situaciones de desempleo",
+                    "Las inversiones a largo plazo siempre deben rescatarse ante la primera señal de inestabilidad"
+                  ],
+                  "explanation": "Los momentos de estrés financiero tienden a amplificar las reacciones emocionales — reevaluar la situación con calma, considerando cuánto queda del fondo de emergencia, ayuda a evitar decisiones precipitadas guiadas por la ansiedad."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Reserva de emergência deve ser a primeira fonte de recursos em uma perda de emprego.",
+                    "Isso preserva investimentos de longo prazo de resgates em condições desfavoráveis.",
+                    "Momentos de estresse financeiro podem amplificar impulsos guiados por aversão à perda."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "The emergency fund should be the first source of funds during a job loss.",
+                    "This preserves long-term investments from withdrawals under unfavorable conditions.",
+                    "Moments of financial stress can amplify impulses driven by loss aversion."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "El fondo de emergencia debe ser la primera fuente de recursos ante una pérdida de empleo.",
+                    "Esto preserva las inversiones a largo plazo de rescates en condiciones desfavorables.",
+                    "Los momentos de estrés financiero pueden amplificar impulsos guiados por la aversión a la pérdida."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_inheritance",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Recebendo uma Herança"},
+            "en": {"title": "Simulation: Receiving an Inheritance"},
+            "es": {"title": "Simulación: Recibiendo una Herencia"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você recebeu uma herança inesperada, em um momento emocionalmente difícil por causa da perda de um familiar. Você já entende contabilidade mental, diversificação e a importância de reavaliar objetivos antes de investir — esta simulação pede para aplicar esses conceitos em um cenário que combina uma decisão financeira importante com uma carga emocional significativa."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You received an unexpected inheritance, at an emotionally difficult time because of the loss of a family member. You already understand mental accounting, diversification, and the importance of reassessing goals before investing — this simulation asks you to apply those concepts in a scenario that combines an important financial decision with significant emotional weight."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Recibiste una herencia inesperada, en un momento emocionalmente difícil por la pérdida de un familiar. Ya entiendes la contabilidad mental, la diversificación y la importancia de reevaluar objetivos antes de invertir — esta simulación te pide aplicar esos conceptos en un escenario que combina una decisión financiera importante con una carga emocional significativa."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa recebe uma herança substancial e, tomada pela emoção do momento, tem pressa de tomar decisões financeiras importantes, ou passa a tratar esse dinheiro como algo 'diferente' do resto do seu patrimônio, sem segui-lo com o mesmo cuidado que teria com dinheiro ganho com esforço próprio. Dar-se tempo para processar a situação, antes de tomar decisões financeiras irreversíveis, tende a levar a escolhas mais alinhadas com os próprios objetivos de longo prazo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone receives a substantial inheritance and, overtaken by the emotion of the moment, rushes to make important financial decisions, or starts treating that money as somehow 'different' from the rest of their wealth, without handling it with the same care they'd give money earned through their own effort. Giving themselves time to process the situation, before making irreversible financial decisions, tends to lead to choices more aligned with their own long-term goals."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona recibe una herencia sustancial y, dominada por la emoción del momento, tiene prisa por tomar decisiones financieras importantes, o pasa a tratar ese dinero como algo 'diferente' del resto de su patrimonio, sin manejarlo con el mismo cuidado que tendría con dinero ganado con esfuerzo propio. Darse tiempo para procesar la situación, antes de tomar decisiones financieras irreversibles, tiende a llevar a elecciones más alineadas con los propios objetivos a largo plazo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende contabilidade mental de outra lição. Como esse conceito se aplica a tratar dinheiro de uma herança de forma diferente do resto do seu patrimônio?",
+                  "options": [
+                    "Não se aplica, herança é sempre um tipo diferente de dinheiro, na prática e não só psicologicamente",
+                    "Assim como um bônus, o dinheiro de uma herança é intercambiável com qualquer outro dinheiro — tratá-lo como algo à parte, sem o mesmo cuidado de planejamento, é um efeito psicológico da contabilidade mental, não uma diferença real",
+                    "Herança deve sempre ser gasta rapidamente, diferente de outros tipos de dinheiro",
+                    "Contabilidade mental só se aplica a bônus de trabalho, nunca a heranças"
+                  ],
+                  "explanation": "Assim como visto com bônus inesperados, o dinheiro de uma herança é financeiramente intercambiável com qualquer outro — a tendência de tratá-lo de forma diferente é um efeito da contabilidade mental, não uma diferença real na utilidade desse dinheiro."
+                },
+                "en": {
+                  "prompt": "You already understand mental accounting from another lesson. How does that concept apply to treating inheritance money differently from the rest of your wealth?",
+                  "options": [
+                    "It doesn't apply, inheritance is always a different type of money, in practice and not just psychologically",
+                    "Just like a bonus, inheritance money is interchangeable with any other money — treating it as something separate, without the same planning care, is a psychological effect of mental accounting, not a real difference",
+                    "Inheritance should always be spent quickly, unlike other types of money",
+                    "Mental accounting only applies to work bonuses, never to inheritances"
+                  ],
+                  "explanation": "Just as seen with unexpected bonuses, inheritance money is financially interchangeable with any other — the tendency to treat it differently is a mental accounting effect, not a real difference in that money's usefulness."
+                },
+                "es": {
+                  "prompt": "Ya entiendes la contabilidad mental de otra lección. ¿Cómo se aplica ese concepto a tratar el dinero de una herencia de forma diferente al resto de tu patrimonio?",
+                  "options": [
+                    "No se aplica, la herencia siempre es un tipo diferente de dinero, en la práctica y no solo psicológicamente",
+                    "Al igual que un bono, el dinero de una herencia es intercambiable con cualquier otro dinero — tratarlo como algo aparte, sin el mismo cuidado de planificación, es un efecto psicológico de la contabilidad mental, no una diferencia real",
+                    "La herencia siempre debe gastarse rápidamente, a diferencia de otros tipos de dinero",
+                    "La contabilidad mental solo se aplica a bonos de trabajo, nunca a herencias"
+                  ],
+                  "explanation": "Tal como se vio con bonos inesperados, el dinero de una herencia es financieramente intercambiable con cualquier otro — la tendencia a tratarlo de forma diferente es un efecto de la contabilidad mental, no una diferencia real en la utilidad de ese dinero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Logo depois de receber a herança, várias pessoas ao seu redor sugerem decisões financeiras rápidas. Considerando o momento emocional e o que você já aprendeu sobre planejamento, o que faz mais sentido?",
+                  "options": [
+                    "Tomar todas as decisões imediatamente, seguindo a primeira sugestão recebida",
+                    "Dar-se tempo para processar a situação emocionalmente e reavaliar objetivos com calma, antes de tomar decisões financeiras irreversíveis sobre um valor significativo",
+                    "Ignorar completamente a herança e nunca planejar o que fazer com ela",
+                    "Decisões financeiras importantes nunca devem levar em conta o estado emocional da pessoa"
+                  ],
+                  "explanation": "Momentos de forte carga emocional não costumam ser os melhores para decisões financeiras irreversíveis — dar-se tempo para reavaliar objetivos com mais clareza tende a levar a escolhas mais alinhadas com o que realmente importa no longo prazo."
+                },
+                "en": {
+                  "prompt": "Right after receiving the inheritance, several people around you suggest quick financial decisions. Considering the emotional moment and what you already learned about planning, what makes the most sense?",
+                  "options": [
+                    "Making all decisions immediately, following the first suggestion received",
+                    "Giving yourself time to emotionally process the situation and calmly reassess goals, before making irreversible financial decisions about a significant amount",
+                    "Completely ignoring the inheritance and never planning what to do with it",
+                    "Important financial decisions should never take a person's emotional state into account"
+                  ],
+                  "explanation": "Moments of strong emotional weight usually aren't the best for irreversible financial decisions — giving yourself time to reassess goals with more clarity tends to lead to choices more aligned with what really matters in the long run."
+                },
+                "es": {
+                  "prompt": "Justo después de recibir la herencia, varias personas a tu alrededor sugieren decisiones financieras rápidas. Considerando el momento emocional y lo que ya aprendiste sobre planificación, ¿qué tiene más sentido?",
+                  "options": [
+                    "Tomar todas las decisiones de inmediato, siguiendo la primera sugerencia recibida",
+                    "Darte tiempo para procesar la situación emocionalmente y reevaluar objetivos con calma, antes de tomar decisiones financieras irreversibles sobre un monto significativo",
+                    "Ignorar por completo la herencia y nunca planificar qué hacer con ella",
+                    "Las decisiones financieras importantes nunca deben tener en cuenta el estado emocional de la persona"
+                  ],
+                  "explanation": "Los momentos de fuerte carga emocional no suelen ser los mejores para decisiones financieras irreversibles — darte tiempo para reevaluar objetivos con más claridad tiende a llevar a elecciones más alineadas con lo que realmente importa a largo plazo."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Dinheiro de herança é financeiramente intercambiável com qualquer outro dinheiro, apesar do peso emocional.",
+                    "Momentos de forte emoção não costumam ser ideais para decisões financeiras irreversíveis.",
+                    "Dar-se tempo para reavaliar objetivos tende a levar a escolhas mais alinhadas com o longo prazo."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "Inheritance money is financially interchangeable with any other money, despite its emotional weight.",
+                    "Moments of strong emotion usually aren't ideal for irreversible financial decisions.",
+                    "Giving yourself time to reassess goals tends to lead to choices more aligned with the long run."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "El dinero de herencia es financieramente intercambiable con cualquier otro dinero, a pesar de su peso emocional.",
+                    "Los momentos de fuerte emoción no suelen ser ideales para decisiones financieras irreversibles.",
+                    "Darte tiempo para reevaluar objetivos tiende a llevar a elecciones más alineadas con el largo plazo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_starting_a_business",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Investindo as Economias em um Negócio Próprio"},
+            "en": {"title": "Simulation: Investing Your Savings in Your Own Business"},
+            "es": {"title": "Simulación: Invirtiendo tus Ahorros en un Negocio Propio"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você está pensando em usar boa parte das suas economias para abrir um negócio próprio. Você já entende risco de concentração, reserva de emergência e diversificação — esta simulação pede para aplicar esses conceitos a uma decisão que, diferente de investir em ativos financeiros diversificados, costuma envolver concentrar uma quantia significativa em um único empreendimento, com riscos e potencial de retorno bem diferentes."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You're thinking about using a large part of your savings to start your own business. You already understand concentration risk, emergency funds, and diversification — this simulation asks you to apply those concepts to a decision that, unlike investing in diversified financial assets, usually involves concentrating a significant amount in a single venture, with quite different risks and return potential."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Estás pensando en usar gran parte de tus ahorros para abrir un negocio propio. Ya entiendes el riesgo de concentración, el fondo de emergencia y la diversificación — esta simulación te pide aplicar esos conceptos a una decisión que, a diferencia de invertir en activos financieros diversificados, suele implicar concentrar un monto significativo en un único emprendimiento, con riesgos y potencial de retorno bastante diferentes."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Alguém usa 100% das suas economias, incluindo a reserva de emergência, para abrir um negócio, sem nenhuma proteção financeira caso o empreendimento demore para gerar receita ou não dê certo. Outra pessoa, com uma ideia parecida, mantém uma reserva separada intocada e investe apenas parte das economias no negócio, preservando alguma segurança financeira enquanto assume o risco do empreendimento."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone uses 100% of their savings, including the emergency fund, to open a business, with no financial protection in case the venture takes time to generate revenue or doesn't work out. Another person, with a similar idea, keeps a separate reserve untouched and invests only part of their savings in the business, preserving some financial security while taking on the venture's risk."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Alguien usa el 100% de sus ahorros, incluyendo el fondo de emergencia, para abrir un negocio, sin ninguna protección financiera en caso de que el emprendimiento tarde en generar ingresos o no funcione. Otra persona, con una idea parecida, mantiene una reserva separada intacta e invierte solo parte de los ahorros en el negocio, preservando algo de seguridad financiera mientras asume el riesgo del emprendimiento."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco de concentração de outra lição. Como esse conceito se aplica a usar 100% das suas economias, incluindo a reserva de emergência, para abrir um negócio próprio?",
+                  "options": [
+                    "Não se aplica, negócios próprios nunca envolvem risco de concentração",
+                    "Usar todas as economias em um único empreendimento é uma forma extrema de concentração — se o negócio enfrentar dificuldades, a pessoa fica sem nenhuma proteção financeira, ao mesmo tempo em que perde a fonte de renda que o negócio deveria gerar",
+                    "Risco de concentração só existe em investimentos financeiros, nunca em negócios",
+                    "Quanto mais dinheiro investido no próprio negócio, menor o risco"
+                  ],
+                  "explanation": "Colocar todas as economias, incluindo a reserva de emergência, em um único negócio é uma concentração extrema — combina o risco do empreendimento com a ausência total de qualquer proteção financeira caso as coisas não saiam como planejado."
+                },
+                "en": {
+                  "prompt": "You already understand concentration risk from another lesson. How does that concept apply to using 100% of your savings, including the emergency fund, to open your own business?",
+                  "options": [
+                    "It doesn't apply, own businesses never involve concentration risk",
+                    "Using all your savings in a single venture is an extreme form of concentration — if the business runs into trouble, the person is left with no financial protection at all, while also losing the income source the business was supposed to generate",
+                    "Concentration risk only exists in financial investments, never in businesses",
+                    "The more money invested in your own business, the lower the risk"
+                  ],
+                  "explanation": "Putting all your savings, including the emergency fund, into a single business is an extreme concentration — it combines the venture's risk with the total absence of any financial protection if things don't go as planned."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo de concentración de otra lección. ¿Cómo se aplica ese concepto a usar el 100% de tus ahorros, incluyendo el fondo de emergencia, para abrir un negocio propio?",
+                  "options": [
+                    "No se aplica, los negocios propios nunca implican riesgo de concentración",
+                    "Usar todos los ahorros en un único emprendimiento es una forma extrema de concentración — si el negocio enfrenta dificultades, la persona se queda sin ninguna protección financiera, al mismo tiempo que pierde la fuente de ingresos que el negocio debía generar",
+                    "El riesgo de concentración solo existe en inversiones financieras, nunca en negocios",
+                    "Cuanto más dinero invertido en el propio negocio, menor el riesgo"
+                  ],
+                  "explanation": "Poner todos los ahorros, incluyendo el fondo de emergencia, en un único negocio es una concentración extrema — combina el riesgo del emprendimiento con la ausencia total de cualquier protección financiera si las cosas no salen como se planeó."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está estruturando quanto vai investir no próprio negócio. Com base no que você aprendeu sobre reserva de emergência e concentração, o que faz mais sentido considerar?",
+                  "options": [
+                    "Investir tudo no negócio, incluindo a reserva de emergência, para maximizar as chances de sucesso",
+                    "Preservar uma reserva de emergência separada e intocada, investindo no negócio apenas uma parte das economias que a pessoa está disposta a arriscar por completo",
+                    "Não investir nada no próprio negócio, mesmo acreditando na ideia",
+                    "A reserva de emergência deixa de ser necessária quando se abre um negócio próprio"
+                  ],
+                  "explanation": "Manter uma reserva de emergência separada, investindo no negócio apenas o quanto se está disposto a potencialmente perder por completo, equilibra o risco do empreendimento com alguma proteção financeira básica."
+                },
+                "en": {
+                  "prompt": "You're figuring out how much to invest in your own business. Based on what you learned about emergency funds and concentration, what makes the most sense to consider?",
+                  "options": [
+                    "Investing everything in the business, including the emergency fund, to maximize the chances of success",
+                    "Preserving a separate, untouched emergency fund, investing in the business only a portion of savings the person is willing to risk entirely",
+                    "Not investing anything in your own business, even while believing in the idea",
+                    "The emergency fund stops being necessary once you open your own business"
+                  ],
+                  "explanation": "Keeping a separate emergency fund, investing in the business only what you're willing to potentially lose entirely, balances the venture's risk with some basic financial protection."
+                },
+                "es": {
+                  "prompt": "Estás estructurando cuánto vas a invertir en tu propio negocio. Según lo que aprendiste sobre el fondo de emergencia y la concentración, ¿qué tiene más sentido considerar?",
+                  "options": [
+                    "Invertir todo en el negocio, incluyendo el fondo de emergencia, para maximizar las posibilidades de éxito",
+                    "Preservar un fondo de emergencia separado e intacto, invirtiendo en el negocio solo una parte de los ahorros que la persona está dispuesta a arriesgar por completo",
+                    "No invertir nada en el propio negocio, incluso creyendo en la idea",
+                    "El fondo de emergencia deja de ser necesario al abrir un negocio propio"
+                  ],
+                  "explanation": "Mantener un fondo de emergencia separado, invirtiendo en el negocio solo lo que se está dispuesto a perder potencialmente por completo, equilibra el riesgo del emprendimiento con alguna protección financiera básica."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Investir em um negócio próprio costuma envolver concentração significativa de recursos.",
+                    "Preservar uma reserva de emergência separada ajuda a equilibrar esse risco.",
+                    "Você concluiu o módulo de mais cenários da vida real."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Investing in your own business usually involves significant concentration of resources.",
+                    "Preserving a separate emergency fund helps balance that risk.",
+                    "You've completed the more real-life scenarios module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Invertir en un negocio propio suele implicar una concentración significativa de recursos.",
+                    "Preservar un fondo de emergencia separado ayuda a equilibrar ese riesgo.",
+                    "Completaste el módulo de más escenarios de la vida real."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

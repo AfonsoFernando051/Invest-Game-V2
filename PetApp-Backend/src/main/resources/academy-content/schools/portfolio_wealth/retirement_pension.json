@@ -813,6 +813,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "retirement_planning_practice",
+      "order": 2,
+      "iconKey": "beach_access_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["retirement_basics"],
+      "translations": {
+        "pt": {
+          "title": "Planejamento de Aposentadoria na Prática",
+          "description": "A regra dos 4%, portabilidade, previdência aberta x fechada e planejamento sucessório."
+        },
+        "en": {
+          "title": "Retirement Planning in Practice",
+          "description": "The 4% rule, portability, open vs. closed pension and estate planning."
+        },
+        "es": {
+          "title": "Planificación de la Jubilación en la Práctica",
+          "description": "La regla del 4%, portabilidad, previsión abierta vs. cerrada y planificación sucesoria."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "retirement_4percent_rule",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "A Regra dos 4%"},
+            "en": {"title": "The 4% Rule"},
+            "es": {"title": "La Regla del 4%"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Uma estimativa de quanto retirar por ano sem esgotar o patrimônio",
+                  "body": "A regra dos 4% é uma estimativa amplamente discutida sobre quanto uma pessoa poderia retirar anualmente de uma carteira de investimentos na aposentadoria, sem esgotar o patrimônio ao longo de várias décadas, considerando uma carteira diversificada entre ações e renda fixa. Segundo essa regra, retirar cerca de 4% do patrimônio total no primeiro ano, e ajustar esse valor pela inflação nos anos seguintes, teria sustentado a maioria dos cenários históricos estudados — mas é uma estimativa, baseada em dados passados, não uma garantia para qualquer cenário futuro."
+                },
+                "en": {
+                  "title": "An estimate of how much to withdraw yearly without depleting your wealth",
+                  "body": "The 4% rule is a widely discussed estimate of how much a person could withdraw annually from an investment portfolio in retirement, without depleting the wealth over several decades, assuming a portfolio diversified between stocks and fixed income. According to this rule, withdrawing about 4% of the total wealth in the first year, and adjusting that amount for inflation in subsequent years, would have sustained most of the historical scenarios studied — but it's an estimate, based on past data, not a guarantee for any future scenario."
+                },
+                "es": {
+                  "title": "Una estimación de cuánto retirar al año sin agotar el patrimonio",
+                  "body": "La regla del 4% es una estimación ampliamente discutida sobre cuánto podría retirar anualmente una persona de una cartera de inversiones en la jubilación, sin agotar el patrimonio a lo largo de varias décadas, considerando una cartera diversificada entre acciones y renta fija. Según esta regla, retirar cerca del 4% del patrimonio total en el primer año, y ajustar ese monto por la inflación en los años siguientes, habría sostenido la mayoría de los escenarios históricos estudiados — pero es una estimación, basada en datos pasados, no una garantía para ningún escenario futuro."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa se aposenta com R$2 milhões investidos. Pela regra dos 4%, ela retiraria cerca de R$80.000 no primeiro ano de aposentadoria, ajustando esse valor pela inflação nos anos seguintes. A regra sugere um ponto de partida razoável para o planejamento, mas fatores como a composição real da carteira, eventos de mercado específicos e a longevidade da pessoa podem exigir ajustes ao longo do tempo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone retires with R$2 million invested. Under the 4% rule, they would withdraw about R$80,000 in the first year of retirement, adjusting that amount for inflation in subsequent years. The rule suggests a reasonable starting point for planning, but factors like the portfolio's actual composition, specific market events, and the person's longevity might require adjustments over time."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona se jubila con R$2 millones invertidos. Según la regla del 4%, retiraría cerca de R$80.000 en el primer año de jubilación, ajustando ese monto por la inflación en los años siguientes. La regla sugiere un punto de partida razonable para la planificación, pero factores como la composición real de la cartera, eventos de mercado específicos y la longevidad de la persona pueden exigir ajustes con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que a regra dos 4% estima?",
+                  "options": [
+                    "A taxa de juros que o Banco Central deveria praticar",
+                    "Uma taxa aproximada de retirada anual de uma carteira de aposentadoria que, historicamente, tenderia a sustentar o patrimônio por décadas",
+                    "O valor máximo que se pode investir por mês",
+                    "A alíquota de imposto sobre planos de previdência"
+                  ],
+                  "explanation": "A regra dos 4% é uma estimativa sobre quanto retirar anualmente de uma carteira diversificada na aposentadoria, com base em cenários históricos estudados, sem esgotar o patrimônio ao longo de várias décadas."
+                },
+                "en": {
+                  "prompt": "What does the 4% rule estimate?",
+                  "options": [
+                    "The interest rate the Central Bank should practice",
+                    "An approximate annual withdrawal rate from a retirement portfolio that, historically, would tend to sustain the wealth for decades",
+                    "The maximum amount that can be invested per month",
+                    "The tax rate on pension plans"
+                  ],
+                  "explanation": "The 4% rule is an estimate of how much to withdraw annually from a diversified portfolio in retirement, based on historical scenarios studied, without depleting the wealth over several decades."
+                },
+                "es": {
+                  "prompt": "¿Qué estima la regla del 4%?",
+                  "options": [
+                    "La tasa de interés que debería practicar el Banco Central",
+                    "Una tasa aproximada de retiro anual de una cartera de jubilación que, históricamente, tendería a sostener el patrimonio por décadas",
+                    "El monto máximo que se puede invertir por mes",
+                    "La alícuota de impuesto sobre planes de previsión"
+                  ],
+                  "explanation": "La regla del 4% es una estimación sobre cuánto retirar anualmente de una cartera diversificada en la jubilación, con base en escenarios históricos estudiados, sin agotar el patrimonio a lo largo de varias décadas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende que indicadores baseados em dados históricos, como CAGR, não garantem resultados futuros. Como esse mesmo cuidado se aplica à regra dos 4%?",
+                  "options": [
+                    "Não se aplica, a regra dos 4% é uma garantia matemática absoluta para qualquer cenário futuro",
+                    "Assim como outros indicadores baseados em dados passados, a regra dos 4% é uma estimativa útil como ponto de partida, mas não uma garantia — cenários futuros podem ser diferentes dos históricos estudados",
+                    "A regra dos 4% nunca deveria ser considerada em nenhum planejamento",
+                    "Ela só se aplica a pessoas que se aposentam antes dos 40 anos"
+                  ],
+                  "explanation": "Assim como o CAGR resume uma tendência histórica sem garantir o futuro, a regra dos 4% é uma estimativa baseada em cenários passados — útil como referência inicial, mas sujeita a ajustes conforme a realidade específica de cada pessoa e período."
+                },
+                "en": {
+                  "prompt": "You already understand that indicators based on historical data, like CAGR, don't guarantee future results. How does that same caution apply to the 4% rule?",
+                  "options": [
+                    "It doesn't apply, the 4% rule is an absolute mathematical guarantee for any future scenario",
+                    "Just like other indicators based on past data, the 4% rule is a useful estimate as a starting point, but not a guarantee — future scenarios can differ from the historical ones studied",
+                    "The 4% rule should never be considered in any planning",
+                    "It only applies to people who retire before age 40"
+                  ],
+                  "explanation": "Just as CAGR summarizes a historical trend without guaranteeing the future, the 4% rule is an estimate based on past scenarios — useful as an initial reference, but subject to adjustments based on each person's specific reality and time period."
+                },
+                "es": {
+                  "prompt": "Ya entiendes que los indicadores basados en datos históricos, como el CAGR, no garantizan resultados futuros. ¿Cómo se aplica ese mismo cuidado a la regla del 4%?",
+                  "options": [
+                    "No se aplica, la regla del 4% es una garantía matemática absoluta para cualquier escenario futuro",
+                    "Al igual que otros indicadores basados en datos pasados, la regla del 4% es una estimación útil como punto de partida, pero no una garantía — los escenarios futuros pueden ser diferentes de los históricos estudiados",
+                    "La regla del 4% nunca debería considerarse en ninguna planificación",
+                    "Solo se aplica a personas que se jubilan antes de los 40 años"
+                  ],
+                  "explanation": "Tal como el CAGR resume una tendencia histórica sin garantizar el futuro, la regla del 4% es una estimación basada en escenarios pasados — útil como referencia inicial, pero sujeta a ajustes según la realidad específica de cada persona y período."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "A regra dos 4% estima uma taxa de retirada anual sustentável na aposentadoria, com base em dados históricos.",
+                    "Ela sugere retirar cerca de 4% do patrimônio no primeiro ano, ajustando pela inflação depois.",
+                    "É uma estimativa útil como ponto de partida, não uma garantia para qualquer cenário futuro."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "The 4% rule estimates a sustainable annual withdrawal rate in retirement, based on historical data.",
+                    "It suggests withdrawing about 4% of the wealth in the first year, adjusting for inflation afterward.",
+                    "It's a useful estimate as a starting point, not a guarantee for any future scenario."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La regla del 4% estima una tasa de retiro anual sostenible en la jubilación, con base en datos históricos.",
+                    "Sugiere retirar cerca del 4% del patrimonio en el primer año, ajustando por la inflación después.",
+                    "Es una estimación útil como punto de partida, no una garantía para ningún escenario futuro."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_portability",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Portabilidade de Previdência"},
+            "en": {"title": "Pension Portability"},
+            "es": {"title": "Portabilidad de Previsión"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Trocando de plano sem perder o que já foi construído",
+                  "body": "Portabilidade é o direito de transferir o saldo acumulado em um plano de previdência privada para outro plano — na mesma instituição ou em outra — sem a incidência de imposto de renda nesse momento da transferência, desde que a portabilidade siga as regras vigentes (como manter o mesmo tipo de plano, PGBL para PGBL ou VGBL para VGBL). Isso permite trocar de uma instituição com taxas mais altas ou desempenho insatisfatório para outra mais vantajosa, sem perder o tempo de contribuição já acumulado nem antecipar a tributação."
+                },
+                "en": {
+                  "title": "Switching plans without losing what was already built",
+                  "body": "Portability is the right to transfer the balance accumulated in a private pension plan to another plan — at the same institution or a different one — without income tax applying at the moment of transfer, as long as the portability follows current rules (like keeping the same plan type, PGBL to PGBL or VGBL to VGBL). This allows switching from an institution with higher fees or unsatisfactory performance to a more advantageous one, without losing the contribution time already accumulated or triggering taxation early."
+                },
+                "es": {
+                  "title": "Cambiando de plan sin perder lo ya construido",
+                  "body": "La portabilidad es el derecho de transferir el saldo acumulado en un plan de previsión privada a otro plan — en la misma institución o en otra — sin que se aplique el impuesto sobre la renta en ese momento de la transferencia, siempre que la portabilidad siga las reglas vigentes (como mantener el mismo tipo de plan, PGBL a PGBL o VGBL a VGBL). Esto permite cambiar de una institución con tasas más altas o desempeño insatisfactorio a otra más ventajosa, sin perder el tiempo de contribución ya acumulado ni anticipar la tributación."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa percebe, depois de alguns anos, que a taxa de administração do seu plano VGBL é bem mais alta do que a de outras opções no mercado, e que o desempenho da carteira do plano tem sido fraco. Em vez de resgatar o valor — o que geraria tributação imediata — ela solicita a portabilidade do saldo para um plano VGBL de outra instituição, mantendo o regime de tributação já escolhido e sem antecipar nenhum imposto."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone realizes, after a few years, that their VGBL plan's administration fee is much higher than other options on the market, and that the plan's portfolio performance has been weak. Instead of withdrawing the amount — which would trigger immediate taxation — they request portability of the balance to a VGBL plan at another institution, keeping the already chosen tax regime and without triggering any tax early."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona se da cuenta, después de algunos años, de que la tasa de administración de su plan VGBL es bastante más alta que la de otras opciones del mercado, y que el desempeño de la cartera del plan ha sido débil. En lugar de rescatar el monto — lo que generaría tributación inmediata — solicita la portabilidad del saldo a un plan VGBL de otra institución, manteniendo el régimen de tributación ya elegido y sin anticipar ningún impuesto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é portabilidade de previdência?",
+                  "options": [
+                    "O direito de resgatar o plano a qualquer momento sem nenhuma regra",
+                    "O direito de transferir o saldo acumulado para outro plano, sem incidência de imposto de renda nesse momento, seguindo as regras vigentes",
+                    "Um tipo de seguro contra a falência da instituição financeira",
+                    "A obrigação de contribuir para vários planos ao mesmo tempo"
+                  ],
+                  "explanation": "Portabilidade permite mudar de plano de previdência, mantendo o saldo acumulado e evitando a tributação imediata que ocorreria em um resgate, desde que sigam as regras vigentes de mesma categoria de plano."
+                },
+                "en": {
+                  "prompt": "What is pension portability?",
+                  "options": [
+                    "The right to withdraw the plan at any time with no rules at all",
+                    "The right to transfer the accumulated balance to another plan, with no income tax applying at that moment, following current rules",
+                    "A type of insurance against the financial institution's bankruptcy",
+                    "The obligation to contribute to several plans at the same time"
+                  ],
+                  "explanation": "Portability allows switching pension plans, keeping the accumulated balance and avoiding the immediate taxation that would occur upon withdrawal, as long as current rules for the same plan category are followed."
+                },
+                "es": {
+                  "prompt": "¿Qué es la portabilidad de previsión?",
+                  "options": [
+                    "El derecho de rescatar el plan en cualquier momento sin ninguna regla",
+                    "El derecho de transferir el saldo acumulado a otro plan, sin que se aplique el impuesto sobre la renta en ese momento, siguiendo las reglas vigentes",
+                    "Un tipo de seguro contra la quiebra de la institución financiera",
+                    "La obligación de contribuir a varios planes al mismo tiempo"
+                  ],
+                  "explanation": "La portabilidad permite cambiar de plan de previsión, manteniendo el saldo acumulado y evitando la tributación inmediata que ocurriría en un rescate, siempre que se sigan las reglas vigentes de la misma categoría de plan."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende taxa de administração de outra lição, e o quanto pequenas diferenças nessa taxa impactam o resultado ao longo de décadas. Como a portabilidade se conecta com essa preocupação?",
+                  "options": [
+                    "Não se conecta, taxa de administração e portabilidade são assuntos completamente separados",
+                    "A portabilidade permite corrigir uma escolha inicial de plano com taxa alta, migrando para uma opção mais barata sem perder o saldo acumulado nem antecipar imposto, o que ajuda a preservar o resultado no longo prazo",
+                    "Portabilidade sempre aumenta a taxa de administração do novo plano",
+                    "Uma vez escolhido, o plano de previdência nunca pode ser trocado por nenhum motivo"
+                  ],
+                  "explanation": "A portabilidade oferece uma forma de corrigir o impacto de uma taxa de administração alta ao longo do tempo, permitindo migrar para uma opção mais vantajosa sem os custos de um resgate antecipado."
+                },
+                "en": {
+                  "prompt": "You already understand administration fees from another lesson, and how much small differences in that fee impact the result over decades. How does portability connect with that concern?",
+                  "options": [
+                    "It doesn't connect, administration fees and portability are completely separate topics",
+                    "Portability allows correcting an initial plan choice with a high fee, migrating to a cheaper option without losing the accumulated balance or triggering tax early, which helps preserve the long-term result",
+                    "Portability always increases the new plan's administration fee",
+                    "Once chosen, a pension plan can never be switched for any reason"
+                  ],
+                  "explanation": "Portability offers a way to correct the impact of a high administration fee over time, allowing a migration to a more advantageous option without the costs of an early withdrawal."
+                },
+                "es": {
+                  "prompt": "Ya entiendes la tasa de administración de otra lección, y cuánto impactan pequeñas diferencias en esa tasa el resultado a lo largo de décadas. ¿Cómo se conecta la portabilidad con esa preocupación?",
+                  "options": [
+                    "No se conecta, la tasa de administración y la portabilidad son temas completamente separados",
+                    "La portabilidad permite corregir una elección inicial de plan con tasa alta, migrando a una opción más barata sin perder el saldo acumulado ni anticipar impuesto, lo que ayuda a preservar el resultado a largo plazo",
+                    "La portabilidad siempre aumenta la tasa de administración del nuevo plan",
+                    "Una vez elegido, el plan de previsión nunca puede cambiarse por ningún motivo"
+                  ],
+                  "explanation": "La portabilidad ofrece una forma de corregir el impacto de una tasa de administración alta con el tiempo, permitiendo migrar a una opción más ventajosa sin los costos de un rescate anticipado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Portabilidade permite transferir o saldo de previdência para outro plano sem tributação imediata.",
+                    "Ela precisa seguir regras vigentes, como manter a mesma categoria de plano.",
+                    "É uma forma de corrigir escolhas iniciais, como um plano com taxa de administração alta."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Portability allows transferring the pension balance to another plan without immediate taxation.",
+                    "It needs to follow current rules, like keeping the same plan category.",
+                    "It's a way to correct initial choices, like a plan with a high administration fee."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La portabilidad permite transferir el saldo de previsión a otro plan sin tributación inmediata.",
+                    "Debe seguir reglas vigentes, como mantener la misma categoría de plan.",
+                    "Es una forma de corregir elecciones iniciales, como un plan con tasa de administración alta."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_open_vs_closed",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Previdência Aberta x Fechada"},
+            "en": {"title": "Open vs. Closed Pension Plans"},
+            "es": {"title": "Previsión Abierta vs. Cerrada"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quem pode contratar cada tipo de plano",
+                  "body": "Previdência aberta é o tipo de plano — como PGBL e VGBL — que qualquer pessoa pode contratar diretamente com um banco ou seguradora, sem depender de vínculo empregatício. Previdência fechada, por outro lado, é organizada por fundos de pensão vinculados a uma empresa ou categoria profissional específica, geralmente com a empresa contribuindo junto com o funcionário, e só está disponível para quem tem esse vínculo. Fundos de pensão fechados costumam ter taxas de administração mais baixas do que planos abertos equivalentes, em parte porque não têm despesas de distribuição comercial para o público em geral."
+                },
+                "en": {
+                  "title": "Who can contract each type of plan",
+                  "body": "Open pension is the type of plan — like PGBL and VGBL — that anyone can contract directly with a bank or insurance company, without depending on an employment relationship. Closed pension, on the other hand, is organized by pension funds tied to a specific company or professional category, usually with the company contributing alongside the employee, and is only available to those with that affiliation. Closed pension funds tend to have lower administration fees than equivalent open plans, partly because they don't have commercial distribution expenses for the general public."
+                },
+                "es": {
+                  "title": "Quién puede contratar cada tipo de plan",
+                  "body": "La previsión abierta es el tipo de plan — como el PGBL y el VGBL — que cualquier persona puede contratar directamente con un banco o aseguradora, sin depender de una relación laboral. La previsión cerrada, en cambio, está organizada por fondos de pensión vinculados a una empresa o categoría profesional específica, generalmente con la empresa contribuyendo junto con el empleado, y solo está disponible para quien tiene ese vínculo. Los fondos de pensión cerrados suelen tener tasas de administración más bajas que los planes abiertos equivalentes, en parte porque no tienen gastos de distribución comercial para el público en general."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um funcionário de uma grande empresa tem acesso a um fundo de pensão fechado oferecido como benefício, no qual a empresa contribui com um valor equivalente ao que o funcionário aporta. Um autônomo, sem vínculo empregatício com nenhuma empresa que ofereça esse benefício, só tem acesso à previdência aberta, contratada diretamente com um banco ou seguradora, sem a contrapartida de contribuição de um empregador."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An employee at a large company has access to a closed pension fund offered as a benefit, where the company contributes an amount matching what the employee puts in. A self-employed person, with no employment relationship with any company offering that benefit, only has access to open pension, contracted directly with a bank or insurance company, without an employer's matching contribution."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un empleado de una gran empresa tiene acceso a un fondo de pensión cerrado ofrecido como beneficio, en el que la empresa contribuye con un monto equivalente al que aporta el empleado. Un trabajador autónomo, sin relación laboral con ninguna empresa que ofrezca ese beneficio, solo tiene acceso a la previsión abierta, contratada directamente con un banco o aseguradora, sin la contrapartida de contribución de un empleador."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a principal diferença entre previdência aberta e fechada?",
+                  "options": [
+                    "Não existe diferença, os dois tipos são idênticos",
+                    "Previdência aberta pode ser contratada por qualquer pessoa; previdência fechada depende de vínculo com uma empresa ou categoria profissional específica",
+                    "Previdência fechada sempre tem taxas mais altas do que a aberta",
+                    "Previdência aberta só existe para funcionários de bancos"
+                  ],
+                  "explanation": "Previdência aberta está disponível para qualquer pessoa, contratada diretamente; previdência fechada depende de um vínculo específico, geralmente empregatício, com contribuição frequentemente compartilhada pela empresa."
+                },
+                "en": {
+                  "prompt": "What is the main difference between open and closed pension?",
+                  "options": [
+                    "There's no difference, both types are identical",
+                    "Open pension can be contracted by anyone; closed pension depends on affiliation with a specific company or professional category",
+                    "Closed pension always has higher fees than open pension",
+                    "Open pension only exists for bank employees"
+                  ],
+                  "explanation": "Open pension is available to anyone, contracted directly; closed pension depends on a specific affiliation, usually employment-based, with contribution frequently shared by the company."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la principal diferencia entre previsión abierta y cerrada?",
+                  "options": [
+                    "No existe diferencia, ambos tipos son idénticos",
+                    "La previsión abierta puede contratarla cualquier persona; la previsión cerrada depende de un vínculo con una empresa o categoría profesional específica",
+                    "La previsión cerrada siempre tiene tasas más altas que la abierta",
+                    "La previsión abierta solo existe para empleados de bancos"
+                  ],
+                  "explanation": "La previsión abierta está disponible para cualquier persona, contratada directamente; la previsión cerrada depende de un vínculo específico, generalmente laboral, con contribución frecuentemente compartida por la empresa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você começou a trabalhar em uma empresa que oferece fundo de pensão fechado, com contrapartida de contribuição da empresa. O que vale a pena considerar sobre essa opção, comparada a contratar um plano aberto por conta própria?",
+                  "options": [
+                    "Nada, os dois tipos de plano são sempre equivalentes em custo e benefício",
+                    "A contrapartida da empresa representa um retorno adicional imediato sobre a contribuição, algo que planos abertos contratados individualmente não costumam oferecer",
+                    "Fundos de pensão fechados nunca fazem sentido para ninguém",
+                    "Previdência aberta sempre é mais vantajosa do que qualquer fundo fechado"
+                  ],
+                  "explanation": "Quando a empresa contribui junto com o funcionário em um fundo fechado, essa contrapartida representa um ganho imediato que planos abertos contratados individualmente, sem esse benefício, normalmente não oferecem."
+                },
+                "en": {
+                  "prompt": "You started working at a company that offers a closed pension fund, with matching company contributions. What's worth considering about this option, compared to contracting an open plan on your own?",
+                  "options": [
+                    "Nothing, both plan types are always equivalent in cost and benefit",
+                    "The company's matching contribution represents an immediate additional return on the contribution, something open plans contracted individually don't usually offer",
+                    "Closed pension funds never make sense for anyone",
+                    "Open pension is always more advantageous than any closed fund"
+                  ],
+                  "explanation": "When the company contributes alongside the employee in a closed fund, that match represents an immediate gain that individually contracted open plans, without that benefit, normally don't offer."
+                },
+                "es": {
+                  "prompt": "Empezaste a trabajar en una empresa que ofrece un fondo de pensión cerrado, con contrapartida de contribución de la empresa. ¿Qué vale la pena considerar sobre esta opción, comparada con contratar un plan abierto por tu cuenta?",
+                  "options": [
+                    "Nada, ambos tipos de plan siempre son equivalentes en costo y beneficio",
+                    "La contrapartida de la empresa representa un retorno adicional inmediato sobre la contribución, algo que los planes abiertos contratados individualmente no suelen ofrecer",
+                    "Los fondos de pensión cerrados nunca tienen sentido para nadie",
+                    "La previsión abierta siempre es más ventajosa que cualquier fondo cerrado"
+                  ],
+                  "explanation": "Cuando la empresa contribuye junto con el empleado en un fondo cerrado, esa contrapartida representa una ganancia inmediata que los planes abiertos contratados individualmente, sin ese beneficio, normalmente no ofrecen."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Previdência aberta pode ser contratada por qualquer pessoa; previdência fechada depende de vínculo específico.",
+                    "Fundos fechados costumam ter taxas menores e contrapartida de contribuição da empresa.",
+                    "A contrapartida da empresa representa um ganho imediato importante, quando disponível."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Open pension can be contracted by anyone; closed pension depends on a specific affiliation.",
+                    "Closed funds tend to have lower fees and a matching company contribution.",
+                    "The company's matching contribution represents an important immediate gain, when available."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La previsión abierta puede contratarla cualquier persona; la previsión cerrada depende de un vínculo específico.",
+                    "Los fondos cerrados suelen tener tasas menores y contrapartida de contribución de la empresa.",
+                    "La contrapartida de la empresa representa una ganancia inmediata importante, cuando está disponible."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "retirement_estate_planning",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Previdência e Planejamento Sucessório"},
+            "en": {"title": "Pension and Estate Planning"},
+            "es": {"title": "Previsión y Planificación Sucesoria"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um caminho diferente para transmitir patrimônio",
+                  "body": "Diferente da maioria dos bens, que passam por processo de inventário para serem transmitidos a herdeiros após o falecimento, o saldo de planos de previdência privada como PGBL e VGBL costuma ser pago diretamente aos beneficiários indicados pelo titular, sem precisar aguardar a conclusão do inventário — um processo que pode levar meses ou anos. Por isso, além de sua função como investimento para a aposentadoria, a previdência privada também é usada, com frequência, como parte de um planejamento sucessório, oferecendo acesso mais rápido a parte do patrimônio para os beneficiários."
+                },
+                "en": {
+                  "title": "A different path for passing on wealth",
+                  "body": "Unlike most assets, which go through probate to be passed on to heirs after death, the balance of private pension plans like PGBL and VGBL is usually paid directly to the beneficiaries designated by the account holder, without needing to wait for probate to conclude — a process that can take months or years. Because of this, besides its function as a retirement investment, private pension is also frequently used as part of estate planning, offering faster access to part of the wealth for beneficiaries."
+                },
+                "es": {
+                  "title": "Un camino diferente para transmitir patrimonio",
+                  "body": "A diferencia de la mayoría de los bienes, que pasan por un proceso de inventario para transmitirse a los herederos después del fallecimiento, el saldo de planes de previsión privada como el PGBL y el VGBL suele pagarse directamente a los beneficiarios indicados por el titular, sin necesidad de esperar la conclusión del inventario — un proceso que puede tardar meses o años. Por eso, además de su función como inversión para la jubilación, la previsión privada también se usa, con frecuencia, como parte de una planificación sucesoria, ofreciendo acceso más rápido a parte del patrimonio para los beneficiarios."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa falece deixando um imóvel e um plano VGBL, ambos com valores parecidos. O imóvel só pode ser transferido aos herdeiros depois de concluído o inventário, um processo que leva mais de um ano nesse caso específico. O saldo do VGBL, por outro lado, é pago aos beneficiários indicados em poucas semanas, oferecendo acesso mais rápido a recursos financeiros logo após o falecimento."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone dies leaving a property and a VGBL plan, both worth similar amounts. The property can only be transferred to the heirs after probate concludes, a process that takes more than a year in this specific case. The VGBL balance, on the other hand, is paid to the designated beneficiaries within a few weeks, offering faster access to financial resources right after death."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona fallece dejando un inmueble y un plan VGBL, ambos con montos parecidos. El inmueble solo puede transferirse a los herederos después de concluido el inventario, un proceso que tarda más de un año en este caso específico. El saldo del VGBL, en cambio, se paga a los beneficiarios indicados en pocas semanas, ofreciendo acceso más rápido a recursos financieros justo después del fallecimiento."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que a previdência privada é frequentemente usada como parte de um planejamento sucessório?",
+                  "options": [
+                    "Porque ela nunca pode ser deixada para beneficiários",
+                    "Porque seu saldo costuma ser pago diretamente aos beneficiários indicados, sem precisar aguardar a conclusão do inventário",
+                    "Porque ela é obrigatoriamente incluída no inventário, como qualquer outro bem",
+                    "Porque previdência privada não pode ter beneficiários indicados"
+                  ],
+                  "explanation": "O pagamento direto aos beneficiários indicados, sem depender do processo de inventário, é a principal razão pela qual a previdência privada costuma ser considerada em planejamentos sucessórios."
+                },
+                "en": {
+                  "prompt": "Why is private pension often used as part of estate planning?",
+                  "options": [
+                    "Because it can never be left to beneficiaries",
+                    "Because its balance is usually paid directly to the designated beneficiaries, without needing to wait for probate to conclude",
+                    "Because it's mandatorily included in probate, like any other asset",
+                    "Because private pension can't have designated beneficiaries"
+                  ],
+                  "explanation": "Direct payment to designated beneficiaries, without depending on the probate process, is the main reason private pension is often considered in estate planning."
+                },
+                "es": {
+                  "prompt": "¿Por qué la previsión privada se usa frecuentemente como parte de una planificación sucesoria?",
+                  "options": [
+                    "Porque nunca puede dejarse a beneficiarios",
+                    "Porque su saldo suele pagarse directamente a los beneficiarios indicados, sin necesidad de esperar la conclusión del inventario",
+                    "Porque se incluye obligatoriamente en el inventario, como cualquier otro bien",
+                    "Porque la previsión privada no puede tener beneficiarios indicados"
+                  ],
+                  "explanation": "El pago directo a los beneficiarios indicados, sin depender del proceso de inventario, es la principal razón por la que la previsión privada suele considerarse en planificaciones sucesorias."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende que planos de previdência têm beneficiários indicados diretamente pelo titular. Por que isso pode ser relevante para uma família que quer garantir acesso rápido a recursos financeiros em caso de falecimento inesperado?",
+                  "options": [
+                    "Não é relevante, todo tipo de bem é transferido com a mesma velocidade após um falecimento",
+                    "Porque, diferente de bens que dependem do inventário, o saldo da previdência privada tende a chegar aos beneficiários rapidamente, oferecendo liquidez em um momento em que outros recursos podem estar temporariamente indisponíveis",
+                    "Planos de previdência nunca podem ser usados para esse fim",
+                    "Apenas herdeiros legais podem ser beneficiários de um plano de previdência"
+                  ],
+                  "explanation": "Em um momento em que o acesso a outros bens pode estar temporariamente travado pelo processo de inventário, o pagamento mais rápido do saldo de previdência aos beneficiários indicados pode ser uma fonte importante de liquidez para a família."
+                },
+                "en": {
+                  "prompt": "You already understand that pension plans have beneficiaries designated directly by the account holder. Why might this be relevant for a family that wants to ensure quick access to financial resources in case of an unexpected death?",
+                  "options": [
+                    "It's not relevant, every type of asset transfers at the same speed after a death",
+                    "Because, unlike assets that depend on probate, the private pension balance tends to reach beneficiaries quickly, offering liquidity at a moment when other resources might be temporarily unavailable",
+                    "Pension plans can never be used for this purpose",
+                    "Only legal heirs can be beneficiaries of a pension plan"
+                  ],
+                  "explanation": "At a moment when access to other assets might be temporarily locked by the probate process, the faster payment of the pension balance to designated beneficiaries can be an important source of liquidity for the family."
+                },
+                "es": {
+                  "prompt": "Ya entiendes que los planes de previsión tienen beneficiarios indicados directamente por el titular. ¿Por qué podría ser esto relevante para una familia que quiere garantizar acceso rápido a recursos financieros en caso de fallecimiento inesperado?",
+                  "options": [
+                    "No es relevante, todo tipo de bien se transfiere con la misma velocidad después de un fallecimiento",
+                    "Porque, a diferencia de los bienes que dependen del inventario, el saldo de la previsión privada tiende a llegar rápidamente a los beneficiarios, ofreciendo liquidez en un momento en que otros recursos pueden estar temporalmente indisponibles",
+                    "Los planes de previsión nunca pueden usarse para ese fin",
+                    "Solo los herederos legales pueden ser beneficiarios de un plan de previsión"
+                  ],
+                  "explanation": "En un momento en que el acceso a otros bienes puede estar temporalmente bloqueado por el proceso de inventario, el pago más rápido del saldo de previsión a los beneficiarios indicados puede ser una fuente importante de liquidez para la familia."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "O saldo de planos de previdência costuma ser pago diretamente aos beneficiários, sem depender do inventário.",
+                    "Isso torna a previdência privada uma ferramenta comum em planejamento sucessório.",
+                    "Você concluiu o módulo de planejamento de aposentadoria na prática."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Pension plan balances are usually paid directly to beneficiaries, without depending on probate.",
+                    "This makes private pension a common tool in estate planning.",
+                    "You've completed the retirement planning in practice module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El saldo de los planes de previsión suele pagarse directamente a los beneficiarios, sin depender del inventario.",
+                    "Esto convierte a la previsión privada en una herramienta común en la planificación sucesoria.",
+                    "Completaste el módulo de planificación de la jubilación en la práctica."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

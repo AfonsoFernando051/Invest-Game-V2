@@ -798,6 +798,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "applied_financial_math",
+      "order": 2,
+      "iconKey": "calculate_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["financial_math_basics"],
+      "translations": {
+        "pt": {
+          "title": "Matemática Financeira Aplicada",
+          "description": "Valor presente e futuro, sistemas de amortização, taxa proporcional x equivalente e custo de oportunidade."
+        },
+        "en": {
+          "title": "Applied Financial Math",
+          "description": "Present and future value, amortization systems, proportional vs. equivalent rate and opportunity cost."
+        },
+        "es": {
+          "title": "Matemática Financiera Aplicada",
+          "description": "Valor presente y futuro, sistemas de amortización, tasa proporcional vs. equivalente y costo de oportunidad."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "financial_math_present_future_value",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Valor Presente e Valor Futuro"},
+            "en": {"title": "Present Value and Future Value"},
+            "es": {"title": "Valor Presente y Valor Futuro"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "As duas pontas de uma mesma linha do tempo",
+                  "body": "Valor futuro é quanto uma quantia de hoje vai valer depois de crescer a uma taxa de juros por um período de tempo. Valor presente é o caminho inverso: quanto uma quantia futura vale hoje, descontada a uma taxa ao longo do mesmo período. Esses dois conceitos são a base de praticamente todos os cálculos financeiros que envolvem tempo — de quanto investir hoje para atingir uma meta, até quanto vale hoje um pagamento prometido para o futuro."
+                },
+                "en": {
+                  "title": "The two ends of the same timeline",
+                  "body": "Future value is how much an amount of money today will be worth after growing at an interest rate over a period of time. Present value is the reverse path: how much a future amount is worth today, discounted at a rate over that same period. These two concepts are the basis of practically every financial calculation that involves time — from how much to invest today to reach a goal, to how much a payment promised for the future is worth today."
+                },
+                "es": {
+                  "title": "Los dos extremos de una misma línea de tiempo",
+                  "body": "El valor futuro es cuánto valdrá una cantidad de hoy después de crecer a una tasa de interés durante un período de tiempo. El valor presente es el camino inverso: cuánto vale hoy una cantidad futura, descontada a una tasa a lo largo del mismo período. Estos dos conceptos son la base de prácticamente todos los cálculos financieros que involucran tiempo — desde cuánto invertir hoy para alcanzar una meta, hasta cuánto vale hoy un pago prometido para el futuro."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Se você quer saber quanto R$1.000 de hoje valerão daqui a 5 anos, a uma taxa de 8% ao ano, você está calculando o valor futuro. Se, ao contrário, alguém te promete R$1.500 daqui a 5 anos e você quer saber quanto isso vale em dinheiro de hoje, a uma mesma taxa de desconto, você está calculando o valor presente dessa promessa."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "If you want to know how much today's R$1,000 will be worth 5 years from now, at a rate of 8% a year, you're calculating future value. If, instead, someone promises you R$1,500 in 5 years and you want to know how much that's worth in today's money, at the same discount rate, you're calculating the present value of that promise."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Si quieres saber cuánto valdrán R$1.000 de hoy dentro de 5 años, a una tasa del 8% anual, estás calculando el valor futuro. Si, en cambio, alguien te promete R$1.500 dentro de 5 años y quieres saber cuánto vale eso en dinero de hoy, a la misma tasa de descuento, estás calculando el valor presente de esa promesa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a diferença entre valor futuro e valor presente?",
+                  "options": [
+                    "Não existe diferença, são o mesmo cálculo",
+                    "Valor futuro projeta uma quantia de hoje para o futuro; valor presente traz uma quantia futura para hoje",
+                    "Valor presente só se aplica a dívidas, nunca a investimentos",
+                    "Valor futuro é sempre menor do que o valor original"
+                  ],
+                  "explanation": "Valor futuro e valor presente são cálculos inversos: um projeta dinheiro de hoje para frente no tempo, o outro traz dinheiro do futuro para o presente."
+                },
+                "en": {
+                  "prompt": "What is the difference between future value and present value?",
+                  "options": [
+                    "There's no difference, they're the same calculation",
+                    "Future value projects an amount from today into the future; present value brings a future amount back to today",
+                    "Present value only applies to debts, never to investments",
+                    "Future value is always smaller than the original amount"
+                  ],
+                  "explanation": "Future value and present value are inverse calculations: one projects today's money forward in time, the other brings future money back to the present."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la diferencia entre valor futuro y valor presente?",
+                  "options": [
+                    "No existe diferencia, es el mismo cálculo",
+                    "El valor futuro proyecta un monto de hoy hacia el futuro; el valor presente trae un monto futuro a hoy",
+                    "El valor presente solo se aplica a deudas, nunca a inversiones",
+                    "El valor futuro siempre es menor que el monto original"
+                  ],
+                  "explanation": "El valor futuro y el valor presente son cálculos inversos: uno proyecta el dinero de hoy hacia adelante en el tiempo, el otro trae dinero del futuro al presente."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende valor do dinheiro no tempo de outra lição. Alguém te oferece R$2.000 daqui a 3 anos como pagamento por um serviço. Como o conceito de valor presente ajuda a avaliar se essa proposta é justa?",
+                  "options": [
+                    "Não ajuda, o valor nominal futuro é sempre o que importa, sem nenhum ajuste",
+                    "Ele permite calcular quanto esses R$2.000 futuros valem em dinheiro de hoje, a uma taxa de desconto razoável, para comparar com o valor que você receberia se fosse pago à vista",
+                    "Valor presente só pode ser calculado por bancos",
+                    "A proposta é sempre justa, independentemente do prazo"
+                  ],
+                  "explanation": "Trazer o valor futuro prometido para valor presente permite comparar essa proposta com uma alternativa em dinheiro à vista, de forma mais justa, considerando o tempo de espera envolvido."
+                },
+                "en": {
+                  "prompt": "You already understand the time value of money from another lesson. Someone offers you R$2,000 in 3 years as payment for a service. How does the present value concept help assess whether this offer is fair?",
+                  "options": [
+                    "It doesn't help, the future nominal value is always what matters, with no adjustment",
+                    "It allows calculating how much that future R$2,000 is worth in today's money, at a reasonable discount rate, to compare with the value you'd receive if paid upfront",
+                    "Present value can only be calculated by banks",
+                    "The offer is always fair, regardless of the time frame"
+                  ],
+                  "explanation": "Bringing the promised future value to present value allows comparing this offer with an upfront cash alternative, more fairly, considering the waiting time involved."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el valor del dinero en el tiempo de otra lección. Alguien te ofrece R$2.000 dentro de 3 años como pago por un servicio. ¿Cómo ayuda el concepto de valor presente a evaluar si esa propuesta es justa?",
+                  "options": [
+                    "No ayuda, el valor nominal futuro siempre es lo que importa, sin ningún ajuste",
+                    "Permite calcular cuánto valen esos R$2.000 futuros en dinero de hoy, a una tasa de descuento razonable, para comparar con el valor que recibirías si te pagaran al contado",
+                    "El valor presente solo puede calcularlo un banco",
+                    "La propuesta siempre es justa, sin importar el plazo"
+                  ],
+                  "explanation": "Traer el valor futuro prometido a valor presente permite comparar esa propuesta con una alternativa en dinero al contado, de forma más justa, considerando el tiempo de espera involucrado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Valor futuro projeta uma quantia de hoje para frente no tempo.",
+                    "Valor presente traz uma quantia futura para seu equivalente em dinheiro de hoje.",
+                    "Esses dois cálculos são a base de praticamente toda decisão financeira que envolve tempo."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Future value projects an amount from today forward in time.",
+                    "Present value brings a future amount to its equivalent in today's money.",
+                    "These two calculations are the basis of practically every financial decision that involves time."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El valor futuro proyecta un monto de hoy hacia adelante en el tiempo.",
+                    "El valor presente trae un monto futuro a su equivalente en dinero de hoy.",
+                    "Estos dos cálculos son la base de prácticamente toda decisión financiera que involucra tiempo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_math_amortization_systems",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Sistemas de Amortização (Price x SAC)"},
+            "en": {"title": "Amortization Systems (Price vs. SAC)"},
+            "es": {"title": "Sistemas de Amortización (Price vs. SAC)"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Duas formas de pagar um financiamento",
+                  "body": "Amortização é o processo de pagar uma dívida aos poucos, através de parcelas que cobrem parte do valor emprestado (principal) mais os juros do período. No sistema Price, as parcelas têm valor fixo do início ao fim, mas a composição entre juros e amortização do principal varia — no começo, a parcela é composta principalmente por juros; no fim, principalmente por amortização. No sistema SAC (Sistema de Amortização Constante), a amortização do principal é fixa em todas as parcelas, o que faz o valor total da parcela começar mais alto e diminuir ao longo do tempo, já que os juros incidem sobre um saldo devedor decrescente."
+                },
+                "en": {
+                  "title": "Two ways to pay off a loan",
+                  "body": "Amortization is the process of paying off a debt gradually, through installments that cover part of the borrowed amount (principal) plus the period's interest. Under the Price system, installments have a fixed value from start to finish, but the split between interest and principal amortization varies — early on, the installment is mostly interest; toward the end, mostly principal amortization. Under the SAC system (Constant Amortization System), the principal amortization is fixed across all installments, which makes the total installment value start higher and decrease over time, since interest applies to a shrinking outstanding balance."
+                },
+                "es": {
+                  "title": "Dos formas de pagar un financiamiento",
+                  "body": "La amortización es el proceso de pagar una deuda poco a poco, a través de cuotas que cubren parte del monto prestado (principal) más los intereses del período. En el sistema Price, las cuotas tienen un valor fijo de principio a fin, pero la composición entre intereses y amortización del principal varía — al principio, la cuota se compone principalmente de intereses; al final, principalmente de amortización. En el sistema SAC (Sistema de Amortización Constante), la amortización del principal es fija en todas las cuotas, lo que hace que el valor total de la cuota empiece más alto y disminuya con el tiempo, ya que los intereses se aplican sobre un saldo deudor decreciente."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um financiamento imobiliário pelo sistema SAC tem uma primeira parcela de R$3.000, que vai diminuindo mês a mês até a última parcela, bem menor. O mesmo financiamento pelo sistema Price teria uma parcela fixa, digamos R$2.500, do primeiro ao último mês — mas o total pago em juros ao longo de todo o financiamento costuma ser maior no Price, já que o saldo devedor demora mais para cair de forma significativa."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A mortgage under the SAC system has a first installment of R$3,000, which decreases month by month until the last installment, much smaller. The same mortgage under the Price system would have a fixed installment, say R$2,500, from the first to the last month — but the total paid in interest over the whole loan tends to be higher under Price, since the outstanding balance takes longer to drop significantly."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un financiamiento inmobiliario por el sistema SAC tiene una primera cuota de R$3.000, que va disminuyendo mes a mes hasta la última cuota, bastante menor. El mismo financiamiento por el sistema Price tendría una cuota fija, digamos R$2.500, desde el primero hasta el último mes — pero el total pagado en intereses a lo largo de todo el financiamiento suele ser mayor en el Price, ya que el saldo deudor tarda más en bajar de forma significativa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza o sistema SAC de amortização?",
+                  "options": [
+                    "Parcelas fixas do início ao fim do financiamento",
+                    "Amortização do principal fixa em todas as parcelas, fazendo o valor total da parcela diminuir ao longo do tempo",
+                    "A ausência total de juros no financiamento",
+                    "Um sistema usado apenas para financiar veículos"
+                  ],
+                  "explanation": "No SAC, a parte de amortização do principal é sempre a mesma, e como os juros incidem sobre um saldo devedor decrescente, o valor total da parcela cai ao longo do tempo."
+                },
+                "en": {
+                  "prompt": "What characterizes the SAC amortization system?",
+                  "options": [
+                    "Fixed installments from the start to the end of the loan",
+                    "Fixed principal amortization across all installments, making the total installment value decrease over time",
+                    "The total absence of interest in the loan",
+                    "A system used only for financing vehicles"
+                  ],
+                  "explanation": "In SAC, the principal amortization portion is always the same, and since interest applies to a shrinking outstanding balance, the total installment value drops over time."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza al sistema SAC de amortización?",
+                  "options": [
+                    "Cuotas fijas desde el inicio hasta el final del financiamiento",
+                    "Amortización del principal fija en todas las cuotas, haciendo que el valor total de la cuota disminuya con el tiempo",
+                    "La ausencia total de intereses en el financiamiento",
+                    "Un sistema usado solo para financiar vehículos"
+                  ],
+                  "explanation": "En el SAC, la parte de amortización del principal siempre es la misma, y como los intereses se aplican sobre un saldo deudor decreciente, el valor total de la cuota cae con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está escolhendo entre um financiamento pelo sistema Price, com parcelas fixas mais confortáveis no orçamento mensal, e um pelo sistema SAC, com parcelas iniciais mais altas, mas decrescentes. O que vale a pena considerar nessa escolha?",
+                  "options": [
+                    "Apenas o valor da primeira parcela, ignorando todo o resto do financiamento",
+                    "O equilíbrio entre a previsibilidade e o valor inicial mais confortável do Price, e o fato de o SAC costumar gerar um total de juros pagos menor ao longo de todo o financiamento",
+                    "Os dois sistemas são sempre idênticos em termos de custo total",
+                    "SAC nunca deve ser considerado, independentemente da situação financeira"
+                  ],
+                  "explanation": "A escolha entre Price e SAC envolve um trade-off entre parcelas iniciais mais confortáveis (Price) e um custo total de juros geralmente menor ao longo do financiamento (SAC) — a decisão depende do orçamento e da prioridade de cada pessoa."
+                },
+                "en": {
+                  "prompt": "You're choosing between a loan under the Price system, with fixed installments more comfortable in the monthly budget, and one under the SAC system, with higher initial installments that decrease over time. What's worth considering in this choice?",
+                  "options": [
+                    "Only the first installment's value, ignoring everything else about the loan",
+                    "The trade-off between the predictability and more comfortable initial value of Price, and the fact that SAC tends to generate a lower total interest paid over the whole loan",
+                    "Both systems always have identical total cost",
+                    "SAC should never be considered, regardless of the financial situation"
+                  ],
+                  "explanation": "The choice between Price and SAC involves a trade-off between more comfortable initial installments (Price) and a generally lower total interest cost over the loan (SAC) — the decision depends on each person's budget and priorities."
+                },
+                "es": {
+                  "prompt": "Estás eligiendo entre un financiamiento por el sistema Price, con cuotas fijas más cómodas en el presupuesto mensual, y uno por el sistema SAC, con cuotas iniciales más altas, pero decrecientes. ¿Qué vale la pena considerar en esta elección?",
+                  "options": [
+                    "Solo el valor de la primera cuota, ignorando todo el resto del financiamiento",
+                    "El equilibrio entre la previsibilidad y el valor inicial más cómodo del Price, y el hecho de que el SAC suele generar un total de intereses pagados menor a lo largo de todo el financiamiento",
+                    "Ambos sistemas siempre tienen un costo total idéntico",
+                    "El SAC nunca debe considerarse, sin importar la situación financiera"
+                  ],
+                  "explanation": "La elección entre Price y SAC implica un equilibrio entre cuotas iniciales más cómodas (Price) y un costo total de intereses generalmente menor a lo largo del financiamiento (SAC) — la decisión depende del presupuesto y la prioridad de cada persona."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Price tem parcelas fixas; SAC tem amortização de principal fixa, com parcelas decrescentes.",
+                    "SAC costuma gerar um total de juros pagos menor ao longo do financiamento.",
+                    "A escolha entre os dois envolve um trade-off entre conforto inicial no orçamento e custo total."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Price has fixed installments; SAC has fixed principal amortization, with decreasing installments.",
+                    "SAC tends to generate a lower total interest paid over the loan.",
+                    "The choice between the two involves a trade-off between initial budget comfort and total cost."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Price tiene cuotas fijas; SAC tiene amortización de principal fija, con cuotas decrecientes.",
+                    "El SAC suele generar un total de intereses pagados menor a lo largo del financiamiento.",
+                    "La elección entre ambos implica un equilibrio entre comodidad inicial en el presupuesto y costo total."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_math_nominal_vs_effective_rate",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Taxa Proporcional x Taxa Equivalente"},
+            "en": {"title": "Proportional Rate vs. Equivalent Rate"},
+            "es": {"title": "Tasa Proporcional vs. Tasa Equivalente"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Duas formas de converter uma taxa entre períodos diferentes",
+                  "body": "Ao converter uma taxa de juros de um período para outro — de anual para mensal, por exemplo — existem duas abordagens possíveis. A taxa proporcional simplesmente divide (ou multiplica) a taxa pelo número de períodos, sem considerar o efeito de juros compostos — usada em juros simples. A taxa equivalente, usada em juros compostos, calcula a taxa que, aplicada repetidamente ao longo dos períodos menores, chega exatamente ao mesmo resultado final da taxa maior — por isso, a taxa equivalente mensal de uma taxa anual é sempre um pouco menor do que a taxa simplesmente dividida por 12."
+                },
+                "en": {
+                  "title": "Two ways to convert a rate between different periods",
+                  "body": "When converting an interest rate from one period to another — from annual to monthly, for example — there are two possible approaches. The proportional rate simply divides (or multiplies) the rate by the number of periods, without considering the compound interest effect — used in simple interest. The equivalent rate, used in compound interest, calculates the rate that, applied repeatedly over the smaller periods, arrives at exactly the same final result as the larger rate — that's why the monthly equivalent rate of an annual rate is always a bit lower than the rate simply divided by 12."
+                },
+                "es": {
+                  "title": "Dos formas de convertir una tasa entre períodos diferentes",
+                  "body": "Al convertir una tasa de interés de un período a otro — de anual a mensual, por ejemplo — existen dos enfoques posibles. La tasa proporcional simplemente divide (o multiplica) la tasa por el número de períodos, sin considerar el efecto del interés compuesto — usada en interés simple. La tasa equivalente, usada en interés compuesto, calcula la tasa que, aplicada repetidamente a lo largo de los períodos menores, llega exactamente al mismo resultado final que la tasa mayor — por eso, la tasa equivalente mensual de una tasa anual es siempre un poco menor que la tasa simplemente dividida entre 12."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma taxa de 12% ao ano, se convertida de forma proporcional (simples), daria 1% ao mês (12% dividido por 12). Mas, em juros compostos, a taxa mensal equivalente a 12% ao ano é de aproximadamente 0,95% ao mês — um pouco menor, porque, aplicada mês a mês com o efeito de juros sobre juros, ela já chega aos mesmos 12% ao final do ano, sem precisar dos 1% cheios."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A rate of 12% a year, if converted proportionally (simple), would give 1% a month (12% divided by 12). But, in compound interest, the monthly rate equivalent to 12% a year is approximately 0.95% a month — a bit lower, because, applied month by month with the effect of interest on interest, it already reaches the same 12% by the end of the year, without needing the full 1%."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una tasa del 12% anual, si se convierte de forma proporcional (simple), daría el 1% mensual (12% dividido entre 12). Pero, en interés compuesto, la tasa mensual equivalente al 12% anual es de aproximadamente el 0,95% mensual — un poco menor, porque, aplicada mes a mes con el efecto de intereses sobre intereses, ya llega al mismo 12% al final del año, sin necesitar el 1% completo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual a diferença entre taxa proporcional e taxa equivalente?",
+                  "options": [
+                    "Não existe diferença, as duas dão sempre o mesmo resultado",
+                    "Taxa proporcional divide a taxa de forma simples, sem considerar juros compostos; taxa equivalente considera o efeito de juros compostos entre os períodos",
+                    "Taxa equivalente só existe em produtos de renda variável",
+                    "Taxa proporcional é sempre usada em investimentos de longo prazo"
+                  ],
+                  "explanation": "Taxa proporcional é uma divisão simples da taxa, sem considerar o efeito de juros sobre juros; taxa equivalente calcula a taxa que, composta ao longo dos períodos, chega ao mesmo resultado da taxa maior."
+                },
+                "en": {
+                  "prompt": "What's the difference between proportional rate and equivalent rate?",
+                  "options": [
+                    "There's no difference, both always give the same result",
+                    "Proportional rate divides the rate simply, without considering compound interest; equivalent rate considers the compound interest effect between periods",
+                    "Equivalent rate only exists for variable income products",
+                    "Proportional rate is always used for long-term investments"
+                  ],
+                  "explanation": "Proportional rate is a simple division of the rate, without considering the effect of interest on interest; equivalent rate calculates the rate that, compounded over the periods, reaches the same result as the larger rate."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la diferencia entre tasa proporcional y tasa equivalente?",
+                  "options": [
+                    "No existe diferencia, ambas siempre dan el mismo resultado",
+                    "La tasa proporcional divide la tasa de forma simple, sin considerar el interés compuesto; la tasa equivalente considera el efecto del interés compuesto entre los períodos",
+                    "La tasa equivalente solo existe en productos de renta variable",
+                    "La tasa proporcional siempre se usa en inversiones a largo plazo"
+                  ],
+                  "explanation": "La tasa proporcional es una división simple de la tasa, sin considerar el efecto de intereses sobre intereses; la tasa equivalente calcula la tasa que, compuesta a lo largo de los períodos, llega al mismo resultado que la tasa mayor."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende juros compostos de outra lição. Por que, em um investimento com juros compostos, a taxa mensal equivalente a 12% ao ano é menor do que simplesmente dividir 12% por 12?",
+                  "options": [
+                    "Porque investimentos com juros compostos sempre rendem menos do que o anunciado",
+                    "Porque, com juros compostos, os rendimentos mensais também passam a render juros nos meses seguintes, então uma taxa mensal um pouco menor já é suficiente para chegar aos mesmos 12% ao final do ano",
+                    "Porque essa diferença é sempre um erro de cálculo da instituição financeira",
+                    "Porque taxa equivalente só se aplica a taxas negativas"
+                  ],
+                  "explanation": "Como os juros de cada mês passam a render juros nos meses seguintes, uma taxa mensal ligeiramente menor do que a divisão simples já é suficiente para, composta ao longo do ano, chegar ao mesmo resultado da taxa anual."
+                },
+                "en": {
+                  "prompt": "You already understand compound interest from another lesson. Why, in a compound interest investment, is the monthly rate equivalent to 12% a year lower than simply dividing 12% by 12?",
+                  "options": [
+                    "Because compound interest investments always earn less than advertised",
+                    "Because, with compound interest, each month's earnings also start earning interest in the following months, so a slightly lower monthly rate is already enough to reach the same 12% by the end of the year",
+                    "Because this difference is always a calculation error by the financial institution",
+                    "Because equivalent rate only applies to negative rates"
+                  ],
+                  "explanation": "Since each month's interest starts earning interest in the following months, a monthly rate slightly lower than the simple division is already enough, compounded over the year, to reach the same result as the annual rate."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el interés compuesto de otra lección. ¿Por qué, en una inversión con interés compuesto, la tasa mensual equivalente al 12% anual es menor que simplemente dividir el 12% entre 12?",
+                  "options": [
+                    "Porque las inversiones con interés compuesto siempre rinden menos de lo anunciado",
+                    "Porque, con interés compuesto, los rendimientos mensuales también empiezan a rendir intereses en los meses siguientes, así que una tasa mensual un poco menor ya es suficiente para llegar al mismo 12% al final del año",
+                    "Porque esa diferencia siempre es un error de cálculo de la institución financiera",
+                    "Porque la tasa equivalente solo se aplica a tasas negativas"
+                  ],
+                  "explanation": "Como los intereses de cada mes empiezan a rendir intereses en los meses siguientes, una tasa mensual ligeramente menor que la división simple ya es suficiente para, compuesta a lo largo del año, llegar al mismo resultado que la tasa anual."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Taxa proporcional divide a taxa de forma simples, sem considerar juros compostos.",
+                    "Taxa equivalente considera o efeito de juros sobre juros entre os períodos.",
+                    "A taxa mensal equivalente a uma taxa anual é sempre menor do que a divisão simples por 12."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Proportional rate divides the rate simply, without considering compound interest.",
+                    "Equivalent rate considers the effect of interest on interest between periods.",
+                    "The monthly rate equivalent to an annual rate is always lower than the simple division by 12."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La tasa proporcional divide la tasa de forma simple, sin considerar el interés compuesto.",
+                    "La tasa equivalente considera el efecto de intereses sobre intereses entre los períodos.",
+                    "La tasa mensual equivalente a una tasa anual siempre es menor que la división simple entre 12."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "financial_math_opportunity_cost",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Custo de Oportunidade"},
+            "en": {"title": "Opportunity Cost"},
+            "es": {"title": "Costo de Oportunidad"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O valor da melhor alternativa que você deixou de escolher",
+                  "body": "Custo de oportunidade é o valor da melhor alternativa que você deixa de aproveitar ao escolher uma opção em vez de outra. Toda escolha financeira envolve, implicitamente, abrir mão de outras possibilidades — e o custo de oportunidade é uma forma de tornar essa troca explícita, ajudando a comparar não apenas se uma opção é boa isoladamente, mas se ela é a melhor entre as alternativas disponíveis no momento da decisão."
+                },
+                "en": {
+                  "title": "The value of the best alternative you didn't choose",
+                  "body": "Opportunity cost is the value of the best alternative you give up by choosing one option over another. Every financial choice implicitly involves giving up other possibilities — and opportunity cost is a way to make that trade-off explicit, helping compare not just whether an option is good in isolation, but whether it's the best among the alternatives available at the time of the decision."
+                },
+                "es": {
+                  "title": "El valor de la mejor alternativa que no elegiste",
+                  "body": "El costo de oportunidad es el valor de la mejor alternativa que dejas de aprovechar al elegir una opción en lugar de otra. Toda elección financiera implica, implícitamente, renunciar a otras posibilidades — y el costo de oportunidad es una forma de hacer explícito ese intercambio, ayudando a comparar no solo si una opción es buena de forma aislada, sino si es la mejor entre las alternativas disponibles en el momento de la decisión."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa tem R$10.000 e escolhe deixá-los parados na conta corrente, sem render nada, para eventualmente usar em uma oportunidade futura. Se, no mesmo período, ela poderia ter obtido 8% ao ano investindo esse dinheiro em um título de baixo risco, o custo de oportunidade de deixar o dinheiro parado é justamente esse retorno não obtido, mesmo que nenhum prejuízo direto tenha acontecido."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone has R$10,000 and chooses to leave it sitting in their checking account, earning nothing, to eventually use for a future opportunity. If, in the same period, they could have earned 8% a year by investing that money in a low-risk bond, the opportunity cost of leaving the money idle is exactly that foregone return, even though no direct loss occurred."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona tiene R$10.000 y elige dejarlos parados en la cuenta corriente, sin rendir nada, para eventualmente usarlos en una oportunidad futura. Si, en el mismo período, podría haber obtenido el 8% anual invirtiendo ese dinero en un título de bajo riesgo, el costo de oportunidad de dejar el dinero parado es justamente ese retorno no obtenido, aunque no haya ocurrido ninguna pérdida directa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é custo de oportunidade?",
+                  "options": [
+                    "Uma taxa cobrada por corretoras ao trocar de investimento",
+                    "O valor da melhor alternativa que você deixa de aproveitar ao escolher uma opção em vez de outra",
+                    "Um imposto sobre ganhos de capital",
+                    "O custo fixo de manter uma conta bancária"
+                  ],
+                  "explanation": "Custo de oportunidade é o valor do que você abre mão ao escolher uma alternativa específica, em vez da melhor opção disponível entre as demais."
+                },
+                "en": {
+                  "prompt": "What is opportunity cost?",
+                  "options": [
+                    "A fee charged by brokers when switching investments",
+                    "The value of the best alternative you give up by choosing one option over another",
+                    "A tax on capital gains",
+                    "The fixed cost of maintaining a bank account"
+                  ],
+                  "explanation": "Opportunity cost is the value of what you give up by choosing a specific alternative, instead of the best option available among the others."
+                },
+                "es": {
+                  "prompt": "¿Qué es el costo de oportunidad?",
+                  "options": [
+                    "Una tasa cobrada por las correduras al cambiar de inversión",
+                    "El valor de la mejor alternativa que dejas de aprovechar al elegir una opción en lugar de otra",
+                    "Un impuesto sobre ganancias de capital",
+                    "El costo fijo de mantener una cuenta bancaria"
+                  ],
+                  "explanation": "El costo de oportunidad es el valor de lo que renuncias al elegir una alternativa específica, en lugar de la mejor opción disponible entre las demás."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco e retorno de outra lição. Uma pessoa mantém uma grande quantia parada na poupança, com retorno baixo, alegando que 'não perdeu dinheiro nenhum'. Como o conceito de custo de oportunidade ajuda a avaliar essa afirmação?",
+                  "options": [
+                    "Confirma que ela realmente não perdeu nada, já que o saldo nominal não diminuiu",
+                    "Mostra que, mesmo sem uma perda nominal direta, ela pode estar deixando de ganhar um retorno maior disponível em outras alternativas com risco parecido — esse retorno não obtido é o custo de oportunidade da escolha",
+                    "Custo de oportunidade só se aplica a perdas nominais diretas",
+                    "Poupança sempre tem o menor custo de oportunidade entre todas as opções"
+                  ],
+                  "explanation": "Mesmo sem uma perda nominal direta, deixar dinheiro em uma alternativa de retorno mais baixo, quando existiam opções de retorno maior com risco parecido, representa um custo de oportunidade — um ganho potencial que deixou de ser aproveitado."
+                },
+                "en": {
+                  "prompt": "You already understand risk and return from another lesson. Someone keeps a large amount idle in a savings account, with low return, claiming they 'didn't lose any money.' How does the opportunity cost concept help evaluate that claim?",
+                  "options": [
+                    "It confirms they really lost nothing, since the nominal balance didn't decrease",
+                    "It shows that, even without a direct nominal loss, they might be missing out on a higher return available in other alternatives with similar risk — that foregone return is the opportunity cost of the choice",
+                    "Opportunity cost only applies to direct nominal losses",
+                    "Savings accounts always have the lowest opportunity cost among all options"
+                  ],
+                  "explanation": "Even without a direct nominal loss, leaving money in a lower-return alternative, when higher-return options with similar risk existed, represents an opportunity cost — a potential gain that went unrealized."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo y el retorno de otra lección. Una persona mantiene una gran cantidad parada en una cuenta de ahorros, con bajo retorno, alegando que 'no perdió nada de dinero'. ¿Cómo ayuda el concepto de costo de oportunidad a evaluar esa afirmación?",
+                  "options": [
+                    "Confirma que realmente no perdió nada, ya que el saldo nominal no disminuyó",
+                    "Muestra que, incluso sin una pérdida nominal directa, puede estar dejando de ganar un retorno mayor disponible en otras alternativas con riesgo parecido — ese retorno no obtenido es el costo de oportunidad de la elección",
+                    "El costo de oportunidad solo se aplica a pérdidas nominales directas",
+                    "La cuenta de ahorros siempre tiene el menor costo de oportunidad entre todas las opciones"
+                  ],
+                  "explanation": "Incluso sin una pérdida nominal directa, dejar el dinero en una alternativa de retorno más bajo, cuando existían opciones de retorno mayor con riesgo parecido, representa un costo de oportunidad — una ganancia potencial que dejó de aprovecharse."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Custo de oportunidade é o valor da melhor alternativa que você deixa de aproveitar.",
+                    "Ele pode existir mesmo sem uma perda nominal direta.",
+                    "Você concluiu o módulo de matemática financeira aplicada."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Opportunity cost is the value of the best alternative you give up.",
+                    "It can exist even without a direct nominal loss.",
+                    "You've completed the applied financial math module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El costo de oportunidad es el valor de la mejor alternativa que dejas de aprovechar.",
+                    "Puede existir incluso sin una pérdida nominal directa.",
+                    "Completaste el módulo de matemática financiera aplicada."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
