@@ -3,8 +3,8 @@
   "domainId": "advanced_markets",
   "order": 18,
   "iconKey": "candlestick_chart_outlined",
-  "contentAvailable": false,
-  "prerequisites": [],
+  "contentAvailable": true,
+  "prerequisites": ["derivatives_advanced_markets"],
   "translations": {
     "pt": {
       "title": "Trading",
@@ -19,5 +19,646 @@
       "description": "Day trading, swing trading y gestión de riesgo de corto plazo — sin prometer un camino fácil."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "trading_basics",
+      "order": 1,
+      "iconKey": "candlestick_chart_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos de Trading",
+          "description": "Day trade x swing trade, os riscos e custos envolvidos, e por que gestão de risco é mais importante do que acertar operações."
+        },
+        "en": {
+          "title": "Trading Fundamentals",
+          "description": "Day trading vs. swing trading, the risks and costs involved, and why risk management matters more than being right on trades."
+        },
+        "es": {
+          "title": "Fundamentos de Trading",
+          "description": "Day trade vs. swing trade, los riesgos y costos involucrados, y por qué la gestión de riesgo importa más que acertar operaciones."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "trading_day_vs_swing",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Day Trade x Swing Trade"},
+            "en": {"title": "Day Trading vs. Swing Trading"},
+            "es": {"title": "Day Trade vs. Swing Trade"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A diferença está no tempo que a posição fica aberta",
+                  "body": "Trading é a prática de comprar e vender ativos em prazos curtos, buscando lucrar com movimentos de preço de curto prazo, em vez de manter o investimento por anos. Day trade é quando a compra e a venda de um ativo acontecem no mesmo dia, sem manter posição da noite para o dia. Swing trade é quando a posição fica aberta por alguns dias ou semanas, buscando capturar movimentos um pouco mais longos do que o day trade, mas ainda de curto prazo."
+                },
+                "en": {
+                  "title": "The difference is how long the position stays open",
+                  "body": "Trading is the practice of buying and selling assets over short time frames, aiming to profit from short-term price movements, instead of holding the investment for years. Day trading is when buying and selling an asset happens on the same day, without holding a position overnight. Swing trading is when a position stays open for a few days or weeks, aiming to capture somewhat longer movements than day trading, but still short-term."
+                },
+                "es": {
+                  "title": "La diferencia está en cuánto tiempo la posición permanece abierta",
+                  "body": "El trading es la práctica de comprar y vender activos en plazos cortos, buscando ganar con movimientos de precio de corto plazo, en lugar de mantener la inversión durante años. El day trade es cuando la compra y venta de un activo ocurren el mismo día, sin mantener la posición de un día para otro. El swing trade es cuando la posición permanece abierta durante algunos días o semanas, buscando capturar movimientos un poco más largos que el day trade, pero aún de corto plazo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um day trader compra e vende uma ação dentro do mesmo pregão, fechando a posição antes do mercado fechar, sem carregar risco de um dia para o outro. Um swing trader, por outro lado, pode comprar uma ação em uma segunda-feira e vendê-la na sexta-feira seguinte, mantendo a posição aberta por vários dias enquanto acompanha o movimento do preço."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A day trader buys and sells a stock within the same trading session, closing the position before the market closes, without carrying risk from one day to the next. A swing trader, on the other hand, might buy a stock on a Monday and sell it the following Friday, keeping the position open for several days while tracking the price movement."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un day trader compra y vende una acción dentro de la misma sesión de negociación, cerrando la posición antes de que cierre el mercado, sin cargar riesgo de un día para otro. Un swing trader, en cambio, puede comprar una acción un lunes y venderla el viernes siguiente, manteniendo la posición abierta durante varios días mientras sigue el movimiento del precio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a principal diferença entre day trade e swing trade?",
+                  "options": [
+                    "Day trade nunca envolve ações, só moedas",
+                    "Day trade fecha a posição no mesmo dia; swing trade mantém a posição aberta por dias ou semanas",
+                    "Swing trade é sempre mais arriscado do que investir a longo prazo",
+                    "Não existe diferença real entre os dois"
+                  ],
+                  "explanation": "A diferença central está no tempo que a posição fica aberta: day trade fecha tudo no mesmo dia; swing trade mantém a posição por um período um pouco mais longo, de dias a semanas."
+                },
+                "en": {
+                  "prompt": "What is the main difference between day trading and swing trading?",
+                  "options": [
+                    "Day trading never involves stocks, only currencies",
+                    "Day trading closes the position the same day; swing trading keeps the position open for days or weeks",
+                    "Swing trading is always riskier than long-term investing",
+                    "There's no real difference between the two"
+                  ],
+                  "explanation": "The key difference is how long the position stays open: day trading closes everything the same day; swing trading holds the position for a somewhat longer period, from days to weeks."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la principal diferencia entre day trade y swing trade?",
+                  "options": [
+                    "El day trade nunca involucra acciones, solo monedas",
+                    "El day trade cierra la posición el mismo día; el swing trade mantiene la posición abierta por días o semanas",
+                    "El swing trade siempre es más riesgoso que invertir a largo plazo",
+                    "No existe una diferencia real entre ambos"
+                  ],
+                  "explanation": "La diferencia central está en cuánto tiempo la posición permanece abierta: el day trade cierra todo el mismo día; el swing trade mantiene la posición por un período un poco más largo, de días a semanas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende investir a longo prazo, com o objetivo de acompanhar o crescimento de um negócio ao longo de anos. Como o objetivo do trading, seja day trade ou swing trade, se diferencia disso?",
+                  "options": [
+                    "Não se diferencia, trading e investir a longo prazo são exatamente a mesma coisa",
+                    "O trading busca lucrar com movimentos de preço de curto prazo, independentemente da qualidade do negócio no longo prazo — o foco está no movimento do preço, não no crescimento do negócio ao longo de anos",
+                    "Trading é apenas outra forma de dizer investir a longo prazo",
+                    "Trading elimina completamente qualquer tipo de risco"
+                  ],
+                  "explanation": "Trading e investir a longo prazo têm objetivos diferentes: um busca capturar movimentos de preço no curto prazo, enquanto o outro busca acompanhar a criação de valor de um negócio ao longo de anos — são abordagens distintas, com riscos e exigências diferentes."
+                },
+                "en": {
+                  "prompt": "You already understand long-term investing, aiming to track a business's growth over years. How does the goal of trading, whether day trading or swing trading, differ from that?",
+                  "options": [
+                    "It doesn't differ, trading and long-term investing are exactly the same thing",
+                    "Trading seeks to profit from short-term price movements, regardless of the business's long-term quality — the focus is on the price movement, not the business's growth over years",
+                    "Trading is just another way of saying long-term investing",
+                    "Trading completely eliminates any type of risk"
+                  ],
+                  "explanation": "Trading and long-term investing have different goals: one seeks to capture short-term price movements, while the other seeks to track a business's value creation over years — they're distinct approaches, with different risks and demands."
+                },
+                "es": {
+                  "prompt": "Ya entiendes invertir a largo plazo, con el objetivo de seguir el crecimiento de un negocio a lo largo de años. ¿Cómo se diferencia de esto el objetivo del trading, ya sea day trade o swing trade?",
+                  "options": [
+                    "No se diferencia, el trading y la inversión a largo plazo son exactamente lo mismo",
+                    "El trading busca ganar con movimientos de precio de corto plazo, sin importar la calidad del negocio a largo plazo — el foco está en el movimiento del precio, no en el crecimiento del negocio a lo largo de años",
+                    "El trading es solo otra forma de decir inversión a largo plazo",
+                    "El trading elimina por completo cualquier tipo de riesgo"
+                  ],
+                  "explanation": "El trading y la inversión a largo plazo tienen objetivos diferentes: uno busca capturar movimientos de precio en el corto plazo, mientras que el otro busca seguir la creación de valor de un negocio a lo largo de años — son enfoques distintos, con riesgos y exigencias diferentes."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Day trade fecha posições no mesmo dia; swing trade mantém posições por dias ou semanas.",
+                    "Ambos buscam lucrar com movimentos de preço de curto prazo.",
+                    "O foco do trading é diferente do foco de investir a longo prazo, acompanhando o crescimento de um negócio."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Day trading closes positions the same day; swing trading holds positions for days or weeks.",
+                    "Both aim to profit from short-term price movements.",
+                    "Trading's focus differs from long-term investing's focus of tracking a business's growth."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El day trade cierra posiciones el mismo día; el swing trade mantiene posiciones por días o semanas.",
+                    "Ambos buscan ganar con movimientos de precio de corto plazo.",
+                    "El foco del trading es diferente del foco de invertir a largo plazo, siguiendo el crecimiento de un negocio."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_costs_and_odds",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Custos e Probabilidades no Trading"},
+            "en": {"title": "Costs and Odds in Trading"},
+            "es": {"title": "Costos y Probabilidades en el Trading"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Cada operação tem um custo, ganhando ou perdendo",
+                  "body": "Toda operação de trading envolve custos — corretagem, taxas de bolsa, e o chamado spread (diferença entre o preço de compra e venda) — que incidem independentemente de a operação dar lucro ou prejuízo. Quanto maior o número de operações realizadas, maior o peso acumulado desses custos sobre o resultado final. Isso significa que uma estratégia de trading precisa, na média, superar não só o 'empate', mas também esses custos recorrentes para ser rentável."
+                },
+                "en": {
+                  "title": "Every trade has a cost, whether it wins or loses",
+                  "body": "Every trading transaction involves costs — brokerage fees, exchange fees, and the so-called spread (the gap between the buy and sell price) — that apply regardless of whether the trade turns a profit or a loss. The more transactions carried out, the greater the accumulated weight of these costs on the final result. This means a trading strategy needs to, on average, beat not just a 'break-even' outcome, but also these recurring costs, to be profitable."
+                },
+                "es": {
+                  "title": "Cada operación tiene un costo, ganando o perdiendo",
+                  "body": "Toda operación de trading implica costos — corretaje, tasas de bolsa, y el llamado spread (diferencia entre el precio de compra y venta) — que se aplican independientemente de que la operación dé ganancia o pérdida. Cuanto mayor sea el número de operaciones realizadas, mayor es el peso acumulado de esos costos sobre el resultado final. Esto significa que una estrategia de trading necesita, en promedio, superar no solo el 'empate', sino también esos costos recurrentes para ser rentable."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader realiza 100 operações em um mês, pagando R$5 de custo em cada uma, ganhando ou perdendo. Mesmo que ele acerte exatamente metade das operações, os R$500 em custos acumulados ao longo do mês já representam um obstáculo real a ser superado antes de qualquer lucro líquido aparecer."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader makes 100 transactions in a month, paying R$5 in costs on each one, whether they win or lose. Even if they get exactly half the trades right, the R$500 in costs accumulated over the month already represents a real obstacle to overcome before any net profit shows up."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader realiza 100 operaciones en un mes, pagando R$5 de costo en cada una, ganando o perdiendo. Aunque acierte exactamente la mitad de las operaciones, los R$500 en costos acumulados a lo largo del mes ya representan un obstáculo real que superar antes de que aparezca cualquier ganancia neta."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que os custos de cada operação são especialmente relevantes no trading?",
+                  "options": [
+                    "Porque só existem custos quando a operação dá prejuízo",
+                    "Porque incidem em toda operação, ganhando ou perdendo, e se acumulam conforme o número de operações aumenta",
+                    "Porque não têm nenhum impacto sobre o resultado final",
+                    "Porque são cobrados apenas uma vez por ano, independentemente do número de operações"
+                  ],
+                  "explanation": "Corretagem, taxas e spread incidem em toda operação, independentemente do resultado — quanto mais operações, maior o peso acumulado desses custos."
+                },
+                "en": {
+                  "prompt": "Why are the costs of each transaction especially relevant in trading?",
+                  "options": [
+                    "Because costs only exist when the transaction results in a loss",
+                    "Because they apply to every transaction, whether it wins or loses, and accumulate as the number of transactions increases",
+                    "Because they have no impact on the final result",
+                    "Because they're charged only once a year, regardless of the number of transactions"
+                  ],
+                  "explanation": "Brokerage fees, exchange fees and the spread apply to every transaction, regardless of the outcome — the more transactions, the greater the accumulated weight of these costs."
+                },
+                "es": {
+                  "prompt": "¿Por qué los costos de cada operación son especialmente relevantes en el trading?",
+                  "options": [
+                    "Porque solo existen costos cuando la operación resulta en pérdida",
+                    "Porque se aplican a toda operación, ganando o perdiendo, y se acumulan conforme aumenta el número de operaciones",
+                    "Porque no tienen ningún impacto sobre el resultado final",
+                    "Porque se cobran solo una vez al año, sin importar el número de operaciones"
+                  ],
+                  "explanation": "El corretaje, las tasas y el spread se aplican a toda operación, sin importar el resultado — cuantas más operaciones, mayor es el peso acumulado de esos costos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um trader acerta exatamente 50% das suas operações, com ganhos e perdas de tamanho parecido. Considerando os custos que incidem em toda operação, o que isso sugere sobre o resultado final dele?",
+                  "options": [
+                    "Que ele certamente vai terminar com lucro, já que acertou metade das operações",
+                    "Que, mesmo acertando metade, os custos acumulados de cada operação tendem a corroer o resultado, tornando difícil terminar no lucro apenas com 50% de acerto",
+                    "Que os custos de operação não afetam esse cálculo de forma alguma",
+                    "Que 50% de acerto é sempre suficiente para qualquer estratégia de trading"
+                  ],
+                  "explanation": "Como cada operação tem um custo associado, ganhando ou perdendo, um trader com 50% de acerto e ganhos/perdas de tamanho parecido tende a ter um resultado líquido negativo, já que os custos acumulados pesam contra ele."
+                },
+                "en": {
+                  "prompt": "A trader gets exactly 50% of their trades right, with wins and losses of similar size. Considering the costs that apply to every transaction, what does this suggest about their final result?",
+                  "options": [
+                    "That they'll certainly end up with a profit, since they got half the trades right",
+                    "That, even getting half right, the accumulated costs of each transaction tend to erode the result, making it hard to end up profitable with just 50% accuracy",
+                    "That transaction costs don't affect this calculation at all",
+                    "That 50% accuracy is always enough for any trading strategy"
+                  ],
+                  "explanation": "Since every transaction has an associated cost, whether it wins or loses, a trader with 50% accuracy and similarly sized wins/losses tends to have a negative net result, since the accumulated costs weigh against them."
+                },
+                "es": {
+                  "prompt": "Un trader acierta exactamente el 50% de sus operaciones, con ganancias y pérdidas de tamaño parecido. Considerando los costos que se aplican a toda operación, ¿qué sugiere esto sobre su resultado final?",
+                  "options": [
+                    "Que seguramente terminará con ganancias, ya que acertó la mitad de las operaciones",
+                    "Que, incluso acertando la mitad, los costos acumulados de cada operación tienden a erosionar el resultado, dificultando terminar con ganancias con solo un 50% de acierto",
+                    "Que los costos de operación no afectan este cálculo en absoluto",
+                    "Que un 50% de acierto siempre es suficiente para cualquier estrategia de trading"
+                  ],
+                  "explanation": "Como cada operación tiene un costo asociado, ganando o perdiendo, un trader con un 50% de acierto y ganancias/pérdidas de tamaño parecido tiende a tener un resultado neto negativo, ya que los costos acumulados pesan en su contra."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Toda operação de trading tem custos, independentemente do resultado.",
+                    "Esses custos se acumulam conforme o número de operações aumenta.",
+                    "Uma estratégia precisa superar não só o empate, mas também esses custos recorrentes, para ser rentável."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Every trading transaction has costs, regardless of the outcome.",
+                    "These costs accumulate as the number of transactions increases.",
+                    "A strategy needs to beat not just a break-even outcome, but also these recurring costs, to be profitable."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Toda operación de trading tiene costos, sin importar el resultado.",
+                    "Esos costos se acumulan conforme aumenta el número de operaciones.",
+                    "Una estrategia necesita superar no solo el empate, sino también esos costos recurrentes, para ser rentable."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_position_sizing",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Dimensionamento de Posição"},
+            "en": {"title": "Position Sizing"},
+            "es": {"title": "Dimensionamiento de Posición"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto arriscar em cada operação"
+                ,"body": "Dimensionamento de posição é a decisão de quanto do capital total disponível colocar em risco em cada operação individual. Uma prática comum entre traders é limitar o risco de qualquer operação isolada a uma pequena fração do capital total — por exemplo, 1% ou 2% — de forma que uma sequência de perdas não seja capaz de comprometer todo o capital de uma só vez."
+                },
+                "en": {
+                  "title": "How much to risk in each trade",
+                  "body": "Position sizing is the decision of how much of the total available capital to put at risk in each individual trade. A common practice among traders is limiting the risk of any single trade to a small fraction of total capital — for example, 1% or 2% — so that a losing streak isn't able to wipe out all the capital at once."
+                },
+                "es": {
+                  "title": "Cuánto arriesgar en cada operación",
+                  "body": "El dimensionamiento de posición es la decisión de cuánto del capital total disponible poner en riesgo en cada operación individual. Una práctica común entre traders es limitar el riesgo de cualquier operación aislada a una pequeña fracción del capital total — por ejemplo, 1% o 2% — de forma que una racha de pérdidas no sea capaz de comprometer todo el capital de una sola vez."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader com R$50.000 de capital decide arriscar no máximo 1% desse valor, ou R$500, em cada operação. Mesmo se ele encadear 10 perdas seguidas — algo raro, mas possível —, ele ainda teria a maior parte do capital preservado, diferente de alguém que arrisca 20% do capital por operação e poderia ser eliminado com poucas perdas seguidas."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader with R$50,000 in capital decides to risk at most 1% of that amount, or R$500, on each trade. Even if they string together 10 losses in a row — rare, but possible — they'd still have most of their capital preserved, unlike someone risking 20% of capital per trade, who could be wiped out after just a few consecutive losses."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader con R$50.000 de capital decide arriesgar como máximo el 1% de ese monto, o R$500, en cada operación. Aunque encadene 10 pérdidas seguidas — algo raro, pero posible —, aún tendría la mayor parte del capital preservado, a diferencia de alguien que arriesga el 20% del capital por operación y podría quedar eliminado con pocas pérdidas seguidas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o objetivo de limitar o risco de cada operação a uma pequena fração do capital total?",
+                  "options": [
+                    "Garantir que toda operação individual vai dar lucro",
+                    "Fazer com que uma sequência de perdas não seja capaz de comprometer todo o capital de uma só vez",
+                    "Aumentar o custo de cada operação",
+                    "Eliminar completamente a possibilidade de perdas"
+                  ],
+                  "explanation": "Limitar o risco por operação protege o capital total contra sequências de perdas, que são estatisticamente possíveis mesmo em uma estratégia com boa taxa de acerto no longo prazo."
+                },
+                "en": {
+                  "prompt": "What is the goal of limiting the risk of each trade to a small fraction of total capital?",
+                  "options": [
+                    "Guaranteeing that every individual trade will be profitable",
+                    "Making it so a losing streak isn't able to wipe out all the capital at once",
+                    "Increasing the cost of each trade",
+                    "Completely eliminating the possibility of losses"
+                  ],
+                  "explanation": "Limiting risk per trade protects the total capital against losing streaks, which are statistically possible even in a strategy with a good win rate over the long run."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el objetivo de limitar el riesgo de cada operación a una pequeña fracción del capital total?",
+                  "options": [
+                    "Garantizar que toda operación individual dará ganancias",
+                    "Hacer que una racha de pérdidas no sea capaz de comprometer todo el capital de una sola vez",
+                    "Aumentar el costo de cada operación",
+                    "Eliminar por completo la posibilidad de pérdidas"
+                  ],
+                  "explanation": "Limitar el riesgo por operación protege el capital total contra rachas de pérdidas, que son estadísticamente posibles incluso en una estrategia con buena tasa de acierto a largo plazo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Dois traders têm a mesma taxa de acerto ao longo de um ano. Um arrisca 1% do capital por operação; o outro arrisca 15%. Se ambos passarem por uma sequência de perdas seguidas em algum momento, o que provavelmente diferencia o resultado dos dois?",
+                  "options": [
+                    "Nenhuma diferença, a taxa de acerto igual garante o mesmo resultado para os dois",
+                    "O trader que arrisca menos por operação tende a preservar mais capital durante a sequência de perdas, permitindo que ele continue operando; o outro corre risco maior de ficar sem capital suficiente para continuar",
+                    "O que arrisca mais sempre termina com mais lucro, independentemente das perdas",
+                    "Dimensionamento de posição não tem nenhuma relação com sequências de perdas"
+                  ],
+                  "explanation": "Mesmo com a mesma taxa de acerto, o dimensionamento de posição determina o quanto uma sequência de perdas compromete o capital total — arriscar menos por operação preserva mais capital para continuar operando depois de uma fase ruim."
+                },
+                "en": {
+                  "prompt": "Two traders have the same win rate over a year. One risks 1% of capital per trade; the other risks 15%. If both go through a losing streak at some point, what likely differentiates their outcomes?",
+                  "options": [
+                    "No difference, the equal win rate guarantees the same result for both",
+                    "The trader who risks less per trade tends to preserve more capital during the losing streak, allowing them to keep operating; the other faces a greater risk of running out of enough capital to continue",
+                    "The one who risks more always ends up with more profit, regardless of losses",
+                    "Position sizing has no relation to losing streaks"
+                  ],
+                  "explanation": "Even with the same win rate, position sizing determines how much a losing streak eats into the total capital — risking less per trade preserves more capital to keep operating after a rough stretch."
+                },
+                "es": {
+                  "prompt": "Dos traders tienen la misma tasa de acierto durante un año. Uno arriesga el 1% del capital por operación; el otro arriesga el 15%. Si ambos atraviesan una racha de pérdidas seguidas en algún momento, ¿qué probablemente diferencia el resultado de ambos?",
+                  "options": [
+                    "Ninguna diferencia, la misma tasa de acierto garantiza el mismo resultado para ambos",
+                    "El trader que arriesga menos por operación tiende a preservar más capital durante la racha de pérdidas, permitiéndole seguir operando; el otro corre mayor riesgo de quedarse sin capital suficiente para continuar",
+                    "El que arriesga más siempre termina con más ganancias, sin importar las pérdidas",
+                    "El dimensionamiento de posición no tiene ninguna relación con las rachas de pérdidas"
+                  ],
+                  "explanation": "Incluso con la misma tasa de acierto, el dimensionamiento de posición determina cuánto compromete una racha de pérdidas el capital total — arriesgar menos por operación preserva más capital para seguir operando después de una fase mala."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Dimensionamento de posição é decidir quanto arriscar em cada operação individual.",
+                    "Limitar o risco por operação protege o capital contra sequências de perdas.",
+                    "Mesmo com a mesma taxa de acerto, o dimensionamento afeta bastante a sobrevivência de uma estratégia."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Position sizing is deciding how much to risk in each individual trade.",
+                    "Limiting risk per trade protects capital against losing streaks.",
+                    "Even with the same win rate, sizing significantly affects a strategy's survival."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El dimensionamiento de posición es decidir cuánto arriesgar en cada operación individual.",
+                    "Limitar el riesgo por operación protege el capital contra rachas de pérdidas.",
+                    "Incluso con la misma tasa de acierto, el dimensionamiento afecta bastante la supervivencia de una estrategia."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_realistic_expectations",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Expectativas Realistas sobre Trading"},
+            "en": {"title": "Realistic Expectations About Trading"},
+            "es": {"title": "Expectativas Realistas sobre el Trading"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Uma atividade exigente, não um atalho"
+                ,"body": "Trading de curto prazo exige tempo dedicado, disciplina emocional, gestão de risco consistente e resistência a perdas frequentes — mesmo estratégias bem construídas passam por sequências de perdas. Promessas de retornos altos e rápidos, sem menção a esses desafios, tendem a ignorar a realidade estatística da atividade: a maioria das pessoas que tenta viver exclusivamente de trading de curto prazo enfrenta dificuldade em manter resultados consistentes ao longo do tempo."
+                },
+                "en": {
+                  "title": "A demanding activity, not a shortcut",
+                  "body": "Short-term trading demands dedicated time, emotional discipline, consistent risk management, and resilience to frequent losses — even well-built strategies go through losing streaks. Promises of high, fast returns, with no mention of these challenges, tend to ignore the statistical reality of the activity: most people who try to make a living exclusively from short-term trading struggle to maintain consistent results over time."
+                },
+                "es": {
+                  "title": "Una actividad exigente, no un atajo",
+                  "body": "El trading de corto plazo exige tiempo dedicado, disciplina emocional, gestión de riesgo consistente y resiliencia ante pérdidas frecuentes — incluso estrategias bien construidas atraviesan rachas de pérdidas. Las promesas de retornos altos y rápidos, sin mencionar estos desafíos, tienden a ignorar la realidad estadística de la actividad: la mayoría de las personas que intentan vivir exclusivamente del trading de corto plazo enfrenta dificultades para mantener resultados consistentes con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um anúncio promete 'ganhos garantidos de 10% ao mês fazendo trading, sem esforço'. Alguém que já entende custos operacionais, gestão de risco e a natureza estatística de sequências de perdas reconhece essa promessa como irrealista — nenhuma estratégia legítima consegue garantir um retorno fixo e alto dessa forma."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An ad promises 'guaranteed 10% monthly gains trading, with no effort.' Someone who already understands operating costs, risk management, and the statistical nature of losing streaks recognizes that promise as unrealistic — no legitimate strategy can guarantee a fixed, high return that way."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un anuncio promete 'ganancias garantizadas del 10% mensual haciendo trading, sin esfuerzo'. Alguien que ya entiende los costos operativos, la gestión de riesgo y la naturaleza estadística de las rachas de pérdidas reconoce esa promesa como poco realista — ninguna estrategia legítima puede garantizar un retorno fijo y alto de esa forma."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza uma promessa irrealista sobre trading?",
+                  "options": [
+                    "Mencionar que existe risco de perda nas operações",
+                    "Prometer retornos altos e garantidos, sem mencionar riscos, custos ou a possibilidade de sequências de perdas",
+                    "Explicar que trading exige disciplina e gestão de risco",
+                    "Recomendar dimensionamento de posição cuidadoso"
+                  ],
+                  "explanation": "Promessas de retorno garantido, alto e sem esforço, ignorando riscos e custos reais, são um sinal claro de expectativa irrealista sobre a atividade."
+                },
+                "en": {
+                  "prompt": "What characterizes an unrealistic promise about trading?",
+                  "options": [
+                    "Mentioning that there's a risk of loss in trades",
+                    "Promising high, guaranteed returns, with no mention of risks, costs, or the possibility of losing streaks",
+                    "Explaining that trading requires discipline and risk management",
+                    "Recommending careful position sizing"
+                  ],
+                  "explanation": "Promises of guaranteed, high, effortless returns, ignoring real risks and costs, are a clear sign of an unrealistic expectation about the activity."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza a una promesa poco realista sobre el trading?",
+                  "options": [
+                    "Mencionar que existe riesgo de pérdida en las operaciones",
+                    "Prometer retornos altos y garantizados, sin mencionar riesgos, costos o la posibilidad de rachas de pérdidas",
+                    "Explicar que el trading exige disciplina y gestión de riesgo",
+                    "Recomendar un dimensionamiento de posición cuidadoso"
+                  ],
+                  "explanation": "Las promesas de retorno garantizado, alto y sin esfuerzo, ignorando riesgos y costos reales, son una señal clara de una expectativa poco realista sobre la actividad."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende os custos de cada operação, a importância do dimensionamento de posição, e que até estratégias boas passam por sequências de perdas. Como esse conhecimento te ajuda a avaliar um curso que promete 'lucro garantido todos os meses, sem exceção'?",
+                  "options": [
+                    "Esse conhecimento não ajuda em nada a avaliar esse tipo de promessa",
+                    "Ele ajuda a reconhecer que essa promessa contradiz o que você já sabe sobre custos, risco e a natureza estatística de sequências de perdas — nenhuma estratégia legítima pode garantir lucro em todos os meses, sem exceção",
+                    "Ele confirma que essa promessa provavelmente é verdadeira, já que trading pode ser lucrativo",
+                    "Ele indica que qualquer promessa de lucro deve ser aceita sem questionamento"
+                  ],
+                  "explanation": "Entender custos, dimensionamento de posição e a inevitabilidade estatística de sequências de perdas ajuda a reconhecer promessas de 'lucro garantido sempre' como incompatíveis com a realidade da atividade."
+                },
+                "en": {
+                  "prompt": "You already understand the costs of each transaction, the importance of position sizing, and that even good strategies go through losing streaks. How does this knowledge help you evaluate a course that promises 'guaranteed profit every month, no exceptions'?",
+                  "options": [
+                    "This knowledge doesn't help at all in evaluating this kind of promise",
+                    "It helps recognize that this promise contradicts what you already know about costs, risk, and the statistical nature of losing streaks — no legitimate strategy can guarantee profit every single month, with no exceptions",
+                    "It confirms that this promise is probably true, since trading can be profitable",
+                    "It indicates that any profit promise should be accepted without question"
+                  ],
+                  "explanation": "Understanding costs, position sizing, and the statistical inevitability of losing streaks helps recognize promises of 'always guaranteed profit' as incompatible with the reality of the activity."
+                },
+                "es": {
+                  "prompt": "Ya entiendes los costos de cada operación, la importancia del dimensionamiento de posición, y que incluso las buenas estrategias atraviesan rachas de pérdidas. ¿Cómo te ayuda este conocimiento a evaluar un curso que promete 'ganancia garantizada todos los meses, sin excepción'?",
+                  "options": [
+                    "Ese conocimiento no ayuda en nada a evaluar este tipo de promesa",
+                    "Ayuda a reconocer que esa promesa contradice lo que ya sabes sobre costos, riesgo y la naturaleza estadística de las rachas de pérdidas — ninguna estrategia legítima puede garantizar ganancias todos los meses, sin excepción",
+                    "Confirma que esa promesa probablemente es verdadera, ya que el trading puede ser rentable",
+                    "Indica que cualquier promesa de ganancia debe aceptarse sin cuestionamientos"
+                  ],
+                  "explanation": "Entender los costos, el dimensionamiento de posición y la inevitabilidad estadística de las rachas de pérdidas ayuda a reconocer las promesas de 'ganancia siempre garantizada' como incompatibles con la realidad de la actividad."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Trading exige tempo, disciplina e gestão de risco consistente — não é um atalho para ganhos fáceis.",
+                    "Mesmo boas estratégias passam por sequências de perdas.",
+                    "Promessas de lucro garantido, alto e sem esforço são um sinal de alerta claro."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Trading demands time, discipline, and consistent risk management — it's not a shortcut to easy gains.",
+                    "Even good strategies go through losing streaks.",
+                    "Promises of guaranteed, high, effortless profit are a clear red flag."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El trading exige tiempo, disciplina y gestión de riesgo consistente — no es un atajo hacia ganancias fáciles.",
+                    "Incluso las buenas estrategias atraviesan rachas de pérdidas.",
+                    "Las promesas de ganancia garantizada, alta y sin esfuerzo son una clara señal de alerta."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

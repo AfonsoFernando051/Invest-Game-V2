@@ -3,7 +3,7 @@
   "domainId": "macro_markets",
   "order": 15,
   "iconKey": "bar_chart_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -19,5 +19,800 @@
       "description": "PIB, inflación, tasas de interés y política monetaria — y cómo afectan tus inversiones."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "macro_fundamentals",
+      "order": 1,
+      "iconKey": "bar_chart_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos de Macroeconomia",
+          "description": "PIB e ciclos econômicos, a taxa Selic, política monetária e como juros afetam diferentes ativos."
+        },
+        "en": {
+          "title": "Macroeconomics Fundamentals",
+          "description": "GDP and economic cycles, the base interest rate, monetary policy and how rates affect different assets."
+        },
+        "es": {
+          "title": "Fundamentos de Macroeconomía",
+          "description": "PIB y ciclos económicos, la tasa básica de interés, política monetaria y cómo las tasas afectan a diferentes activos."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "macro_gdp_and_cycles",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "PIB e Ciclos Econômicos"},
+            "en": {"title": "GDP and Economic Cycles"},
+            "es": {"title": "PIB y Ciclos Económicos"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Expansão e retração se alternam",
+                  "body": "Economias não crescem em linha reta: elas passam por ciclos de expansão, quando o PIB cresce e o emprego aumenta, e de retração (ou recessão), quando a atividade econômica encolhe. Esses ciclos são impulsionados por diversos fatores — consumo, investimento, política monetária, eventos externos — e se repetem ao longo do tempo, mesmo que de forma irregular e difícil de prever com precisão."
+                },
+                "en": {
+                  "title": "Expansion and contraction take turns",
+                  "body": "Economies don't grow in a straight line: they go through cycles of expansion, when GDP grows and employment rises, and contraction (or recession), when economic activity shrinks. These cycles are driven by various factors — consumption, investment, monetary policy, external events — and repeat over time, even if irregularly and hard to predict with precision."
+                },
+                "es": {
+                  "title": "Expansión y retracción se alternan",
+                  "body": "Las economías no crecen en línea recta: atraviesan ciclos de expansión, cuando el PIB crece y el empleo aumenta, y de retracción (o recesión), cuando la actividad económica se reduce. Estos ciclos son impulsados por diversos factores — consumo, inversión, política monetaria, eventos externos — y se repiten con el tiempo, aunque de forma irregular y difícil de predecir con precisión."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Durante uma expansão, empresas contratam mais e vendem mais, e o consumo das famílias tende a crescer. Em uma recessão, o oposto tende a acontecer: empresas cortam custos, o desemprego sobe, e o consumo se retrai — um ciclo que se retroalimenta até algum fator inverter a tendência."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "During an expansion, companies hire more and sell more, and household consumption tends to grow. In a recession, the opposite tends to happen: companies cut costs, unemployment rises, and consumption contracts — a cycle that feeds on itself until some factor reverses the trend."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Durante una expansión, las empresas contratan más y venden más, y el consumo de las familias tiende a crecer. En una recesión, tiende a ocurrir lo opuesto: las empresas recortan costos, el desempleo sube, y el consumo se retrae — un ciclo que se retroalimenta hasta que algún factor revierte la tendencia."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Como as economias costumam se comportar ao longo do tempo?",
+                  "options": [
+                    "Em crescimento constante e previsível, sem nenhuma variação",
+                    "Em ciclos alternados de expansão e retração, impulsionados por diversos fatores",
+                    "Sempre em recessão, sem períodos de crescimento",
+                    "De forma totalmente aleatória, sem nenhum padrão cíclico"
+                  ],
+                  "explanation": "Economias passam por ciclos de expansão e retração que se repetem ao longo do tempo, mesmo que de forma irregular e sem um cronograma fixo."
+                },
+                "en": {
+                  "prompt": "How do economies usually behave over time?",
+                  "options": [
+                    "In constant, predictable growth, with no variation at all",
+                    "In alternating cycles of expansion and contraction, driven by various factors",
+                    "Always in recession, with no periods of growth",
+                    "In a completely random way, with no cyclical pattern at all"
+                  ],
+                  "explanation": "Economies go through cycles of expansion and contraction that repeat over time, even if irregularly and without a fixed schedule."
+                },
+                "es": {
+                  "prompt": "¿Cómo suelen comportarse las economías con el tiempo?",
+                  "options": [
+                    "En crecimiento constante y previsible, sin ninguna variación",
+                    "En ciclos alternados de expansión y retracción, impulsados por diversos factores",
+                    "Siempre en recesión, sin períodos de crecimiento",
+                    "De forma totalmente aleatoria, sin ningún patrón cíclico"
+                  ],
+                  "explanation": "Las economías atraviesan ciclos de expansión y retracción que se repiten con el tiempo, aunque de forma irregular y sin un cronograma fijo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você lê uma notícia dizendo que o PIB caiu por dois trimestres seguidos, um sinal técnico comum de recessão. O que esse tipo de informação sugere sobre o momento do ciclo econômico?",
+                  "options": [
+                    "Que a economia vai crescer indefinidamente a partir de agora",
+                    "Que a economia provavelmente está em um período de retração, o que pode influenciar decisões de consumo, emprego e investimento em geral",
+                    "Que essa informação não tem relação nenhuma com investimentos",
+                    "Que o PIB nunca mais vai voltar a crescer"
+                  ],
+                  "explanation": "Quedas consecutivas do PIB são um indicativo comum de retração econômica — um contexto relevante para entender o ambiente em que decisões financeiras estão sendo tomadas."
+                },
+                "en": {
+                  "prompt": "You read news saying GDP has fallen for two consecutive quarters, a common technical signal of recession. What does this kind of information suggest about where the economic cycle stands?",
+                  "options": [
+                    "That the economy will grow indefinitely from now on",
+                    "That the economy is likely in a period of contraction, which can influence consumption, employment and investment decisions in general",
+                    "That this information has no relation to investments at all",
+                    "That GDP will never grow again"
+                  ],
+                  "explanation": "Consecutive GDP declines are a common indicator of economic contraction — relevant context for understanding the environment in which financial decisions are being made."
+                },
+                "es": {
+                  "prompt": "Lees una noticia que dice que el PIB cayó durante dos trimestres seguidos, una señal técnica común de recesión. ¿Qué sugiere este tipo de información sobre el momento del ciclo económico?",
+                  "options": [
+                    "Que la economía va a crecer indefinidamente a partir de ahora",
+                    "Que la economía probablemente está en un período de retracción, lo que puede influir en decisiones de consumo, empleo e inversión en general",
+                    "Que esa información no tiene ninguna relación con las inversiones",
+                    "Que el PIB nunca más va a volver a crecer"
+                  ],
+                  "explanation": "Las caídas consecutivas del PIB son un indicativo común de retracción económica — un contexto relevante para entender el entorno en que se están tomando las decisiones financieras."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Economias passam por ciclos alternados de expansão e retração.",
+                    "Esses ciclos são impulsionados por diversos fatores e difíceis de prever com precisão.",
+                    "Entender em que fase do ciclo a economia está ajuda a interpretar o contexto das decisões financeiras."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Economies go through alternating cycles of expansion and contraction.",
+                    "These cycles are driven by various factors and hard to predict with precision.",
+                    "Understanding what phase of the cycle the economy is in helps interpret the context of financial decisions."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Las economías atraviesan ciclos alternados de expansión y retracción.",
+                    "Estos ciclos son impulsados por diversos factores y difíciles de predecir con precisión.",
+                    "Entender en qué fase del ciclo está la economía ayuda a interpretar el contexto de las decisiones financieras."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "macro_selic_rate",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "A Taxa Selic"},
+            "en": {"title": "The Base Interest Rate"},
+            "es": {"title": "La Tasa Básica de Interés"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A taxa que baliza todas as outras",
+                  "body": "A Selic é a taxa básica de juros da economia brasileira, definida periodicamente pelo Banco Central. Ela serve como referência para praticamente todas as demais taxas de juros do país — de empréstimos a investimentos de renda fixa — funcionando como uma espécie de piso ou balizador para o custo do dinheiro na economia como um todo."
+                },
+                "en": {
+                  "title": "The rate that anchors all the others",
+                  "body": "The Selic is Brazil's base interest rate, set periodically by the Central Bank. It serves as a reference for practically all other interest rates in the country — from loans to fixed-income investments — acting as a kind of floor or anchor for the cost of money across the economy as a whole."
+                },
+                "es": {
+                  "title": "La tasa que sirve de referencia para las demás",
+                  "body": "La Selic es la tasa básica de interés de la economía brasileña, definida periódicamente por el Banco Central. Sirve como referencia para prácticamente todas las demás tasas de interés del país — desde préstamos hasta inversiones de renta fija — funcionando como una especie de piso o referencia para el costo del dinero en toda la economía."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Quando a Selic sobe, novos CDBs e títulos do Tesouro tendem a oferecer taxas mais altas, já que competem por dinheiro em um ambiente de juros maior. Ao mesmo tempo, empréstimos e financiamentos também tendem a ficar mais caros, encarecendo o crédito para empresas e famílias."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "When the Selic rises, new CDBs and Treasury bonds tend to offer higher rates, since they compete for money in a higher-interest environment. At the same time, loans and financing also tend to get more expensive, raising the cost of credit for companies and households."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Cuando la Selic sube, los nuevos CDB y bonos del Tesoro tienden a ofrecer tasas más altas, ya que compiten por dinero en un entorno de tasas mayores. Al mismo tiempo, los préstamos y financiamientos también tienden a encarecerse, elevando el costo del crédito para empresas y familias."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o papel da Selic na economia?",
+                  "options": [
+                    "Ela é apenas uma taxa simbólica, sem efeito real sobre outras taxas",
+                    "Ela serve como referência para praticamente todas as demais taxas de juros do país",
+                    "Ela só afeta investimentos em ações",
+                    "Ela é definida pelas próprias corretoras, sem intervenção do Banco Central"
+                  ],
+                  "explanation": "A Selic funciona como balizador para o custo do dinheiro em toda a economia, influenciando desde empréstimos até o retorno de investimentos de renda fixa."
+                },
+                "en": {
+                  "prompt": "What is the base rate's role in the economy?",
+                  "options": [
+                    "It's just a symbolic rate, with no real effect on other rates",
+                    "It serves as a reference for practically all other interest rates in the country",
+                    "It only affects stock investments",
+                    "It's set by the brokers themselves, with no Central Bank involvement"
+                  ],
+                  "explanation": "The base rate acts as an anchor for the cost of money across the whole economy, influencing everything from loans to the return on fixed-income investments."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el papel de la tasa básica en la economía?",
+                  "options": [
+                    "Es solo una tasa simbólica, sin efecto real sobre otras tasas",
+                    "Sirve como referencia para prácticamente todas las demás tasas de interés del país",
+                    "Solo afecta a las inversiones en acciones",
+                    "La definen las propias correduras, sin intervención del Banco Central"
+                  ],
+                  "explanation": "La tasa básica funciona como referencia para el costo del dinero en toda la economía, influyendo desde préstamos hasta el retorno de inversiones de renta fija."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O Banco Central anuncia uma alta na Selic. Com base no que você aprendeu, o que provavelmente acontece com as taxas de novos CDBs emitidos logo em seguida?",
+                  "options": [
+                    "Elas provavelmente vão cair, já que a Selic e as taxas de CDB não têm relação",
+                    "Elas tendem a subir também, já que a Selic serve de referência para a remuneração de investimentos de renda fixa",
+                    "Elas permanecem sempre fixas, independentemente da Selic",
+                    "Só empréstimos são afetados, nunca investimentos"
+                  ],
+                  "explanation": "Como a Selic serve de referência para a remuneração da renda fixa, uma alta na Selic costuma se refletir em taxas mais altas para novos CDBs e títulos emitidos depois da mudança."
+                },
+                "en": {
+                  "prompt": "The Central Bank announces a hike in the base rate. Based on what you learned, what likely happens to the rates of new CDBs issued right after?",
+                  "options": [
+                    "They'll likely fall, since the base rate and CDB rates aren't related",
+                    "They tend to rise too, since the base rate serves as a reference for fixed-income returns",
+                    "They stay always fixed, regardless of the base rate",
+                    "Only loans are affected, never investments"
+                  ],
+                  "explanation": "Since the base rate serves as a reference for fixed-income returns, a hike in it usually shows up as higher rates for new CDBs and bonds issued after the change."
+                },
+                "es": {
+                  "prompt": "El Banco Central anuncia una subida en la tasa básica. Según lo que aprendiste, ¿qué probablemente pasa con las tasas de los nuevos CDB emitidos justo después?",
+                  "options": [
+                    "Probablemente bajen, ya que la tasa básica y las tasas de CDB no están relacionadas",
+                    "Tienden a subir también, ya que la tasa básica sirve de referencia para la remuneración de las inversiones de renta fija",
+                    "Permanecen siempre fijas, sin importar la tasa básica",
+                    "Solo los préstamos se ven afectados, nunca las inversiones"
+                  ],
+                  "explanation": "Como la tasa básica sirve de referencia para la remuneración de la renta fija, una subida en ella suele reflejarse en tasas más altas para nuevos CDB y bonos emitidos después del cambio."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "A Selic é a taxa básica de juros, definida pelo Banco Central.",
+                    "Ela serve como referência para outras taxas de juros da economia.",
+                    "Quando a Selic sobe, tanto crédito quanto renda fixa tendem a refletir essa mudança."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "The base rate is the economy's benchmark interest rate, set by the Central Bank.",
+                    "It serves as a reference for other interest rates in the economy.",
+                    "When the base rate rises, both credit and fixed income tend to reflect that change."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La tasa básica es la tasa de interés de referencia, definida por el Banco Central.",
+                    "Sirve como referencia para otras tasas de interés de la economía.",
+                    "Cuando la tasa básica sube, tanto el crédito como la renta fija tienden a reflejar ese cambio."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "macro_monetary_policy",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Política Monetária"},
+            "en": {"title": "Monetary Policy"},
+            "es": {"title": "Política Monetaria"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Ajustando os juros para conter ou estimular a economia",
+                  "body": "Política monetária é o conjunto de ações do Banco Central para controlar a quantidade de dinheiro e o custo do crédito na economia, principalmente através da definição da taxa básica de juros. Quando a inflação está alta, o Banco Central costuma subir os juros para desestimular o consumo e o crédito, esfriando a economia. Quando a economia está fraca e a inflação sob controle, ele pode reduzir os juros para estimular consumo e investimento."
+                },
+                "en": {
+                  "title": "Adjusting rates to cool down or stimulate the economy",
+                  "body": "Monetary policy is the set of actions the Central Bank takes to control the amount of money and the cost of credit in the economy, mainly by setting the base interest rate. When inflation is high, the Central Bank usually raises rates to discourage consumption and credit, cooling down the economy. When the economy is weak and inflation is under control, it can lower rates to stimulate consumption and investment."
+                },
+                "es": {
+                  "title": "Ajustando las tasas para frenar o estimular la economía",
+                  "body": "La política monetaria es el conjunto de acciones del Banco Central para controlar la cantidad de dinero y el costo del crédito en la economía, principalmente a través de la definición de la tasa básica de interés. Cuando la inflación está alta, el Banco Central suele subir las tasas para desincentivar el consumo y el crédito, enfriando la economía. Cuando la economía está débil y la inflación está bajo control, puede reducir las tasas para estimular el consumo y la inversión."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Diante de uma inflação persistentemente alta, o Banco Central eleva os juros repetidas vezes ao longo de vários meses, tornando o crédito mais caro. Com o tempo, o consumo desacelera, a demanda por bens diminui, e a pressão sobre os preços tende a arrefecer — esse é o mecanismo por trás da política monetária contracionista."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Facing persistently high inflation, the Central Bank raises rates repeatedly over several months, making credit more expensive. Over time, consumption slows down, demand for goods decreases, and the pressure on prices tends to ease — this is the mechanism behind contractionary monetary policy."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Ante una inflación persistentemente alta, el Banco Central eleva las tasas repetidas veces a lo largo de varios meses, encareciendo el crédito. Con el tiempo, el consumo se desacelera, la demanda de bienes disminuye, y la presión sobre los precios tiende a ceder — ese es el mecanismo detrás de la política monetaria contraccionista."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o Banco Central costuma fazer diante de uma inflação persistentemente alta?",
+                  "options": [
+                    "Reduzir os juros para estimular ainda mais o consumo",
+                    "Subir os juros para desestimular consumo e crédito, esfriando a economia",
+                    "Não fazer nada, já que juros não têm relação com inflação",
+                    "Eliminar completamente a moeda em circulação"
+                  ],
+                  "explanation": "Subir os juros é a ferramenta clássica de política monetária para combater inflação alta, tornando o crédito mais caro e desestimulando o consumo."
+                },
+                "en": {
+                  "prompt": "What does the Central Bank usually do in the face of persistently high inflation?",
+                  "options": [
+                    "Lower rates to stimulate consumption even further",
+                    "Raise rates to discourage consumption and credit, cooling down the economy",
+                    "Do nothing, since rates have no relation to inflation",
+                    "Completely eliminate the currency in circulation"
+                  ],
+                  "explanation": "Raising rates is the classic monetary policy tool for fighting high inflation, making credit more expensive and discouraging consumption."
+                },
+                "es": {
+                  "prompt": "¿Qué suele hacer el Banco Central ante una inflación persistentemente alta?",
+                  "options": [
+                    "Reducir las tasas para estimular aún más el consumo",
+                    "Subir las tasas para desincentivar el consumo y el crédito, enfriando la economía",
+                    "No hacer nada, ya que las tasas no tienen relación con la inflación",
+                    "Eliminar por completo la moneda en circulación"
+                  ],
+                  "explanation": "Subir las tasas es la herramienta clásica de política monetaria para combatir la inflación alta, encareciendo el crédito y desincentivando el consumo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "A economia está enfraquecendo, com desemprego subindo, e a inflação está sob controle. O que a lógica da política monetária sugere que o Banco Central pode considerar fazer?",
+                  "options": [
+                    "Subir ainda mais os juros, para piorar a situação",
+                    "Reduzir os juros, buscando estimular consumo e investimento para reaquecer a economia",
+                    "A política monetária não tem nenhuma ferramenta para esse cenário",
+                    "Eliminar a taxa básica de juros permanentemente"
+                  ],
+                  "explanation": "Com inflação sob controle e economia enfraquecendo, reduzir os juros é a ferramenta clássica para tornar o crédito mais barato e estimular consumo e investimento."
+                },
+                "en": {
+                  "prompt": "The economy is weakening, with unemployment rising, and inflation is under control. What does monetary policy logic suggest the Central Bank might consider doing?",
+                  "options": [
+                    "Raise rates even further, to make the situation worse",
+                    "Lower rates, seeking to stimulate consumption and investment to reheat the economy",
+                    "Monetary policy has no tool for this scenario",
+                    "Permanently eliminate the base interest rate"
+                  ],
+                  "explanation": "With inflation under control and the economy weakening, lowering rates is the classic tool to make credit cheaper and stimulate consumption and investment."
+                },
+                "es": {
+                  "prompt": "La economía se está debilitando, con el desempleo subiendo, y la inflación está bajo control. ¿Qué sugiere la lógica de la política monetaria que el Banco Central podría considerar hacer?",
+                  "options": [
+                    "Subir aún más las tasas, para empeorar la situación",
+                    "Reducir las tasas, buscando estimular el consumo y la inversión para reactivar la economía",
+                    "La política monetaria no tiene ninguna herramienta para este escenario",
+                    "Eliminar la tasa básica de interés permanentemente"
+                  ],
+                  "explanation": "Con la inflación bajo control y la economía debilitándose, reducir las tasas es la herramienta clásica para abaratar el crédito y estimular el consumo y la inversión."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Política monetária é o conjunto de ações do Banco Central para controlar dinheiro e crédito na economia.",
+                    "Juros mais altos combatem inflação, esfriando o consumo.",
+                    "Juros mais baixos estimulam consumo e investimento, quando a inflação está sob controle."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Monetary policy is the set of Central Bank actions to control money and credit in the economy.",
+                    "Higher rates fight inflation by cooling down consumption.",
+                    "Lower rates stimulate consumption and investment, when inflation is under control."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La política monetaria es el conjunto de acciones del Banco Central para controlar el dinero y el crédito en la economía.",
+                    "Las tasas más altas combaten la inflación, enfriando el consumo.",
+                    "Las tasas más bajas estimulan el consumo y la inversión, cuando la inflación está bajo control."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "macro_interest_rates_and_assets",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Como Juros Afetam Diferentes Ativos"},
+            "en": {"title": "How Interest Rates Affect Different Assets"},
+            "es": {"title": "Cómo las Tasas Afectan a Diferentes Activos"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Nem todo ativo reage da mesma forma",
+                  "body": "Mudanças na taxa básica de juros não afetam todos os tipos de investimento da mesma maneira. Em geral, juros mais altos tendem a tornar a renda fixa mais atrativa, já que os novos títulos passam a pagar mais. Ao mesmo tempo, juros mais altos costumam pressionar o preço de ações, porque encarecem o crédito das empresas e tornam a renda fixa uma alternativa mais competitiva para o investidor."
+                },
+                "en": {
+                  "title": "Not every asset reacts the same way",
+                  "body": "Changes in the base interest rate don't affect every type of investment the same way. In general, higher rates tend to make fixed income more attractive, since new bonds start paying more. At the same time, higher rates usually pressure stock prices, because they make companies' credit more expensive and turn fixed income into a more competitive alternative for investors."
+                },
+                "es": {
+                  "title": "No todos los activos reaccionan igual",
+                  "body": "Los cambios en la tasa básica de interés no afectan a todos los tipos de inversión de la misma manera. En general, las tasas más altas tienden a hacer que la renta fija sea más atractiva, ya que los nuevos títulos empiezan a pagar más. Al mismo tiempo, las tasas más altas suelen presionar el precio de las acciones, porque encarecen el crédito de las empresas y convierten a la renta fija en una alternativa más competitiva para el inversor."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Em um ciclo de alta de juros, um CDB novo pode passar a pagar 14% ao ano, um retorno mais atrativo e com menos risco do que muitas ações. Isso pode levar parte dos investidores a migrar recursos da bolsa para a renda fixa, pressionando os preços das ações para baixo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "During a rate-hike cycle, a new CDB might start paying 14% a year, a more attractive return with less risk than many stocks. This can lead some investors to shift money from the stock market to fixed income, pushing stock prices down."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "En un ciclo de subida de tasas, un CDB nuevo puede empezar a pagar el 14% anual, un retorno más atractivo y con menos riesgo que muchas acciones. Esto puede llevar a parte de los inversores a trasladar recursos de la bolsa hacia la renta fija, presionando a la baja los precios de las acciones."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Em geral, o que tende a acontecer com a atratividade da renda fixa quando a taxa básica de juros sobe?",
+                  "options": [
+                    "Ela tende a diminuir, já que os títulos novos pagam menos",
+                    "Ela tende a aumentar, já que novos títulos passam a oferecer taxas mais altas",
+                    "Não existe nenhuma relação entre os dois",
+                    "A renda fixa deixa de existir quando os juros sobem"
+                  ],
+                  "explanation": "Com a taxa básica mais alta, novos títulos de renda fixa costumam oferecer retornos mais atrativos, aumentando a competitividade dessa classe de ativos."
+                },
+                "en": {
+                  "prompt": "In general, what tends to happen to fixed income's attractiveness when the base rate rises?",
+                  "options": [
+                    "It tends to decrease, since new bonds pay less",
+                    "It tends to increase, since new bonds start offering higher rates",
+                    "There's no relation between the two",
+                    "Fixed income ceases to exist when rates rise"
+                  ],
+                  "explanation": "With a higher base rate, new fixed-income bonds usually offer more attractive returns, increasing that asset class's competitiveness."
+                },
+                "es": {
+                  "prompt": "En general, ¿qué tiende a pasar con el atractivo de la renta fija cuando la tasa básica de interés sube?",
+                  "options": [
+                    "Tiende a disminuir, ya que los nuevos títulos pagan menos",
+                    "Tiende a aumentar, ya que los nuevos títulos empiezan a ofrecer tasas más altas",
+                    "No existe ninguna relación entre ambos",
+                    "La renta fija deja de existir cuando las tasas suben"
+                  ],
+                  "explanation": "Con una tasa básica más alta, los nuevos títulos de renta fija suelen ofrecer retornos más atractivos, aumentando la competitividad de esa clase de activos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco e retorno de outra lição, e sabe que a renda fixa costuma ficar mais atrativa quando os juros sobem. Como isso ajuda a explicar por que ações às vezes caem justamente em ciclos de alta de juros?",
+                  "options": [
+                    "Não ajuda, ações e juros não têm relação nenhuma",
+                    "Porque, com a renda fixa oferecendo retornos maiores e menor risco, parte dos investidores pode preferir migrar recursos para lá, reduzindo a demanda por ações",
+                    "Porque juros altos sempre fazem as empresas terem lucro maior",
+                    "Porque ações só caem quando o Banco Central proíbe sua negociação"
+                  ],
+                  "explanation": "Quando a renda fixa passa a competir com retornos mais altos e menor risco, parte dos investidores tende a realocar recursos para lá, o que pode pressionar os preços das ações para baixo."
+                },
+                "en": {
+                  "prompt": "You already understand risk and return from another lesson, and know that fixed income usually becomes more attractive when rates rise. How does this help explain why stocks sometimes fall exactly during rate-hike cycles?",
+                  "options": [
+                    "It doesn't help, stocks and rates have no relation at all",
+                    "Because, with fixed income offering higher returns and lower risk, some investors may prefer to shift money there, reducing demand for stocks",
+                    "Because high rates always make companies more profitable",
+                    "Because stocks only fall when the Central Bank bans their trading"
+                  ],
+                  "explanation": "When fixed income starts competing with higher returns and lower risk, some investors tend to reallocate money there, which can push stock prices down."
+                },
+                "es": {
+                  "prompt": "Ya entiendes riesgo y retorno de otra lección, y sabes que la renta fija suele volverse más atractiva cuando las tasas suben. ¿Cómo ayuda esto a explicar por qué las acciones a veces caen justo en ciclos de subida de tasas?",
+                  "options": [
+                    "No ayuda, las acciones y las tasas no tienen ninguna relación",
+                    "Porque, con la renta fija ofreciendo retornos mayores y menor riesgo, parte de los inversores puede preferir trasladar recursos hacia allí, reduciendo la demanda de acciones",
+                    "Porque las tasas altas siempre hacen que las empresas tengan mayor ganancia",
+                    "Porque las acciones solo caen cuando el Banco Central prohíbe su negociación"
+                  ],
+                  "explanation": "Cuando la renta fija empieza a competir con retornos más altos y menor riesgo, parte de los inversores tiende a reasignar recursos hacia allí, lo que puede presionar a la baja los precios de las acciones."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Juros mais altos tendem a tornar a renda fixa mais atrativa.",
+                    "Isso pode pressionar os preços de ações para baixo, à medida que investidores realocam recursos.",
+                    "Diferentes ativos reagem de formas diferentes ao mesmo movimento de juros."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Higher rates tend to make fixed income more attractive.",
+                    "This can push stock prices down, as investors reallocate money.",
+                    "Different assets react differently to the same rate movement."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Las tasas más altas tienden a hacer que la renta fija sea más atractiva.",
+                    "Esto puede presionar a la baja los precios de las acciones, a medida que los inversores reasignan recursos.",
+                    "Activos diferentes reaccionan de forma distinta al mismo movimiento de tasas."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "macro_reading_indicators",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Lendo Indicadores com Cautela"},
+            "en": {"title": "Reading Indicators with Caution"},
+            "es": {"title": "Leyendo Indicadores con Cautela"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um dado isolado raramente conta a história toda",
+                  "body": "Indicadores macroeconômicos são publicados regularmente e podem variar de um mês para outro por diversos motivos, incluindo fatores pontuais e sazonais. Reagir de forma exagerada a um único dado — vendendo ou comprando ativos com base em uma única divulgação — costuma ser menos útil do que observar a tendência desses indicadores ao longo de vários períodos."
+                },
+                "en": {
+                  "title": "A single data point rarely tells the whole story",
+                  "body": "Macroeconomic indicators are published regularly and can vary from one month to another for various reasons, including one-off and seasonal factors. Overreacting to a single data point — selling or buying assets based on one release — tends to be less useful than watching the trend of these indicators across several periods."
+                },
+                "es": {
+                  "title": "Un dato aislado rara vez cuenta toda la historia",
+                  "body": "Los indicadores macroeconómicos se publican regularmente y pueden variar de un mes a otro por diversos motivos, incluyendo factores puntuales y estacionales. Reaccionar de forma exagerada a un solo dato — vendiendo o comprando activos con base en una única publicación — suele ser menos útil que observar la tendencia de esos indicadores a lo largo de varios períodos."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "A inflação de um único mês vem acima do esperado, por causa de um fator pontual, como uma alta temporária em alimentos. Um investidor que vende todos os seus ativos de renda fixa em pânico, só por causa desse dado isolado, pode estar reagindo a um ruído de curto prazo, em vez de a uma mudança real de tendência."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A single month's inflation comes in above expectations, due to a one-off factor, like a temporary spike in food prices. An investor who panic-sells all their fixed-income assets, just because of that isolated data point, might be reacting to short-term noise, rather than to a real change in trend."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "La inflación de un solo mes viene por encima de lo esperado, debido a un factor puntual, como un aumento temporal en alimentos. Un inversor que vende en pánico todos sus activos de renta fija, solo por ese dato aislado, puede estar reaccionando a un ruido de corto plazo, en lugar de a un cambio real de tendencia."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que reagir a um único dado macroeconômico isolado costuma ser arriscado?",
+                  "options": [
+                    "Porque indicadores macroeconômicos nunca são confiáveis",
+                    "Porque um único dado pode refletir fatores pontuais e sazonais, em vez de uma mudança real de tendência",
+                    "Porque indicadores só são divulgados uma vez por ano",
+                    "Porque não existe nenhuma forma de acompanhar indicadores ao longo do tempo"
+                  ],
+                  "explanation": "Um dado isolado pode ser ruído de curto prazo — observar a tendência ao longo de vários períodos costuma ser mais informativo do que reagir a uma única divulgação."
+                },
+                "en": {
+                  "prompt": "Why is reacting to a single isolated macroeconomic data point usually risky?",
+                  "options": [
+                    "Because macroeconomic indicators are never reliable",
+                    "Because a single data point can reflect one-off and seasonal factors, rather than a real change in trend",
+                    "Because indicators are only released once a year",
+                    "Because there's no way to track indicators over time"
+                  ],
+                  "explanation": "A single data point can be short-term noise — watching the trend over several periods tends to be more informative than reacting to one release."
+                },
+                "es": {
+                  "prompt": "¿Por qué reaccionar a un solo dato macroeconómico aislado suele ser arriesgado?",
+                  "options": [
+                    "Porque los indicadores macroeconómicos nunca son confiables",
+                    "Porque un solo dato puede reflejar factores puntuales y estacionales, en lugar de un cambio real de tendencia",
+                    "Porque los indicadores solo se publican una vez al año",
+                    "Porque no existe ninguna forma de seguir indicadores a lo largo del tiempo"
+                  ],
+                  "explanation": "Un dato aislado puede ser ruido de corto plazo — observar la tendencia a lo largo de varios períodos suele ser más informativo que reaccionar a una sola publicación."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende PIB, Selic, política monetária e como juros afetam diferentes ativos. Diante de uma única divulgação de dado econômico surpreendente, o que essa base de conhecimento sugere como abordagem mais equilibrada?",
+                  "options": [
+                    "Reagir imediatamente, vendendo ou comprando ativos com base apenas nesse dado isolado",
+                    "Considerar esse dado como parte de um quadro maior, observando se ele confirma ou não uma tendência já observada em períodos anteriores, antes de agir",
+                    "Ignorar completamente todos os indicadores macroeconômicos, já que eles nunca importam",
+                    "Assumir que esse dado isolado já determina com certeza os próximos anos da economia"
+                  ],
+                  "explanation": "Entender os mecanismos por trás dos indicadores ajuda a interpretá-los com mais contexto — um dado isolado ganha mais sentido quando visto dentro de uma tendência mais ampla, não como um evento decisivo isolado."
+                },
+                "en": {
+                  "prompt": "You already understand GDP, the base rate, monetary policy, and how rates affect different assets. Faced with a single surprising economic data release, what does this knowledge base suggest as a more balanced approach?",
+                  "options": [
+                    "Reacting immediately, selling or buying assets based only on that isolated data point",
+                    "Considering that data point as part of a bigger picture, checking whether it confirms or not a trend already observed over previous periods, before acting",
+                    "Completely ignoring all macroeconomic indicators, since they never matter",
+                    "Assuming that single data point already determines with certainty the economy's next several years"
+                  ],
+                  "explanation": "Understanding the mechanisms behind indicators helps interpret them with more context — a single data point makes more sense when seen within a broader trend, not as an isolated decisive event."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el PIB, la tasa básica, la política monetaria y cómo las tasas afectan a diferentes activos. Ante una sola publicación de dato económico sorprendente, ¿qué sugiere esta base de conocimiento como enfoque más equilibrado?",
+                  "options": [
+                    "Reaccionar de inmediato, vendiendo o comprando activos basándose solo en ese dato aislado",
+                    "Considerar ese dato como parte de un panorama más amplio, observando si confirma o no una tendencia ya observada en períodos anteriores, antes de actuar",
+                    "Ignorar por completo todos los indicadores macroeconómicos, ya que nunca importan",
+                    "Asumir que ese dato aislado ya determina con certeza los próximos años de la economía"
+                  ],
+                  "explanation": "Entender los mecanismos detrás de los indicadores ayuda a interpretarlos con más contexto — un dato aislado cobra más sentido cuando se ve dentro de una tendencia más amplia, no como un evento decisivo aislado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Indicadores macroeconômicos podem variar por fatores pontuais e sazonais.",
+                    "Observar a tendência ao longo de vários períodos é mais informativo do que reagir a um único dado.",
+                    "Você concluiu o módulo de fundamentos de macroeconomia."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Macroeconomic indicators can vary due to one-off and seasonal factors.",
+                    "Watching the trend across several periods is more informative than reacting to a single data point.",
+                    "You've completed the macroeconomics fundamentals module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Los indicadores macroeconómicos pueden variar por factores puntuales y estacionales.",
+                    "Observar la tendencia a lo largo de varios períodos es más informativo que reaccionar a un solo dato.",
+                    "Completaste el módulo de fundamentos de macroeconomía."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

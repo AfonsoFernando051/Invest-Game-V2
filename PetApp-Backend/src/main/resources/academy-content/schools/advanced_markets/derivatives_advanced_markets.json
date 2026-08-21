@@ -3,8 +3,8 @@
   "domainId": "advanced_markets",
   "order": 17,
   "iconKey": "timeline_outlined",
-  "contentAvailable": false,
-  "prerequisites": [],
+  "contentAvailable": true,
+  "prerequisites": ["investment_fundamentals"],
   "translations": {
     "pt": {
       "title": "Derivativos e Mercados Avançados",
@@ -19,5 +19,646 @@
       "description": "Opciones, futuros y swaps — cobertura (hedge) y especulación, con los riesgos que implican."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "derivatives_basics",
+      "order": 1,
+      "iconKey": "timeline_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos de Derivativos",
+          "description": "O que são derivativos, contratos futuros, opções e a diferença entre proteção (hedge) e especulação."
+        },
+        "en": {
+          "title": "Derivatives Fundamentals",
+          "description": "What derivatives are, futures contracts, options and the difference between hedging and speculation."
+        },
+        "es": {
+          "title": "Fundamentos de Derivados",
+          "description": "Qué son los derivados, contratos futuros, opciones y la diferencia entre cobertura (hedge) y especulación."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "derivatives_what_are_they",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "O que são Derivativos?"},
+            "en": {"title": "What Are Derivatives?"},
+            "es": {"title": "¿Qué son los Derivados?"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um contrato cujo valor vem de outra coisa",
+                  "body": "Derivativo é um contrato financeiro cujo valor deriva do preço de outro ativo — chamado de ativo subjacente — como uma ação, uma moeda, uma commodity ou uma taxa de juros. Diferente de comprar diretamente o ativo, um derivativo é um acordo sobre esse ativo: uma promessa de compra, venda, ou troca em condições específicas, definidas no contrato."
+                },
+                "en": {
+                  "title": "A contract whose value comes from something else",
+                  "body": "A derivative is a financial contract whose value derives from the price of another asset — called the underlying asset — like a stock, a currency, a commodity, or an interest rate. Unlike buying the asset directly, a derivative is an agreement about that asset: a promise to buy, sell, or exchange under specific conditions, defined in the contract."
+                },
+                "es": {
+                  "title": "Un contrato cuyo valor viene de otra cosa",
+                  "body": "Un derivado es un contrato financiero cuyo valor deriva del precio de otro activo — llamado activo subyacente — como una acción, una moneda, una materia prima o una tasa de interés. A diferencia de comprar el activo directamente, un derivado es un acuerdo sobre ese activo: una promesa de compra, venta o intercambio en condiciones específicas, definidas en el contrato."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um contrato futuro de dólar não é o dólar em si, mas um acordo para comprar ou vender uma certa quantidade de dólares a um preço definido, em uma data futura. O valor desse contrato sobe ou desce conforme a expectativa sobre o preço futuro do dólar muda — mesmo sem que nenhuma nota de dólar troque de mãos até o vencimento."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A dollar futures contract isn't the dollar itself, but an agreement to buy or sell a certain amount of dollars at a defined price, on a future date. The value of this contract rises or falls as expectations about the dollar's future price change — even without any actual dollar bill changing hands until maturity."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un contrato futuro de dólar no es el dólar en sí, sino un acuerdo para comprar o vender una cierta cantidad de dólares a un precio definido, en una fecha futura. El valor de ese contrato sube o baja según cambia la expectativa sobre el precio futuro del dólar — incluso sin que ningún billete de dólar cambie de manos hasta el vencimiento."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que define um derivativo?",
+                  "options": [
+                    "Ele é sempre a compra direta de uma ação",
+                    "Seu valor deriva do preço de outro ativo, chamado ativo subjacente",
+                    "Ele nunca tem relação com nenhum outro ativo",
+                    "Ele é um tipo específico de conta bancária"
+                  ],
+                  "explanation": "A característica central de um derivativo é que seu valor depende do comportamento de outro ativo — o ativo subjacente — e não é uma compra direta desse ativo."
+                },
+                "en": {
+                  "prompt": "What defines a derivative?",
+                  "options": [
+                    "It's always the direct purchase of a stock",
+                    "Its value derives from the price of another asset, called the underlying asset",
+                    "It never has any relation to another asset",
+                    "It's a specific type of bank account"
+                  ],
+                  "explanation": "The central feature of a derivative is that its value depends on the behavior of another asset — the underlying asset — and it isn't a direct purchase of that asset."
+                },
+                "es": {
+                  "prompt": "¿Qué define a un derivado?",
+                  "options": [
+                    "Siempre es la compra directa de una acción",
+                    "Su valor deriva del precio de otro activo, llamado activo subyacente",
+                    "Nunca tiene relación con ningún otro activo",
+                    "Es un tipo específico de cuenta bancaria"
+                  ],
+                  "explanation": "La característica central de un derivado es que su valor depende del comportamiento de otro activo — el activo subyacente — y no es una compra directa de ese activo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você ouve alguém dizer 'comprei um contrato futuro de café, então agora tenho sacos de café guardados em algum lugar'. O que está errado nessa afirmação?",
+                  "options": [
+                    "Nada, comprar um contrato futuro sempre significa receber o produto físico imediatamente",
+                    "Um contrato futuro é um acordo sobre o preço futuro do ativo, não a posse imediata do produto físico — a liquidação pode ocorrer de formas diferentes, sem necessariamente envolver entrega física",
+                    "Contratos futuros só existem para moedas, nunca para commodities",
+                    "Café nunca pode ser objeto de um contrato de derivativo"
+                  ],
+                  "explanation": "Um derivativo é um contrato sobre o preço futuro de um ativo — ele não implica automaticamente a posse física imediata do ativo subjacente."
+                },
+                "en": {
+                  "prompt": "You hear someone say 'I bought a coffee futures contract, so now I have sacks of coffee stored somewhere.' What's wrong with that statement?",
+                  "options": [
+                    "Nothing, buying a futures contract always means immediately receiving the physical product",
+                    "A futures contract is an agreement about the asset's future price, not immediate ownership of the physical product — settlement can happen in different ways, without necessarily involving physical delivery",
+                    "Futures contracts only exist for currencies, never for commodities",
+                    "Coffee can never be the subject of a derivative contract"
+                  ],
+                  "explanation": "A derivative is a contract about an asset's future price — it doesn't automatically imply immediate physical ownership of the underlying asset."
+                },
+                "es": {
+                  "prompt": "Escuchas a alguien decir 'compré un contrato futuro de café, así que ahora tengo sacos de café guardados en algún lugar'. ¿Qué está mal en esa afirmación?",
+                  "options": [
+                    "Nada, comprar un contrato futuro siempre significa recibir el producto físico de inmediato",
+                    "Un contrato futuro es un acuerdo sobre el precio futuro del activo, no la posesión inmediata del producto físico — la liquidación puede ocurrir de formas diferentes, sin necesariamente involucrar entrega física",
+                    "Los contratos futuros solo existen para monedas, nunca para materias primas",
+                    "El café nunca puede ser objeto de un contrato de derivado"
+                  ],
+                  "explanation": "Un derivado es un contrato sobre el precio futuro de un activo — no implica automáticamente la posesión física inmediata del activo subyacente."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Derivativo é um contrato cujo valor deriva do preço de um ativo subjacente.",
+                    "Ele é um acordo sobre esse ativo, não necessariamente sua posse física imediata.",
+                    "O ativo subjacente pode ser uma ação, moeda, commodity ou taxa de juros, entre outros."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A derivative is a contract whose value derives from the price of an underlying asset.",
+                    "It's an agreement about that asset, not necessarily its immediate physical ownership.",
+                    "The underlying asset can be a stock, currency, commodity or interest rate, among others."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Un derivado es un contrato cuyo valor deriva del precio de un activo subyacente.",
+                    "Es un acuerdo sobre ese activo, no necesariamente su posesión física inmediata.",
+                    "El activo subyacente puede ser una acción, moneda, materia prima o tasa de interés, entre otros."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_futures_contracts",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Contratos Futuros"},
+            "en": {"title": "Futures Contracts"},
+            "es": {"title": "Contratos Futuros"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Travando um preço para o futuro",
+                  "body": "Um contrato futuro é um acordo padronizado, negociado em bolsa, para comprar ou vender um ativo a um preço definido, em uma data futura específica. Diferente de um contrato particular entre duas pessoas, os contratos futuros são padronizados e passam pela bolsa, que atua como intermediária, reduzindo o risco de uma das partes não cumprir o combinado."
+                },
+                "en": {
+                  "title": "Locking in a price for the future",
+                  "body": "A futures contract is a standardized agreement, traded on an exchange, to buy or sell an asset at a defined price, on a specific future date. Unlike a private contract between two people, futures contracts are standardized and go through the exchange, which acts as an intermediary, reducing the risk that one of the parties won't honor the deal."
+                },
+                "es": {
+                  "title": "Fijando un precio para el futuro",
+                  "body": "Un contrato futuro es un acuerdo estandarizado, negociado en bolsa, para comprar o vender un activo a un precio definido, en una fecha futura específica. A diferencia de un contrato privado entre dos personas, los contratos futuros están estandarizados y pasan por la bolsa, que actúa como intermediaria, reduciendo el riesgo de que una de las partes no cumpla lo acordado."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um produtor de soja vende um contrato futuro, travando hoje o preço pelo qual vai vender sua colheita daqui a 6 meses. Se o preço da soja cair nesse período, ele já garantiu um preço melhor. Se o preço subir, ele deixa de aproveitar essa alta — mas, em troca, ganhou previsibilidade sobre sua receita futura."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A soybean producer sells a futures contract, locking in today the price at which they'll sell their harvest 6 months from now. If soybean prices fall during that period, they've already secured a better price. If prices rise, they miss out on that upside — but, in exchange, they gained predictability over their future revenue."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un productor de soja vende un contrato futuro, fijando hoy el precio al que venderá su cosecha dentro de 6 meses. Si el precio de la soja cae en ese período, ya aseguró un precio mejor. Si el precio sube, deja de aprovechar esa subida — pero, a cambio, ganó previsibilidad sobre sus ingresos futuros."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza um contrato futuro negociado em bolsa?",
+                  "options": [
+                    "É um contrato particular entre duas pessoas, sem intermediação de bolsa",
+                    "É um acordo padronizado, negociado em bolsa, para comprar ou vender um ativo a um preço definido em uma data futura",
+                    "É a compra imediata e definitiva de um ativo, sem prazo futuro envolvido",
+                    "Ele só pode ser usado para ações, nunca para outros ativos"
+                  ],
+                  "explanation": "Contratos futuros são padronizados e negociados em bolsa, que reduz o risco de uma das partes não cumprir o acordo — diferente de um contrato particular direto entre duas pessoas."
+                },
+                "en": {
+                  "prompt": "What characterizes a futures contract traded on an exchange?",
+                  "options": [
+                    "It's a private contract between two people, with no exchange intermediation",
+                    "It's a standardized agreement, traded on an exchange, to buy or sell an asset at a defined price on a future date",
+                    "It's the immediate, final purchase of an asset, with no future term involved",
+                    "It can only be used for stocks, never for other assets"
+                  ],
+                  "explanation": "Futures contracts are standardized and traded on an exchange, which reduces the risk that one party won't honor the deal — unlike a direct private contract between two people."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza a un contrato futuro negociado en bolsa?",
+                  "options": [
+                    "Es un contrato privado entre dos personas, sin intermediación de bolsa",
+                    "Es un acuerdo estandarizado, negociado en bolsa, para comprar o vender un activo a un precio definido en una fecha futura",
+                    "Es la compra inmediata y definitiva de un activo, sin ningún plazo futuro involucrado",
+                    "Solo puede usarse para acciones, nunca para otros activos"
+                  ],
+                  "explanation": "Los contratos futuros están estandarizados y se negocian en bolsa, lo que reduce el riesgo de que una de las partes no cumpla el acuerdo — a diferencia de un contrato privado directo entre dos personas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um produtor trava o preço futuro da sua colheita através de um contrato futuro. Depois disso, o preço do produto sobe bastante no mercado. O que acontece com o produtor, considerando o que ele já havia combinado?",
+                  "options": [
+                    "Ele automaticamente recebe o novo preço mais alto, sem nenhuma limitação",
+                    "Ele já travou o preço anteriormente, então deixa de aproveitar essa alta, em troca da previsibilidade que obteve antes",
+                    "O contrato futuro se torna automaticamente inválido quando o preço muda",
+                    "Ele é obrigado a devolver o contrato para a bolsa"
+                  ],
+                  "explanation": "Ao travar um preço com antecedência, o produtor abre mão de eventuais ganhos com altas futuras, em troca da previsibilidade e proteção contra quedas — essa é a essência do uso de contratos futuros para hedge."
+                },
+                "en": {
+                  "prompt": "A producer locks in their harvest's future price through a futures contract. After that, the product's price rises a lot in the market. What happens to the producer, given what they had already agreed to?",
+                  "options": [
+                    "They automatically receive the new higher price, with no limitation at all",
+                    "They already locked in the price beforehand, so they miss out on that upside, in exchange for the predictability they gained earlier",
+                    "The futures contract automatically becomes invalid when the price changes",
+                    "They're required to return the contract to the exchange"
+                  ],
+                  "explanation": "By locking in a price in advance, the producer gives up any potential gains from future price increases, in exchange for predictability and protection against declines — that's the essence of using futures contracts for hedging."
+                },
+                "es": {
+                  "prompt": "Un productor fija el precio futuro de su cosecha a través de un contrato futuro. Después de eso, el precio del producto sube bastante en el mercado. ¿Qué le pasa al productor, considerando lo que ya había acordado?",
+                  "options": [
+                    "Recibe automáticamente el nuevo precio más alto, sin ninguna limitación",
+                    "Ya fijó el precio de antemano, así que deja de aprovechar esa subida, a cambio de la previsibilidad que obtuvo antes",
+                    "El contrato futuro se vuelve automáticamente inválido cuando el precio cambia",
+                    "Está obligado a devolver el contrato a la bolsa"
+                  ],
+                  "explanation": "Al fijar un precio con anticipación, el productor renuncia a posibles ganancias con subidas futuras, a cambio de la previsibilidad y protección contra caídas — esa es la esencia del uso de contratos futuros para cobertura."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Contratos futuros são padronizados e negociados em bolsa.",
+                    "Eles permitem travar um preço hoje para uma transação que vai acontecer no futuro.",
+                    "Travar um preço significa abrir mão de ganhos com altas, em troca de previsibilidade."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Futures contracts are standardized and traded on an exchange.",
+                    "They allow locking in a price today for a transaction that will happen in the future.",
+                    "Locking in a price means giving up gains from price increases, in exchange for predictability."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Los contratos futuros están estandarizados y se negocian en bolsa.",
+                    "Permiten fijar un precio hoy para una transacción que ocurrirá en el futuro.",
+                    "Fijar un precio significa renunciar a ganancias con subidas, a cambio de previsibilidad."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_options",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Opções"},
+            "en": {"title": "Options"},
+            "es": {"title": "Opciones"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O direito, mas não a obrigação",
+                  "body": "Uma opção é um contrato que dá ao comprador o direito — mas não a obrigação — de comprar (opção de compra, ou call) ou vender (opção de venda, ou put) um ativo a um preço definido, até ou em uma data específica. Ao comprar uma opção, o investidor paga um valor chamado prêmio; se o direito não for exercido, o máximo que ele perde é esse prêmio pago."
+                },
+                "en": {
+                  "title": "The right, but not the obligation",
+                  "body": "An option is a contract that gives the buyer the right — but not the obligation — to buy (a call option) or sell (a put option) an asset at a defined price, by or on a specific date. When buying an option, the investor pays an amount called the premium; if the right isn't exercised, the most they lose is that premium paid."
+                },
+                "es": {
+                  "title": "El derecho, pero no la obligación",
+                  "body": "Una opción es un contrato que le da al comprador el derecho — pero no la obligación — de comprar (opción de compra, o call) o vender (opción de venta, o put) un activo a un precio definido, hasta o en una fecha específica. Al comprar una opción, el inversor paga un monto llamado prima; si el derecho no se ejerce, lo máximo que pierde es esa prima pagada."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor compra uma opção de compra de uma ação, pagando um prêmio de R$2, com direito de comprá-la por R$50 até uma data futura. Se a ação subir para R$60, ele pode exercer o direito e comprar por R$50, lucrando com a diferença. Se a ação cair para R$40, ele simplesmente não exerce o direito, perdendo apenas o prêmio de R$2 pago inicialmente."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor buys a call option on a stock, paying a premium of R$2, with the right to buy it for R$50 by a future date. If the stock rises to R$60, they can exercise the right and buy at R$50, profiting from the difference. If the stock falls to R$40, they simply don't exercise the right, losing only the R$2 premium paid upfront."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor compra una opción de compra de una acción, pagando una prima de R$2, con derecho a comprarla por R$50 hasta una fecha futura. Si la acción sube a R$60, puede ejercer el derecho y comprar por R$50, ganando con la diferencia. Si la acción cae a R$40, simplemente no ejerce el derecho, perdiendo solo la prima de R$2 pagada inicialmente."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o comprador de uma opção adquire?",
+                  "options": [
+                    "A obrigação de comprar ou vender o ativo, sem alternativa",
+                    "O direito, mas não a obrigação, de comprar ou vender o ativo a um preço definido",
+                    "A posse imediata e definitiva do ativo subjacente",
+                    "Um empréstimo garantido pelo ativo subjacente"
+                  ],
+                  "explanation": "A característica central de uma opção é dar ao comprador o direito, não a obrigação, de exercer a compra ou venda do ativo nas condições combinadas."
+                },
+                "en": {
+                  "prompt": "What does an option buyer acquire?",
+                  "options": [
+                    "The obligation to buy or sell the asset, with no alternative",
+                    "The right, but not the obligation, to buy or sell the asset at a defined price",
+                    "Immediate and final ownership of the underlying asset",
+                    "A loan secured by the underlying asset"
+                  ],
+                  "explanation": "The central feature of an option is that it gives the buyer the right, not the obligation, to exercise the purchase or sale of the asset under the agreed conditions."
+                },
+                "es": {
+                  "prompt": "¿Qué adquiere el comprador de una opción?",
+                  "options": [
+                    "La obligación de comprar o vender el activo, sin alternativa",
+                    "El derecho, pero no la obligación, de comprar o vender el activo a un precio definido",
+                    "La posesión inmediata y definitiva del activo subyacente",
+                    "Un préstamo garantizado por el activo subyacente"
+                  ],
+                  "explanation": "La característica central de una opción es que le da al comprador el derecho, no la obligación, de ejercer la compra o venta del activo en las condiciones acordadas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você comprou uma opção de compra pagando um prêmio, mas o preço do ativo caiu bastante e ficou bem abaixo do preço combinado na opção. Qual é o pior cenário possível para você, comprador da opção?",
+                  "options": [
+                    "Você é obrigado a comprar o ativo mesmo assim, tendo prejuízo ilimitado",
+                    "Você precisa pagar um valor extra além do prêmio já pago",
+                    "Você simplesmente não exerce o direito, perdendo apenas o prêmio já pago",
+                    "A bolsa cancela automaticamente todas as suas outras operações"
+                  ],
+                  "explanation": "Para o comprador de uma opção, a perda máxima possível é o valor do prêmio pago — se o exercício não é vantajoso, ele simplesmente não exerce o direito."
+                },
+                "en": {
+                  "prompt": "You bought a call option, paying a premium, but the asset's price fell a lot and ended up well below the price agreed in the option. What's the worst possible scenario for you, the option buyer?",
+                  "options": [
+                    "You're required to buy the asset anyway, facing unlimited losses",
+                    "You need to pay an extra amount on top of the premium already paid",
+                    "You simply don't exercise the right, losing only the premium already paid",
+                    "The exchange automatically cancels all your other transactions"
+                  ],
+                  "explanation": "For an option buyer, the maximum possible loss is the premium paid — if exercising isn't advantageous, they simply don't exercise the right."
+                },
+                "es": {
+                  "prompt": "Compraste una opción de compra pagando una prima, pero el precio del activo cayó bastante y quedó bien por debajo del precio acordado en la opción. ¿Cuál es el peor escenario posible para ti, comprador de la opción?",
+                  "options": [
+                    "Estás obligado a comprar el activo de todas formas, teniendo pérdidas ilimitadas",
+                    "Necesitas pagar un monto extra además de la prima ya pagada",
+                    "Simplemente no ejerces el derecho, perdiendo solo la prima ya pagada",
+                    "La bolsa cancela automáticamente todas tus otras operaciones"
+                  ],
+                  "explanation": "Para el comprador de una opción, la pérdida máxima posible es el monto de la prima pagada — si ejercer no es ventajoso, simplemente no ejerce el derecho."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Uma opção dá ao comprador o direito, não a obrigação, de comprar ou vender um ativo.",
+                    "O comprador paga um prêmio por esse direito.",
+                    "A perda máxima do comprador de uma opção é o valor do prêmio pago."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "An option gives the buyer the right, not the obligation, to buy or sell an asset.",
+                    "The buyer pays a premium for that right.",
+                    "The option buyer's maximum loss is the premium paid."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Una opción le da al comprador el derecho, no la obligación, de comprar o vender un activo.",
+                    "El comprador paga una prima por ese derecho.",
+                    "La pérdida máxima del comprador de una opción es el monto de la prima pagada."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "derivatives_hedge_vs_speculation",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Proteção (Hedge) x Especulação"},
+            "en": {"title": "Hedging vs. Speculation"},
+            "es": {"title": "Cobertura (Hedge) vs. Especulación"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O mesmo instrumento, dois objetivos diferentes"
+                ,"body": "Hedge (proteção) é o uso de derivativos para reduzir um risco que já existe — por exemplo, uma empresa que compra insumos em dólar usando derivativos para se proteger de uma alta na moeda. Especulação é o uso desses mesmos instrumentos para tentar lucrar com a variação de preço, assumindo um risco novo que não existia antes. O mesmo contrato de derivativo pode servir para os dois propósitos — a diferença está na intenção e na posição de quem o utiliza."
+                },
+                "en": {
+                  "title": "The same instrument, two different goals",
+                  "body": "Hedging is the use of derivatives to reduce a risk that already exists — for example, a company that buys supplies in dollars using derivatives to protect itself against the currency rising. Speculation is the use of these same instruments to try to profit from price movements, taking on a new risk that didn't exist before. The same derivative contract can serve both purposes — the difference lies in the intent and the position of whoever uses it."
+                },
+                "es": {
+                  "title": "El mismo instrumento, dos objetivos diferentes",
+                  "body": "La cobertura (hedge) es el uso de derivados para reducir un riesgo que ya existe — por ejemplo, una empresa que compra insumos en dólares usando derivados para protegerse de una subida de la moneda. La especulación es el uso de esos mismos instrumentos para intentar ganar con la variación de precio, asumiendo un riesgo nuevo que no existía antes. El mismo contrato de derivado puede servir para ambos propósitos — la diferencia está en la intención y en la posición de quien lo utiliza."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma companhia aérea, que já tem um custo real com combustível, compra contratos futuros de petróleo para se proteger de uma alta nos preços — isso é hedge, porque reduz um risco que a empresa já tinha. Já um investidor sem nenhuma exposição prévia a petróleo, que compra o mesmo tipo de contrato apostando que o preço vai subir, está especulando — assumindo um risco novo em busca de lucro."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An airline, which already has a real cost with fuel, buys oil futures contracts to protect itself against rising prices — that's hedging, because it reduces a risk the company already had. An investor with no prior exposure to oil, who buys the same type of contract betting the price will rise, is speculating — taking on a new risk in pursuit of profit."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una aerolínea, que ya tiene un costo real con combustible, compra contratos futuros de petróleo para protegerse de una subida de precios — eso es cobertura, porque reduce un riesgo que la empresa ya tenía. En cambio, un inversor sin ninguna exposición previa al petróleo, que compra el mismo tipo de contrato apostando a que el precio va a subir, está especulando — asumiendo un riesgo nuevo en busca de ganancias."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a principal diferença entre hedge e especulação?",
+                  "options": [
+                    "Hedge usa derivativos, e especulação nunca usa",
+                    "Hedge busca reduzir um risco que já existe; especulação busca lucrar assumindo um risco novo",
+                    "Não existe diferença nenhuma entre os dois",
+                    "Especulação é sempre ilegal, hedge nunca é"
+                  ],
+                  "explanation": "A diferença está no objetivo: hedge reduz uma exposição de risco já existente, enquanto especulação assume uma exposição nova em busca de lucro."
+                },
+                "en": {
+                  "prompt": "What is the main difference between hedging and speculation?",
+                  "options": [
+                    "Hedging uses derivatives, and speculation never does",
+                    "Hedging seeks to reduce a risk that already exists; speculation seeks to profit by taking on a new risk",
+                    "There's no difference at all between the two",
+                    "Speculation is always illegal, hedging never is"
+                  ],
+                  "explanation": "The difference lies in the goal: hedging reduces an already-existing risk exposure, while speculation takes on a new exposure in pursuit of profit."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la principal diferencia entre cobertura y especulación?",
+                  "options": [
+                    "La cobertura usa derivados, y la especulación nunca los usa",
+                    "La cobertura busca reducir un riesgo que ya existe; la especulación busca ganar asumiendo un riesgo nuevo",
+                    "No existe ninguna diferencia entre ambas",
+                    "La especulación siempre es ilegal, la cobertura nunca lo es"
+                  ],
+                  "explanation": "La diferencia está en el objetivo: la cobertura reduce una exposición al riesgo ya existente, mientras que la especulación asume una exposición nueva en busca de ganancias."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma empresa exportadora, que recebe em dólar, usa derivativos para travar a taxa de câmbio na qual vai converter esse dinheiro em reais. Um investidor sem nenhuma receita em dólar compra o mesmo tipo de contrato, apostando na alta da moeda. Como você classificaria cada operação?",
+                  "options": [
+                    "As duas são exemplos de especulação, já que envolvem derivativos",
+                    "A da empresa é hedge, porque reduz um risco cambial que ela já tinha; a do investidor é especulação, porque cria uma exposição nova ao câmbio",
+                    "As duas são hedge, já que usam o mesmo tipo de contrato",
+                    "É impossível classificar sem saber o valor exato de cada contrato"
+                  ],
+                  "explanation": "O mesmo tipo de contrato pode ser hedge ou especulação dependendo de quem o usa e por quê: a empresa já tinha exposição cambial e busca reduzi-la; o investidor está criando uma exposição nova, buscando lucro."
+                },
+                "en": {
+                  "prompt": "An exporting company, which receives payment in dollars, uses derivatives to lock in the exchange rate at which it will convert that money into reals. An investor with no dollar revenue at all buys the same type of contract, betting on the currency rising. How would you classify each transaction?",
+                  "options": [
+                    "Both are examples of speculation, since they involve derivatives",
+                    "The company's is hedging, because it reduces a currency risk it already had; the investor's is speculation, because it creates a new exposure to the exchange rate",
+                    "Both are hedging, since they use the same type of contract",
+                    "It's impossible to classify without knowing the exact value of each contract"
+                  ],
+                  "explanation": "The same type of contract can be hedging or speculation depending on who uses it and why: the company already had currency exposure and seeks to reduce it; the investor is creating a new exposure, seeking profit."
+                },
+                "es": {
+                  "prompt": "Una empresa exportadora, que recibe pagos en dólares, usa derivados para fijar el tipo de cambio al que convertirá ese dinero en reales. Un inversor sin ningún ingreso en dólares compra el mismo tipo de contrato, apostando a la subida de la moneda. ¿Cómo clasificarías cada operación?",
+                  "options": [
+                    "Ambas son ejemplos de especulación, ya que involucran derivados",
+                    "La de la empresa es cobertura, porque reduce un riesgo cambiario que ya tenía; la del inversor es especulación, porque crea una exposición nueva al tipo de cambio",
+                    "Ambas son cobertura, ya que usan el mismo tipo de contrato",
+                    "Es imposible clasificarlas sin saber el valor exacto de cada contrato"
+                  ],
+                  "explanation": "El mismo tipo de contrato puede ser cobertura o especulación dependiendo de quién lo usa y por qué: la empresa ya tenía exposición cambiaria y busca reducirla; el inversor está creando una exposición nueva, buscando ganancias."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Hedge usa derivativos para reduzir um risco que já existe.",
+                    "Especulação usa os mesmos instrumentos para buscar lucro, assumindo um risco novo.",
+                    "O mesmo contrato pode servir para os dois propósitos, dependendo de quem o utiliza."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Hedging uses derivatives to reduce a risk that already exists.",
+                    "Speculation uses the same instruments to seek profit, taking on a new risk.",
+                    "The same contract can serve both purposes, depending on who uses it."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "La cobertura usa derivados para reducir un riesgo que ya existe.",
+                    "La especulación usa los mismos instrumentos para buscar ganancias, asumiendo un riesgo nuevo.",
+                    "El mismo contrato puede servir para ambos propósitos, dependiendo de quién lo utilice."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

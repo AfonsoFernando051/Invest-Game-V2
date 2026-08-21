@@ -3,8 +3,8 @@
   "domainId": "simulations_practice",
   "order": 19,
   "iconKey": "map_outlined",
-  "contentAvailable": false,
-  "prerequisites": [],
+  "contentAvailable": true,
+  "prerequisites": ["investment_fundamentals"],
   "translations": {
     "pt": {
       "title": "Simulações da Vida Real",
@@ -19,5 +19,646 @@
       "description": "Escenarios prácticos — primer sueldo, primera deuda, una caída del mercado — para aplicar lo aprendido."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "real_life_scenarios",
+      "order": 1,
+      "iconKey": "map_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Cenários da Vida Real",
+          "description": "O primeiro salário, a primeira dívida, uma queda de mercado e um dinheiro extra inesperado — aplicando o que você já aprendeu."
+        },
+        "en": {
+          "title": "Real-Life Scenarios",
+          "description": "The first paycheck, the first debt, a market downturn and an unexpected windfall — applying what you've already learned."
+        },
+        "es": {
+          "title": "Escenarios de la Vida Real",
+          "description": "El primer sueldo, la primera deuda, una caída del mercado y un dinero extra inesperado — aplicando lo que ya aprendiste."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "simulation_first_paycheck",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Seu Primeiro Salário"},
+            "en": {"title": "Simulation: Your First Paycheck"},
+            "es": {"title": "Simulación: Tu Primer Sueldo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você acabou de receber seu primeiro salário e precisa decidir o que fazer com o dinheiro que sobra depois das contas básicas. Você já estudou reserva de emergência, diversificação, perfil de investidor e objetivos e horizonte de tempo — esta simulação é sobre juntar esses conceitos em uma decisão prática, sem nenhuma resposta única e certa, mas com alguns princípios que ajudam a organizar o raciocínio."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You just received your first paycheck and need to decide what to do with the money left over after basic expenses. You've already studied emergency funds, diversification, investor profile, and goals and time horizon — this simulation is about bringing those concepts together into a practical decision, with no single right answer, but with some principles that help organize the reasoning."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Acabas de recibir tu primer sueldo y necesitas decidir qué hacer con el dinero que sobra después de los gastos básicos. Ya estudiaste fondo de emergencia, diversificación, perfil de inversor, y objetivos y horizonte de tiempo — esta simulación se trata de juntar esos conceptos en una decisión práctica, sin una única respuesta correcta, pero con algunos principios que ayudan a organizar el razonamiento."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Sem nenhuma reserva de emergência ainda, colocar o dinheiro extra diretamente em um investimento de longo prazo, com baixa liquidez, deixaria a pessoa vulnerável caso surgisse um imprevisto no meio do caminho. Priorizar a formação de uma reserva de emergência líquida antes de outros objetivos costuma ser o primeiro passo mais sólido, antes de pensar em investimentos de prazos mais longos."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "With no emergency fund yet, putting the extra money directly into a long-term investment with low liquidity would leave the person vulnerable if something unexpected came up along the way. Prioritizing a liquid emergency fund before other goals tends to be the more solid first step, before thinking about longer-term investments."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Sin ningún fondo de emergencia todavía, poner el dinero extra directamente en una inversión a largo plazo, con baja liquidez, dejaría a la persona vulnerable si surgiera un imprevisto en el camino. Priorizar la formación de un fondo de emergencia líquido antes que otros objetivos suele ser el primer paso más sólido, antes de pensar en inversiones de plazos más largos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você recebeu seu primeiro salário e ainda não tem nenhuma reserva de emergência. O que faz mais sentido priorizar com o dinheiro que sobra?",
+                  "options": [
+                    "Investir tudo imediatamente em um título de renda fixa sem liquidez diária, travado por vários anos",
+                    "Começar a formar uma reserva de emergência líquida, antes de comprometer o dinheiro com investimentos de prazo mais longo",
+                    "Gastar tudo, já que reserva de emergência não é importante no início da vida financeira",
+                    "Esperar vários anos antes de tomar qualquer decisão sobre o dinheiro"
+                  ],
+                  "explanation": "Sem uma reserva de emergência, qualquer imprevisto pode forçar a pessoa a resgatar investimentos de longo prazo em más condições, ou recorrer a dívidas caras — por isso, formar essa reserva costuma vir primeiro."
+                },
+                "en": {
+                  "prompt": "You received your first paycheck and don't have any emergency fund yet. What makes the most sense to prioritize with the money left over?",
+                  "options": [
+                    "Investing it all immediately in a fixed-income bond with no daily liquidity, locked up for several years",
+                    "Starting to build a liquid emergency fund, before committing the money to longer-term investments",
+                    "Spending it all, since an emergency fund isn't important early in your financial life",
+                    "Waiting several years before making any decision about the money"
+                  ],
+                  "explanation": "Without an emergency fund, any unexpected event can force the person to withdraw long-term investments under bad conditions, or resort to expensive debt — that's why building this fund usually comes first."
+                },
+                "es": {
+                  "prompt": "Recibiste tu primer sueldo y todavía no tienes ningún fondo de emergencia. ¿Qué tiene más sentido priorizar con el dinero que sobra?",
+                  "options": [
+                    "Invertir todo de inmediato en un título de renta fija sin liquidez diaria, bloqueado por varios años",
+                    "Empezar a formar un fondo de emergencia líquido, antes de comprometer el dinero con inversiones de plazo más largo",
+                    "Gastarlo todo, ya que el fondo de emergencia no es importante al inicio de la vida financiera",
+                    "Esperar varios años antes de tomar cualquier decisión sobre el dinero"
+                  ],
+                  "explanation": "Sin un fondo de emergencia, cualquier imprevisto puede obligar a la persona a rescatar inversiones a largo plazo en malas condiciones, o recurrir a deudas caras — por eso, formar ese fondo suele ser lo primero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Depois de formar uma reserva de emergência sólida, essa mesma pessoa quer começar a pensar em objetivos de mais longo prazo. O que faz sentido considerar antes de escolher onde investir?",
+                  "options": [
+                    "Nada, basta escolher o investimento com a maior taxa de retorno anunciada",
+                    "Seus objetivos específicos, o horizonte de tempo de cada um, e seu perfil de investidor — como você estudou em outras lições",
+                    "Apenas o que está sendo mais comentado no momento nas redes sociais",
+                    "É melhor não pensar em nenhum objetivo específico, só investir de forma genérica"
+                  ],
+                  "explanation": "Definir objetivos, horizonte de tempo e perfil de investidor antes de escolher onde investir ajuda a alinhar a escolha com a situação real da pessoa, em vez de seguir apenas a taxa anunciada ou uma tendência do momento."
+                },
+                "en": {
+                  "prompt": "After building a solid emergency fund, this same person wants to start thinking about longer-term goals. What makes sense to consider before choosing where to invest?",
+                  "options": [
+                    "Nothing, it's enough to choose the investment with the highest advertised return",
+                    "Their specific goals, the time horizon of each one, and their investor profile — as you studied in other lessons",
+                    "Only whatever is being talked about most right now on social media",
+                    "It's better not to think about any specific goal, and just invest generically"
+                  ],
+                  "explanation": "Defining goals, time horizon, and investor profile before choosing where to invest helps align the choice with the person's real situation, instead of just following the advertised rate or a current trend."
+                },
+                "es": {
+                  "prompt": "Después de formar un fondo de emergencia sólido, esa misma persona quiere empezar a pensar en objetivos de más largo plazo. ¿Qué tiene sentido considerar antes de elegir dónde invertir?",
+                  "options": [
+                    "Nada, basta con elegir la inversión con la mayor tasa de retorno anunciada",
+                    "Sus objetivos específicos, el horizonte de tiempo de cada uno, y su perfil de inversor — como estudiaste en otras lecciones",
+                    "Solo lo que se comenta más en este momento en redes sociales",
+                    "Es mejor no pensar en ningún objetivo específico, solo invertir de forma genérica"
+                  ],
+                  "explanation": "Definir objetivos, horizonte de tiempo y perfil de inversor antes de elegir dónde invertir ayuda a alinear la elección con la situación real de la persona, en lugar de seguir solo la tasa anunciada o una tendencia del momento."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Reserva de emergência líquida costuma vir antes de investimentos de longo prazo.",
+                    "Objetivos, horizonte de tempo e perfil de investidor ajudam a guiar decisões de onde investir.",
+                    "Combinar conceitos aprendidos separadamente ajuda a tomar decisões financeiras mais consistentes."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "A liquid emergency fund usually comes before long-term investments.",
+                    "Goals, time horizon, and investor profile help guide decisions about where to invest.",
+                    "Combining concepts learned separately helps make more consistent financial decisions."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "Un fondo de emergencia líquido suele ir antes que las inversiones a largo plazo.",
+                    "Los objetivos, el horizonte de tiempo y el perfil de inversor ayudan a guiar las decisiones sobre dónde invertir.",
+                    "Combinar conceptos aprendidos por separado ayuda a tomar decisiones financieras más consistentes."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_first_debt",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Sua Primeira Dívida"},
+            "en": {"title": "Simulation: Your First Debt"},
+            "es": {"title": "Simulación: Tu Primera Deuda"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você tem uma dívida no cartão de crédito com juros altos, e também tem um dinheiro guardado em um investimento de renda fixa com uma taxa bem mais baixa do que os juros da dívida. Você já entende ativos, passivos, juros compostos e taxa real — esta simulação pede para aplicar esses conceitos a uma decisão comum: vale a pena resgatar o investimento para quitar a dívida?"
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You have credit card debt with a high interest rate, and you also have money set aside in a fixed-income investment with a much lower rate than the debt's interest. You already understand assets, liabilities, compound interest, and real rate — this simulation asks you to apply those concepts to a common decision: is it worth withdrawing the investment to pay off the debt?"
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Tienes una deuda en la tarjeta de crédito con intereses altos, y también tienes dinero guardado en una inversión de renta fija con una tasa bastante más baja que los intereses de la deuda. Ya entiendes activos, pasivos, interés compuesto y tasa real — esta simulación te pide aplicar esos conceptos a una decisión común: ¿vale la pena rescatar la inversión para saldar la deuda?"
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "A dívida no cartão cobra 12% ao mês. O investimento rende algo próximo de 1% ao mês. Manter o dinheiro investido enquanto a dívida cara continua crescendo significa, na prática, pagar muito mais em juros do que se ganha com o investimento — o passivo está crescendo mais rápido do que o ativo consegue compensar."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "The credit card debt charges 12% a month. The investment earns something close to 1% a month. Keeping the money invested while the expensive debt keeps growing means, in practice, paying much more in interest than what's being earned on the investment — the liability is growing faster than the asset can offset."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "La deuda de la tarjeta cobra el 12% mensual. La inversión rinde algo cercano al 1% mensual. Mantener el dinero invertido mientras la deuda cara sigue creciendo significa, en la práctica, pagar mucho más en intereses de lo que se gana con la inversión — el pasivo está creciendo más rápido de lo que el activo puede compensar."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Sua dívida no cartão cobra juros bem mais altos do que o rendimento do seu investimento em renda fixa. Considerando o que você já aprendeu sobre ativos e passivos, o que geralmente faz mais sentido?",
+                  "options": [
+                    "Manter o dinheiro investido, ignorando completamente a diferença entre as taxas",
+                    "Considerar usar parte do investimento para quitar ou reduzir a dívida mais cara, já que os juros da dívida costumam superar de longe o rendimento do investimento",
+                    "Pedir um empréstimo novo para pagar o cartão, sem considerar a taxa desse novo empréstimo",
+                    "Nunca usar investimentos para quitar dívidas, em nenhuma circunstância"
+                  ],
+                  "explanation": "Quando os juros de uma dívida são muito mais altos do que o rendimento de um investimento, manter os dois ao mesmo tempo geralmente significa perder dinheiro na diferença — avaliar quitar a dívida mais cara costuma fazer mais sentido financeiro."
+                },
+                "en": {
+                  "prompt": "Your credit card debt charges interest much higher than your fixed-income investment's return. Considering what you already learned about assets and liabilities, what generally makes more sense?",
+                  "options": [
+                    "Keeping the money invested, completely ignoring the gap between the rates",
+                    "Considering using part of the investment to pay off or reduce the more expensive debt, since debt interest usually far exceeds the investment's return",
+                    "Taking out a new loan to pay the credit card, without considering that new loan's rate",
+                    "Never using investments to pay off debts, under any circumstances"
+                  ],
+                  "explanation": "When a debt's interest is much higher than an investment's return, keeping both at the same time generally means losing money on the difference — considering paying off the more expensive debt usually makes more financial sense."
+                },
+                "es": {
+                  "prompt": "Tu deuda de tarjeta cobra intereses mucho más altos que el rendimiento de tu inversión de renta fija. Considerando lo que ya aprendiste sobre activos y pasivos, ¿qué generalmente tiene más sentido?",
+                  "options": [
+                    "Mantener el dinero invertido, ignorando por completo la diferencia entre las tasas",
+                    "Considerar usar parte de la inversión para saldar o reducir la deuda más cara, ya que los intereses de la deuda suelen superar por mucho el rendimiento de la inversión",
+                    "Pedir un préstamo nuevo para pagar la tarjeta, sin considerar la tasa de ese nuevo préstamo",
+                    "Nunca usar inversiones para saldar deudas, bajo ninguna circunstancia"
+                  ],
+                  "explanation": "Cuando los intereses de una deuda son mucho más altos que el rendimiento de una inversión, mantener ambos al mismo tiempo generalmente significa perder dinero en la diferencia — considerar saldar la deuda más cara suele tener más sentido financiero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Antes de resgatar todo o investimento para quitar a dívida, o que também vale a pena considerar, com base no que você aprendeu sobre reserva de emergência?",
+                  "options": [
+                    "Nada, é sempre melhor zerar toda e qualquer reserva para quitar qualquer dívida",
+                    "Se parte desse investimento é a reserva de emergência, vale avaliar se ainda restará alguma proteção líquida para imprevistos, em vez de esvaziar completamente essa reserva",
+                    "Reserva de emergência não tem relação nenhuma com decisões sobre dívidas",
+                    "É melhor nunca usar nenhuma parte de um investimento para quitar dívidas, mesmo com juros muito altos"
+                  ],
+                  "explanation": "Mesmo quando quitar uma dívida cara faz sentido financeiro, vale considerar se isso deixaria a pessoa sem nenhuma proteção líquida para o próximo imprevisto — o equilíbrio entre os dois objetivos importa."
+                },
+                "en": {
+                  "prompt": "Before withdrawing the entire investment to pay off the debt, what's also worth considering, based on what you learned about emergency funds?",
+                  "options": [
+                    "Nothing, it's always better to zero out any and all reserves to pay off any debt",
+                    "If part of that investment is the emergency fund, it's worth assessing whether any liquid protection for unexpected events would remain, instead of completely emptying that reserve",
+                    "Emergency funds have no relation at all to debt decisions",
+                    "It's better to never use any part of an investment to pay off debts, even with very high interest"
+                  ],
+                  "explanation": "Even when paying off an expensive debt makes financial sense, it's worth considering whether that would leave the person with no liquid protection for the next unexpected event — the balance between the two goals matters."
+                },
+                "es": {
+                  "prompt": "Antes de rescatar toda la inversión para saldar la deuda, ¿qué también vale la pena considerar, según lo que aprendiste sobre el fondo de emergencia?",
+                  "options": [
+                    "Nada, siempre es mejor vaciar toda reserva para saldar cualquier deuda",
+                    "Si parte de esa inversión es el fondo de emergencia, vale evaluar si quedará alguna protección líquida para imprevistos, en lugar de vaciar por completo esa reserva",
+                    "El fondo de emergencia no tiene ninguna relación con las decisiones sobre deudas",
+                    "Es mejor nunca usar ninguna parte de una inversión para saldar deudas, incluso con intereses muy altos"
+                  ],
+                  "explanation": "Incluso cuando saldar una deuda cara tiene sentido financiero, vale la pena considerar si eso dejaría a la persona sin ninguna protección líquida para el próximo imprevisto — el equilibrio entre ambos objetivos importa."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Dívidas com juros muito mais altos do que o rendimento de um investimento costumam merecer prioridade de quitação.",
+                    "Vale comparar as taxas envolvidas antes de decidir manter um investimento com uma dívida cara em aberto.",
+                    "Mesmo quitando uma dívida, vale preservar alguma proteção líquida para imprevistos."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "Debts with interest much higher than an investment's return usually deserve priority for payoff.",
+                    "It's worth comparing the rates involved before deciding to keep an investment alongside an expensive open debt.",
+                    "Even when paying off a debt, it's worth preserving some liquid protection for unexpected events."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "Las deudas con intereses mucho más altos que el rendimiento de una inversión suelen merecer prioridad de pago.",
+                    "Vale la pena comparar las tasas involucradas antes de decidir mantener una inversión junto a una deuda cara pendiente.",
+                    "Incluso al saldar una deuda, vale la pena preservar alguna protección líquida para imprevistos."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_market_downturn",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Uma Queda de Mercado"},
+            "en": {"title": "Simulation: A Market Downturn"},
+            "es": {"title": "Simulación: Una Caída del Mercado"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "O mercado caiu 20% em poucas semanas, e o valor da sua carteira de investimentos caiu junto. Você já entende aversão à perda, efeito manada, diversificação e risco de mercado — esta simulação pede para aplicar esses conceitos em um momento emocionalmente desafiador, quando a tentação de agir por impulso costuma ser maior."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "The market fell 20% in a few weeks, and the value of your investment portfolio fell along with it. You already understand loss aversion, herd mentality, diversification, and market risk — this simulation asks you to apply those concepts in an emotionally challenging moment, when the temptation to act on impulse tends to be greater."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "El mercado cayó un 20% en pocas semanas, y el valor de tu cartera de inversiones cayó junto con él. Ya entiendes la aversión a la pérdida, el efecto manada, la diversificación y el riesgo de mercado — esta simulación te pide aplicar esos conceptos en un momento emocionalmente desafiante, cuando la tentación de actuar por impulso suele ser mayor."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Nada mudou nos fundamentos dos investimentos que essa pessoa escolheu originalmente, e o dinheiro investido não é necessário no curto prazo — os objetivos e o horizonte de tempo continuam os mesmos de antes da queda. A queda em si, sem nenhuma mudança nos fundamentos ou nos planos originais, não é necessariamente motivo para uma decisão precipitada."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Nothing has changed in the fundamentals of the investments this person originally chose, and the invested money isn't needed in the short term — the goals and time horizon remain the same as before the drop. The drop itself, with no change in fundamentals or original plans, isn't necessarily reason for a hasty decision."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Nada cambió en los fundamentos de las inversiones que esta persona eligió originalmente, y el dinero invertido no se necesita a corto plazo — los objetivos y el horizonte de tiempo siguen siendo los mismos que antes de la caída. La caída en sí, sin ningún cambio en los fundamentos o en los planes originales, no es necesariamente motivo para una decisión precipitada."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Sua carteira caiu 20% e você sente um forte impulso de vender tudo agora, mesmo sem precisar desse dinheiro no curto prazo e sem nenhuma mudança nos fundamentos dos seus investimentos. O que você já aprendeu sobre aversão à perda sugere sobre esse impulso?",
+                  "options": [
+                    "Que o impulso de vender é sempre a decisão mais racional, e deve ser seguido imediatamente",
+                    "Que esse impulso pode estar sendo guiado pelo desconforto emocional da perda, e não por uma reavaliação real dos fundamentos ou dos objetivos originais",
+                    "Que aversão à perda não tem relação nenhuma com quedas de mercado",
+                    "Que vender é obrigatório sempre que o mercado cai mais de 10%"
+                  ],
+                  "explanation": "Reconhecer que o impulso de vender pode vir da aversão à perda, e não de uma mudança real nos fundamentos, ajuda a separar reação emocional de decisão racional."
+                },
+                "en": {
+                  "prompt": "Your portfolio dropped 20% and you feel a strong urge to sell everything right now, even though you don't need that money in the short term and nothing has changed in your investments' fundamentals. What does what you learned about loss aversion suggest about that urge?",
+                  "options": [
+                    "That the urge to sell is always the most rational decision, and should be followed immediately",
+                    "That this urge might be driven by the emotional discomfort of the loss, not by an actual reassessment of the fundamentals or the original goals",
+                    "That loss aversion has no relation to market downturns at all",
+                    "That selling is mandatory whenever the market drops more than 10%"
+                  ],
+                  "explanation": "Recognizing that the urge to sell might come from loss aversion, not from an actual change in fundamentals, helps separate emotional reaction from rational decision."
+                },
+                "es": {
+                  "prompt": "Tu cartera cayó un 20% y sientes un fuerte impulso de vender todo ahora, aunque no necesitas ese dinero a corto plazo y no hay ningún cambio en los fundamentos de tus inversiones. ¿Qué sugiere sobre ese impulso lo que aprendiste sobre la aversión a la pérdida?",
+                  "options": [
+                    "Que el impulso de vender siempre es la decisión más racional, y debe seguirse de inmediato",
+                    "Que ese impulso puede estar siendo guiado por el malestar emocional de la pérdida, y no por una reevaluación real de los fundamentos o los objetivos originales",
+                    "Que la aversión a la pérdida no tiene ninguna relación con las caídas de mercado",
+                    "Que vender es obligatorio siempre que el mercado caiga más del 10%"
+                  ],
+                  "explanation": "Reconocer que el impulso de vender puede venir de la aversión a la pérdida, y no de un cambio real en los fundamentos, ayuda a separar la reacción emocional de la decisión racional."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você percebe que boa parte das pessoas ao seu redor está vendendo tudo em pânico durante essa queda. Com base no que você já entende sobre efeito manada, como isso deveria (ou não) influenciar sua própria decisão?",
+                  "options": [
+                    "Você deveria vender só porque as outras pessoas estão vendendo, sem nenhuma análise própria",
+                    "O comportamento da maioria, por si só, não é motivo suficiente para uma decisão — vale avaliar sua própria situação, objetivos e os fundamentos dos seus investimentos, em vez de simplesmente seguir a multidão",
+                    "O efeito manada garante que a maioria sempre está certa em momentos de queda",
+                    "Efeito manada só existe em momentos de alta do mercado, nunca em quedas"
+                  ],
+                  "explanation": "Seguir a maioria sem uma análise própria é justamente o padrão descrito pelo efeito manada — vale avaliar sua própria situação antes de replicar automaticamente o comportamento generalizado."
+                },
+                "en": {
+                  "prompt": "You notice that a lot of people around you are panic-selling everything during this downturn. Based on what you already understand about herd mentality, how should this (or shouldn't it) influence your own decision?",
+                  "options": [
+                    "You should sell just because other people are selling, with no analysis of your own",
+                    "The majority's behavior, by itself, isn't reason enough for a decision — it's worth assessing your own situation, goals, and your investments' fundamentals, instead of simply following the crowd",
+                    "Herd mentality guarantees the majority is always right during downturns",
+                    "Herd mentality only exists during market rallies, never during downturns"
+                  ],
+                  "explanation": "Following the majority with no analysis of your own is exactly the pattern described by herd mentality — it's worth assessing your own situation before automatically replicating the generalized behavior."
+                },
+                "es": {
+                  "prompt": "Notas que gran parte de la gente a tu alrededor está vendiendo todo en pánico durante esta caída. Según lo que ya entiendes sobre el efecto manada, ¿cómo debería (o no) influir esto en tu propia decisión?",
+                  "options": [
+                    "Deberías vender solo porque otras personas están vendiendo, sin ningún análisis propio",
+                    "El comportamiento de la mayoría, por sí solo, no es motivo suficiente para una decisión — vale evaluar tu propia situación, objetivos y los fundamentos de tus inversiones, en lugar de simplemente seguir a la multitud",
+                    "El efecto manada garantiza que la mayoría siempre tiene razón en momentos de caída",
+                    "El efecto manada solo existe en momentos de alza del mercado, nunca en caídas"
+                  ],
+                  "explanation": "Seguir a la mayoría sin un análisis propio es justamente el patrón descrito por el efecto manada — vale evaluar tu propia situación antes de replicar automáticamente el comportamiento generalizado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você praticou",
+                  "takeaways": [
+                    "Uma queda de mercado, por si só, não muda automaticamente os fundamentos de um investimento.",
+                    "Vale separar o impulso emocional da aversão à perda de uma reavaliação racional da situação.",
+                    "Seguir o comportamento da maioria sem análise própria é o padrão descrito pelo efeito manada."
+                  ]
+                },
+                "en": {
+                  "title": "What you practiced",
+                  "takeaways": [
+                    "A market downturn, by itself, doesn't automatically change an investment's fundamentals.",
+                    "It's worth separating the emotional impulse of loss aversion from a rational reassessment of the situation.",
+                    "Following the majority's behavior with no analysis of your own is the pattern described by herd mentality."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que practicaste",
+                  "takeaways": [
+                    "Una caída de mercado, por sí sola, no cambia automáticamente los fundamentos de una inversión.",
+                    "Vale la pena separar el impulso emocional de la aversión a la pérdida de una reevaluación racional de la situación.",
+                    "Seguir el comportamiento de la mayoría sin análisis propio es el patrón descrito por el efecto manada."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "simulation_unexpected_windfall",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Simulação: Um Dinheiro Extra Inesperado"},
+            "en": {"title": "Simulation: An Unexpected Windfall"},
+            "es": {"title": "Simulación: Un Dinero Extra Inesperado"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O cenário",
+                  "body": "Você recebeu um valor inesperado — um bônus, uma herança, um prêmio — bem maior do que está acostumado a lidar. Você já entende diversificação, risco de concentração, perfil de investidor e vieses como ancoragem e efeito manada — esta simulação pede para aplicar esses conceitos a uma decisão que costuma vir acompanhada de pressa e de muitas sugestões de terceiros."
+                },
+                "en": {
+                  "title": "The scenario",
+                  "body": "You received an unexpected amount — a bonus, an inheritance, a prize — much larger than you're used to handling. You already understand diversification, concentration risk, investor profile, and biases like anchoring and herd mentality — this simulation asks you to apply those concepts to a decision that usually comes with a sense of urgency and plenty of suggestions from other people."
+                },
+                "es": {
+                  "title": "El escenario",
+                  "body": "Recibiste un monto inesperado — un bono, una herencia, un premio — mucho mayor de lo que estás acostumbrado a manejar. Ya entiendes la diversificación, el riesgo de concentración, el perfil de inversor y sesgos como el anclaje y el efecto manada — esta simulación te pide aplicar esos conceptos a una decisión que suele venir acompañada de prisa y de muchas sugerencias de terceros."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Vários amigos e conhecidos sugerem, com convicção, onde essa pessoa deveria colocar todo o dinheiro de uma vez — cada um recomendando algo diferente. Sem uma reavaliação de objetivos, prazo e perfil de risco, seguir qualquer uma dessas sugestões de forma apressada, só por confiança nas pessoas que as deram, ignora todo o processo de decisão estudado até aqui."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Several friends and acquaintances confidently suggest where this person should put all the money at once — each recommending something different. Without reassessing goals, time frame, and risk profile, hastily following any of these suggestions, just out of trust in the people who gave them, ignores the entire decision process studied so far."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Varios amigos y conocidos sugieren, con convicción, dónde debería poner esa persona todo el dinero de una vez — cada uno recomendando algo diferente. Sin una reevaluación de objetivos, plazo y perfil de riesgo, seguir cualquiera de esas sugerencias de forma apresurada, solo por confianza en las personas que las dieron, ignora todo el proceso de decisión estudiado hasta aquí."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você recebeu um valor grande e inesperado, e várias pessoas ao seu redor têm opiniões fortes sobre onde você deveria investir tudo imediatamente. Qual abordagem é mais consistente com o que você aprendeu até aqui?",
+                  "options": [
+                    "Seguir a sugestão da pessoa que falou com mais confiança, sem verificar mais nada",
+                    "Reavaliar seus próprios objetivos, horizonte de tempo e perfil de investidor antes de tomar qualquer decisão, mesmo sob pressão de terceiros",
+                    "Colocar tudo em um único ativo o mais rápido possível, para não perder tempo",
+                    "Ignorar completamente qualquer planejamento, já que o valor é inesperado"
+                  ],
+                  "explanation": "Um valor inesperado não muda o processo de decisão — objetivos, horizonte de tempo e perfil de investidor continuam sendo o ponto de partida, independentemente da pressa ou das opiniões de terceiros."
+                },
+                "en": {
+                  "prompt": "You received a large, unexpected amount, and several people around you have strong opinions about where you should invest it all immediately. Which approach is most consistent with what you've learned so far?",
+                  "options": [
+                    "Following the suggestion of whoever spoke with the most confidence, without checking anything else",
+                    "Reassessing your own goals, time horizon, and investor profile before making any decision, even under pressure from others",
+                    "Putting it all into a single asset as fast as possible, so as not to waste time",
+                    "Completely ignoring any planning, since the amount is unexpected"
+                  ],
+                  "explanation": "An unexpected amount doesn't change the decision process — goals, time horizon, and investor profile remain the starting point, regardless of urgency or other people's opinions."
+                },
+                "es": {
+                  "prompt": "Recibiste un monto grande e inesperado, y varias personas a tu alrededor tienen opiniones fuertes sobre dónde deberías invertirlo todo de inmediato. ¿Qué enfoque es más consistente con lo que aprendiste hasta ahora?",
+                  "options": [
+                    "Seguir la sugerencia de quien habló con más confianza, sin verificar nada más",
+                    "Reevaluar tus propios objetivos, horizonte de tiempo y perfil de inversor antes de tomar cualquier decisión, incluso bajo presión de terceros",
+                    "Poner todo en un único activo lo más rápido posible, para no perder tiempo",
+                    "Ignorar por completo cualquier planificación, ya que el monto es inesperado"
+                  ],
+                  "explanation": "Un monto inesperado no cambia el proceso de decisión — los objetivos, el horizonte de tiempo y el perfil de inversor siguen siendo el punto de partida, sin importar la prisa o las opiniones de terceros."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco de concentração de outra lição. Como esse conceito se aplica à tentação de colocar todo esse dinheiro extra em um único ativo, só porque alguém recomendou com muita convicção?",
+                  "options": [
+                    "Não se aplica, risco de concentração só existe em investimentos pequenos",
+                    "Colocar todo o valor em um único ativo criaria uma concentração significativa, amplificando o impacto se esse ativo específico tiver um problema — diversificar reduziria esse risco",
+                    "Concentrar tudo em um único ativo é sempre a melhor estratégia para valores grandes",
+                    "Risco de concentração deixa de existir quando o valor investido é muito alto"
+                  ],
+                  "explanation": "Colocar um valor grande em um único ativo é uma forma clara de risco de concentração — distribuir esse valor entre diferentes ativos, de acordo com objetivos e perfil, tende a reduzir o impacto de um problema isolado."
+                },
+                "en": {
+                  "prompt": "You already understand concentration risk from another lesson. How does that concept apply to the temptation of putting all this extra money into a single asset, just because someone recommended it very confidently?",
+                  "options": [
+                    "It doesn't apply, concentration risk only exists in small investments",
+                    "Putting the entire amount into a single asset would create significant concentration, amplifying the impact if that specific asset has a problem — diversifying would reduce that risk",
+                    "Concentrating everything in a single asset is always the best strategy for large amounts",
+                    "Concentration risk stops existing when the invested amount is very high"
+                  ],
+                  "explanation": "Putting a large amount into a single asset is a clear form of concentration risk — spreading that amount across different assets, according to goals and profile, tends to reduce the impact of an isolated problem."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo de concentración de otra lección. ¿Cómo se aplica ese concepto a la tentación de poner todo este dinero extra en un único activo, solo porque alguien lo recomendó con mucha convicción?",
+                  "options": [
+                    "No se aplica, el riesgo de concentración solo existe en inversiones pequeñas",
+                    "Poner todo el monto en un único activo crearía una concentración significativa, amplificando el impacto si ese activo específico tiene un problema — diversificar reduciría ese riesgo",
+                    "Concentrar todo en un único activo siempre es la mejor estrategia para montos grandes",
+                    "El riesgo de concentración deja de existir cuando el monto invertido es muy alto"
+                  ],
+                  "explanation": "Poner un monto grande en un único activo es una forma clara de riesgo de concentración — distribuir ese monto entre diferentes activos, de acuerdo con objetivos y perfil, tiende a reducir el impacto de un problema aislado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Um valor inesperado não muda o processo de decisão: objetivos, horizonte e perfil continuam o ponto de partida.",
+                    "Concentrar um valor grande em um único ativo, mesmo bem recomendado, amplifica o risco.",
+                    "Você concluiu o módulo de cenários práticos da vida real."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "An unexpected amount doesn't change the decision process: goals, time horizon and profile remain the starting point.",
+                    "Concentrating a large amount in a single asset, even a well-recommended one, amplifies risk.",
+                    "You've completed the practical real-life scenarios module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Un monto inesperado no cambia el proceso de decisión: los objetivos, el horizonte y el perfil siguen siendo el punto de partida.",
+                    "Concentrar un monto grande en un único activo, aunque esté bien recomendado, amplifica el riesgo.",
+                    "Completaste el módulo de escenarios prácticos de la vida real."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

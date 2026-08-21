@@ -3,8 +3,8 @@
   "domainId": "analysis_valuation",
   "order": 8,
   "iconKey": "insights_outlined",
-  "contentAvailable": false,
-  "prerequisites": [],
+  "contentAvailable": true,
+  "prerequisites": ["fundamental_analysis"],
   "translations": {
     "pt": {
       "title": "Valuation",
@@ -19,5 +19,646 @@
       "description": "Precio vs. valor, margen de seguridad, múltiplos y flujo de caja descontado."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "valuation_basics",
+      "order": 1,
+      "iconKey": "insights_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Fundamentos de Valuation",
+          "description": "Preço x valor, margem de segurança, avaliação por múltiplos e a lógica do fluxo de caixa descontado."
+        },
+        "en": {
+          "title": "Valuation Fundamentals",
+          "description": "Price vs. value, margin of safety, multiples-based valuation and the logic of discounted cash flow."
+        },
+        "es": {
+          "title": "Fundamentos de Valuación",
+          "description": "Precio vs. valor, margen de seguridad, valuación por múltiplos y la lógica del flujo de caja descontado."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "valuation_price_vs_value",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Preço x Valor"},
+            "en": {"title": "Price vs. Value"},
+            "es": {"title": "Precio vs. Valor"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Duas coisas diferentes que só parecem iguais",
+                  "body": "Preço é quanto um ativo está sendo negociado no mercado agora, definido pelo encontro entre compradores e vendedores. Valor é uma estimativa de quanto esse ativo realmente vale, com base nos fundamentos do negócio — sua capacidade de gerar caixa, seus ativos, suas perspectivas. Valuation é justamente o processo de tentar estimar esse valor, que pode estar acima, abaixo ou próximo do preço praticado no mercado em um determinado momento."
+                },
+                "en": {
+                  "title": "Two different things that only look the same",
+                  "body": "Price is how much an asset is trading for in the market right now, set by the meeting of buyers and sellers. Value is an estimate of how much that asset is actually worth, based on the business's fundamentals — its ability to generate cash, its assets, its prospects. Valuation is exactly the process of trying to estimate that value, which can be above, below, or close to the price the market is charging at a given moment."
+                },
+                "es": {
+                  "title": "Dos cosas diferentes que solo parecen iguales",
+                  "body": "El precio es cuánto se está negociando un activo en el mercado ahora, definido por el encuentro entre compradores y vendedores. El valor es una estimación de cuánto vale realmente ese activo, con base en los fundamentos del negocio — su capacidad de generar caja, sus activos, sus perspectivas. La valuación es justamente el proceso de intentar estimar ese valor, que puede estar por encima, por debajo o cerca del precio practicado en el mercado en un momento dado."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma ação pode estar sendo negociada a R$30 (o preço), enquanto um investidor, depois de estudar os fundamentos da empresa, estima que ela vale R$40 (o valor). Essa diferença entre preço e valor estimado é o que motiva grande parte das decisões de compra e venda em análise fundamentalista."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A stock might be trading at R$30 (the price), while an investor, after studying the company's fundamentals, estimates it's worth R$40 (the value). This gap between price and estimated value is what drives much of the buy and sell decisions in fundamental analysis."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una acción puede estar negociándose a R$30 (el precio), mientras que un inversor, después de estudiar los fundamentos de la empresa, estima que vale R$40 (el valor). Esa diferencia entre precio y valor estimado es lo que motiva gran parte de las decisiones de compra y venta en el análisis fundamental."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a diferença entre preço e valor de um ativo?",
+                  "options": [
+                    "Não existe diferença, são sempre a mesma coisa",
+                    "Preço é uma opinião pessoal, e valor é um fato imutável",
+                    "Preço é quanto o ativo é negociado no mercado agora; valor é uma estimativa do que ele realmente vale com base em seus fundamentos",
+                    "Valor é definido pelo governo, e preço pelas corretoras"
+                  ],
+                  "explanation": "Preço é o que o mercado está pagando agora; valor é uma estimativa baseada nos fundamentos do negócio, que pode ou não coincidir com o preço praticado."
+                },
+                "en": {
+                  "prompt": "What is the difference between an asset's price and its value?",
+                  "options": [
+                    "There's no difference, they're always the same thing",
+                    "Price is a personal opinion, and value is an immutable fact",
+                    "Price is what the asset trades for in the market right now; value is an estimate of what it's actually worth based on its fundamentals",
+                    "Value is set by the government, and price by brokers"
+                  ],
+                  "explanation": "Price is what the market is paying right now; value is an estimate based on the business's fundamentals, which may or may not match the price being charged."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la diferencia entre el precio y el valor de un activo?",
+                  "options": [
+                    "No existe diferencia, siempre son lo mismo",
+                    "El precio es una opinión personal, y el valor es un hecho inmutable",
+                    "El precio es lo que se negocia el activo en el mercado ahora; el valor es una estimación de lo que realmente vale con base en sus fundamentos",
+                    "El valor lo define el gobierno, y el precio las correduras"
+                  ],
+                  "explanation": "El precio es lo que el mercado está pagando ahora; el valor es una estimación basada en los fundamentos del negocio, que puede o no coincidir con el precio practicado."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um amigo diz: 'o preço de uma ação é sempre igual ao seu valor justo, então valuation é perda de tempo'. Com base no que você aprendeu, o que está incompleto nessa afirmação?",
+                  "options": [
+                    "Nada, essa afirmação está totalmente correta",
+                    "Preço e valor são conceitos diferentes — o preço reflete a negociação do momento, enquanto o valor é uma estimativa que pode divergir do preço, e é justamente essa possível divergência que motiva o valuation",
+                    "Valuation só serve para calcular o preço, nunca o valor",
+                    "Ações nunca têm um valor além do preço de mercado"
+                  ],
+                  "explanation": "Assumir que preço e valor são sempre idênticos ignora a possibilidade de o mercado precificar um ativo de forma diferente do que os fundamentos sugerem — é justamente essa possível diferença que dá sentido ao processo de valuation."
+                },
+                "en": {
+                  "prompt": "A friend says: 'a stock's price is always equal to its fair value, so valuation is a waste of time.' Based on what you learned, what's incomplete about that statement?",
+                  "options": [
+                    "Nothing, that statement is completely correct",
+                    "Price and value are different concepts — price reflects the current trade, while value is an estimate that can diverge from price, and it's exactly that possible divergence that gives valuation its purpose",
+                    "Valuation only serves to calculate price, never value",
+                    "Stocks never have a value beyond the market price"
+                  ],
+                  "explanation": "Assuming price and value are always identical ignores the possibility that the market might price an asset differently from what its fundamentals suggest — it's exactly that possible gap that gives the valuation process its meaning."
+                },
+                "es": {
+                  "prompt": "Un amigo dice: 'el precio de una acción siempre es igual a su valor justo, así que la valuación es una pérdida de tiempo'. Según lo que aprendiste, ¿qué es incompleto en esa afirmación?",
+                  "options": [
+                    "Nada, esa afirmación es totalmente correcta",
+                    "Precio y valor son conceptos diferentes — el precio refleja la negociación del momento, mientras que el valor es una estimación que puede divergir del precio, y es justamente esa posible divergencia la que motiva la valuación",
+                    "La valuación solo sirve para calcular el precio, nunca el valor",
+                    "Las acciones nunca tienen un valor más allá del precio de mercado"
+                  ],
+                  "explanation": "Asumir que precio y valor son siempre idénticos ignora la posibilidad de que el mercado precifique un activo de forma diferente a lo que sugieren los fundamentos — es justamente esa posible diferencia la que le da sentido al proceso de valuación."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Preço é quanto um ativo é negociado agora no mercado.",
+                    "Valor é uma estimativa do que o ativo realmente vale, com base em seus fundamentos.",
+                    "Valuation é o processo de tentar estimar esse valor e compará-lo ao preço."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Price is how much an asset trades for right now in the market.",
+                    "Value is an estimate of what the asset is actually worth, based on its fundamentals.",
+                    "Valuation is the process of trying to estimate that value and comparing it to the price."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El precio es cuánto se negocia un activo ahora en el mercado.",
+                    "El valor es una estimación de lo que el activo realmente vale, con base en sus fundamentos.",
+                    "La valuación es el proceso de intentar estimar ese valor y compararlo con el precio."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "valuation_margin_of_safety",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Margem de Segurança"},
+            "en": {"title": "Margin of Safety"},
+            "es": {"title": "Margen de Seguridad"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Um espaço para o erro"
+                ,"body": "Toda estimativa de valor é, por definição, uma aproximação — nenhum valuation é exato. Margem de segurança é a diferença entre o valor estimado de um ativo e o preço pago por ele: quanto maior essa margem, mais espaço existe para erros na estimativa sem que isso comprometa o resultado. Comprar um ativo com uma margem de segurança maior reduz, mas não elimina, o risco de a estimativa de valor estar equivocada."
+                },
+                "en": {
+                  "title": "Room for error",
+                  "body": "Every value estimate is, by definition, an approximation — no valuation is exact. Margin of safety is the gap between an asset's estimated value and the price paid for it: the larger that margin, the more room there is for errors in the estimate without compromising the outcome. Buying an asset with a larger margin of safety reduces, but doesn't eliminate, the risk that the value estimate is wrong."
+                },
+                "es": {
+                  "title": "Un espacio para el error",
+                  "body": "Toda estimación de valor es, por definición, una aproximación — ninguna valuación es exacta. El margen de seguridad es la diferencia entre el valor estimado de un activo y el precio pagado por él: cuanto mayor sea ese margen, más espacio hay para errores en la estimación sin que eso comprometa el resultado. Comprar un activo con un margen de seguridad mayor reduce, pero no elimina, el riesgo de que la estimación de valor esté equivocada."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor estima que uma ação vale R$50 e a compra a R$35 — uma margem de segurança de 30%. Se sua estimativa estiver um pouco otimista demais, e o valor real for R$42, ele ainda comprou abaixo desse valor real. Se ele tivesse pago R$48 pela mesma ação, o mesmo erro de estimativa já teria consumido quase toda a margem."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor estimates a stock is worth R$50 and buys it at R$35 — a 30% margin of safety. If their estimate turns out a bit too optimistic, and the real value is R$42, they still bought below that real value. If they had paid R$48 for the same stock, the same estimation error would have already eaten up almost the entire margin."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor estima que una acción vale R$50 y la compra a R$35 — un margen de seguridad del 30%. Si su estimación resulta un poco demasiado optimista, y el valor real es R$42, aún compró por debajo de ese valor real. Si hubiera pagado R$48 por la misma acción, el mismo error de estimación ya habría consumido casi todo el margen."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é margem de segurança, no contexto de valuation?",
+                  "options": [
+                    "Uma garantia legal contra prejuízos em investimentos",
+                    "A diferença entre o valor estimado de um ativo e o preço pago por ele, que reduz o impacto de erros na estimativa",
+                    "Um seguro obrigatório cobrado por corretoras",
+                    "Um indicador que mede apenas a liquidez de um ativo"
+                  ],
+                  "explanation": "Margem de segurança é o espaço entre valor estimado e preço pago, funcionando como uma proteção contra imprecisões na própria estimativa de valor — não é uma garantia formal contra perdas."
+                },
+                "en": {
+                  "prompt": "What is margin of safety, in the context of valuation?",
+                  "options": [
+                    "A legal guarantee against investment losses",
+                    "The gap between an asset's estimated value and the price paid for it, which reduces the impact of errors in the estimate",
+                    "A mandatory insurance charged by brokers",
+                    "An indicator that only measures an asset's liquidity"
+                  ],
+                  "explanation": "Margin of safety is the gap between estimated value and price paid, acting as a cushion against inaccuracies in the value estimate itself — it's not a formal guarantee against losses."
+                },
+                "es": {
+                  "prompt": "¿Qué es el margen de seguridad, en el contexto de la valuación?",
+                  "options": [
+                    "Una garantía legal contra pérdidas en inversiones",
+                    "La diferencia entre el valor estimado de un activo y el precio pagado por él, que reduce el impacto de errores en la estimación",
+                    "Un seguro obligatorio cobrado por las correduras",
+                    "Un indicador que solo mide la liquidez de un activo"
+                  ],
+                  "explanation": "El margen de seguridad es el espacio entre el valor estimado y el precio pagado, funcionando como una protección contra imprecisiones en la propia estimación de valor — no es una garantía formal contra pérdidas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende que valuation é uma estimativa, sujeita a erro. Por que isso torna a margem de segurança uma ferramenta relevante?",
+                  "options": [
+                    "Não torna, já que estimativas de valuation nunca erram",
+                    "Justamente porque a estimativa pode estar errada, comprar com uma margem entre preço e valor estimado ajuda a absorver esse erro sem comprometer tanto o resultado",
+                    "Porque margem de segurança elimina completamente qualquer risco",
+                    "Porque valuation deixa de ser uma estimativa quando existe margem de segurança"
+                  ],
+                  "explanation": "A margem de segurança existe justamente para lidar com a incerteza inerente a qualquer estimativa de valor — ela não elimina o risco, mas cria um espaço de proteção contra erros na análise."
+                },
+                "en": {
+                  "prompt": "You already understand that valuation is an estimate, subject to error. Why does this make margin of safety a relevant tool?",
+                  "options": [
+                    "It doesn't, since valuation estimates are never wrong",
+                    "Precisely because the estimate can be wrong, buying with a gap between price and estimated value helps absorb that error without compromising the outcome as much",
+                    "Because margin of safety completely eliminates any risk",
+                    "Because valuation stops being an estimate when there's a margin of safety"
+                  ],
+                  "explanation": "Margin of safety exists precisely to deal with the inherent uncertainty of any value estimate — it doesn't eliminate risk, but it creates a cushion against errors in the analysis."
+                },
+                "es": {
+                  "prompt": "Ya entiendes que la valuación es una estimación, sujeta a error. ¿Por qué esto hace que el margen de seguridad sea una herramienta relevante?",
+                  "options": [
+                    "No lo hace, ya que las estimaciones de valuación nunca se equivocan",
+                    "Justamente porque la estimación puede estar equivocada, comprar con un margen entre precio y valor estimado ayuda a absorber ese error sin comprometer tanto el resultado",
+                    "Porque el margen de seguridad elimina por completo cualquier riesgo",
+                    "Porque la valuación deja de ser una estimación cuando existe margen de seguridad"
+                  ],
+                  "explanation": "El margen de seguridad existe justamente para lidiar con la incertidumbre inherente a cualquier estimación de valor — no elimina el riesgo, pero crea un espacio de protección contra errores en el análisis."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Toda estimativa de valor está sujeita a erro.",
+                    "Margem de segurança é a diferença entre valor estimado e preço pago.",
+                    "Uma margem maior reduz, mas não elimina, o impacto de uma estimativa equivocada."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Every value estimate is subject to error.",
+                    "Margin of safety is the gap between estimated value and price paid.",
+                    "A larger margin reduces, but doesn't eliminate, the impact of a mistaken estimate."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Toda estimación de valor está sujeta a error.",
+                    "El margen de seguridad es la diferencia entre el valor estimado y el precio pagado.",
+                    "Un margen mayor reduce, pero no elimina, el impacto de una estimación equivocada."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "valuation_multiples",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Avaliação por Múltiplos"},
+            "en": {"title": "Multiples-Based Valuation"},
+            "es": {"title": "Valuación por Múltiplos"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Comparando com empresas parecidas",
+                  "body": "Avaliação por múltiplos é uma abordagem que estima o valor de uma empresa comparando indicadores como P/L com os de outras empresas parecidas, do mesmo setor. Se empresas comparáveis costumam negociar a um certo múltiplo de lucro, e uma empresa específica está sendo negociada bem abaixo dessa média, isso pode ser um ponto de partida para investigar — desde que as diferenças entre as empresas sejam levadas em conta antes de qualquer conclusão."
+                },
+                "en": {
+                  "title": "Comparing with similar companies",
+                  "body": "Multiples-based valuation is an approach that estimates a company's value by comparing indicators like P/E with those of other similar companies in the same sector. If comparable companies usually trade at a certain earnings multiple, and a specific company is trading well below that average, that can be a starting point to investigate — as long as the differences between the companies are taken into account before any conclusion."
+                },
+                "es": {
+                  "title": "Comparando con empresas parecidas",
+                  "body": "La valuación por múltiplos es un enfoque que estima el valor de una empresa comparando indicadores como el P/E con los de otras empresas parecidas, del mismo sector. Si empresas comparables suelen negociarse a cierto múltiplo de ganancia, y una empresa específica se está negociando bien por debajo de ese promedio, eso puede ser un punto de partida para investigar — siempre que se tengan en cuenta las diferencias entre las empresas antes de sacar cualquier conclusión."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Empresas do setor de varejo costumam negociar a um P/L médio de 15. Uma empresa específica desse setor está sendo negociada a um P/L de 8. Isso não significa automaticamente que ela está subavaliada — pode haver um motivo específico, como um risco maior ou uma perspectiva de crescimento pior — mas é um ponto que merece investigação mais profunda."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Retail sector companies usually trade at an average P/E of 15. A specific company in that sector is trading at a P/E of 8. That doesn't automatically mean it's undervalued — there might be a specific reason, like higher risk or worse growth prospects — but it's a point that deserves deeper investigation."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Las empresas del sector minorista suelen negociarse a un P/E promedio de 15. Una empresa específica de ese sector se está negociando a un P/E de 8. Eso no significa automáticamente que esté subvaluada — puede haber un motivo específico, como un mayor riesgo o una peor perspectiva de crecimiento — pero es un punto que merece una investigación más profunda."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Como funciona a avaliação por múltiplos?",
+                  "options": [
+                    "Ela calcula o valor exato de uma empresa sem margem de erro",
+                    "Ela estima o valor de uma empresa comparando seus indicadores com os de empresas parecidas do mesmo setor",
+                    "Ela é usada apenas para empresas que nunca tiveram lucro",
+                    "Ela ignora completamente o setor em que a empresa atua"
+                  ],
+                  "explanation": "Avaliação por múltiplos parte da comparação entre indicadores de empresas parecidas para estimar se uma empresa específica está sendo negociada acima, abaixo, ou em linha com seus pares."
+                },
+                "en": {
+                  "prompt": "How does multiples-based valuation work?",
+                  "options": [
+                    "It calculates a company's exact value with no margin of error",
+                    "It estimates a company's value by comparing its indicators with those of similar companies in the same sector",
+                    "It's only used for companies that never had a profit",
+                    "It completely ignores the sector the company operates in"
+                  ],
+                  "explanation": "Multiples-based valuation starts from comparing indicators of similar companies to estimate whether a specific company is trading above, below, or in line with its peers."
+                },
+                "es": {
+                  "prompt": "¿Cómo funciona la valuación por múltiplos?",
+                  "options": [
+                    "Calcula el valor exacto de una empresa sin margen de error",
+                    "Estima el valor de una empresa comparando sus indicadores con los de empresas parecidas del mismo sector",
+                    "Se usa solo para empresas que nunca tuvieron ganancias",
+                    "Ignora por completo el sector en el que opera la empresa"
+                  ],
+                  "explanation": "La valuación por múltiplos parte de la comparación entre indicadores de empresas parecidas para estimar si una empresa específica se está negociando por encima, por debajo, o en línea con sus pares."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você encontra uma empresa negociada a um múltiplo bem abaixo da média do setor e pensa em comprar imediatamente, só por causa disso. O que você já aprendeu sobre P/L em outra lição sugere que vale a pena investigar antes?",
+                  "options": [
+                    "Nada, um múltiplo baixo é sempre motivo suficiente para comprar",
+                    "Que um múltiplo mais baixo pode refletir risco maior ou piores perspectivas, não apenas uma oportunidade — vale investigar o motivo da diferença antes de concluir algo",
+                    "Que múltiplos nunca devem ser comparados entre empresas do mesmo setor",
+                    "Que essa empresa certamente é uma fraude"
+                  ],
+                  "explanation": "Assim como você viu com P/L, um múltiplo abaixo da média não é automaticamente uma pechincha — pode refletir riscos ou expectativas piores que precisam ser investigados antes de qualquer conclusão."
+                },
+                "en": {
+                  "prompt": "You find a company trading at a multiple well below the sector average and think about buying it immediately, just because of that. What have you already learned about P/E in another lesson that suggests it's worth investigating first?",
+                  "options": [
+                    "Nothing, a low multiple is always reason enough to buy",
+                    "That a lower multiple can reflect higher risk or worse prospects, not just an opportunity — it's worth investigating the reason for the difference before concluding anything",
+                    "That multiples should never be compared between companies in the same sector",
+                    "That this company is certainly a fraud"
+                  ],
+                  "explanation": "Just like you saw with P/E, a below-average multiple isn't automatically a bargain — it can reflect risks or worse expectations that need to be investigated before any conclusion."
+                },
+                "es": {
+                  "prompt": "Encuentras una empresa negociada a un múltiplo bastante por debajo del promedio del sector y piensas en comprarla de inmediato, solo por eso. ¿Qué aprendiste ya sobre el P/E en otra lección que sugiere que vale la pena investigar antes?",
+                  "options": [
+                    "Nada, un múltiplo bajo siempre es motivo suficiente para comprar",
+                    "Que un múltiplo más bajo puede reflejar un mayor riesgo o peores perspectivas, no solo una oportunidad — vale la pena investigar el motivo de la diferencia antes de concluir algo",
+                    "Que los múltiplos nunca deben compararse entre empresas del mismo sector",
+                    "Que esa empresa seguramente es un fraude"
+                  ],
+                  "explanation": "Al igual que viste con el P/E, un múltiplo por debajo del promedio no es automáticamente una ganga — puede reflejar riesgos o expectativas peores que deben investigarse antes de cualquier conclusión."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Avaliação por múltiplos compara indicadores de uma empresa com os de empresas parecidas.",
+                    "Um múltiplo abaixo da média do setor é um ponto de partida para investigação, não uma conclusão.",
+                    "Diferenças entre empresas precisam ser consideradas antes de qualquer comparação direta."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Multiples-based valuation compares a company's indicators with those of similar companies.",
+                    "A below-average multiple is a starting point for investigation, not a conclusion.",
+                    "Differences between companies need to be considered before any direct comparison."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La valuación por múltiplos compara los indicadores de una empresa con los de empresas parecidas.",
+                    "Un múltiplo por debajo del promedio del sector es un punto de partida para investigar, no una conclusión.",
+                    "Las diferencias entre empresas deben considerarse antes de cualquier comparación directa."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "valuation_discounted_cash_flow",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Fluxo de Caixa Descontado"},
+            "en": {"title": "Discounted Cash Flow"},
+            "es": {"title": "Flujo de Caja Descontado"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O valor de hoje do dinheiro de amanhã",
+                  "body": "Fluxo de caixa descontado é um método de valuation que estima o valor de uma empresa somando todo o caixa que ela deve gerar no futuro, mas trazendo cada um desses valores futuros para o seu equivalente em dinheiro de hoje — usando o conceito de valor do dinheiro no tempo que você já estudou. Quanto mais distante no futuro está o fluxo de caixa, e quanto maior a taxa de desconto usada, menor é o peso desse fluxo no valor presente estimado."
+                },
+                "en": {
+                  "title": "Today's value of tomorrow's money",
+                  "body": "Discounted cash flow is a valuation method that estimates a company's value by adding up all the cash it's expected to generate in the future, but bringing each of those future amounts back to their equivalent value in today's money — using the time value of money concept you already studied. The further in the future a cash flow is, and the higher the discount rate used, the smaller its weight in the estimated present value."
+                },
+                "es": {
+                  "title": "El valor de hoy del dinero de mañana",
+                  "body": "El flujo de caja descontado es un método de valuación que estima el valor de una empresa sumando todo el efectivo que se espera que genere en el futuro, pero trayendo cada uno de esos montos futuros a su equivalente en dinero de hoy — usando el concepto de valor del dinero en el tiempo que ya estudiaste. Cuanto más distante en el futuro esté el flujo de caja, y cuanto mayor sea la tasa de descuento usada, menor es su peso en el valor presente estimado."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa deve gerar R$1 milhão de caixa daqui a 1 ano e outro R$1 milhão daqui a 10 anos. Usando uma taxa de desconto razoável, o valor presente do primeiro R$1 milhão é bem mais próximo de R$1 milhão do que o valor presente do segundo, já que o dinheiro distante no tempo vale menos hoje — o mesmo princípio do valor do dinheiro no tempo, aplicado à avaliação de um negócio inteiro."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A company is expected to generate R$1 million in cash a year from now and another R$1 million 10 years from now. Using a reasonable discount rate, the present value of the first R$1 million is much closer to R$1 million than the present value of the second, since money far off in time is worth less today — the same time value of money principle, applied to valuing an entire business."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Se espera que una empresa genere R$1 millón de caja dentro de 1 año y otro R$1 millón dentro de 10 años. Usando una tasa de descuento razonable, el valor presente del primer R$1 millón está mucho más cerca de R$1 millón que el valor presente del segundo, ya que el dinero lejano en el tiempo vale menos hoy — el mismo principio del valor del dinero en el tiempo, aplicado a la valuación de un negocio entero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o fluxo de caixa descontado faz com os fluxos de caixa futuros de uma empresa?",
+                  "options": [
+                    "Ele soma os valores futuros sem nenhum ajuste",
+                    "Ele traz cada fluxo futuro para seu equivalente em valor presente, usando uma taxa de desconto",
+                    "Ele ignora completamente qualquer fluxo de caixa futuro",
+                    "Ele só considera o caixa gerado no ano corrente"
+                  ],
+                  "explanation": "O método traz cada fluxo de caixa futuro para seu valor presente equivalente, aplicando o conceito de valor do dinheiro no tempo, antes de somar tudo para chegar ao valor estimado da empresa."
+                },
+                "en": {
+                  "prompt": "What does discounted cash flow do with a company's future cash flows?",
+                  "options": [
+                    "It adds up the future amounts with no adjustment at all",
+                    "It brings each future flow back to its present-value equivalent, using a discount rate",
+                    "It completely ignores any future cash flow",
+                    "It only considers cash generated in the current year"
+                  ],
+                  "explanation": "The method brings each future cash flow back to its present-value equivalent, applying the time value of money concept, before adding everything up to reach the company's estimated value."
+                },
+                "es": {
+                  "prompt": "¿Qué hace el flujo de caja descontado con los flujos de caja futuros de una empresa?",
+                  "options": [
+                    "Suma los montos futuros sin ningún ajuste",
+                    "Trae cada flujo futuro a su equivalente en valor presente, usando una tasa de descuento",
+                    "Ignora por completo cualquier flujo de caja futuro",
+                    "Solo considera la caja generada en el año actual"
+                  ],
+                  "explanation": "El método trae cada flujo de caja futuro a su equivalente en valor presente, aplicando el concepto de valor del dinero en el tiempo, antes de sumar todo para llegar al valor estimado de la empresa."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende valor do dinheiro no tempo de outra lição. Por que um fluxo de caixa esperado para daqui a 20 anos pesa muito menos no cálculo de fluxo de caixa descontado do que um fluxo esperado para o ano que vem?",
+                  "options": [
+                    "Porque fluxos de caixa distantes nunca são considerados de forma alguma",
+                    "Porque, aplicando o valor do dinheiro no tempo, um valor muito distante no futuro equivale a um valor presente bem menor, mesmo que o número nominal seja o mesmo",
+                    "Porque a empresa provavelmente não vai existir em 20 anos",
+                    "Não existe diferença nenhuma entre os dois horizontes de tempo"
+                  ],
+                  "explanation": "O mesmo princípio de valor do dinheiro no tempo que você já estudou explica por que fluxos distantes no futuro contribuem menos para o valor presente estimado do que fluxos mais próximos, mesmo com o mesmo valor nominal."
+                },
+                "en": {
+                  "prompt": "You already understand the time value of money from another lesson. Why does a cash flow expected 20 years from now weigh much less in the discounted cash flow calculation than a flow expected next year?",
+                  "options": [
+                    "Because distant cash flows are never considered at all",
+                    "Because, applying the time value of money, a value very far in the future equates to a much smaller present value, even if the nominal number is the same",
+                    "Because the company probably won't exist in 20 years",
+                    "There's no difference at all between the two time horizons"
+                  ],
+                  "explanation": "The same time value of money principle you already studied explains why distant future flows contribute less to the estimated present value than closer flows, even with the same nominal amount."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el valor del dinero en el tiempo de otra lección. ¿Por qué un flujo de caja esperado para dentro de 20 años pesa mucho menos en el cálculo del flujo de caja descontado que un flujo esperado para el próximo año?",
+                  "options": [
+                    "Porque los flujos de caja distantes nunca se consideran en absoluto",
+                    "Porque, aplicando el valor del dinero en el tiempo, un valor muy lejano en el futuro equivale a un valor presente mucho menor, aunque el número nominal sea el mismo",
+                    "Porque la empresa probablemente no existirá en 20 años",
+                    "No existe ninguna diferencia entre ambos horizontes de tiempo"
+                  ],
+                  "explanation": "El mismo principio del valor del dinero en el tiempo que ya estudiaste explica por qué los flujos lejanos en el futuro contribuyen menos al valor presente estimado que los flujos más cercanos, incluso con el mismo monto nominal."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Fluxo de caixa descontado estima o valor de uma empresa a partir de seus fluxos futuros de caixa.",
+                    "Cada fluxo futuro é trazido a valor presente, usando o conceito de valor do dinheiro no tempo.",
+                    "Fluxos mais distantes no futuro pesam menos no valor presente estimado."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Discounted cash flow estimates a company's value from its future cash flows.",
+                    "Each future flow is brought to present value, using the time value of money concept.",
+                    "Flows further in the future weigh less in the estimated present value."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El flujo de caja descontado estima el valor de una empresa a partir de sus flujos de caja futuros.",
+                    "Cada flujo futuro se trae a valor presente, usando el concepto de valor del dinero en el tiempo.",
+                    "Los flujos más distantes en el futuro pesan menos en el valor presente estimado."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }
