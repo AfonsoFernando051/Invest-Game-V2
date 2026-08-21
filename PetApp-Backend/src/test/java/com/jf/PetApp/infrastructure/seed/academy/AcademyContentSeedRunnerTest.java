@@ -98,9 +98,9 @@ class AcademyContentSeedRunnerTest {
 
         assertThat(domainRepository.count()).isEqualTo(8);
         assertThat(schoolRepository.count()).isEqualTo(19);
-        assertThat(moduleRepository.count()).isEqualTo(15);
-        assertThat(lessonRepository.count()).isEqualTo(142);
-        assertThat(stepRepository.count()).isEqualTo(720);
+        assertThat(moduleRepository.count()).isEqualTo(16);
+        assertThat(lessonRepository.count()).isEqualTo(147);
+        assertThat(stepRepository.count()).isEqualTo(745);
         assertThat(optionRepository.count()).isGreaterThan(0);
         assertThat(takeawayRepository.count()).isGreaterThan(0);
     }
