@@ -3,7 +3,7 @@
   "domainId": "portfolio_wealth",
   "order": 10,
   "iconKey": "gpp_maybe_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -19,5 +19,800 @@
       "description": "Riesgo de mercado, crédito, liquidez y concentración — y cómo evaluarlos y convivir con ellos."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "risk_types_basics",
+      "order": 1,
+      "iconKey": "gpp_maybe_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Tipos de Risco",
+          "description": "Mercado, crédito, liquidez e concentração — os quatro tipos de risco mais comuns em qualquer carteira de investimentos."
+        },
+        "en": {
+          "title": "Risk Types",
+          "description": "Market, credit, liquidity and concentration — the four most common types of risk in any investment portfolio."
+        },
+        "es": {
+          "title": "Tipos de Riesgo",
+          "description": "Mercado, crédito, liquidez y concentración — los cuatro tipos de riesgo más comunes en cualquier cartera de inversiones."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "risk_market_risk",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco de Mercado"},
+            "en": {"title": "Market Risk"},
+            "es": {"title": "Riesgo de Mercado"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O risco que afeta todo mundo ao mesmo tempo",
+                  "body": "Risco de mercado é a chance de o valor de um investimento variar por causa de movimentos gerais do mercado — como mudanças na taxa de juros, crises econômicas ou eventos políticos — que afetam praticamente todos os ativos de uma categoria, não apenas um emissor específico. Diferente do risco de crédito, ele não tem relação direta com a saúde financeira de uma empresa ou banco específico."
+                },
+                "en": {
+                  "title": "The risk that affects everyone at once",
+                  "body": "Market risk is the chance that an investment's value will change because of broad market movements — such as interest rate changes, economic crises, or political events — that affect virtually all assets in a category, not just one specific issuer. Unlike credit risk, it has no direct relationship to the financial health of a specific company or bank."
+                },
+                "es": {
+                  "title": "El riesgo que afecta a todos al mismo tiempo",
+                  "body": "El riesgo de mercado es la posibilidad de que el valor de una inversión varíe debido a movimientos generales del mercado — como cambios en la tasa de interés, crisis económicas o eventos políticos — que afectan prácticamente a todos los activos de una categoría, no solo a un emisor específico. A diferencia del riesgo de crédito, no tiene relación directa con la salud financiera de una empresa o banco específico."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Quando o banco central sobe os juros de forma inesperada, o preço de mercado de vários títulos prefixados cai ao mesmo tempo — não porque algum desses emissores ficou menos confiável, mas porque o novo patamar de juros tornou os títulos antigos, com taxas mais baixas, menos atrativos."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "When the central bank raises interest rates unexpectedly, the market price of many prefixed bonds falls at the same time — not because any of those issuers became less trustworthy, but because the new interest rate level made the older bonds, with lower rates, less attractive."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Cuando el banco central sube las tasas de interés de forma inesperada, el precio de mercado de varios títulos prefijados cae al mismo tiempo — no porque alguno de esos emisores se haya vuelto menos confiable, sino porque el nuevo nivel de tasas hizo que los títulos antiguos, con tasas más bajas, resultaran menos atractivos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "O que diferencia o risco de mercado do risco de crédito?",
+                  "options": [
+                    "Risco de mercado afeta amplamente ativos de uma categoria por movimentos gerais, enquanto risco de crédito está ligado à saúde financeira de um emissor específico",
+                    "Não existe diferença entre os dois",
+                    "Risco de mercado só existe em renda fixa",
+                    "Risco de crédito afeta todos os ativos ao mesmo tempo, e risco de mercado só um emissor"
+                  ],
+                  "explanation": "Risco de mercado vem de movimentos amplos que afetam várias categorias de ativos ao mesmo tempo; risco de crédito está ligado especificamente à capacidade de um emissor pagar o que deve."
+                },
+                "en": {
+                  "prompt": "What differentiates market risk from credit risk?",
+                  "options": [
+                    "Market risk broadly affects assets in a category due to general movements, while credit risk is tied to the financial health of a specific issuer",
+                    "There's no difference between the two",
+                    "Market risk only exists in fixed income",
+                    "Credit risk affects all assets at once, and market risk only one issuer"
+                  ],
+                  "explanation": "Market risk comes from broad movements that affect several asset categories at the same time; credit risk is specifically tied to an issuer's ability to pay what it owes."
+                },
+                "es": {
+                  "prompt": "¿Qué diferencia al riesgo de mercado del riesgo de crédito?",
+                  "options": [
+                    "El riesgo de mercado afecta ampliamente a activos de una categoría por movimientos generales, mientras que el riesgo de crédito está ligado a la salud financiera de un emisor específico",
+                    "No existe diferencia entre ambos",
+                    "El riesgo de mercado solo existe en renta fija",
+                    "El riesgo de crédito afecta a todos los activos al mismo tiempo, y el riesgo de mercado solo a un emisor"
+                  ],
+                  "explanation": "El riesgo de mercado proviene de movimientos amplios que afectan a varias categorías de activos al mismo tiempo; el riesgo de crédito está ligado específicamente a la capacidad de un emisor de pagar lo que debe."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma crise política aumenta a incerteza no país e o preço de vários ativos diferentes cai ao mesmo tempo — ações, títulos prefixados, fundos imobiliários. O que isso sugere sobre o tipo de risco envolvido?",
+                  "options": [
+                    "Que todos esses emissores ficaram inadimplentes ao mesmo tempo, por coincidência",
+                    "Que provavelmente é risco de mercado, já que o movimento afeta amplamente diferentes categorias de ativos ao mesmo tempo",
+                    "Que é impossível saber o tipo de risco sem mais informações",
+                    "Que apenas ações sofrem esse tipo de efeito"
+                  ],
+                  "explanation": "Quando um evento amplo afeta várias categorias diferentes de ativos ao mesmo tempo, isso é uma característica típica de risco de mercado, e não de um problema específico de um emissor isolado."
+                },
+                "en": {
+                  "prompt": "A political crisis increases uncertainty in the country and the price of several different assets falls at the same time — stocks, prefixed bonds, real estate funds. What does that suggest about the type of risk involved?",
+                  "options": [
+                    "That all those issuers defaulted at the same time, by coincidence",
+                    "That it's likely market risk, since the movement broadly affects different asset categories at the same time",
+                    "That it's impossible to know the type of risk without more information",
+                    "That only stocks suffer this kind of effect"
+                  ],
+                  "explanation": "When a broad event affects several different asset categories at the same time, that's a typical characteristic of market risk, not a specific problem with an isolated issuer."
+                },
+                "es": {
+                  "prompt": "Una crisis política aumenta la incertidumbre en el país y el precio de varios activos diferentes cae al mismo tiempo — acciones, títulos prefijados, fondos inmobiliarios. ¿Qué sugiere esto sobre el tipo de riesgo involucrado?",
+                  "options": [
+                    "Que todos esos emisores cayeron en incumplimiento al mismo tiempo, por coincidencia",
+                    "Que probablemente es riesgo de mercado, ya que el movimiento afecta ampliamente a diferentes categorías de activos al mismo tiempo",
+                    "Que es imposible saber el tipo de riesgo sin más información",
+                    "Que solo las acciones sufren este tipo de efecto"
+                  ],
+                  "explanation": "Cuando un evento amplio afecta a varias categorías diferentes de activos al mismo tiempo, esa es una característica típica del riesgo de mercado, y no de un problema específico de un emisor aislado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Risco de mercado vem de movimentos amplos que afetam várias categorias de ativos ao mesmo tempo.",
+                    "Ele é diferente do risco de crédito, que está ligado a um emissor específico.",
+                    "Eventos como mudanças de juros ou crises políticas são gatilhos típicos de risco de mercado."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Market risk comes from broad movements that affect several asset categories at the same time.",
+                    "It's different from credit risk, which is tied to a specific issuer.",
+                    "Events like interest rate changes or political crises are typical triggers of market risk."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El riesgo de mercado proviene de movimientos amplios que afectan a varias categorías de activos al mismo tiempo.",
+                    "Es diferente del riesgo de crédito, que está ligado a un emisor específico.",
+                    "Eventos como cambios de tasas o crisis políticas son gatillos típicos del riesgo de mercado."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_credit_risk",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco de Crédito"},
+            "en": {"title": "Credit Risk"},
+            "es": {"title": "Riesgo de Crédito"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "A chance de não receber de volta",
+                  "body": "Risco de crédito é a possibilidade de um emissor — banco, empresa ou governo — não conseguir pagar o que deve, seja o valor combinado, os juros, ou ambos. Esse risco varia de emissor para emissor: instituições maiores e mais sólidas costumam ser vistas como mais seguras, e por isso pagam taxas menores; instituições menores ou mais frágeis costumam pagar mais para atrair investidores, como compensação pelo risco maior."
+                },
+                "en": {
+                  "title": "The chance of not getting it back",
+                  "body": "Credit risk is the possibility that an issuer — a bank, a company, or a government — won't be able to pay what it owes, whether that's the agreed amount, the interest, or both. This risk varies from issuer to issuer: larger, more solid institutions tend to be seen as safer, and so pay lower rates; smaller or weaker institutions tend to pay more to attract investors, as compensation for the higher risk."
+                },
+                "es": {
+                  "title": "La posibilidad de no recuperarlo",
+                  "body": "El riesgo de crédito es la posibilidad de que un emisor — banco, empresa o gobierno — no logre pagar lo que debe, ya sea el monto acordado, los intereses, o ambos. Este riesgo varía de un emisor a otro: las instituciones más grandes y sólidas suelen verse como más seguras, y por eso pagan tasas más bajas; las instituciones más pequeñas o frágiles suelen pagar más para atraer inversores, como compensación por el mayor riesgo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Dois CDBs oferecem prazos parecidos: um banco grande paga 95% do CDI, um banco pequeno paga 130% do CDI. A diferença na taxa reflete, entre outras coisas, o risco de crédito percebido de cada instituição — o mercado exige mais retorno para compensar um risco maior de calote."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two CDBs offer similar terms: a large bank pays 95% of the CDI, a small bank pays 130% of the CDI. The difference in rate reflects, among other things, the perceived credit risk of each institution — the market demands a higher return to compensate for a greater risk of default."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos CDB ofrecen plazos parecidos: un banco grande paga el 95% del CDI, un banco pequeño paga el 130% del CDI. La diferencia en la tasa refleja, entre otras cosas, el riesgo de crédito percibido de cada institución — el mercado exige un mayor retorno para compensar un mayor riesgo de incumplimiento."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é risco de crédito?",
+                  "options": [
+                    "O risco de o mercado como um todo cair",
+                    "A possibilidade de um emissor não conseguir pagar o que deve",
+                    "A chance de um investimento não ter liquidez diária",
+                    "O risco de a inflação subir"
+                  ],
+                  "explanation": "Risco de crédito é especificamente sobre a capacidade de um emissor cumprir com suas obrigações de pagamento — diferente de risco de mercado ou de liquidez."
+                },
+                "en": {
+                  "prompt": "What is credit risk?",
+                  "options": [
+                    "The risk of the market as a whole falling",
+                    "The possibility that an issuer won't be able to pay what it owes",
+                    "The chance that an investment lacks daily liquidity",
+                    "The risk of inflation rising"
+                  ],
+                  "explanation": "Credit risk is specifically about an issuer's ability to meet its payment obligations — different from market risk or liquidity risk."
+                },
+                "es": {
+                  "prompt": "¿Qué es el riesgo de crédito?",
+                  "options": [
+                    "El riesgo de que el mercado en su conjunto caiga",
+                    "La posibilidad de que un emisor no logre pagar lo que debe",
+                    "La posibilidad de que una inversión no tenga liquidez diaria",
+                    "El riesgo de que la inflación suba"
+                  ],
+                  "explanation": "El riesgo de crédito trata específicamente sobre la capacidad de un emisor de cumplir con sus obligaciones de pago — diferente del riesgo de mercado o de liquidez."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você vê um investimento oferecendo uma taxa muito acima da média do mercado para o mesmo tipo de produto e prazo. O que isso pode sinalizar sobre o risco de crédito envolvido?",
+                  "options": [
+                    "Nada, taxas mais altas nunca têm relação com risco",
+                    "Provavelmente um risco de crédito maior, já que taxas acima da média costumam compensar um risco percebido mais alto",
+                    "Que esse investimento é sempre uma fraude",
+                    "Que o investimento tem liquidez diária garantida"
+                  ],
+                  "explanation": "Taxas bem acima da média do mercado costumam refletir um risco de crédito mais alto percebido pelo mercado — vale investigar quem é o emissor antes de se atrair só pelo número da taxa."
+                },
+                "en": {
+                  "prompt": "You see an investment offering a rate well above the market average for the same type of product and term. What might that signal about the credit risk involved?",
+                  "options": [
+                    "Nothing, higher rates are never related to risk",
+                    "Probably a higher credit risk, since rates above average usually compensate for a higher perceived risk",
+                    "That this investment is always a scam",
+                    "That the investment has guaranteed daily liquidity"
+                  ],
+                  "explanation": "Rates well above the market average usually reflect a higher credit risk perceived by the market — it's worth investigating who the issuer is before being drawn in just by the rate number."
+                },
+                "es": {
+                  "prompt": "Ves una inversión que ofrece una tasa muy por encima del promedio del mercado para el mismo tipo de producto y plazo. ¿Qué podría señalar esto sobre el riesgo de crédito involucrado?",
+                  "options": [
+                    "Nada, las tasas más altas nunca tienen relación con el riesgo",
+                    "Probablemente un riesgo de crédito mayor, ya que las tasas por encima del promedio suelen compensar un riesgo percibido más alto",
+                    "Que esa inversión siempre es un fraude",
+                    "Que la inversión tiene liquidez diaria garantizada"
+                  ],
+                  "explanation": "Las tasas muy por encima del promedio del mercado suelen reflejar un riesgo de crédito más alto percibido por el mercado — vale la pena investigar quién es el emisor antes de dejarse atraer solo por el número de la tasa."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Risco de crédito é a chance de um emissor não pagar o que deve.",
+                    "Taxas mais altas costumam compensar um risco de crédito percebido como maior.",
+                    "Vale investigar quem é o emissor, não só a taxa oferecida."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Credit risk is the chance that an issuer won't pay what it owes.",
+                    "Higher rates usually compensate for a credit risk perceived as greater.",
+                    "It's worth investigating who the issuer is, not just the rate being offered."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El riesgo de crédito es la posibilidad de que un emisor no pague lo que debe.",
+                    "Las tasas más altas suelen compensar un riesgo de crédito percibido como mayor.",
+                    "Vale la pena investigar quién es el emisor, no solo la tasa ofrecida."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_liquidity_risk",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco de Liquidez"},
+            "en": {"title": "Liquidity Risk"},
+            "es": {"title": "Riesgo de Liquidez"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Ter o ativo não é o mesmo que ter o dinheiro",
+                  "body": "Risco de liquidez é a possibilidade de não conseguir converter um investimento em dinheiro disponível quando você precisar, ou só conseguir fazer isso com uma perda significativa de valor. Alguns ativos são negociados o tempo todo e têm muitos compradores e vendedores; outros podem levar dias, meses, ou exigir vender por um preço bem menor do que o 'justo' para encontrar alguém disposto a comprar."
+                },
+                "en": {
+                  "title": "Owning the asset isn't the same as owning the cash",
+                  "body": "Liquidity risk is the possibility of not being able to convert an investment into available cash when you need it, or only being able to do so with a significant loss of value. Some assets trade constantly and have many buyers and sellers; others might take days, months, or require selling at a much lower price than 'fair' to find someone willing to buy."
+                },
+                "es": {
+                  "title": "Tener el activo no es lo mismo que tener el dinero",
+                  "body": "El riesgo de liquidez es la posibilidad de no poder convertir una inversión en dinero disponible cuando lo necesitas, o solo poder hacerlo con una pérdida significativa de valor. Algunos activos se negocian todo el tiempo y tienen muchos compradores y vendedores; otros pueden tardar días, meses, o exigir vender a un precio bastante menor al 'justo' para encontrar a alguien dispuesto a comprar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor precisa vender um imóvel rapidamente por uma emergência. Como imóveis não têm um mercado tão líquido quanto uma ação, ele pode ter que aceitar um preço bem abaixo do valor de mercado só para conseguir vender rápido — esse desconto forçado é o custo do risco de liquidez se materializando."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor needs to sell a property quickly because of an emergency. Since real estate doesn't have a market as liquid as a stock, they might have to accept a price well below market value just to sell quickly — that forced discount is the cost of liquidity risk playing out."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor necesita vender un inmueble rápidamente por una emergencia. Como los inmuebles no tienen un mercado tan líquido como una acción, puede que tenga que aceptar un precio bastante por debajo del valor de mercado solo para lograr venderlo rápido — ese descuento forzado es el costo del riesgo de liquidez materializándose."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é risco de liquidez?",
+                  "options": [
+                    "O risco de um emissor não pagar o que deve",
+                    "A possibilidade de não conseguir converter um investimento em dinheiro rapidamente sem perder valor significativo",
+                    "O risco de a inflação subir",
+                    "A chance de um ativo pagar dividendos"
+                  ],
+                  "explanation": "Risco de liquidez está relacionado à facilidade (ou dificuldade) de transformar um ativo em dinheiro disponível, sem grandes perdas de valor no processo."
+                },
+                "en": {
+                  "prompt": "What is liquidity risk?",
+                  "options": [
+                    "The risk that an issuer won't pay what it owes",
+                    "The possibility of not being able to quickly convert an investment into cash without losing significant value",
+                    "The risk of inflation rising",
+                    "The chance that an asset pays dividends"
+                  ],
+                  "explanation": "Liquidity risk is related to how easy (or difficult) it is to turn an asset into available cash, without major losses in value along the way."
+                },
+                "es": {
+                  "prompt": "¿Qué es el riesgo de liquidez?",
+                  "options": [
+                    "El riesgo de que un emisor no pague lo que debe",
+                    "La posibilidad de no poder convertir rápidamente una inversión en dinero sin perder un valor significativo",
+                    "El riesgo de que la inflación suba",
+                    "La posibilidad de que un activo pague dividendos"
+                  ],
+                  "explanation": "El riesgo de liquidez está relacionado con la facilidad (o dificultad) de convertir un activo en dinero disponible, sin grandes pérdidas de valor en el proceso."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está montando sua reserva de emergência e considerando um investimento com ótima taxa, mas que só permite resgate após 5 anos, sem exceções. O que o conceito de risco de liquidez sugere sobre essa escolha?",
+                  "options": [
+                    "Que a taxa alta compensa qualquer problema de liquidez, sempre",
+                    "Que esse tipo de investimento provavelmente não é adequado para uma reserva de emergência, justamente por causa da baixa liquidez",
+                    "Que risco de liquidez não tem relação nenhuma com reservas de emergência",
+                    "Que qualquer investimento serve para uma reserva de emergência, desde que o rendimento seja bom"
+                  ],
+                  "explanation": "Uma reserva de emergência precisa estar disponível quando você menos espera — um investimento com baixa liquidez, mesmo com boa taxa, tende a não ser adequado para esse objetivo específico."
+                },
+                "en": {
+                  "prompt": "You're building your emergency fund and considering an investment with a great rate, but one that only allows withdrawal after 5 years, no exceptions. What does the concept of liquidity risk suggest about this choice?",
+                  "options": [
+                    "That the high rate always compensates for any liquidity problem",
+                    "That this type of investment is probably not suitable for an emergency fund, precisely because of its low liquidity",
+                    "That liquidity risk has no relation to emergency funds at all",
+                    "That any investment works for an emergency fund, as long as the return is good"
+                  ],
+                  "explanation": "An emergency fund needs to be available when you least expect it — an investment with low liquidity, even with a good rate, tends not to be suitable for that specific goal."
+                },
+                "es": {
+                  "prompt": "Estás armando tu fondo de emergencia y consideras una inversión con una excelente tasa, pero que solo permite el retiro después de 5 años, sin excepciones. ¿Qué sugiere el concepto de riesgo de liquidez sobre esta elección?",
+                  "options": [
+                    "Que la tasa alta siempre compensa cualquier problema de liquidez",
+                    "Que este tipo de inversión probablemente no es adecuada para un fondo de emergencia, precisamente por su baja liquidez",
+                    "Que el riesgo de liquidez no tiene ninguna relación con los fondos de emergencia",
+                    "Que cualquier inversión sirve para un fondo de emergencia, siempre que el rendimiento sea bueno"
+                  ],
+                  "explanation": "Un fondo de emergencia necesita estar disponible cuando menos lo esperas — una inversión con baja liquidez, aunque tenga una buena tasa, tiende a no ser adecuada para ese objetivo específico."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Risco de liquidez é a dificuldade de converter um investimento em dinheiro sem perder valor.",
+                    "Ativos diferentes têm níveis de liquidez muito diferentes.",
+                    "Objetivos de curto prazo, como reservas de emergência, pedem atenção especial a esse risco."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Liquidity risk is the difficulty of converting an investment into cash without losing value.",
+                    "Different assets have very different levels of liquidity.",
+                    "Short-term goals, like emergency funds, call for special attention to this risk."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El riesgo de liquidez es la dificultad de convertir una inversión en dinero sin perder valor.",
+                    "Activos diferentes tienen niveles de liquidez muy distintos.",
+                    "Los objetivos a corto plazo, como los fondos de emergencia, requieren especial atención a este riesgo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_concentration_risk",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Risco de Concentração"},
+            "en": {"title": "Concentration Risk"},
+            "es": {"title": "Riesgo de Concentración"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Todos os ovos na mesma cesta",
+                  "body": "Risco de concentração é o risco adicional que surge quando uma parte muito grande de uma carteira está exposta a um único ativo, setor, emissor ou país. Mesmo que cada investimento individual pareça sólido, concentrar demais amplifica o impacto de qualquer problema específico daquela concentração sobre o patrimônio total."
+                },
+                "en": {
+                  "title": "All eggs in the same basket",
+                  "body": "Concentration risk is the extra risk that arises when a very large part of a portfolio is exposed to a single asset, sector, issuer, or country. Even if each individual investment seems solid, over-concentrating amplifies the impact of any specific problem in that concentration on the total portfolio."
+                },
+                "es": {
+                  "title": "Todos los huevos en la misma canasta",
+                  "body": "El riesgo de concentración es el riesgo adicional que surge cuando una parte muy grande de una cartera está expuesta a un solo activo, sector, emisor o país. Aunque cada inversión individual parezca sólida, concentrarse demasiado amplifica el impacto de cualquier problema específico de esa concentración sobre el patrimonio total."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um funcionário investe a maior parte de suas economias em ações da própria empresa onde trabalha. Se a empresa passa por dificuldades, ele pode perder o emprego e ver seu patrimônio despencar ao mesmo tempo — os dois riscos, antes separados, ficaram concentrados na mesma fonte."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An employee invests most of their savings in shares of the company they work for. If the company runs into trouble, they could lose their job and see their net worth plummet at the same time — two risks that were previously separate became concentrated in the same source."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un empleado invierte la mayor parte de sus ahorros en acciones de la propia empresa donde trabaja. Si la empresa atraviesa dificultades, podría perder su empleo y ver caer su patrimonio al mismo tiempo — dos riesgos que antes estaban separados quedaron concentrados en la misma fuente."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é risco de concentração?",
+                  "options": [
+                    "O risco de a inflação subir de forma inesperada",
+                    "O risco adicional de ter uma parte muito grande da carteira exposta a um único ativo, setor ou emissor",
+                    "O risco de um investimento ter alta liquidez",
+                    "A chance de um ativo pagar juros muito baixos"
+                  ],
+                  "explanation": "Risco de concentração surge quando uma exposição muito grande a uma única fonte amplifica o impacto de qualquer problema específico dela sobre o patrimônio total."
+                },
+                "en": {
+                  "prompt": "What is concentration risk?",
+                  "options": [
+                    "The risk of inflation rising unexpectedly",
+                    "The additional risk of having a very large portion of the portfolio exposed to a single asset, sector or issuer",
+                    "The risk of an investment having high liquidity",
+                    "The chance that an asset pays very low interest"
+                  ],
+                  "explanation": "Concentration risk arises when a very large exposure to a single source amplifies the impact of any specific problem there on the total portfolio."
+                },
+                "es": {
+                  "prompt": "¿Qué es el riesgo de concentración?",
+                  "options": [
+                    "El riesgo de que la inflación suba de forma inesperada",
+                    "El riesgo adicional de tener una parte muy grande de la cartera expuesta a un solo activo, sector o emisor",
+                    "El riesgo de que una inversión tenga alta liquidez",
+                    "La posibilidad de que un activo pague intereses muy bajos"
+                  ],
+                  "explanation": "El riesgo de concentración surge cuando una exposición muy grande a una sola fuente amplifica el impacto de cualquier problema específico de esa fuente sobre el patrimonio total."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende risco de mercado, crédito e liquidez separadamente. Por que vale a pena pensar também em concentração, mesmo que cada investimento individual pareça seguro?",
+                  "options": [
+                    "Porque concentração não tem relação nenhuma com os outros tipos de risco",
+                    "Porque, mesmo com ativos individualmente sólidos, concentrar demais em uma única fonte amplifica o impacto se algo der errado justamente ali",
+                    "Porque só existe risco de concentração em ações",
+                    "Porque diversificar sempre elimina 100% de qualquer risco"
+                  ],
+                  "explanation": "Concentração é sobre como os riscos individuais se somam quando estão todos apontando para a mesma fonte — por isso vale olhar não só a qualidade de cada investimento, mas também como eles se combinam na carteira como um todo."
+                },
+                "en": {
+                  "prompt": "You already understand market, credit and liquidity risk separately. Why is it also worth thinking about concentration, even if each individual investment seems safe?",
+                  "options": [
+                    "Because concentration has no relation to the other types of risk",
+                    "Because, even with individually solid assets, over-concentrating in a single source amplifies the impact if something goes wrong exactly there",
+                    "Because concentration risk only exists in stocks",
+                    "Because diversifying always eliminates 100% of any risk"
+                  ],
+                  "explanation": "Concentration is about how individual risks add up when they're all pointing at the same source — that's why it's worth looking not just at the quality of each investment, but also at how they combine in the portfolio as a whole."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el riesgo de mercado, crédito y liquidez por separado. ¿Por qué vale la pena pensar también en la concentración, aunque cada inversión individual parezca segura?",
+                  "options": [
+                    "Porque la concentración no tiene ninguna relación con los otros tipos de riesgo",
+                    "Porque, incluso con activos individualmente sólidos, concentrarse demasiado en una sola fuente amplifica el impacto si algo sale mal justo ahí",
+                    "Porque el riesgo de concentración solo existe en acciones",
+                    "Porque diversificar siempre elimina el 100% de cualquier riesgo"
+                  ],
+                  "explanation": "La concentración trata sobre cómo se suman los riesgos individuales cuando todos apuntan a la misma fuente — por eso vale la pena mirar no solo la calidad de cada inversión, sino también cómo se combinan en la cartera en su conjunto."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Risco de concentração surge quando muito da carteira depende de uma única fonte.",
+                    "Mesmo ativos individualmente sólidos podem gerar um risco combinado alto se muito concentrados.",
+                    "Vale olhar como os investimentos se combinam, não só a qualidade de cada um isoladamente."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Concentration risk arises when too much of the portfolio depends on a single source.",
+                    "Even individually solid assets can create a high combined risk if too concentrated.",
+                    "It's worth looking at how investments combine, not just the quality of each one in isolation."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El riesgo de concentración surge cuando gran parte de la cartera depende de una sola fuente.",
+                    "Incluso activos individualmente sólidos pueden generar un riesgo combinado alto si están muy concentrados.",
+                    "Vale la pena mirar cómo se combinan las inversiones, no solo la calidad de cada una por separado."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "risk_diversification_revisited",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Convivendo com o Risco"},
+            "en": {"title": "Living With Risk"},
+            "es": {"title": "Convivir con el Riesgo"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Gerenciar, não eliminar",
+                  "body": "Nenhum tipo de risco — mercado, crédito, liquidez ou concentração — pode ser completamente eliminado. O objetivo da gestão de risco não é zerar o risco, mas entender quais riscos você está assumindo, o quanto de cada um faz sentido para o seu perfil e objetivos, e distribuí-los de forma consciente em vez de acumular todos no mesmo lugar."
+                },
+                "en": {
+                  "title": "Manage, don't eliminate",
+                  "body": "No type of risk — market, credit, liquidity, or concentration — can be completely eliminated. The goal of risk management isn't to zero out risk, but to understand which risks you're taking on, how much of each makes sense for your profile and goals, and to spread them out deliberately instead of stacking them all in the same place."
+                },
+                "es": {
+                  "title": "Gestionar, no eliminar",
+                  "body": "Ningún tipo de riesgo — mercado, crédito, liquidez o concentración — puede eliminarse por completo. El objetivo de la gestión de riesgo no es reducir el riesgo a cero, sino entender qué riesgos estás asumiendo, cuánto de cada uno tiene sentido para tu perfil y objetivos, y distribuirlos de forma consciente en lugar de acumularlos todos en el mismo lugar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor distribui seu patrimônio entre títulos de diferentes emissores (reduzindo risco de crédito concentrado), diferentes prazos (equilibrando liquidez) e diferentes categorias de ativos (reduzindo o impacto de um único movimento de mercado). Ele não eliminou nenhum risco individual, mas reduziu o impacto de qualquer um deles isoladamente sobre o total."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor spreads their wealth across different issuers' bonds (reducing concentrated credit risk), different terms (balancing liquidity), and different asset categories (reducing the impact of any single market movement). They haven't eliminated any individual risk, but they've reduced the impact any one of them has, on its own, on the total."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor distribuye su patrimonio entre títulos de diferentes emisores (reduciendo el riesgo de crédito concentrado), diferentes plazos (equilibrando la liquidez) y diferentes categorías de activos (reduciendo el impacto de un único movimiento de mercado). No eliminó ningún riesgo individual, pero redujo el impacto de cualquiera de ellos, por sí solo, sobre el total."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o objetivo real da gestão de risco?",
+                  "options": [
+                    "Eliminar completamente qualquer risco de uma carteira",
+                    "Entender e distribuir conscientemente os riscos assumidos, em vez de tentar zerá-los",
+                    "Investir apenas em um único ativo considerado 'seguro'",
+                    "Evitar investir para nunca correr nenhum risco"
+                  ],
+                  "explanation": "Gestão de risco não é sobre eliminar risco — algo impossível — mas sobre entendê-lo e distribuí-lo de forma consciente, de acordo com seus objetivos e perfil."
+                },
+                "en": {
+                  "prompt": "What is the real goal of risk management?",
+                  "options": [
+                    "Completely eliminating any risk from a portfolio",
+                    "Understanding and deliberately distributing the risks taken on, instead of trying to zero them out",
+                    "Investing only in a single asset considered 'safe'",
+                    "Avoiding investing altogether to never take on any risk"
+                  ],
+                  "explanation": "Risk management isn't about eliminating risk — something impossible — but about understanding it and distributing it deliberately, according to your goals and profile."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el objetivo real de la gestión de riesgo?",
+                  "options": [
+                    "Eliminar por completo cualquier riesgo de una cartera",
+                    "Entender y distribuir conscientemente los riesgos asumidos, en lugar de intentar reducirlos a cero",
+                    "Invertir solo en un único activo considerado 'seguro'",
+                    "Evitar invertir para nunca correr ningún riesgo"
+                  ],
+                  "explanation": "La gestión de riesgo no se trata de eliminar el riesgo — algo imposible — sino de entenderlo y distribuirlo de forma consciente, de acuerdo con tus objetivos y perfil."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já estudou risco de mercado, crédito, liquidez e concentração separadamente. Como esses quatro conceitos se conectam na hora de montar uma carteira de investimentos na prática?",
+                  "options": [
+                    "Eles não se conectam, cada um deve ser avaliado de forma completamente isolada",
+                    "Juntos, ajudam a enxergar de onde vêm as diferentes fontes de risco de uma carteira, permitindo distribuí-las em vez de concentrá-las todas na mesma origem",
+                    "Só o risco de mercado importa de verdade, os outros são secundários",
+                    "Entender esses conceitos garante que a carteira nunca terá prejuízo"
+                  ],
+                  "explanation": "Olhar para os quatro tipos de risco em conjunto ajuda a identificar se diferentes investimentos de uma carteira estão, na prática, expostos à mesma fonte de risco — mesmo parecendo diversificados à primeira vista."
+                },
+                "en": {
+                  "prompt": "You've already studied market, credit, liquidity and concentration risk separately. How do these four concepts connect when actually building an investment portfolio?",
+                  "options": [
+                    "They don't connect, each one should be assessed in complete isolation",
+                    "Together, they help you see where a portfolio's different risk sources come from, allowing you to spread them out instead of concentrating them all in the same origin",
+                    "Only market risk really matters, the others are secondary",
+                    "Understanding these concepts guarantees the portfolio will never have a loss"
+                  ],
+                  "explanation": "Looking at the four types of risk together helps identify whether different investments in a portfolio are, in practice, exposed to the same risk source — even if they seem diversified at first glance."
+                },
+                "es": {
+                  "prompt": "Ya estudiaste el riesgo de mercado, crédito, liquidez y concentración por separado. ¿Cómo se conectan estos cuatro conceptos a la hora de armar una cartera de inversiones en la práctica?",
+                  "options": [
+                    "No se conectan, cada uno debe evaluarse de forma completamente aislada",
+                    "Juntos, ayudan a ver de dónde vienen las diferentes fuentes de riesgo de una cartera, permitiendo distribuirlas en lugar de concentrarlas todas en el mismo origen",
+                    "Solo el riesgo de mercado importa de verdad, los demás son secundarios",
+                    "Entender estos conceptos garantiza que la cartera nunca tendrá pérdidas"
+                  ],
+                  "explanation": "Mirar los cuatro tipos de riesgo en conjunto ayuda a identificar si diferentes inversiones de una cartera están, en la práctica, expuestas a la misma fuente de riesgo — incluso pareciendo diversificadas a primera vista."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Nenhum tipo de risco pode ser completamente eliminado.",
+                    "Gestão de risco é sobre entender e distribuir riscos conscientemente, não zerá-los.",
+                    "Você concluiu o módulo sobre os principais tipos de risco de investimento."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "No type of risk can be completely eliminated.",
+                    "Risk management is about understanding and deliberately distributing risks, not zeroing them out.",
+                    "You've completed the module on the main types of investment risk."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Ningún tipo de riesgo puede eliminarse por completo.",
+                    "La gestión de riesgo trata sobre entender y distribuir los riesgos conscientemente, no reducirlos a cero.",
+                    "Completaste el módulo sobre los principales tipos de riesgo de inversión."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

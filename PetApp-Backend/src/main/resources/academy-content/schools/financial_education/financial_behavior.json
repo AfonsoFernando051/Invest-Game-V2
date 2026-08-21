@@ -3,7 +3,7 @@
   "domainId": "financial_education",
   "order": 11,
   "iconKey": "psychology_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -19,5 +19,800 @@
       "description": "Cómo los sesgos, las emociones y los hábitos moldean tus decisiones financieras — a veces más que el propio mercado."
     }
   },
-  "modules": []
+  "modules": [
+    {
+      "moduleId": "behavioral_biases_basics",
+      "order": 1,
+      "iconKey": "psychology_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": [],
+      "translations": {
+        "pt": {
+          "title": "Vieses Comportamentais Básicos",
+          "description": "Aversão à perda, ancoragem, efeito manada e viés de confirmação — e como automatizar decisões reduz o espaço para eles."
+        },
+        "en": {
+          "title": "Basic Behavioral Biases",
+          "description": "Loss aversion, anchoring, herd mentality and confirmation bias — and how automating decisions reduces room for them."
+        },
+        "es": {
+          "title": "Sesgos Comportamentales Básicos",
+          "description": "Aversión a la pérdida, anclaje, efecto manada y sesgo de confirmación — y cómo automatizar decisiones reduce el espacio para ellos."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "behavioral_loss_aversion",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Aversão à Perda"},
+            "en": {"title": "Loss Aversion"},
+            "es": {"title": "Aversión a la Pérdida"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Perder dói mais do que ganhar dá prazer",
+                  "body": "Aversão à perda é a tendência de sentir o desconforto de uma perda com mais intensidade do que o prazer de um ganho equivalente. Para a maioria das pessoas, perder R$100 dói psicologicamente mais do que ganhar R$100 agrada. Esse viés pode levar a decisões que fazem sentido emocionalmente no curto prazo, mas não fazem sentido financeiro no longo prazo."
+                },
+                "en": {
+                  "title": "Losing hurts more than gaining feels good",
+                  "body": "Loss aversion is the tendency to feel the discomfort of a loss more intensely than the pleasure of an equivalent gain. For most people, losing R$100 hurts psychologically more than gaining R$100 feels good. This bias can lead to decisions that make emotional sense in the short term, but don't make financial sense in the long term."
+                },
+                "es": {
+                  "title": "Perder duele más de lo que ganar agrada",
+                  "body": "La aversión a la pérdida es la tendencia a sentir el malestar de una pérdida con más intensidad que el placer de una ganancia equivalente. Para la mayoría de las personas, perder R$100 duele psicológicamente más de lo que agrada ganar R$100. Este sesgo puede llevar a decisiones que tienen sentido emocional a corto plazo, pero no tienen sentido financiero a largo plazo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor vê um ativo cair 15% e, mesmo acreditando nos fundamentos de longo prazo, vende tudo só para 'parar de sentir a dor' de ver o prejuízo na tela — mesmo sem nenhuma mudança real na razão original de ter investido."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor sees an asset drop 15% and, even while still believing in its long-term fundamentals, sells everything just to 'stop feeling the pain' of watching the loss on screen — even though nothing about the original reason for investing has actually changed."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor ve que un activo cae un 15% y, aunque sigue creyendo en sus fundamentos a largo plazo, vende todo solo para 'dejar de sentir el dolor' de ver la pérdida en pantalla — aunque nada haya cambiado realmente en la razón original para invertir."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza a aversão à perda?",
+                  "options": [
+                    "A tendência de sempre vender na baixa",
+                    "Sentir o desconforto de uma perda com mais intensidade do que o prazer de um ganho equivalente",
+                    "O medo de investir em qualquer ativo",
+                    "A certeza de que o mercado vai cair"
+                  ],
+                  "explanation": "Aversão à perda é sobre a intensidade emocional desigual entre perder e ganhar o mesmo valor — não é, por si só, sobre vender ou não vender."
+                },
+                "en": {
+                  "prompt": "What characterizes loss aversion?",
+                  "options": [
+                    "The tendency to always sell at a low",
+                    "Feeling the discomfort of a loss more intensely than the pleasure of an equivalent gain",
+                    "The fear of investing in any asset",
+                    "The certainty that the market will fall"
+                  ],
+                  "explanation": "Loss aversion is about the unequal emotional intensity between losing and gaining the same amount — it isn't, by itself, about whether or not to sell."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza a la aversión a la pérdida?",
+                  "options": [
+                    "La tendencia a siempre vender en la baja",
+                    "Sentir el malestar de una pérdida con más intensidad que el placer de una ganancia equivalente",
+                    "El miedo a invertir en cualquier activo",
+                    "La certeza de que el mercado va a caer"
+                  ],
+                  "explanation": "La aversión a la pérdida trata sobre la intensidad emocional desigual entre perder y ganar el mismo monto — no se trata, por sí sola, de vender o no vender."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você percebe que está prestes a vender um investimento só porque não aguenta mais ver o número vermelho na tela, sem que nada tenha mudado nos motivos originais do investimento. O que isso pode indicar?",
+                  "options": [
+                    "Que a decisão está totalmente correta, prejuízo deve sempre ser cortado imediatamente",
+                    "Que o investimento é definitivamente ruim",
+                    "Que a aversão à perda pode estar pesando mais na decisão do que uma reavaliação real dos fundamentos",
+                    "Que não existe nenhuma influência emocional em decisões financeiras"
+                  ],
+                  "explanation": "Reconhecer quando uma decisão está sendo guiada pelo desconforto emocional da perda, e não por uma reavaliação real da situação, é o primeiro passo para lidar com esse viés."
+                },
+                "en": {
+                  "prompt": "You notice you're about to sell an investment just because you can't stand seeing the red number on the screen anymore, even though nothing has changed about the original reasons for investing. What might that indicate?",
+                  "options": [
+                    "That the decision is completely correct, losses should always be cut immediately",
+                    "That the investment is definitely bad",
+                    "That loss aversion might be weighing more on the decision than an actual reassessment of the fundamentals",
+                    "That there's no emotional influence on financial decisions at all"
+                  ],
+                  "explanation": "Recognizing when a decision is being driven by the emotional discomfort of a loss, rather than an actual reassessment of the situation, is the first step in dealing with this bias."
+                },
+                "es": {
+                  "prompt": "Te das cuenta de que estás a punto de vender una inversión solo porque ya no soportas ver el número rojo en la pantalla, sin que nada haya cambiado en los motivos originales de la inversión. ¿Qué podría indicar esto?",
+                  "options": [
+                    "Que la decisión es totalmente correcta, las pérdidas siempre deben cortarse de inmediato",
+                    "Que la inversión es definitivamente mala",
+                    "Que la aversión a la pérdida puede estar pesando más en la decisión que una reevaluación real de los fundamentos",
+                    "Que no existe ninguna influencia emocional en las decisiones financieras"
+                  ],
+                  "explanation": "Reconocer cuándo una decisión está siendo guiada por el malestar emocional de la pérdida, y no por una reevaluación real de la situación, es el primer paso para lidiar con este sesgo."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Aversão à perda faz o desconforto de perder pesar mais do que o prazer de ganhar o mesmo valor.",
+                    "Esse viés pode levar a decisões guiadas por emoção, não por reavaliação real dos fatos.",
+                    "Perceber quando esse viés está em ação é o primeiro passo para lidar com ele."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Loss aversion makes the discomfort of losing weigh more than the pleasure of gaining the same amount.",
+                    "This bias can lead to decisions driven by emotion, not by an actual reassessment of the facts.",
+                    "Noticing when this bias is at play is the first step in dealing with it."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La aversión a la pérdida hace que el malestar de perder pese más que el placer de ganar el mismo monto.",
+                    "Este sesgo puede llevar a decisiones guiadas por la emoción, no por una reevaluación real de los hechos.",
+                    "Notar cuándo este sesgo está en acción es el primer paso para lidiar con él."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_anchoring",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Ancoragem"},
+            "en": {"title": "Anchoring"},
+            "es": {"title": "Anclaje"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Presos a um número de referência",
+                  "body": "Ancoragem é a tendência de se apegar demais a uma informação inicial — a 'âncora' — ao tomar decisões, mesmo quando essa informação não é mais relevante. Um preço que você viu uma vez pode continuar influenciando sua percepção do que é 'caro' ou 'barato', mesmo que o cenário tenha mudado completamente."
+                },
+                "en": {
+                  "title": "Stuck to a reference number",
+                  "body": "Anchoring is the tendency to rely too heavily on an initial piece of information — the 'anchor' — when making decisions, even when that information is no longer relevant. A price you once saw can keep influencing your sense of what's 'expensive' or 'cheap,' even if the situation has changed completely."
+                },
+                "es": {
+                  "title": "Atados a un número de referencia",
+                  "body": "El anclaje es la tendencia a apoyarse demasiado en una información inicial — el 'ancla' — al tomar decisiones, incluso cuando esa información ya no es relevante. Un precio que viste una vez puede seguir influyendo en tu percepción de lo que es 'caro' o 'barato', aunque el escenario haya cambiado por completo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor viu uma ação valendo R$50 no passado. Meses depois, ela está a R$30, e ele pensa 'está barata, vai voltar para R$50' — mesmo sem analisar se algo mudou na empresa que justificasse esse valor. O R$50 virou uma âncora, não uma análise."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor once saw a stock priced at R$50. Months later, it's at R$30, and they think 'it's cheap, it'll go back to R$50' — without actually checking whether anything changed at the company that would justify that value. The R$50 became an anchor, not an analysis."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor vio una acción que valía R$50 en el pasado. Meses después, está a R$30, y piensa 'está barata, va a volver a R$50' — sin analizar si algo cambió en la empresa que justifique ese valor. El R$50 se convirtió en un ancla, no en un análisis."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é ancoragem, no contexto de decisões financeiras?",
+                  "options": [
+                    "A tendência de se apegar demais a uma informação inicial, mesmo quando ela não é mais relevante",
+                    "A prática de diversificar investimentos",
+                    "Um tipo de taxa de juros",
+                    "A garantia de que um preço vai sempre subir"
+                  ],
+                  "explanation": "Ancoragem é sobre dar peso excessivo a um número ou informação de referência, mesmo depois que o contexto que o gerou já mudou."
+                },
+                "en": {
+                  "prompt": "What is anchoring, in the context of financial decisions?",
+                  "options": [
+                    "The tendency to rely too heavily on an initial piece of information, even when it's no longer relevant",
+                    "The practice of diversifying investments",
+                    "A type of interest rate",
+                    "The guarantee that a price will always rise"
+                  ],
+                  "explanation": "Anchoring is about giving excessive weight to a reference number or piece of information, even after the context that produced it has already changed."
+                },
+                "es": {
+                  "prompt": "¿Qué es el anclaje, en el contexto de las decisiones financieras?",
+                  "options": [
+                    "La tendencia a apoyarse demasiado en una información inicial, incluso cuando ya no es relevante",
+                    "La práctica de diversificar inversiones",
+                    "Un tipo de tasa de interés",
+                    "La garantía de que un precio siempre va a subir"
+                  ],
+                  "explanation": "El anclaje trata sobre dar un peso excesivo a un número o información de referencia, incluso después de que el contexto que lo generó ya cambió."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você se pega pensando 'esse ativo está barato porque já valeu o dobro' sem examinar se algo mudou nos fundamentos da empresa desde então. O que essa afirmação revela?",
+                  "options": [
+                    "Que o ativo definitivamente vai voltar ao preço antigo",
+                    "Que preços antigos sempre são um bom guia para o futuro",
+                    "Que você pode estar ancorado em um preço passado, em vez de avaliar a situação atual da empresa",
+                    "Que não existe nenhum problema em pensar assim"
+                  ],
+                  "explanation": "Usar um preço passado como referência automática, sem reavaliar os fundamentos atuais, é um sinal clássico de ancoragem."
+                },
+                "en": {
+                  "prompt": "You catch yourself thinking 'this asset is cheap because it was once worth double' without checking whether anything changed in the company's fundamentals since then. What does that statement reveal?",
+                  "options": [
+                    "That the asset will definitely go back to its old price",
+                    "That old prices are always a good guide for the future",
+                    "That you might be anchored to a past price, instead of assessing the company's current situation",
+                    "That there's nothing wrong with thinking that way"
+                  ],
+                  "explanation": "Using a past price as an automatic reference, without reassessing current fundamentals, is a classic sign of anchoring."
+                },
+                "es": {
+                  "prompt": "Te descubres pensando 'este activo está barato porque alguna vez valió el doble' sin examinar si algo cambió en los fundamentos de la empresa desde entonces. ¿Qué revela esa afirmación?",
+                  "options": [
+                    "Que el activo definitivamente va a volver al precio anterior",
+                    "Que los precios antiguos siempre son una buena guía para el futuro",
+                    "Que puedes estar anclado a un precio pasado, en lugar de evaluar la situación actual de la empresa",
+                    "Que no hay ningún problema en pensar así"
+                  ],
+                  "explanation": "Usar un precio pasado como referencia automática, sin reevaluar los fundamentos actuales, es una señal clásica de anclaje."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Ancoragem é dar peso excessivo a uma referência inicial, mesmo quando ela perdeu relevância.",
+                    "Preços passados podem continuar influenciando decisões, mesmo sem justificativa nos fundamentos atuais.",
+                    "Vale sempre perguntar: essa referência ainda faz sentido, ou é só um número que ficou na memória?"
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Anchoring means giving excessive weight to an initial reference, even after it's lost relevance.",
+                    "Past prices can keep influencing decisions, even without justification in current fundamentals.",
+                    "It's always worth asking: does this reference still make sense, or is it just a number that stuck in memory?"
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El anclaje es dar un peso excesivo a una referencia inicial, incluso cuando ya perdió relevancia.",
+                    "Los precios pasados pueden seguir influyendo en las decisiones, aunque no haya justificación en los fundamentos actuales.",
+                    "Siempre vale la pena preguntarse: ¿esa referencia todavía tiene sentido, o es solo un número que quedó en la memoria?"
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_herd_mentality",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Efeito Manada"},
+            "en": {"title": "Herd Mentality"},
+            "es": {"title": "Efecto Manada"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Seguir a multidão",
+                  "body": "Efeito manada é a tendência de seguir o comportamento da maioria, especialmente em momentos de forte alta ou queda no mercado, em vez de tomar uma decisão baseada em análise própria. Isso é amplificado por redes sociais e pela sensação de estar 'ficando de fora' de algo que todo mundo parece estar fazendo — o chamado FOMO (fear of missing out)."
+                },
+                "en": {
+                  "title": "Following the crowd",
+                  "body": "Herd mentality is the tendency to follow the behavior of the majority, especially during strong market rallies or crashes, instead of making a decision based on your own analysis. This is amplified by social media and the feeling of 'missing out' on something everyone else seems to be doing — often called FOMO (fear of missing out)."
+                },
+                "es": {
+                  "title": "Seguir a la multitud",
+                  "body": "El efecto manada es la tendencia a seguir el comportamiento de la mayoría, especialmente en momentos de fuerte alza o caída en el mercado, en lugar de tomar una decisión basada en un análisis propio. Esto se amplifica con las redes sociales y la sensación de estar 'quedándose fuera' de algo que todos parecen estar haciendo — lo que se conoce como FOMO (fear of missing out)."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um ativo sobe rapidamente e vira assunto em todo lugar. Uma pessoa que nunca tinha ouvido falar dele antes compra apenas porque 'todo mundo está comprando', sem entender o que está por trás do movimento nem qual é o risco envolvido."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An asset rises rapidly and becomes the talk of the town. Someone who had never heard of it before buys in simply because 'everyone is buying it,' without understanding what's behind the move or what risk is involved."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un activo sube rápidamente y se convierte en tema en todas partes. Una persona que nunca había oído hablar de él antes compra solo porque 'todo el mundo está comprando', sin entender qué hay detrás del movimiento ni cuál es el riesgo involucrado."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza o efeito manada?",
+                  "options": [
+                    "Analisar cuidadosamente os fundamentos antes de investir",
+                    "Seguir o comportamento da maioria, em vez de uma decisão baseada em análise própria",
+                    "Diversificar entre vários ativos diferentes",
+                    "Investir apenas em renda fixa"
+                  ],
+                  "explanation": "Efeito manada é sobre decidir com base no que a maioria está fazendo, não em uma avaliação própria da situação."
+                },
+                "en": {
+                  "prompt": "What characterizes herd mentality?",
+                  "options": [
+                    "Carefully analyzing fundamentals before investing",
+                    "Following the behavior of the majority, instead of a decision based on your own analysis",
+                    "Diversifying across several different assets",
+                    "Investing only in fixed income"
+                  ],
+                  "explanation": "Herd mentality is about deciding based on what the majority is doing, not on your own assessment of the situation."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza al efecto manada?",
+                  "options": [
+                    "Analizar cuidadosamente los fundamentos antes de invertir",
+                    "Seguir el comportamiento de la mayoría, en lugar de una decisión basada en un análisis propio",
+                    "Diversificar entre varios activos diferentes",
+                    "Invertir solo en renta fija"
+                  ],
+                  "explanation": "El efecto manada trata sobre decidir en función de lo que hace la mayoría, no de una evaluación propia de la situación."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um ativo está subindo muito e sendo comentado em todo lugar. Antes de comprar só porque 'todo mundo está comprando', o que faz mais sentido investigar primeiro?",
+                  "options": [
+                    "Nada, se todo mundo está comprando, deve ser uma boa oportunidade",
+                    "O que está por trás desse movimento, e se ele se encaixa nos seus próprios objetivos e tolerância a risco",
+                    "Apenas quanto as pessoas mais seguidas nas redes sociais estão ganhando",
+                    "Se dá tempo de comprar antes que o preço suba ainda mais"
+                  ],
+                  "explanation": "Popularidade não é sinônimo de fundamento sólido — vale investigar o que está por trás do movimento e se ele realmente se encaixa nos seus próprios objetivos, antes de seguir a multidão."
+                },
+                "en": {
+                  "prompt": "An asset is rising a lot and being talked about everywhere. Before buying just because 'everyone is buying it,' what makes more sense to investigate first?",
+                  "options": [
+                    "Nothing, if everyone is buying it, it must be a good opportunity",
+                    "What's actually behind that move, and whether it fits your own goals and risk tolerance",
+                    "Only how much the most-followed people on social media are earning",
+                    "Whether there's still time to buy before the price rises even more"
+                  ],
+                  "explanation": "Popularity isn't the same as solid fundamentals — it's worth investigating what's actually behind the move and whether it truly fits your own goals, before following the crowd."
+                },
+                "es": {
+                  "prompt": "Un activo está subiendo mucho y se habla de él en todas partes. Antes de comprar solo porque 'todo el mundo está comprando', ¿qué tiene más sentido investigar primero?",
+                  "options": [
+                    "Nada, si todo el mundo está comprando, debe ser una buena oportunidad",
+                    "Qué hay detrás de ese movimiento, y si encaja con tus propios objetivos y tolerancia al riesgo",
+                    "Solo cuánto están ganando las personas más seguidas en redes sociales",
+                    "Si todavía hay tiempo de comprar antes de que el precio suba aún más"
+                  ],
+                  "explanation": "La popularidad no es sinónimo de fundamentos sólidos — vale la pena investigar qué hay detrás del movimiento y si realmente encaja con tus propios objetivos, antes de seguir a la multitud."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Efeito manada é seguir a maioria em vez de uma análise própria.",
+                    "Momentos de forte alta ou queda tendem a amplificar esse comportamento.",
+                    "Popularidade de um ativo não substitui entender o que está por trás do movimento."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Herd mentality means following the majority instead of your own analysis.",
+                    "Moments of strong rallies or crashes tend to amplify this behavior.",
+                    "An asset's popularity doesn't replace understanding what's actually behind the move."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El efecto manada es seguir a la mayoría en lugar de un análisis propio.",
+                    "Los momentos de fuerte alza o caída tienden a amplificar este comportamiento.",
+                    "La popularidad de un activo no reemplaza entender qué hay detrás del movimiento."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_confirmation_bias",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Viés de Confirmação"},
+            "en": {"title": "Confirmation Bias"},
+            "es": {"title": "Sesgo de Confirmación"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Buscando razão para concordar com você mesmo",
+                  "body": "Viés de confirmação é a tendência de buscar, notar e valorizar mais as informações que confirmam o que você já acredita, enquanto ignora ou minimiza informações que contradizem essa crença. Depois de investir em algo, é comum passar a prestar mais atenção em notícias positivas sobre esse investimento e a descartar as negativas."
+                },
+                "en": {
+                  "title": "Looking for reasons to agree with yourself",
+                  "body": "Confirmation bias is the tendency to seek out, notice, and give more weight to information that confirms what you already believe, while ignoring or downplaying information that contradicts that belief. After investing in something, it's common to start paying more attention to positive news about that investment and to dismiss the negative."
+                },
+                "es": {
+                  "title": "Buscando razones para estar de acuerdo contigo mismo",
+                  "body": "El sesgo de confirmación es la tendencia a buscar, notar y darle más peso a la información que confirma lo que ya crees, mientras ignoras o minimizas la información que contradice esa creencia. Después de invertir en algo, es común empezar a prestar más atención a las noticias positivas sobre esa inversión y descartar las negativas."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Depois de comprar ações de uma empresa, um investidor começa a seguir apenas analistas otimistas sobre ela e ignora relatórios que apontam riscos — não porque esses relatórios sejam necessariamente errados, mas porque contradizem uma decisão que ele já tomou."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "After buying shares in a company, an investor starts following only analysts who are optimistic about it and ignores reports pointing out risks — not necessarily because those reports are wrong, but because they contradict a decision the investor already made."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Después de comprar acciones de una empresa, un inversor empieza a seguir solo a analistas optimistas sobre ella e ignora informes que señalan riesgos — no necesariamente porque esos informes estén equivocados, sino porque contradicen una decisión que ya tomó."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é viés de confirmação?",
+                  "options": [
+                    "A tendência de sempre discordar de especialistas",
+                    "A prática de diversificar uma carteira de investimentos",
+                    "A tendência de valorizar mais informações que confirmam o que você já acredita, e ignorar as que contradizem",
+                    "Um indicador técnico usado para prever preços"
+                  ],
+                  "explanation": "Viés de confirmação é sobre buscar e valorizar seletivamente informações que reforçam uma crença já existente, em vez de avaliar tudo com o mesmo peso."
+                },
+                "en": {
+                  "prompt": "What is confirmation bias?",
+                  "options": [
+                    "The tendency to always disagree with experts",
+                    "The practice of diversifying an investment portfolio",
+                    "The tendency to give more weight to information that confirms what you already believe, and ignore what contradicts it",
+                    "A technical indicator used to predict prices"
+                  ],
+                  "explanation": "Confirmation bias is about selectively seeking and valuing information that reinforces an existing belief, instead of weighing everything equally."
+                },
+                "es": {
+                  "prompt": "¿Qué es el sesgo de confirmación?",
+                  "options": [
+                    "La tendencia a siempre estar en desacuerdo con los expertos",
+                    "La práctica de diversificar una cartera de inversiones",
+                    "La tendencia a darle más peso a la información que confirma lo que ya crees, e ignorar la que lo contradice",
+                    "Un indicador técnico usado para predecir precios"
+                  ],
+                  "explanation": "El sesgo de confirmación trata sobre buscar y valorar selectivamente información que refuerza una creencia ya existente, en lugar de evaluar todo con el mismo peso."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você percebe que, desde que investiu em um ativo, só lê notícias que falam bem dele e ignora análises críticas. Como lidar com isso de forma mais equilibrada?",
+                  "options": [
+                    "Continuar ignorando análises críticas, já que a decisão de investir já foi tomada",
+                    "Buscar ativamente também as análises que discordam da sua posição, para ter uma visão mais completa antes de decidir manter ou não o investimento",
+                    "Parar de ler qualquer notícia sobre o assunto",
+                    "Assumir que toda análise crítica é sempre falsa"
+                  ],
+                  "explanation": "Buscar ativamente pontos de vista que desafiam sua posição ajuda a compensar a tendência natural de só notar o que já confirma o que você acredita."
+                },
+                "en": {
+                  "prompt": "You notice that, since investing in an asset, you only read news that speaks well of it and ignore critical analyses. How can you handle this in a more balanced way?",
+                  "options": [
+                    "Keep ignoring critical analyses, since the decision to invest has already been made",
+                    "Actively seek out analyses that disagree with your position too, to get a more complete picture before deciding whether to keep the investment",
+                    "Stop reading any news about the topic",
+                    "Assume any critical analysis is always false"
+                  ],
+                  "explanation": "Actively seeking out viewpoints that challenge your position helps counteract the natural tendency to only notice what already confirms what you believe."
+                },
+                "es": {
+                  "prompt": "Te das cuenta de que, desde que invertiste en un activo, solo lees noticias que hablan bien de él e ignoras análisis críticos. ¿Cómo lidiar con esto de forma más equilibrada?",
+                  "options": [
+                    "Seguir ignorando los análisis críticos, ya que la decisión de invertir ya fue tomada",
+                    "Buscar activamente también los análisis que discrepan de tu posición, para tener una visión más completa antes de decidir si mantener o no la inversión",
+                    "Dejar de leer cualquier noticia sobre el tema",
+                    "Asumir que todo análisis crítico es siempre falso"
+                  ],
+                  "explanation": "Buscar activamente puntos de vista que desafíen tu posición ayuda a compensar la tendencia natural a notar solo lo que ya confirma lo que crees."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Viés de confirmação é valorizar mais o que confirma o que você já acredita.",
+                    "Depois de investir, é comum passar a filtrar informações de forma seletiva.",
+                    "Buscar ativamente pontos de vista contrários ajuda a equilibrar essa tendência."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Confirmation bias means giving more weight to what confirms what you already believe.",
+                    "After investing, it's common to start filtering information selectively.",
+                    "Actively seeking out opposing viewpoints helps balance out this tendency."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El sesgo de confirmación es darle más peso a lo que confirma lo que ya crees.",
+                    "Después de invertir, es común empezar a filtrar la información de forma selectiva.",
+                    "Buscar activamente puntos de vista opuestos ayuda a equilibrar esta tendencia."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_habits_automation",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Hábitos e Automação"},
+            "en": {"title": "Habits and Automation"},
+            "es": {"title": "Hábitos y Automatización"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Tirando a força de vontade da equação",
+                  "body": "Decisões financeiras repetidas, como investir todo mês, dependem menos de força de vontade quando viram um hábito automático — como uma transferência programada logo após o recebimento do salário. Automatizar reduz o espaço para que vieses do dia a dia, como aversão à perda ou efeito manada, interfiram em decisões que deveriam ser rotineiras."
+                },
+                "en": {
+                  "title": "Taking willpower out of the equation",
+                  "body": "Repeated financial decisions, like investing every month, depend less on willpower once they become an automatic habit — like a transfer scheduled right after your paycheck arrives. Automating reduces the room for everyday biases, like loss aversion or herd mentality, to interfere with decisions that should be routine."
+                },
+                "es": {
+                  "title": "Quitando la fuerza de voluntad de la ecuación",
+                  "body": "Las decisiones financieras repetidas, como invertir todos los meses, dependen menos de la fuerza de voluntad cuando se convierten en un hábito automático — como una transferencia programada justo después de recibir el salario. Automatizar reduce el espacio para que sesgos del día a día, como la aversión a la pérdida o el efecto manada, interfieran en decisiones que deberían ser rutinarias."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Duas pessoas querem investir R$300 por mês. Uma decide 'lembrar' de fazer isso manualmente todo mês — e acaba pulando meses em que o mercado está em queda, por medo. A outra programa uma transferência automática no dia do salário, que acontece independentemente do humor do mercado naquele mês."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two people want to invest R$300 a month. One decides to 'remember' to do it manually every month — and ends up skipping months when the market is down, out of fear. The other sets up an automatic transfer on payday, which happens regardless of the market's mood that month."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos personas quieren invertir R$300 al mes. Una decide 'acordarse' de hacerlo manualmente cada mes — y termina saltándose meses en los que el mercado está en baja, por miedo. La otra programa una transferencia automática el día del salario, que ocurre independientemente del humor del mercado ese mes."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 0,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que automatizar uma decisão financeira repetida pode ajudar a lidar com vieses comportamentais?",
+                  "options": [
+                    "Porque reduz o espaço para que emoções do momento interfiram em uma decisão que deveria ser rotineira",
+                    "Porque garante que o investimento nunca vai ter prejuízo",
+                    "Porque elimina completamente a necessidade de acompanhar os investimentos",
+                    "Porque só funciona para pessoas com muito dinheiro"
+                  ],
+                  "explanation": "A automação retira parte da decisão das mãos do 'eu emocional do momento', tornando o comportamento mais consistente ao longo do tempo."
+                },
+                "en": {
+                  "prompt": "Why can automating a repeated financial decision help deal with behavioral biases?",
+                  "options": [
+                    "Because it reduces the room for in-the-moment emotions to interfere with a decision that should be routine",
+                    "Because it guarantees the investment will never lose money",
+                    "Because it completely eliminates the need to track your investments",
+                    "Because it only works for people with a lot of money"
+                  ],
+                  "explanation": "Automation takes part of the decision out of the hands of the 'emotional self of the moment,' making behavior more consistent over time."
+                },
+                "es": {
+                  "prompt": "¿Por qué automatizar una decisión financiera repetida puede ayudar a lidiar con sesgos comportamentales?",
+                  "options": [
+                    "Porque reduce el espacio para que las emociones del momento interfieran en una decisión que debería ser rutinaria",
+                    "Porque garantiza que la inversión nunca tendrá pérdidas",
+                    "Porque elimina por completo la necesidad de seguir tus inversiones",
+                    "Porque solo funciona para personas con mucho dinero"
+                  ],
+                  "explanation": "La automatización quita parte de la decisión de manos del 'yo emocional del momento', haciendo que el comportamiento sea más consistente con el tiempo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 2,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já aprendeu sobre aversão à perda, ancoragem, efeito manada e viés de confirmação. Como esses conceitos se conectam com a ideia de automatizar decisões financeiras repetidas?",
+                  "options": [
+                    "Não se conectam, automação é um assunto totalmente separado desses vieses",
+                    "Automatizar só serve para pessoas que não entendem de investimentos",
+                    "Automatizar decisões rotineiras reduz as chances de esses vieses interferirem justamente nos momentos em que as emoções estão mais fortes",
+                    "Vieses comportamentais só afetam quem investe manualmente todo dia"
+                  ],
+                  "explanation": "Automatizar decisões que deveriam ser rotineiras — como um aporte mensal — reduz a exposição dessas decisões aos vieses que você estudou, que tendem a pesar mais quando há uma escolha ativa a ser feita no calor do momento."
+                },
+                "en": {
+                  "prompt": "You've already learned about loss aversion, anchoring, herd mentality and confirmation bias. How do these concepts connect to the idea of automating repeated financial decisions?",
+                  "options": [
+                    "They don't connect, automation is a completely separate topic from these biases",
+                    "Automation is only useful for people who don't understand investing",
+                    "Automating routine decisions reduces the chances of these biases interfering exactly in the moments when emotions run strongest",
+                    "Behavioral biases only affect people who invest manually every day"
+                  ],
+                  "explanation": "Automating decisions that should be routine — like a monthly contribution — reduces how exposed those decisions are to the biases you studied, which tend to weigh more heavily when there's an active choice to be made in the heat of the moment."
+                },
+                "es": {
+                  "prompt": "Ya aprendiste sobre la aversión a la pérdida, el anclaje, el efecto manada y el sesgo de confirmación. ¿Cómo se conectan estos conceptos con la idea de automatizar decisiones financieras repetidas?",
+                  "options": [
+                    "No se conectan, la automatización es un tema totalmente separado de estos sesgos",
+                    "Automatizar solo sirve para personas que no entienden de inversiones",
+                    "Automatizar decisiones rutinarias reduce las posibilidades de que estos sesgos interfieran justo en los momentos en que las emociones están más fuertes",
+                    "Los sesgos comportamentales solo afectan a quien invierte manualmente todos los días"
+                  ],
+                  "explanation": "Automatizar decisiones que deberían ser rutinarias — como un aporte mensual — reduce la exposición de esas decisiones a los sesgos que estudiaste, que tienden a pesar más cuando hay una elección activa por hacer en el calor del momento."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Automatizar decisões financeiras repetidas reduz a dependência de força de vontade.",
+                    "Isso também reduz o espaço para vieses como aversão à perda e efeito manada interferirem.",
+                    "Você concluiu o módulo sobre vieses comportamentais básicos."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Automating repeated financial decisions reduces the reliance on willpower.",
+                    "This also reduces the room for biases like loss aversion and herd mentality to interfere.",
+                    "You've completed the module on basic behavioral biases."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Automatizar decisiones financieras repetidas reduce la dependencia de la fuerza de voluntad.",
+                    "Esto también reduce el espacio para que sesgos como la aversión a la pérdida y el efecto manada interfieran.",
+                    "Completaste el módulo sobre sesgos comportamentales básicos."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
 }

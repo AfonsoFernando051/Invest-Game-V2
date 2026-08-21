@@ -3,7 +3,7 @@
   "domainId": "analysis_valuation",
   "order": 7,
   "iconKey": "analytics_outlined",
-  "contentAvailable": false,
+  "contentAvailable": true,
   "prerequisites": [],
   "translations": {
     "pt": {
@@ -24,8 +24,8 @@
       "moduleId": "fundamental_analysis",
       "order": 1,
       "iconKey": "analytics_outlined",
-      "xpReward": 0,
-      "contentAvailable": false,
+      "xpReward": 100,
+      "contentAvailable": true,
       "prerequisites": [],
       "translations": {
         "pt": {
@@ -41,7 +41,778 @@
           "description": "P/E, P/VC, ROE, márgenes y endeudamiento — herramientas para investigar una empresa, no señales de compra."
         }
       },
-      "lessons": []
+      "lessons": [
+        {
+          "lessonId": "fundamental_analysis_what_is_it",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "O que é Análise Fundamentalista?"},
+            "en": {"title": "What Is Fundamental Analysis?"},
+            "es": {"title": "¿Qué es el Análisis Fundamental?"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Investigar o negócio, não prever o preço",
+                  "body": "Análise fundamentalista é o estudo dos números e da situação de uma empresa — como receita, lucro, dívidas e margens — para entender a saúde e o valor do negócio por trás de uma ação. O objetivo não é prever o preço de amanhã, mas investigar se o negócio é sólido e como ele se compara a outras opções. Os indicadores que você vai estudar nas próximas lições são ferramentas de investigação, não sinais automáticos de compra ou venda."
+                },
+                "en": {
+                  "title": "Investigating the business, not predicting the price",
+                  "body": "Fundamental analysis is the study of a company's numbers and situation — like revenue, profit, debt, and margins — to understand the health and value of the business behind a stock. The goal isn't to predict tomorrow's price, but to investigate whether the business is solid and how it compares to other options. The indicators you'll study in the next lessons are investigation tools, not automatic buy or sell signals."
+                },
+                "es": {
+                  "title": "Investigar el negocio, no predecir el precio",
+                  "body": "El análisis fundamental es el estudio de los números y la situación de una empresa — como ingresos, ganancias, deudas y márgenes — para entender la salud y el valor del negocio detrás de una acción. El objetivo no es predecir el precio de mañana, sino investigar si el negocio es sólido y cómo se compara con otras opciones. Los indicadores que estudiarás en las próximas lecciones son herramientas de investigación, no señales automáticas de compra o venta."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor lê o balanço de uma empresa e percebe que a receita cresce, mas a dívida cresce ainda mais rápido. Ele não conclui automaticamente 'vender' ou 'comprar' — ele passa a investigar por que a dívida está crescendo tão rápido, comparando com empresas do mesmo setor antes de tirar qualquer conclusão."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor reads a company's financial statements and notices revenue is growing, but debt is growing even faster. They don't automatically conclude 'sell' or 'buy' — they start investigating why debt is growing so fast, comparing it with companies in the same sector before drawing any conclusion."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor lee el balance de una empresa y nota que los ingresos crecen, pero la deuda crece aún más rápido. No concluye automáticamente 'vender' o 'comprar' — empieza a investigar por qué la deuda está creciendo tan rápido, comparándola con empresas del mismo sector antes de sacar cualquier conclusión."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é o objetivo da análise fundamentalista?",
+                  "options": [
+                    "Prever com certeza o preço de uma ação amanhã",
+                    "Investigar a saúde e o valor do negócio por trás de uma ação, usando seus números",
+                    "Seguir apenas o que a maioria dos investidores está fazendo",
+                    "Garantir que um investimento nunca vai cair de preço"
+                  ],
+                  "explanation": "Análise fundamentalista é sobre investigar o negócio em si — seus números, sua saúde financeira — não sobre prever movimentos futuros de preço com certeza."
+                },
+                "en": {
+                  "prompt": "What is the goal of fundamental analysis?",
+                  "options": [
+                    "Predicting with certainty tomorrow's stock price",
+                    "Investigating the health and value of the business behind a stock, using its numbers",
+                    "Only following what most other investors are doing",
+                    "Guaranteeing an investment will never drop in price"
+                  ],
+                  "explanation": "Fundamental analysis is about investigating the business itself — its numbers, its financial health — not about predicting future price movements with certainty."
+                },
+                "es": {
+                  "prompt": "¿Cuál es el objetivo del análisis fundamental?",
+                  "options": [
+                    "Predecir con certeza el precio de una acción mañana",
+                    "Investigar la salud y el valor del negocio detrás de una acción, usando sus números",
+                    "Seguir solo lo que hace la mayoría de los inversores",
+                    "Garantizar que una inversión nunca bajará de precio"
+                  ],
+                  "explanation": "El análisis fundamental trata sobre investigar el negocio en sí — sus números, su salud financiera — no sobre predecir movimientos futuros de precio con certeza."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um amigo diz: 'estudei o P/L dessa empresa e ele é baixo, então com certeza vou ganhar dinheiro comprando essa ação'. O que está errado nesse raciocínio?",
+                  "options": [
+                    "Nada, um P/L baixo sempre garante lucro",
+                    "Um único indicador isolado, sem investigar o contexto e outros números da empresa, não garante resultado nenhum — indicadores são ferramentas de investigação, não certezas",
+                    "P/L não tem nenhuma relação com análise fundamentalista",
+                    "Análise fundamentalista sempre prevê o futuro com precisão"
+                  ],
+                  "explanation": "Nenhum indicador isolado garante um resultado — eles ajudam a investigar e comparar, mas sempre fazem parte de uma análise mais ampla do negócio, nunca de uma certeza sobre o futuro."
+                },
+                "en": {
+                  "prompt": "A friend says: 'I studied this company's P/E ratio and it's low, so I'm definitely going to make money buying this stock.' What's wrong with that reasoning?",
+                  "options": [
+                    "Nothing, a low P/E always guarantees profit",
+                    "A single isolated indicator, without investigating the company's context and other numbers, guarantees no result at all — indicators are investigation tools, not certainties",
+                    "P/E has no relation to fundamental analysis",
+                    "Fundamental analysis always predicts the future accurately"
+                  ],
+                  "explanation": "No isolated indicator guarantees a result — they help investigate and compare, but they're always part of a broader analysis of the business, never a certainty about the future."
+                },
+                "es": {
+                  "prompt": "Un amigo dice: 'estudié el P/E de esa empresa y es bajo, así que seguro voy a ganar dinero comprando esa acción'. ¿Qué está mal en ese razonamiento?",
+                  "options": [
+                    "Nada, un P/E bajo siempre garantiza ganancias",
+                    "Un único indicador aislado, sin investigar el contexto y otros números de la empresa, no garantiza ningún resultado — los indicadores son herramientas de investigación, no certezas",
+                    "El P/E no tiene ninguna relación con el análisis fundamental",
+                    "El análisis fundamental siempre predice el futuro con precisión"
+                  ],
+                  "explanation": "Ningún indicador aislado garantiza un resultado — ayudan a investigar y comparar, pero siempre forman parte de un análisis más amplio del negocio, nunca de una certeza sobre el futuro."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Análise fundamentalista investiga a saúde e o valor de um negócio através de seus números.",
+                    "O objetivo não é prever preços, mas entender o negócio por trás da ação.",
+                    "Indicadores são ferramentas de investigação, nunca sinais automáticos de compra ou venda."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Fundamental analysis investigates a business's health and value through its numbers.",
+                    "The goal isn't to predict prices, but to understand the business behind the stock.",
+                    "Indicators are investigation tools, never automatic buy or sell signals."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El análisis fundamental investiga la salud y el valor de un negocio a través de sus números.",
+                    "El objetivo no es predecir precios, sino entender el negocio detrás de la acción.",
+                    "Los indicadores son herramientas de investigación, nunca señales automáticas de compra o venta."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_analysis_pl_pvp",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "P/L e P/VP"},
+            "en": {"title": "P/E and P/B"},
+            "es": {"title": "P/E y P/VC"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Comparando preço com lucro e patrimônio",
+                  "body": "O P/L (Preço sobre Lucro) divide o preço da ação pelo lucro por ação, mostrando quantos anos de lucro atual seriam necessários, em teoria, para 'pagar' o preço pago pela ação. O P/VP (Preço sobre Valor Patrimonial) divide o preço da ação pelo valor patrimonial por ação, mostrando quanto o mercado está pagando em relação ao patrimônio contábil da empresa. Um P/L ou P/VP baixo não significa automaticamente que uma ação está 'barata' — pode refletir também um risco maior percebido pelo mercado."
+                },
+                "en": {
+                  "title": "Comparing price with earnings and equity",
+                  "body": "The P/E ratio (Price to Earnings) divides the stock price by earnings per share, showing how many years of current earnings would theoretically be needed to 'pay off' the price paid for the stock. The P/B ratio (Price to Book) divides the stock price by book value per share, showing how much the market is paying relative to the company's accounting equity. A low P/E or P/B doesn't automatically mean a stock is 'cheap' — it can also reflect a higher risk perceived by the market."
+                },
+                "es": {
+                  "title": "Comparando precio con ganancia y patrimonio",
+                  "body": "El P/E (Precio sobre Ganancia) divide el precio de la acción por la ganancia por acción, mostrando cuántos años de ganancia actual se necesitarían, en teoría, para 'pagar' el precio de la acción. El P/VC (Precio sobre Valor Contable) divide el precio de la acción por el valor contable por acción, mostrando cuánto está pagando el mercado en relación al patrimonio contable de la empresa. Un P/E o P/VC bajo no significa automáticamente que una acción está 'barata' — también puede reflejar un mayor riesgo percibido por el mercado."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa tem lucro de R$2 por ação e a ação é negociada a R$20 — um P/L de 10. Outra empresa do mesmo setor tem P/L de 20. Isso pode significar que a primeira está mais barata em relação ao lucro atual, ou que o mercado enxerga mais risco ou menos crescimento futuro nela do que na segunda — por isso, vale investigar o motivo da diferença, não só comparar o número."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A company has earnings of R$2 per share and the stock trades at R$20 — a P/E of 10. Another company in the same sector has a P/E of 20. This could mean the first is cheaper relative to current earnings, or that the market sees more risk or less future growth in it than in the second — so it's worth investigating the reason for the difference, not just comparing the number."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa tiene una ganancia de R$2 por acción y la acción se negocia a R$20 — un P/E de 10. Otra empresa del mismo sector tiene un P/E de 20. Esto podría significar que la primera está más barata en relación a la ganancia actual, o que el mercado percibe más riesgo o menos crecimiento futuro en ella que en la segunda — por eso vale la pena investigar el motivo de la diferencia, no solo comparar el número."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o indicador P/L mostra?",
+                  "options": [
+                    "A dívida total da empresa",
+                    "Quantos anos de lucro atual, em teoria, seriam necessários para 'pagar' o preço da ação",
+                    "A margem de lucro da empresa",
+                    "O valor de mercado total da empresa"
+                  ],
+                  "explanation": "P/L divide o preço da ação pelo lucro por ação, mostrando essa relação teórica entre preço pago e lucro atual gerado."
+                },
+                "en": {
+                  "prompt": "What does the P/E ratio show?",
+                  "options": [
+                    "The company's total debt",
+                    "How many years of current earnings would theoretically be needed to 'pay off' the stock's price",
+                    "The company's profit margin",
+                    "The company's total market value"
+                  ],
+                  "explanation": "P/E divides the stock price by earnings per share, showing this theoretical relationship between the price paid and the current earnings generated."
+                },
+                "es": {
+                  "prompt": "¿Qué muestra el indicador P/E?",
+                  "options": [
+                    "La deuda total de la empresa",
+                    "Cuántos años de ganancia actual, en teoría, serían necesarios para 'pagar' el precio de la acción",
+                    "El margen de ganancia de la empresa",
+                    "El valor de mercado total de la empresa"
+                  ],
+                  "explanation": "El P/E divide el precio de la acción por la ganancia por acción, mostrando esa relación teórica entre el precio pagado y la ganancia actual generada."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você vê duas empresas do mesmo setor: uma com P/L de 8, outra com P/L de 25. Antes de concluir que a primeira é uma 'pechincha', o que faz mais sentido investigar?",
+                  "options": [
+                    "Nada, P/L mais baixo é sempre sinônimo de melhor investimento",
+                    "Por que existe essa diferença — pode ser risco maior percebido, crescimento esperado menor, ou outros fatores específicos daquele negócio",
+                    "Apenas o preço da ação em reais, ignorando o lucro",
+                    "Qual empresa tem o nome mais conhecido"
+                  ],
+                  "explanation": "Um P/L mais baixo pode refletir uma oportunidade, mas também pode refletir um risco maior ou expectativas piores sobre o futuro da empresa — o número sozinho não conta a história toda."
+                },
+                "en": {
+                  "prompt": "You see two companies in the same sector: one with a P/E of 8, the other with a P/E of 25. Before concluding the first is a 'bargain,' what makes more sense to investigate?",
+                  "options": [
+                    "Nothing, a lower P/E is always synonymous with a better investment",
+                    "Why that difference exists — it could be a higher perceived risk, lower expected growth, or other factors specific to that business",
+                    "Only the stock's price in dollars, ignoring earnings",
+                    "Which company has the more well-known name"
+                  ],
+                  "explanation": "A lower P/E can reflect an opportunity, but it can also reflect a higher risk or worse expectations about the company's future — the number alone doesn't tell the whole story."
+                },
+                "es": {
+                  "prompt": "Ves dos empresas del mismo sector: una con P/E de 8, otra con P/E de 25. Antes de concluir que la primera es una 'ganga', ¿qué tiene más sentido investigar?",
+                  "options": [
+                    "Nada, un P/E más bajo siempre es sinónimo de mejor inversión",
+                    "Por qué existe esa diferencia — puede ser un mayor riesgo percibido, un crecimiento esperado menor, u otros factores específicos de ese negocio",
+                    "Solo el precio de la acción en reales, ignorando la ganancia",
+                    "Qué empresa tiene el nombre más conocido"
+                  ],
+                  "explanation": "Un P/E más bajo puede reflejar una oportunidad, pero también puede reflejar un mayor riesgo o peores expectativas sobre el futuro de la empresa — el número por sí solo no cuenta toda la historia."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "P/L compara o preço da ação com o lucro por ação.",
+                    "P/VP compara o preço da ação com o valor patrimonial por ação.",
+                    "Um indicador baixo não significa automaticamente uma pechincha — vale investigar o motivo da diferença."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "P/E compares the stock's price with earnings per share.",
+                    "P/B compares the stock's price with book value per share.",
+                    "A low indicator doesn't automatically mean a bargain — it's worth investigating the reason for the difference."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El P/E compara el precio de la acción con la ganancia por acción.",
+                    "El P/VC compara el precio de la acción con el valor contable por acción.",
+                    "Un indicador bajo no significa automáticamente una ganga — vale la pena investigar el motivo de la diferencia."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_analysis_roe",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "ROE"},
+            "en": {"title": "ROE"},
+            "es": {"title": "ROE"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto o negócio gera com o que já tem",
+                  "body": "ROE (Return on Equity, ou Retorno sobre o Patrimônio Líquido) mede quanto lucro uma empresa gera em relação ao patrimônio líquido dos acionistas. É uma forma de avaliar a eficiência com que a empresa usa o capital que já tem para gerar retorno. Um ROE mais alto, de forma consistente ao longo do tempo, costuma indicar um negócio mais eficiente em gerar lucro com os recursos disponíveis — mas vale sempre comparar empresas do mesmo setor, já que a média varia bastante entre setores diferentes."
+                },
+                "en": {
+                  "title": "How much the business generates with what it already has",
+                  "body": "ROE (Return on Equity) measures how much profit a company generates relative to shareholders' equity. It's a way to assess how efficiently the company uses the capital it already has to generate a return. A consistently higher ROE over time tends to indicate a business that's more efficient at generating profit with available resources — but it's always worth comparing companies in the same sector, since the average varies a lot between different sectors."
+                },
+                "es": {
+                  "title": "Cuánto genera el negocio con lo que ya tiene",
+                  "body": "El ROE (Retorno sobre el Patrimonio) mide cuánta ganancia genera una empresa en relación al patrimonio neto de los accionistas. Es una forma de evaluar la eficiencia con la que la empresa usa el capital que ya tiene para generar retorno. Un ROE más alto, de forma consistente en el tiempo, suele indicar un negocio más eficiente en generar ganancias con los recursos disponibles — pero siempre vale la pena comparar empresas del mismo sector, ya que el promedio varía bastante entre sectores diferentes."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Duas empresas têm o mesmo lucro em reais, mas uma tem um patrimônio líquido bem menor que a outra. A empresa com patrimônio menor está gerando o mesmo lucro com menos capital próprio — ou seja, tem um ROE mais alto, o que sugere maior eficiência no uso do capital disponível."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two companies have the same profit in dollar terms, but one has much smaller shareholders' equity than the other. The company with smaller equity is generating the same profit with less of its own capital — in other words, it has a higher ROE, which suggests greater efficiency in using available capital."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos empresas tienen la misma ganancia en reales, pero una tiene un patrimonio neto mucho menor que la otra. La empresa con menor patrimonio está generando la misma ganancia con menos capital propio — es decir, tiene un ROE más alto, lo que sugiere una mayor eficiencia en el uso del capital disponible."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o ROE mede?",
+                  "options": [
+                    "A dívida total da empresa em relação às vendas",
+                    "Quanto lucro uma empresa gera em relação ao patrimônio líquido dos acionistas",
+                    "O preço da ação em relação ao lucro por ação",
+                    "A quantidade de funcionários da empresa"
+                  ],
+                  "explanation": "ROE mede a eficiência da empresa em gerar lucro a partir do patrimônio líquido que ela já tem disponível."
+                },
+                "en": {
+                  "prompt": "What does ROE measure?",
+                  "options": [
+                    "The company's total debt relative to sales",
+                    "How much profit a company generates relative to shareholders' equity",
+                    "The stock's price relative to earnings per share",
+                    "The number of employees at the company"
+                  ],
+                  "explanation": "ROE measures the company's efficiency in generating profit from the shareholders' equity it already has available."
+                },
+                "es": {
+                  "prompt": "¿Qué mide el ROE?",
+                  "options": [
+                    "La deuda total de la empresa en relación a las ventas",
+                    "Cuánta ganancia genera una empresa en relación al patrimonio neto de los accionistas",
+                    "El precio de la acción en relación a la ganancia por acción",
+                    "La cantidad de empleados de la empresa"
+                  ],
+                  "explanation": "El ROE mide la eficiencia de la empresa en generar ganancias a partir del patrimonio neto que ya tiene disponible."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está comparando o ROE de uma empresa de tecnologia com o de um banco tradicional, e os números são bem diferentes. O que isso te ensina sobre como usar esse indicador?",
+                  "options": [
+                    "Que ROE só serve para empresas de tecnologia",
+                    "Que comparar ROE entre setores muito diferentes pode ser enganoso, já que a média varia bastante conforme o tipo de negócio — melhor comparar empresas do mesmo setor",
+                    "Que o setor com o ROE mais baixo sempre é o pior investimento",
+                    "Que ROE não tem relação nenhuma com a eficiência da empresa"
+                  ],
+                  "explanation": "Setores diferentes têm estruturas de capital e modelos de negócio muito distintos — por isso, ROE costuma ser mais útil quando comparado entre empresas do mesmo setor, e não entre setores totalmente diferentes."
+                },
+                "en": {
+                  "prompt": "You're comparing the ROE of a technology company with that of a traditional bank, and the numbers are quite different. What does this teach you about how to use this indicator?",
+                  "options": [
+                    "That ROE is only useful for technology companies",
+                    "That comparing ROE across very different sectors can be misleading, since the average varies a lot depending on the type of business — it's better to compare companies within the same sector",
+                    "That the sector with the lowest ROE is always the worst investment",
+                    "That ROE has no relation to the company's efficiency"
+                  ],
+                  "explanation": "Different sectors have very different capital structures and business models — that's why ROE tends to be more useful when compared between companies in the same sector, rather than across completely different sectors."
+                },
+                "es": {
+                  "prompt": "Estás comparando el ROE de una empresa de tecnología con el de un banco tradicional, y los números son bastante diferentes. ¿Qué te enseña esto sobre cómo usar este indicador?",
+                  "options": [
+                    "Que el ROE solo sirve para empresas de tecnología",
+                    "Que comparar el ROE entre sectores muy diferentes puede ser engañoso, ya que el promedio varía bastante según el tipo de negocio — mejor comparar empresas del mismo sector",
+                    "Que el sector con el ROE más bajo siempre es la peor inversión",
+                    "Que el ROE no tiene ninguna relación con la eficiencia de la empresa"
+                  ],
+                  "explanation": "Sectores diferentes tienen estructuras de capital y modelos de negocio muy distintos — por eso, el ROE suele ser más útil cuando se compara entre empresas del mismo sector, y no entre sectores totalmente diferentes."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "ROE mede a eficiência de uma empresa em gerar lucro a partir do patrimônio líquido.",
+                    "Um ROE consistentemente mais alto costuma indicar maior eficiência no uso do capital.",
+                    "Comparações de ROE são mais úteis entre empresas do mesmo setor."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "ROE measures a company's efficiency in generating profit from shareholders' equity.",
+                    "A consistently higher ROE tends to indicate greater efficiency in using capital.",
+                    "ROE comparisons are more useful between companies in the same sector."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El ROE mide la eficiencia de una empresa en generar ganancias a partir del patrimonio neto.",
+                    "Un ROE consistentemente más alto suele indicar una mayor eficiencia en el uso del capital.",
+                    "Las comparaciones de ROE son más útiles entre empresas del mismo sector."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_analysis_margins",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Margens"},
+            "en": {"title": "Margins"},
+            "es": {"title": "Márgenes"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto sobra em cada etapa",
+                  "body": "Margens medem quanto de cada real de receita 'sobra' em diferentes etapas do resultado de uma empresa. A margem bruta mostra o que sobra depois dos custos diretos de produção. A margem líquida mostra o que sobra depois de todos os custos, despesas e impostos — o lucro final como proporção da receita. Comparar margens ao longo do tempo, e entre empresas do mesmo setor, ajuda a entender se uma empresa está conseguindo manter ou melhorar sua eficiência."
+                },
+                "en": {
+                  "title": "How much is left at each stage",
+                  "body": "Margins measure how much of each dollar of revenue is 'left over' at different stages of a company's results. Gross margin shows what's left after direct production costs. Net margin shows what's left after all costs, expenses and taxes — the final profit as a proportion of revenue. Comparing margins over time, and between companies in the same sector, helps understand whether a company is managing to maintain or improve its efficiency."
+                },
+                "es": {
+                  "title": "Cuánto queda en cada etapa",
+                  "body": "Los márgenes miden cuánto de cada real de ingreso 'queda' en diferentes etapas del resultado de una empresa. El margen bruto muestra lo que queda después de los costos directos de producción. El margen neto muestra lo que queda después de todos los costos, gastos e impuestos — la ganancia final como proporción del ingreso. Comparar márgenes a lo largo del tiempo, y entre empresas del mismo sector, ayuda a entender si una empresa está logrando mantener o mejorar su eficiencia."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa de varejo tem receita de R$100 milhões e margem líquida de 5% — ou seja, R$5 milhões viram lucro final. Uma empresa de software, com a mesma receita, pode ter margem líquida de 25%, porque tem custos de produção muito menores. Isso não significa automaticamente que a segunda é 'melhor' — modelos de negócio diferentes costumam ter margens naturalmente diferentes."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A retail company has revenue of R$100 million and a net margin of 5% — meaning R$5 million becomes final profit. A software company, with the same revenue, might have a net margin of 25%, because it has much lower production costs. That doesn't automatically mean the second is 'better' — different business models tend to have naturally different margins."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa minorista tiene ingresos de R$100 millones y un margen neto del 5% — es decir, R$5 millones se convierten en ganancia final. Una empresa de software, con el mismo ingreso, puede tener un margen neto del 25%, porque tiene costos de producción mucho menores. Eso no significa automáticamente que la segunda sea 'mejor' — modelos de negocio diferentes suelen tener márgenes naturalmente distintos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que a margem líquida mostra?",
+                  "options": [
+                    "O total de receita da empresa, sem nenhum desconto",
+                    "O que sobra do lucro final como proporção da receita, depois de todos os custos, despesas e impostos",
+                    "Apenas os custos diretos de produção",
+                    "A dívida total da empresa"
+                  ],
+                  "explanation": "Margem líquida é o lucro final da empresa dividido pela receita — mostra quanto realmente sobra de cada real vendido, depois de todos os descontos."
+                },
+                "en": {
+                  "prompt": "What does net margin show?",
+                  "options": [
+                    "The company's total revenue, with no deductions",
+                    "What's left of the final profit as a proportion of revenue, after all costs, expenses and taxes",
+                    "Only the direct production costs",
+                    "The company's total debt"
+                  ],
+                  "explanation": "Net margin is the company's final profit divided by revenue — it shows how much is really left from each dollar sold, after all deductions."
+                },
+                "es": {
+                  "prompt": "¿Qué muestra el margen neto?",
+                  "options": [
+                    "El total de ingresos de la empresa, sin ningún descuento",
+                    "Lo que queda de la ganancia final como proporción del ingreso, después de todos los costos, gastos e impuestos",
+                    "Solo los costos directos de producción",
+                    "La deuda total de la empresa"
+                  ],
+                  "explanation": "El margen neto es la ganancia final de la empresa dividida por el ingreso — muestra cuánto realmente queda de cada real vendido, después de todos los descuentos."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você compara a margem líquida de uma rede de supermercados com a de uma empresa de software e percebe que a primeira é bem menor. O que isso provavelmente reflete?",
+                  "options": [
+                    "Que a rede de supermercados é um negócio ruim",
+                    "Que modelos de negócio diferentes costumam ter estruturas de custo e margens naturalmente diferentes, o que torna a comparação direta pouco útil",
+                    "Que toda empresa deveria ter a mesma margem",
+                    "Que margens não têm relação nenhuma com o tipo de negócio"
+                  ],
+                  "explanation": "Setores com estruturas de custo muito diferentes — como varejo, que tem margens naturalmente apertadas, e software, que tem custos de produção bem menores — não devem ser comparados diretamente pela margem, sem considerar o contexto do setor."
+                },
+                "en": {
+                  "prompt": "You compare the net margin of a supermarket chain with that of a software company and notice the first is much lower. What does this likely reflect?",
+                  "options": [
+                    "That the supermarket chain is a bad business",
+                    "That different business models tend to have naturally different cost structures and margins, which makes a direct comparison not very useful",
+                    "That every company should have the same margin",
+                    "That margins have no relation to the type of business"
+                  ],
+                  "explanation": "Sectors with very different cost structures — like retail, which naturally has tight margins, and software, which has much lower production costs — shouldn't be compared directly by margin alone, without considering the sector's context."
+                },
+                "es": {
+                  "prompt": "Comparas el margen neto de una cadena de supermercados con el de una empresa de software y notas que el primero es mucho menor. ¿Qué probablemente refleja esto?",
+                  "options": [
+                    "Que la cadena de supermercados es un mal negocio",
+                    "Que modelos de negocio diferentes suelen tener estructuras de costos y márgenes naturalmente distintos, lo que hace que la comparación directa sea poco útil",
+                    "Que toda empresa debería tener el mismo margen",
+                    "Que los márgenes no tienen ninguna relación con el tipo de negocio"
+                  ],
+                  "explanation": "Sectores con estructuras de costos muy diferentes — como el retail, que naturalmente tiene márgenes ajustados, y el software, que tiene costos de producción mucho menores — no deben compararse directamente por el margen, sin considerar el contexto del sector."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Margens mostram quanto sobra da receita em diferentes etapas do resultado.",
+                    "Margem líquida é o lucro final como proporção da receita.",
+                    "Modelos de negócio diferentes costumam ter margens naturalmente diferentes."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Margins show how much of revenue is left at different stages of the results.",
+                    "Net margin is the final profit as a proportion of revenue.",
+                    "Different business models tend to have naturally different margins."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "Los márgenes muestran cuánto queda del ingreso en diferentes etapas del resultado.",
+                    "El margen neto es la ganancia final como proporción del ingreso.",
+                    "Modelos de negocio diferentes suelen tener márgenes naturalmente distintos."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_analysis_debt",
+          "order": 5,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Endividamento"},
+            "en": {"title": "Debt"},
+            "es": {"title": "Endeudamiento"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto do negócio é financiado por dívida",
+                  "body": "Indicadores de endividamento mostram o quanto uma empresa depende de dívida para financiar suas operações, em comparação com seu patrimônio ou geração de caixa. Um exemplo comum é a relação dívida líquida sobre patrimônio líquido: quanto maior, mais a empresa depende de capital de terceiros em vez de capital próprio. Dívida não é necessariamente ruim — muitas empresas usam dívida de forma saudável para crescer — mas um endividamento muito alto em relação à capacidade de gerar caixa aumenta o risco do negócio."
+                },
+                "en": {
+                  "title": "How much of the business is financed by debt",
+                  "body": "Debt indicators show how much a company depends on debt to finance its operations, compared to its equity or cash generation. A common example is the net debt to equity ratio: the higher it is, the more the company relies on outside capital instead of its own. Debt isn't necessarily bad — many companies use debt in a healthy way to grow — but very high debt relative to cash-generating capacity increases the business's risk."
+                },
+                "es": {
+                  "title": "Cuánto del negocio se financia con deuda",
+                  "body": "Los indicadores de endeudamiento muestran cuánto depende una empresa de la deuda para financiar sus operaciones, en comparación con su patrimonio o generación de caja. Un ejemplo común es la relación deuda neta sobre patrimonio neto: cuanto mayor sea, más depende la empresa de capital de terceros en lugar de capital propio. La deuda no es necesariamente mala — muchas empresas usan deuda de forma saludable para crecer — pero un endeudamiento muy alto en relación a la capacidad de generar caja aumenta el riesgo del negocio."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Duas empresas do mesmo setor têm o mesmo lucro, mas uma tem uma dívida líquida quase três vezes maior que seu patrimônio, enquanto a outra tem uma dívida líquida menor que metade do patrimônio. Em um cenário de juros mais altos ou queda nas vendas, a primeira empresa tende a sentir mais dificuldade para honrar seus compromissos do que a segunda."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Two companies in the same sector have the same profit, but one has net debt almost three times its equity, while the other has net debt lower than half its equity. In a scenario of higher interest rates or falling sales, the first company tends to have more difficulty honoring its obligations than the second."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Dos empresas del mismo sector tienen la misma ganancia, pero una tiene una deuda neta casi tres veces mayor que su patrimonio, mientras que la otra tiene una deuda neta menor a la mitad de su patrimonio. En un escenario de tasas más altas o caída en las ventas, la primera empresa tiende a tener más dificultad para cumplir sus compromisos que la segunda."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que um indicador de endividamento, como dívida líquida sobre patrimônio líquido, ajuda a avaliar?",
+                  "options": [
+                    "O preço justo de uma ação",
+                    "O quanto a empresa depende de dívida em relação ao seu próprio patrimônio",
+                    "A margem de lucro da empresa",
+                    "O número de funcionários da empresa"
+                  ],
+                  "explanation": "Indicadores de endividamento comparam a dívida da empresa com seu patrimônio ou capacidade de geração de caixa, mostrando o quanto ela depende de capital de terceiros."
+                },
+                "en": {
+                  "prompt": "What does a debt indicator, like net debt to equity, help assess?",
+                  "options": [
+                    "The fair price of a stock",
+                    "How much the company relies on debt relative to its own equity",
+                    "The company's profit margin",
+                    "The number of employees at the company"
+                  ],
+                  "explanation": "Debt indicators compare a company's debt with its equity or cash-generating capacity, showing how much it relies on outside capital."
+                },
+                "es": {
+                  "prompt": "¿Qué ayuda a evaluar un indicador de endeudamiento, como la deuda neta sobre patrimonio neto?",
+                  "options": [
+                    "El precio justo de una acción",
+                    "Cuánto depende la empresa de la deuda en relación a su propio patrimonio",
+                    "El margen de ganancia de la empresa",
+                    "El número de empleados de la empresa"
+                  ],
+                  "explanation": "Los indicadores de endeudamiento comparan la deuda de la empresa con su patrimonio o capacidad de generación de caja, mostrando cuánto depende de capital de terceros."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você está comparando duas empresas parecidas, mas uma tem um endividamento bem mais alto que a outra em relação ao patrimônio. Isso significa automaticamente que a mais endividada é um investimento ruim?",
+                  "options": [
+                    "Sim, qualquer nível de dívida torna uma empresa um mau investimento",
+                    "Não necessariamente — dívida pode ser usada de forma saudável para crescer, mas vale investigar se o nível de endividamento é sustentável em relação à geração de caixa da empresa",
+                    "Não, dívida nunca representa nenhum risco adicional",
+                    "Sim, mas apenas se a empresa for do setor de tecnologia"
+                  ],
+                  "explanation": "Dívida não é automaticamente ruim, mas um endividamento alto sem geração de caixa suficiente para sustentá-lo aumenta o risco do negócio — por isso vale sempre investigar o contexto, não só o número isolado."
+                },
+                "en": {
+                  "prompt": "You're comparing two similar companies, but one has much higher debt than the other relative to equity. Does that automatically mean the more indebted one is a bad investment?",
+                  "options": [
+                    "Yes, any level of debt makes a company a bad investment",
+                    "Not necessarily — debt can be used in a healthy way to grow, but it's worth investigating whether the debt level is sustainable relative to the company's cash generation",
+                    "No, debt never represents any additional risk",
+                    "Yes, but only if the company is in the technology sector"
+                  ],
+                  "explanation": "Debt isn't automatically bad, but high debt without enough cash generation to sustain it increases the business's risk — that's why it's always worth investigating the context, not just the isolated number."
+                },
+                "es": {
+                  "prompt": "Estás comparando dos empresas similares, pero una tiene un endeudamiento mucho más alto que la otra en relación al patrimonio. ¿Eso significa automáticamente que la más endeudada es una mala inversión?",
+                  "options": [
+                    "Sí, cualquier nivel de deuda convierte a una empresa en una mala inversión",
+                    "No necesariamente — la deuda puede usarse de forma saludable para crecer, pero vale la pena investigar si el nivel de endeudamiento es sostenible en relación a la generación de caja de la empresa",
+                    "No, la deuda nunca representa ningún riesgo adicional",
+                    "Sí, pero solo si la empresa es del sector tecnológico"
+                  ],
+                  "explanation": "La deuda no es automáticamente mala, pero un endeudamiento alto sin generación de caja suficiente para sostenerlo aumenta el riesgo del negocio — por eso siempre vale la pena investigar el contexto, no solo el número aislado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Indicadores de endividamento mostram o quanto uma empresa depende de dívida.",
+                    "Dívida não é automaticamente ruim, mas precisa ser sustentável em relação à geração de caixa.",
+                    "Você concluiu o módulo introdutório de análise fundamentalista."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Debt indicators show how much a company relies on debt.",
+                    "Debt isn't automatically bad, but it needs to be sustainable relative to cash generation.",
+                    "You've completed the introductory fundamental analysis module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Los indicadores de endeudamiento muestran cuánto depende una empresa de la deuda.",
+                    "La deuda no es automáticamente mala, pero necesita ser sostenible en relación a la generación de caja.",
+                    "Completaste el módulo introductorio de análisis fundamental."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
