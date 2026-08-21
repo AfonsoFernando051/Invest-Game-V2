@@ -813,6 +813,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "advanced_behavioral_biases",
+      "order": 2,
+      "iconKey": "psychology_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["behavioral_biases_basics"],
+      "translations": {
+        "pt": {
+          "title": "Mais Vieses Comportamentais",
+          "description": "Excesso de confiança, custo afundado, viés do presente e contabilidade mental."
+        },
+        "en": {
+          "title": "More Behavioral Biases",
+          "description": "Overconfidence, sunk cost fallacy, present bias and mental accounting."
+        },
+        "es": {
+          "title": "Más Sesgos Comportamentales",
+          "description": "Exceso de confianza, falacia del costo hundido, sesgo del presente y contabilidad mental."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "behavioral_overconfidence",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Excesso de Confiança"},
+            "en": {"title": "Overconfidence"},
+            "es": {"title": "Exceso de Confianza"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Achar que sabe mais do que sabe",
+                  "body": "Excesso de confiança é a tendência de superestimar o próprio conhecimento, habilidade ou capacidade de prever resultados. Em investimentos, isso pode levar a assumir riscos maiores do que o razoável, negociar com mais frequência do que o necessário, ou ignorar informações que contradizem a própria opinião — tudo isso baseado em uma confiança que não é totalmente justificada pelos fatos."
+                },
+                "en": {
+                  "title": "Thinking you know more than you do",
+                  "body": "Overconfidence is the tendency to overestimate one's own knowledge, skill, or ability to predict outcomes. In investing, this can lead to taking on more risk than is reasonable, trading more often than necessary, or ignoring information that contradicts one's own opinion — all based on a confidence that isn't fully justified by the facts."
+                },
+                "es": {
+                  "title": "Creer que sabes más de lo que sabes",
+                  "body": "El exceso de confianza es la tendencia a sobrestimar el propio conocimiento, habilidad o capacidad de predecir resultados. En las inversiones, esto puede llevar a asumir riesgos mayores de lo razonable, negociar con más frecuencia de la necesaria, o ignorar información que contradice la propia opinión — todo basado en una confianza que no está totalmente justificada por los hechos."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor que acertou algumas apostas seguidas passa a acreditar que tem um talento especial para prever o mercado, e começa a apostar valores cada vez maiores em posições concentradas — ignorando que uma sequência de acertos também pode ser, em parte, resultado de sorte."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor who got a few bets right in a row starts believing they have a special talent for predicting the market, and begins betting increasingly larger amounts on concentrated positions — ignoring that a winning streak can also be, in part, the result of luck."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor que acertó algunas apuestas seguidas empieza a creer que tiene un talento especial para predecir el mercado, y comienza a apostar montos cada vez mayores en posiciones concentradas — ignorando que una racha de aciertos también puede ser, en parte, resultado de la suerte."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza o excesso de confiança?",
+                  "options": [
+                    "A tendência de sempre subestimar o próprio conhecimento",
+                    "A tendência de superestimar o próprio conhecimento, habilidade ou capacidade de prever resultados",
+                    "O medo de tomar qualquer decisão de investimento",
+                    "A certeza de que qualquer investimento vai dar prejuízo"
+                  ],
+                  "explanation": "Excesso de confiança é sobre superestimar a própria capacidade, o que pode levar a riscos maiores do que o razoável ou a ignorar informações contrárias."
+                },
+                "en": {
+                  "prompt": "What characterizes overconfidence?",
+                  "options": [
+                    "The tendency to always underestimate one's own knowledge",
+                    "The tendency to overestimate one's own knowledge, skill, or ability to predict outcomes",
+                    "The fear of making any investment decision",
+                    "The certainty that any investment will result in a loss"
+                  ],
+                  "explanation": "Overconfidence is about overestimating one's own ability, which can lead to greater-than-reasonable risk or ignoring contrary information."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza al exceso de confianza?",
+                  "options": [
+                    "La tendencia a siempre subestimar el propio conocimiento",
+                    "La tendencia a sobrestimar el propio conocimiento, habilidad o capacidad de predecir resultados",
+                    "El miedo a tomar cualquier decisión de inversión",
+                    "La certeza de que cualquier inversión dará pérdidas"
+                  ],
+                  "explanation": "El exceso de confianza trata sobre sobrestimar la propia capacidad, lo que puede llevar a riesgos mayores de lo razonable o a ignorar información contraria."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você acertou suas últimas 3 decisões de investimento e sente que agora consegue prever o mercado com bastante segurança. O que vale a pena considerar antes de aumentar significativamente o risco assumido?",
+                  "options": [
+                    "Nada, três acertos seguidos são prova suficiente de habilidade previsível",
+                    "Que uma sequência curta de acertos pode envolver bastante sorte, e não necessariamente uma habilidade de previsão consistente e replicável",
+                    "Que a partir de agora você nunca mais vai errar",
+                    "Que aumentar o risco é sempre a decisão certa depois de acertos seguidos"
+                  ],
+                  "explanation": "Sequências curtas de acertos podem ser resultado parcial de sorte — reconhecer essa possibilidade ajuda a evitar decisões guiadas por excesso de confiança."
+                },
+                "en": {
+                  "prompt": "You got your last 3 investment decisions right and feel like you can now predict the market with quite a bit of confidence. What's worth considering before significantly increasing the risk you take on?",
+                  "options": [
+                    "Nothing, three wins in a row is enough proof of predictable skill",
+                    "That a short winning streak can involve a fair amount of luck, and not necessarily a consistent, repeatable forecasting skill",
+                    "That from now on you'll never be wrong again",
+                    "That increasing risk is always the right decision after consecutive wins"
+                  ],
+                  "explanation": "Short winning streaks can be partly the result of luck — recognizing that possibility helps avoid decisions driven by overconfidence."
+                },
+                "es": {
+                  "prompt": "Acertaste tus últimas 3 decisiones de inversión y sientes que ahora puedes predecir el mercado con bastante seguridad. ¿Qué vale la pena considerar antes de aumentar significativamente el riesgo asumido?",
+                  "options": [
+                    "Nada, tres aciertos seguidos son prueba suficiente de habilidad predecible",
+                    "Que una racha corta de aciertos puede involucrar bastante suerte, y no necesariamente una habilidad de predicción consistente y replicable",
+                    "Que a partir de ahora nunca más te vas a equivocar",
+                    "Que aumentar el riesgo siempre es la decisión correcta después de aciertos seguidos"
+                  ],
+                  "explanation": "Las rachas cortas de aciertos pueden ser resultado parcial de la suerte — reconocer esa posibilidad ayuda a evitar decisiones guiadas por el exceso de confianza."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Excesso de confiança é superestimar o próprio conhecimento ou capacidade de prever resultados.",
+                    "Sequências curtas de acertos podem envolver bastante sorte.",
+                    "Reconhecer os limites do próprio conhecimento ajuda a evitar riscos desproporcionais."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Overconfidence means overestimating one's own knowledge or ability to predict outcomes.",
+                    "Short winning streaks can involve a fair amount of luck.",
+                    "Recognizing the limits of one's own knowledge helps avoid disproportionate risks."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El exceso de confianza es sobrestimar el propio conocimiento o capacidad de predecir resultados.",
+                    "Las rachas cortas de aciertos pueden involucrar bastante suerte.",
+                    "Reconocer los límites del propio conocimiento ayuda a evitar riesgos desproporcionados."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_sunk_cost",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Custo Afundado"},
+            "en": {"title": "Sunk Cost Fallacy"},
+            "es": {"title": "Falacia del Costo Hundido"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O dinheiro já gasto não deveria decidir o futuro",
+                  "body": "Custo afundado é um valor que já foi gasto e não pode ser recuperado, independentemente da decisão futura. A falácia do custo afundado é a tendência de continuar investindo tempo ou dinheiro em algo só porque já se investiu bastante nele, mesmo quando as evidências atuais sugerem que a melhor decisão seria parar. Decisões racionais deveriam olhar para frente — o que fazer a partir de agora — e não para trás, para o que já foi gasto."
+                },
+                "en": {
+                  "title": "Money already spent shouldn't decide the future",
+                  "body": "A sunk cost is an amount already spent that can't be recovered, regardless of any future decision. The sunk cost fallacy is the tendency to keep investing time or money into something just because a lot has already been invested in it, even when current evidence suggests the best decision would be to stop. Rational decisions should look forward — what to do from now on — not backward, at what's already been spent."
+                },
+                "es": {
+                  "title": "El dinero ya gastado no debería decidir el futuro",
+                  "body": "Un costo hundido es un monto ya gastado que no se puede recuperar, sin importar la decisión futura. La falacia del costo hundido es la tendencia a seguir invirtiendo tiempo o dinero en algo solo porque ya se invirtió bastante en ello, incluso cuando la evidencia actual sugiere que la mejor decisión sería detenerse. Las decisiones racionales deberían mirar hacia adelante — qué hacer a partir de ahora — y no hacia atrás, a lo que ya se gastó."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um investidor colocou R$10.000 em um ativo que perdeu 60% do valor, e os fundamentos que justificaram a compra original claramente pioraram. Mesmo assim, ele continua adicionando mais dinheiro, pensando 'já perdi tanto, não posso desistir agora' — em vez de avaliar se, considerando apenas a situação atual, ainda faria sentido investir naquele ativo."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "An investor put R$10,000 into an asset that lost 60% of its value, and the fundamentals that justified the original purchase have clearly worsened. Even so, they keep adding more money, thinking 'I've already lost so much, I can't give up now' — instead of assessing whether, considering only the current situation, it would still make sense to invest in that asset."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un inversor puso R$10.000 en un activo que perdió el 60% de su valor, y los fundamentos que justificaron la compra original claramente empeoraron. Aun así, sigue agregando más dinero, pensando 'ya perdí tanto, no puedo rendirme ahora' — en lugar de evaluar si, considerando solo la situación actual, todavía tendría sentido invertir en ese activo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é a falácia do custo afundado?",
+                  "options": [
+                    "A tendência de sempre vender um investimento no primeiro sinal de queda",
+                    "A tendência de continuar investindo em algo só porque já se investiu bastante nele, mesmo quando as evidências sugerem parar",
+                    "Um tipo de taxa cobrada por corretoras",
+                    "A certeza de que um investimento nunca vai se recuperar"
+                  ],
+                  "explanation": "A falácia do custo afundado é deixar decisões futuras serem guiadas pelo que já foi gasto no passado, em vez de avaliar a situação atual de forma independente."
+                },
+                "en": {
+                  "prompt": "What is the sunk cost fallacy?",
+                  "options": [
+                    "The tendency to always sell an investment at the first sign of a drop",
+                    "The tendency to keep investing in something just because a lot has already been invested in it, even when the evidence suggests stopping",
+                    "A type of fee charged by brokers",
+                    "The certainty that an investment will never recover"
+                  ],
+                  "explanation": "The sunk cost fallacy is letting future decisions be guided by what was already spent in the past, instead of independently assessing the current situation."
+                },
+                "es": {
+                  "prompt": "¿Qué es la falacia del costo hundido?",
+                  "options": [
+                    "La tendencia a siempre vender una inversión ante la primera señal de caída",
+                    "La tendencia a seguir invirtiendo en algo solo porque ya se invirtió bastante en ello, incluso cuando la evidencia sugiere detenerse",
+                    "Un tipo de tasa cobrada por las correduras",
+                    "La certeza de que una inversión nunca se recuperará"
+                  ],
+                  "explanation": "La falacia del costo hundido es dejar que las decisiones futuras se guíen por lo que ya se gastó en el pasado, en lugar de evaluar la situación actual de forma independiente."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já perdeu uma quantia significativa em um investimento cujos fundamentos pioraram claramente. Segundo o conceito de custo afundado, o que deveria pesar mais na sua próxima decisão?",
+                  "options": [
+                    "Quanto dinheiro você já perdeu até agora",
+                    "A situação atual do investimento e suas perspectivas futuras, independentemente de quanto já foi perdido",
+                    "O tempo que você já dedicou acompanhando esse investimento",
+                    "A vergonha de admitir que a decisão original não deu certo"
+                  ],
+                  "explanation": "O dinheiro já perdido não pode ser recuperado com a decisão de hoje — o que importa para uma decisão racional é a situação atual e as perspectivas futuras, não o histórico de perdas."
+                },
+                "en": {
+                  "prompt": "You've already lost a significant amount in an investment whose fundamentals have clearly worsened. According to the sunk cost concept, what should weigh more heavily in your next decision?",
+                  "options": [
+                    "How much money you've already lost so far",
+                    "The investment's current situation and future prospects, regardless of how much has already been lost",
+                    "The time you've already spent tracking that investment",
+                    "The embarrassment of admitting the original decision didn't work out"
+                  ],
+                  "explanation": "Money already lost can't be recovered by today's decision — what matters for a rational decision is the current situation and future prospects, not the history of losses."
+                },
+                "es": {
+                  "prompt": "Ya perdiste una cantidad significativa en una inversión cuyos fundamentos empeoraron claramente. Según el concepto de costo hundido, ¿qué debería pesar más en tu próxima decisión?",
+                  "options": [
+                    "Cuánto dinero ya perdiste hasta ahora",
+                    "La situación actual de la inversión y sus perspectivas futuras, sin importar cuánto ya se perdió",
+                    "El tiempo que ya dedicaste siguiendo esa inversión",
+                    "La vergüenza de admitir que la decisión original no funcionó"
+                  ],
+                  "explanation": "El dinero ya perdido no puede recuperarse con la decisión de hoy — lo que importa para una decisión racional es la situación actual y las perspectivas futuras, no el historial de pérdidas."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Custo afundado é um valor já gasto que não pode ser recuperado.",
+                    "A falácia do custo afundado é deixar decisões futuras serem guiadas pelo que já foi gasto.",
+                    "Decisões racionais deveriam olhar para a situação atual e futura, não para o passado."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "A sunk cost is an amount already spent that can't be recovered.",
+                    "The sunk cost fallacy is letting future decisions be guided by what was already spent.",
+                    "Rational decisions should look at the current and future situation, not the past."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El costo hundido es un monto ya gastado que no se puede recuperar.",
+                    "La falacia del costo hundido es dejar que las decisiones futuras se guíen por lo ya gastado.",
+                    "Las decisiones racionales deberían mirar la situación actual y futura, no el pasado."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_present_bias",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Viés do Presente"},
+            "en": {"title": "Present Bias"},
+            "es": {"title": "Sesgo del Presente"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Valorizar demais a recompensa de agora",
+                  "body": "Viés do presente é a tendência de dar peso desproporcional a recompensas imediatas, em detrimento de recompensas maiores no futuro. Esse viés ajuda a explicar por que pode ser difícil poupar ou investir para objetivos distantes, como a aposentadoria: o benefício de gastar o dinheiro agora é sentido imediatamente, enquanto o benefício de investir só aparece muito depois."
+                },
+                "en": {
+                  "title": "Overvaluing the reward of right now",
+                  "body": "Present bias is the tendency to give disproportionate weight to immediate rewards, at the expense of larger rewards in the future. This bias helps explain why it can be hard to save or invest for distant goals, like retirement: the benefit of spending the money now is felt immediately, while the benefit of investing only shows up much later."
+                },
+                "es": {
+                  "title": "Valorar demasiado la recompensa de ahora",
+                  "body": "El sesgo del presente es la tendencia a darle un peso desproporcionado a las recompensas inmediatas, en detrimento de recompensas mayores en el futuro. Este sesgo ayuda a explicar por qué puede ser difícil ahorrar o invertir para objetivos distantes, como la jubilación: el beneficio de gastar el dinero ahora se siente de inmediato, mientras que el beneficio de invertir solo aparece mucho después."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Diante da escolha entre gastar um bônus em algo imediatamente prazeroso ou investir esse valor para a aposentadoria, muitas pessoas escolhem o gasto imediato, mesmo sabendo racionalmente que o valor investido cresceria significativamente ao longo de décadas — a recompensa imediata pesa mais na decisão do que o benefício futuro maior, mas distante."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Faced with the choice between spending a bonus on something immediately enjoyable or investing that amount for retirement, many people choose the immediate spending, even while rationally knowing the invested amount would grow significantly over decades — the immediate reward weighs more in the decision than the larger, but distant, future benefit."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Ante la elección entre gastar un bono en algo inmediatamente placentero o invertir ese monto para la jubilación, muchas personas eligen el gasto inmediato, aunque saben racionalmente que el monto invertido crecería significativamente a lo largo de décadas — la recompensa inmediata pesa más en la decisión que el beneficio futuro mayor, pero distante."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é o viés do presente?",
+                  "options": [
+                    "A tendência de sempre investir todo o dinheiro disponível",
+                    "A tendência de dar peso desproporcional a recompensas imediatas, em detrimento de recompensas maiores no futuro",
+                    "Um tipo de indicador macroeconômico",
+                    "A certeza de que o futuro é sempre melhor do que o presente"
+                  ],
+                  "explanation": "O viés do presente é sobre valorizar excessivamente a recompensa imediata, mesmo quando isso significa abrir mão de um benefício maior no futuro."
+                },
+                "en": {
+                  "prompt": "What is present bias?",
+                  "options": [
+                    "The tendency to always invest all available money",
+                    "The tendency to give disproportionate weight to immediate rewards, at the expense of larger rewards in the future",
+                    "A type of macroeconomic indicator",
+                    "The certainty that the future is always better than the present"
+                  ],
+                  "explanation": "Present bias is about overvaluing the immediate reward, even when it means giving up a larger benefit in the future."
+                },
+                "es": {
+                  "prompt": "¿Qué es el sesgo del presente?",
+                  "options": [
+                    "La tendencia a siempre invertir todo el dinero disponible",
+                    "La tendencia a darle un peso desproporcional a las recompensas inmediatas, en detrimento de recompensas mayores en el futuro",
+                    "Un tipo de indicador macroeconómico",
+                    "La certeza de que el futuro siempre es mejor que el presente"
+                  ],
+                  "explanation": "El sesgo del presente trata sobre valorar excesivamente la recompensa inmediata, incluso cuando eso significa renunciar a un beneficio mayor en el futuro."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende juros compostos e o quanto começar cedo importa para a aposentadoria. Como o viés do presente ajuda a explicar por que, mesmo sabendo disso, tantas pessoas adiam o início dos investimentos?",
+                  "options": [
+                    "Porque juros compostos não funcionam de verdade",
+                    "Porque a recompensa de gastar o dinheiro agora é sentida imediatamente, enquanto o benefício de investir para a aposentadoria só aparece décadas depois, e o viés do presente favorece a recompensa imediata",
+                    "Porque investir para a aposentadoria é sempre uma má decisão",
+                    "Porque o viés do presente não tem relação nenhuma com decisões financeiras"
+                  ],
+                  "explanation": "O viés do presente explica por que a recompensa imediata do consumo pesa mais na decisão do que o benefício maior, porém distante, de investir cedo — mesmo quando a pessoa entende racionalmente a matemática dos juros compostos."
+                },
+                "en": {
+                  "prompt": "You already understand compound interest and how much starting early matters for retirement. How does present bias help explain why, even knowing this, so many people delay starting to invest?",
+                  "options": [
+                    "Because compound interest doesn't actually work",
+                    "Because the reward of spending the money now is felt immediately, while the benefit of investing for retirement only shows up decades later, and present bias favors the immediate reward",
+                    "Because investing for retirement is always a bad decision",
+                    "Because present bias has no relation to financial decisions at all"
+                  ],
+                  "explanation": "Present bias explains why the immediate reward of spending weighs more in the decision than the larger, but distant, benefit of investing early — even when the person rationally understands the math of compound interest."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el interés compuesto y cuánto importa empezar temprano para la jubilación. ¿Cómo ayuda el sesgo del presente a explicar por qué, incluso sabiendo esto, tantas personas posponen el inicio de sus inversiones?",
+                  "options": [
+                    "Porque el interés compuesto en realidad no funciona",
+                    "Porque la recompensa de gastar el dinero ahora se siente de inmediato, mientras que el beneficio de invertir para la jubilación solo aparece décadas después, y el sesgo del presente favorece la recompensa inmediata",
+                    "Porque invertir para la jubilación siempre es una mala decisión",
+                    "Porque el sesgo del presente no tiene ninguna relación con las decisiones financieras"
+                  ],
+                  "explanation": "El sesgo del presente explica por qué la recompensa inmediata del consumo pesa más en la decisión que el beneficio mayor, pero distante, de invertir temprano — incluso cuando la persona entiende racionalmente la matemática del interés compuesto."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Viés do presente é dar peso desproporcional a recompensas imediatas.",
+                    "Ele ajuda a explicar a dificuldade de poupar para objetivos distantes, como a aposentadoria.",
+                    "Automatizar investimentos, como você viu em outra lição, ajuda a driblar esse viés."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Present bias is giving disproportionate weight to immediate rewards.",
+                    "It helps explain the difficulty of saving for distant goals, like retirement.",
+                    "Automating investments, as you saw in another lesson, helps work around this bias."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El sesgo del presente es darle un peso desproporcional a las recompensas inmediatas.",
+                    "Ayuda a explicar la dificultad de ahorrar para objetivos distantes, como la jubilación.",
+                    "Automatizar inversiones, como viste en otra lección, ayuda a sortear este sesgo."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "behavioral_mental_accounting",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Contabilidade Mental"},
+            "en": {"title": "Mental Accounting"},
+            "es": {"title": "Contabilidad Mental"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Tratar o mesmo dinheiro de formas diferentes",
+                  "body": "Contabilidade mental é a tendência de tratar valores de dinheiro de forma diferente dependendo da origem ou do rótulo mental associado a eles, mesmo que, na prática, o dinheiro seja completamente intercambiável. Um real ganho em um bônus inesperado, por exemplo, costuma ser tratado com menos cuidado do que um real ganho com esforço no salário mensal, mesmo valendo exatamente o mesmo."
+                },
+                "en": {
+                  "title": "Treating the same money differently",
+                  "body": "Mental accounting is the tendency to treat amounts of money differently depending on their source or the mental label attached to them, even though, in practice, money is completely interchangeable. A dollar earned from an unexpected bonus, for example, is often treated with less care than a dollar earned through effort in the monthly paycheck, even though they're worth exactly the same."
+                },
+                "es": {
+                  "title": "Tratar el mismo dinero de formas diferentes",
+                  "body": "La contabilidad mental es la tendencia a tratar los montos de dinero de forma diferente según su origen o la etiqueta mental asociada a ellos, aunque, en la práctica, el dinero sea completamente intercambiable. Un real ganado en un bono inesperado, por ejemplo, suele tratarse con menos cuidado que un real ganado con esfuerzo en el salario mensual, aunque valga exactamente lo mismo."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma pessoa que nunca gastaria R$500 do próprio salário em algo supérfluo pode gastar R$500 de um prêmio recebido em uma loteria sem pensar duas vezes, tratando esse dinheiro como se fosse 'menos real' do que o salário — mesmo que, uma vez na conta, os dois valores sejam idênticos e igualmente úteis para qualquer objetivo financeiro."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Someone who would never spend R$500 of their own salary on something frivolous might spend R$500 won in a lottery prize without a second thought, treating that money as if it were 'less real' than their salary — even though, once in the account, both amounts are identical and equally useful for any financial goal."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una persona que nunca gastaría R$500 de su propio salario en algo superfluo puede gastar R$500 de un premio de lotería sin pensarlo dos veces, tratando ese dinero como si fuera 'menos real' que el salario — aunque, una vez en la cuenta, ambos montos son idénticos e igualmente útiles para cualquier objetivo financiero."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que é contabilidade mental?",
+                  "options": [
+                    "Um método formal de contabilidade usado por empresas",
+                    "A tendência de tratar valores de dinheiro de forma diferente dependendo da origem, mesmo sendo o mesmo dinheiro",
+                    "Um tipo de imposto sobre ganhos inesperados",
+                    "A prática de nunca guardar dinheiro em mais de uma conta"
+                  ],
+                  "explanation": "Contabilidade mental é sobre a tendência de dar tratamentos diferentes a valores de dinheiro dependendo de sua origem ou rótulo mental, mesmo que o dinheiro seja completamente intercambiável na prática."
+                },
+                "en": {
+                  "prompt": "What is mental accounting?",
+                  "options": [
+                    "A formal accounting method used by companies",
+                    "The tendency to treat amounts of money differently depending on their source, even though it's the same money",
+                    "A type of tax on unexpected earnings",
+                    "The practice of never keeping money in more than one account"
+                  ],
+                  "explanation": "Mental accounting is about the tendency to treat amounts of money differently depending on their source or mental label, even though the money is completely interchangeable in practice."
+                },
+                "es": {
+                  "prompt": "¿Qué es la contabilidad mental?",
+                  "options": [
+                    "Un método formal de contabilidad usado por empresas",
+                    "La tendencia a tratar montos de dinero de forma diferente según su origen, aunque sea el mismo dinero",
+                    "Un tipo de impuesto sobre ganancias inesperadas",
+                    "La práctica de nunca guardar dinero en más de una cuenta"
+                  ],
+                  "explanation": "La contabilidad mental trata sobre la tendencia a dar tratamientos diferentes a montos de dinero según su origen o etiqueta mental, aunque el dinero sea completamente intercambiable en la práctica."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você recebeu um bônus inesperado no trabalho e está tentado a gastá-lo integralmente, algo que nunca faria com o mesmo valor do seu salário mensal. O que a contabilidade mental sugere sobre essa diferença de tratamento?",
+                  "options": [
+                    "Que o bônus realmente vale menos do que o salário",
+                    "Que, na prática, os dois valores são igualmente úteis para qualquer objetivo financeiro, e tratá-los de forma diferente é um efeito psicológico, não uma diferença real no dinheiro",
+                    "Que bônus sempre devem ser gastos imediatamente, por definição",
+                    "Que contabilidade mental só se aplica a grandes quantias"
+                  ],
+                  "explanation": "Reconhecer que dinheiro é intercambiável, independentemente da origem, ajuda a tomar decisões mais consistentes sobre gastar, poupar ou investir, sem deixar rótulos mentais influenciarem indevidamente a escolha."
+                },
+                "en": {
+                  "prompt": "You received an unexpected bonus at work and are tempted to spend it entirely, something you'd never do with the same amount from your monthly salary. What does mental accounting suggest about this difference in treatment?",
+                  "options": [
+                    "That the bonus is really worth less than the salary",
+                    "That, in practice, both amounts are equally useful for any financial goal, and treating them differently is a psychological effect, not a real difference in the money",
+                    "That bonuses should always be spent immediately, by definition",
+                    "That mental accounting only applies to large amounts"
+                  ],
+                  "explanation": "Recognizing that money is interchangeable, regardless of its source, helps make more consistent decisions about spending, saving, or investing, without letting mental labels unduly influence the choice."
+                },
+                "es": {
+                  "prompt": "Recibiste un bono inesperado en el trabajo y estás tentado a gastarlo por completo, algo que nunca harías con el mismo monto de tu salario mensual. ¿Qué sugiere la contabilidad mental sobre esta diferencia de tratamiento?",
+                  "options": [
+                    "Que el bono realmente vale menos que el salario",
+                    "Que, en la práctica, ambos montos son igualmente útiles para cualquier objetivo financiero, y tratarlos de forma diferente es un efecto psicológico, no una diferencia real en el dinero",
+                    "Que los bonos siempre deben gastarse de inmediato, por definición",
+                    "Que la contabilidad mental solo se aplica a grandes cantidades"
+                  ],
+                  "explanation": "Reconocer que el dinero es intercambiable, sin importar su origen, ayuda a tomar decisiones más consistentes sobre gastar, ahorrar o invertir, sin dejar que etiquetas mentales influyan indebidamente en la elección."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Contabilidade mental é tratar o mesmo dinheiro de forma diferente dependendo da origem.",
+                    "Na prática, dinheiro é intercambiável, independentemente do rótulo mental associado a ele.",
+                    "Você concluiu o módulo de vieses comportamentais avançados."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "Mental accounting is treating the same money differently depending on its source.",
+                    "In practice, money is interchangeable, regardless of the mental label attached to it.",
+                    "You've completed the advanced behavioral biases module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "La contabilidad mental es tratar el mismo dinero de forma diferente según su origen.",
+                    "En la práctica, el dinero es intercambiable, sin importar la etiqueta mental asociada a él.",
+                    "Completaste el módulo de sesgos comportamentales avanzados."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

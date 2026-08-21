@@ -659,6 +659,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "trading_tools_and_risks",
+      "order": 2,
+      "iconKey": "candlestick_chart_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["trading_basics"],
+      "translations": {
+        "pt": {
+          "title": "Ferramentas e Riscos do Trading",
+          "description": "Tipos de ordens, alavancagem, overtrading e a importância de um registro de operações."
+        },
+        "en": {
+          "title": "Trading Tools and Risks",
+          "description": "Order types, leverage, overtrading and the importance of a trading journal."
+        },
+        "es": {
+          "title": "Herramientas y Riesgos del Trading",
+          "description": "Tipos de órdenes, apalancamiento, overtrading y la importancia de un registro de operaciones."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "trading_order_types",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Tipos de Ordens"},
+            "en": {"title": "Order Types"},
+            "es": {"title": "Tipos de Órdenes"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Diferentes formas de entrar e sair de uma posição",
+                  "body": "Uma ordem a mercado executa imediatamente, ao melhor preço disponível no momento — priorizando velocidade em detrimento do controle sobre o preço exato. Uma ordem limitada só executa em um preço específico ou melhor, dando controle sobre o preço, mas sem garantia de execução. Uma ordem stop, ou stop loss, é programada para disparar automaticamente quando o preço atinge um determinado nível, sendo usada com frequência para limitar perdas em uma posição."
+                },
+                "en": {
+                  "title": "Different ways to enter and exit a position",
+                  "body": "A market order executes immediately, at the best price available at the time — prioritizing speed over control of the exact price. A limit order only executes at a specific price or better, giving control over the price, but without a guarantee of execution. A stop order, or stop loss, is set to trigger automatically when the price reaches a certain level, often used to limit losses on a position."
+                },
+                "es": {
+                  "title": "Diferentes formas de entrar y salir de una posición",
+                  "body": "Una orden a mercado se ejecuta de inmediato, al mejor precio disponible en el momento — priorizando la velocidad sobre el control del precio exacto. Una orden limitada solo se ejecuta a un precio específico o mejor, dando control sobre el precio, pero sin garantía de ejecución. Una orden stop, o stop loss, está programada para dispararse automáticamente cuando el precio alcanza cierto nivel, usada con frecuencia para limitar pérdidas en una posición."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader compra uma ação e imediatamente programa uma ordem stop loss 5% abaixo do preço de compra. Se o preço cair até esse nível, a venda é disparada automaticamente, limitando a perda a aproximadamente 5%, mesmo que o trader não esteja acompanhando o mercado naquele exato momento."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader buys a stock and immediately sets a stop loss order 5% below the purchase price. If the price falls to that level, the sale is triggered automatically, limiting the loss to roughly 5%, even if the trader isn't watching the market at that exact moment."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader compra una acción e inmediatamente programa una orden stop loss un 5% por debajo del precio de compra. Si el precio cae hasta ese nivel, la venta se dispara automáticamente, limitando la pérdida a aproximadamente el 5%, incluso si el trader no está siguiendo el mercado en ese momento exacto."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que uma ordem stop loss faz?",
+                  "options": [
+                    "Ela garante que uma posição sempre terá lucro",
+                    "Ela dispara automaticamente uma venda quando o preço atinge um determinado nível, ajudando a limitar perdas",
+                    "Ela impede qualquer negociação futura naquele ativo",
+                    "Ela só pode ser usada em contratos futuros"
+                  ],
+                  "explanation": "A ordem stop loss é programada para vender automaticamente quando o preço cai até um nível definido, ajudando a limitar o tamanho de uma perda sem exigir acompanhamento constante."
+                },
+                "en": {
+                  "prompt": "What does a stop loss order do?",
+                  "options": [
+                    "It guarantees a position will always be profitable",
+                    "It automatically triggers a sale when the price reaches a certain level, helping to limit losses",
+                    "It prevents any future trading in that asset",
+                    "It can only be used in futures contracts"
+                  ],
+                  "explanation": "A stop loss order is set to automatically sell when the price falls to a defined level, helping to limit the size of a loss without requiring constant monitoring."
+                },
+                "es": {
+                  "prompt": "¿Qué hace una orden stop loss?",
+                  "options": [
+                    "Garantiza que una posición siempre tendrá ganancias",
+                    "Dispara automáticamente una venta cuando el precio alcanza cierto nivel, ayudando a limitar pérdidas",
+                    "Impide cualquier negociación futura en ese activo",
+                    "Solo puede usarse en contratos futuros"
+                  ],
+                  "explanation": "La orden stop loss está programada para vender automáticamente cuando el precio cae hasta un nivel definido, ayudando a limitar el tamaño de una pérdida sin exigir seguimiento constante."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende dimensionamento de posição de outra lição. Como uma ordem stop loss se conecta com a ideia de limitar o risco de cada operação?",
+                  "options": [
+                    "Não se conecta, são conceitos completamente independentes",
+                    "Uma ordem stop loss ajuda a colocar em prática o limite de risco definido pelo dimensionamento de posição, executando a saída automaticamente antes que a perda ultrapasse o planejado",
+                    "Stop loss elimina completamente qualquer necessidade de dimensionar posições",
+                    "Dimensionamento de posição só importa se não houver nenhuma ordem stop loss configurada"
+                  ],
+                  "explanation": "Dimensionamento de posição define quanto arriscar; a ordem stop loss é uma ferramenta prática para colocar esse limite em ação, executando a saída automaticamente no nível planejado."
+                },
+                "en": {
+                  "prompt": "You already understand position sizing from another lesson. How does a stop loss order connect with the idea of limiting the risk of each trade?",
+                  "options": [
+                    "It doesn't connect, they're completely independent concepts",
+                    "A stop loss order helps put into practice the risk limit defined by position sizing, executing the exit automatically before the loss exceeds what was planned",
+                    "Stop loss completely eliminates any need to size positions",
+                    "Position sizing only matters if there's no stop loss order set up"
+                  ],
+                  "explanation": "Position sizing defines how much to risk; the stop loss order is a practical tool to put that limit into action, executing the exit automatically at the planned level."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el dimensionamiento de posición de otra lección. ¿Cómo se conecta una orden stop loss con la idea de limitar el riesgo de cada operación?",
+                  "options": [
+                    "No se conecta, son conceptos completamente independientes",
+                    "Una orden stop loss ayuda a poner en práctica el límite de riesgo definido por el dimensionamiento de posición, ejecutando la salida automáticamente antes de que la pérdida supere lo planeado",
+                    "El stop loss elimina por completo cualquier necesidad de dimensionar posiciones",
+                    "El dimensionamiento de posición solo importa si no hay ninguna orden stop loss configurada"
+                  ],
+                  "explanation": "El dimensionamiento de posición define cuánto arriesgar; la orden stop loss es una herramienta práctica para poner ese límite en acción, ejecutando la salida automáticamente en el nivel planeado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Ordem a mercado prioriza velocidade; ordem limitada prioriza controle do preço.",
+                    "Ordem stop loss dispara automaticamente uma venda ao atingir um nível definido.",
+                    "Stop loss ajuda a colocar em prática o limite de risco definido pelo dimensionamento de posição."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Market orders prioritize speed; limit orders prioritize price control.",
+                    "A stop loss order automatically triggers a sale upon reaching a defined level.",
+                    "Stop loss helps put into practice the risk limit defined by position sizing."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La orden a mercado prioriza la velocidad; la orden limitada prioriza el control del precio.",
+                    "La orden stop loss dispara automáticamente una venta al alcanzar un nivel definido.",
+                    "El stop loss ayuda a poner en práctica el límite de riesgo definido por el dimensionamiento de posición."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_leverage",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Alavancagem"},
+            "en": {"title": "Leverage"},
+            "es": {"title": "Apalancamiento"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Operando com mais dinheiro do que se tem",
+                  "body": "Alavancagem é a prática de operar com um valor maior do que o capital próprio disponível, geralmente usando dinheiro emprestado pela corretora ou instrumentos derivativos. Ela amplifica tanto os ganhos quanto as perdas na mesma proporção: uma alavancagem de 5 vezes, por exemplo, multiplica por 5 tanto o lucro quanto o prejuízo percentual de uma operação, em relação ao capital próprio investido."
+                },
+                "en": {
+                  "title": "Trading with more money than you have",
+                  "body": "Leverage is the practice of trading with an amount larger than the capital actually available, usually using money borrowed from the broker or derivative instruments. It amplifies both gains and losses in the same proportion: a 5x leverage, for example, multiplies by 5 both the profit and the percentage loss of a trade, relative to the investor's own capital."
+                },
+                "es": {
+                  "title": "Operando con más dinero del que se tiene",
+                  "body": "El apalancamiento es la práctica de operar con un monto mayor al capital propio disponible, generalmente usando dinero prestado por la correduría o instrumentos derivados. Amplifica tanto las ganancias como las pérdidas en la misma proporción: un apalancamiento de 5 veces, por ejemplo, multiplica por 5 tanto la ganancia como la pérdida porcentual de una operación, en relación al capital propio invertido."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader tem R$1.000 e usa alavancagem de 10 vezes, operando com R$10.000. Se o ativo sobe 5%, o ganho sobre o valor operado é de R$500 — metade do capital próprio original. Mas se o ativo cai 5%, a perda também é de R$500, o que representa metade de todo o capital que o trader realmente tinha."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader has R$1,000 and uses 10x leverage, trading with R$10,000. If the asset rises 5%, the gain on the traded amount is R$500 — half of the original own capital. But if the asset falls 5%, the loss is also R$500, which represents half of all the capital the trader actually had."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader tiene R$1.000 y usa un apalancamiento de 10 veces, operando con R$10.000. Si el activo sube un 5%, la ganancia sobre el monto operado es de R$500 — la mitad del capital propio original. Pero si el activo cae un 5%, la pérdida también es de R$500, lo que representa la mitad de todo el capital que el trader realmente tenía."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que a alavancagem faz com os resultados de uma operação?",
+                  "options": [
+                    "Ela reduz tanto ganhos quanto perdas, proporcionalmente",
+                    "Ela amplifica tanto ganhos quanto perdas, na mesma proporção",
+                    "Ela só amplifica ganhos, nunca perdas",
+                    "Ela elimina completamente o risco de perda"
+                  ],
+                  "explanation": "Alavancagem multiplica o resultado percentual sobre o capital próprio, tanto para cima (ganhos) quanto para baixo (perdas), na mesma proporção."
+                },
+                "en": {
+                  "prompt": "What does leverage do to a trade's results?",
+                  "options": [
+                    "It reduces both gains and losses, proportionally",
+                    "It amplifies both gains and losses, in the same proportion",
+                    "It only amplifies gains, never losses",
+                    "It completely eliminates the risk of loss"
+                  ],
+                  "explanation": "Leverage multiplies the percentage result on one's own capital, both upward (gains) and downward (losses), in the same proportion."
+                },
+                "es": {
+                  "prompt": "¿Qué hace el apalancamiento con los resultados de una operación?",
+                  "options": [
+                    "Reduce tanto las ganancias como las pérdidas, proporcionalmente",
+                    "Amplifica tanto las ganancias como las pérdidas, en la misma proporción",
+                    "Solo amplifica las ganancias, nunca las pérdidas",
+                    "Elimina por completo el riesgo de pérdida"
+                  ],
+                  "explanation": "El apalancamiento multiplica el resultado porcentual sobre el capital propio, tanto hacia arriba (ganancias) como hacia abajo (pérdidas), en la misma proporción."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Um anúncio promove alavancagem alta como uma forma de 'multiplicar seus ganhos rapidamente', sem mencionar o outro lado. Com base no que você aprendeu, o que essa descrição está deixando de fora?",
+                  "options": [
+                    "Nada, alavancagem só amplifica ganhos, nunca perdas",
+                    "Que a mesma alavancagem que amplifica ganhos amplifica perdas na mesma proporção, podendo comprometer boa parte do capital rapidamente em um movimento contrário",
+                    "Que alavancagem é ilegal em qualquer mercado",
+                    "Que alavancagem só existe para investidores institucionais"
+                  ],
+                  "explanation": "Qualquer descrição de alavancagem que menciona só o lado dos ganhos, sem falar da amplificação equivalente das perdas, está incompleta — os dois lados sempre andam juntos."
+                },
+                "en": {
+                  "prompt": "An ad promotes high leverage as a way to 'multiply your gains quickly,' without mentioning the other side. Based on what you learned, what is this description leaving out?",
+                  "options": [
+                    "Nothing, leverage only amplifies gains, never losses",
+                    "That the same leverage that amplifies gains amplifies losses in the same proportion, potentially wiping out a large part of the capital quickly in an adverse move",
+                    "That leverage is illegal in any market",
+                    "That leverage only exists for institutional investors"
+                  ],
+                  "explanation": "Any description of leverage that mentions only the gains side, without discussing the equivalent amplification of losses, is incomplete — both sides always go together."
+                },
+                "es": {
+                  "prompt": "Un anuncio promueve un alto apalancamiento como una forma de 'multiplicar tus ganancias rápidamente', sin mencionar el otro lado. Según lo que aprendiste, ¿qué está dejando fuera esta descripción?",
+                  "options": [
+                    "Nada, el apalancamiento solo amplifica ganancias, nunca pérdidas",
+                    "Que el mismo apalancamiento que amplifica ganancias amplifica pérdidas en la misma proporción, pudiendo comprometer gran parte del capital rápidamente en un movimiento contrario",
+                    "Que el apalancamiento es ilegal en cualquier mercado",
+                    "Que el apalancamiento solo existe para inversores institucionales"
+                  ],
+                  "explanation": "Cualquier descripción de apalancamiento que mencione solo el lado de las ganancias, sin hablar de la amplificación equivalente de las pérdidas, está incompleta — ambos lados siempre van juntos."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Alavancagem é operar com um valor maior do que o capital próprio disponível.",
+                    "Ela amplifica ganhos e perdas na mesma proporção.",
+                    "Descrições que mencionam só os ganhos potenciais da alavancagem, sem falar do risco equivalente, estão incompletas."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Leverage is trading with an amount larger than the capital actually available.",
+                    "It amplifies gains and losses in the same proportion.",
+                    "Descriptions that mention only leverage's potential gains, without discussing the equivalent risk, are incomplete."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El apalancamiento es operar con un monto mayor al capital propio disponible.",
+                    "Amplifica ganancias y pérdidas en la misma proporción.",
+                    "Las descripciones que mencionan solo las ganancias potenciales del apalancamiento, sin hablar del riesgo equivalente, están incompletas."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_overtrading",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Overtrading e Revenge Trading"},
+            "en": {"title": "Overtrading and Revenge Trading"},
+            "es": {"title": "Overtrading y Revenge Trading"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Operar demais ou operar com raiva",
+                  "body": "Overtrading é operar com uma frequência maior do que a estratégia original justificaria, muitas vezes motivado por tédio, ansiedade ou excesso de confiança após uma sequência de ganhos. Revenge trading é uma forma específica de overtrading: tentar recuperar uma perda recente imediatamente, com operações maiores ou mais arriscadas do que o planejado, motivado pela frustração emocional da perda, e não por uma análise fria da situação."
+                },
+                "en": {
+                  "title": "Trading too much, or trading angry",
+                  "body": "Overtrading is trading more frequently than the original strategy would justify, often driven by boredom, anxiety, or overconfidence after a winning streak. Revenge trading is a specific form of overtrading: trying to immediately recover a recent loss, with larger or riskier trades than planned, driven by the emotional frustration of the loss, rather than a cold analysis of the situation."
+                },
+                "es": {
+                  "title": "Operar de más, o operar con rabia",
+                  "body": "El overtrading es operar con una frecuencia mayor de la que justificaría la estrategia original, muchas veces motivado por el aburrimiento, la ansiedad o el exceso de confianza después de una racha de ganancias. El revenge trading es una forma específica de overtrading: intentar recuperar una pérdida reciente de inmediato, con operaciones más grandes o más arriesgadas de lo planeado, motivado por la frustración emocional de la pérdida, y no por un análisis frío de la situación."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Um trader perde uma operação e, em vez de seguir seu plano original, imediatamente abre uma posição bem maior do que o habitual, tentando 'recuperar' a perda rapidamente. Essa decisão não vem de uma nova análise da situação, mas da frustração com a perda anterior — um padrão que costuma agravar, em vez de resolver, o prejuízo inicial."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A trader loses a trade and, instead of sticking to their original plan, immediately opens a much larger position than usual, trying to 'recover' the loss quickly. This decision doesn't come from a fresh analysis of the situation, but from frustration with the earlier loss — a pattern that tends to worsen, rather than fix, the initial loss."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Un trader pierde una operación y, en lugar de seguir su plan original, de inmediato abre una posición mucho más grande de lo habitual, intentando 'recuperar' la pérdida rápidamente. Esta decisión no viene de un nuevo análisis de la situación, sino de la frustración por la pérdida anterior — un patrón que suele agravar, en lugar de resolver, la pérdida inicial."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que caracteriza o revenge trading?",
+                  "options": [
+                    "Seguir rigorosamente a estratégia original, mesmo depois de uma perda",
+                    "Tentar recuperar uma perda recente imediatamente, com operações maiores ou mais arriscadas, motivado pela frustração emocional",
+                    "Reduzir o número de operações depois de uma perda, para reavaliar a estratégia com calma",
+                    "Um tipo de ordem usada para limitar perdas"
+                  ],
+                  "explanation": "Revenge trading é operar de forma impulsiva para tentar 'recuperar' uma perda, motivado pela emoção da frustração, e não por uma reavaliação racional da situação."
+                },
+                "en": {
+                  "prompt": "What characterizes revenge trading?",
+                  "options": [
+                    "Strictly following the original strategy, even after a loss",
+                    "Trying to immediately recover a recent loss, with larger or riskier trades, driven by emotional frustration",
+                    "Reducing the number of trades after a loss, to calmly reassess the strategy",
+                    "A type of order used to limit losses"
+                  ],
+                  "explanation": "Revenge trading is trading impulsively to try to 'recover' a loss, driven by the emotion of frustration, rather than a rational reassessment of the situation."
+                },
+                "es": {
+                  "prompt": "¿Qué caracteriza al revenge trading?",
+                  "options": [
+                    "Seguir rigurosamente la estrategia original, incluso después de una pérdida",
+                    "Intentar recuperar una pérdida reciente de inmediato, con operaciones más grandes o más arriesgadas, motivado por la frustración emocional",
+                    "Reducir el número de operaciones después de una pérdida, para reevaluar la estrategia con calma",
+                    "Un tipo de orden usada para limitar pérdidas"
+                  ],
+                  "explanation": "El revenge trading es operar de forma impulsiva para intentar 'recuperar' una pérdida, motivado por la emoción de la frustración, y no por una reevaluación racional de la situación."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende dimensionamento de posição e aversão à perda de outras lições. Como esses conceitos ajudam a explicar por que revenge trading costuma agravar, em vez de resolver, um prejuízo inicial?",
+                  "options": [
+                    "Não ajudam, esses conceitos não têm relação nenhuma com revenge trading",
+                    "Porque revenge trading tipicamente envolve aumentar o tamanho da posição além do planejado, quebrando o dimensionamento de risco original, e é motivado pela aversão à perda em vez de uma análise fria da situação",
+                    "Porque revenge trading sempre segue rigorosamente o dimensionamento de posição original",
+                    "Porque aversão à perda garante que revenge trading sempre funciona"
+                  ],
+                  "explanation": "Revenge trading tende a violar o dimensionamento de posição planejado, aumentando o risco justamente no momento em que a decisão está sendo guiada pela emoção da perda, e não por uma reavaliação racional."
+                },
+                "en": {
+                  "prompt": "You already understand position sizing and loss aversion from other lessons. How do these concepts help explain why revenge trading tends to worsen, rather than fix, an initial loss?",
+                  "options": [
+                    "They don't help, these concepts have no relation to revenge trading at all",
+                    "Because revenge trading typically involves increasing the position size beyond what was planned, breaking the original risk sizing, and is driven by loss aversion rather than a cold analysis of the situation",
+                    "Because revenge trading always strictly follows the original position sizing",
+                    "Because loss aversion guarantees revenge trading always works"
+                  ],
+                  "explanation": "Revenge trading tends to violate the planned position sizing, increasing risk exactly at the moment when the decision is being driven by the emotion of the loss, rather than a rational reassessment."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el dimensionamiento de posición y la aversión a la pérdida de otras lecciones. ¿Cómo ayudan estos conceptos a explicar por qué el revenge trading suele agravar, en lugar de resolver, una pérdida inicial?",
+                  "options": [
+                    "No ayudan, estos conceptos no tienen ninguna relación con el revenge trading",
+                    "Porque el revenge trading típicamente implica aumentar el tamaño de la posición más allá de lo planeado, rompiendo el dimensionamiento de riesgo original, y está motivado por la aversión a la pérdida en lugar de un análisis frío de la situación",
+                    "Porque el revenge trading siempre sigue rigurosamente el dimensionamiento de posición original",
+                    "Porque la aversión a la pérdida garantiza que el revenge trading siempre funcione"
+                  ],
+                  "explanation": "El revenge trading tiende a violar el dimensionamiento de posición planeado, aumentando el riesgo justo en el momento en que la decisión está siendo guiada por la emoción de la pérdida, y no por una reevaluación racional."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Overtrading é operar com frequência maior do que a estratégia justificaria.",
+                    "Revenge trading é tentar recuperar uma perda imediatamente, motivado pela frustração emocional.",
+                    "Esse padrão costuma violar o dimensionamento de risco planejado, agravando o prejuízo inicial."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Overtrading is trading more frequently than the strategy would justify.",
+                    "Revenge trading is trying to immediately recover a loss, driven by emotional frustration.",
+                    "This pattern tends to violate the planned risk sizing, worsening the initial loss."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El overtrading es operar con una frecuencia mayor de la que justificaría la estrategia.",
+                    "El revenge trading es intentar recuperar una pérdida de inmediato, motivado por la frustración emocional.",
+                    "Este patrón suele violar el dimensionamiento de riesgo planeado, agravando la pérdida inicial."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "trading_journal_discipline",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Registro de Operações e Disciplina"},
+            "en": {"title": "Trade Journaling and Discipline"},
+            "es": {"title": "Registro de Operaciones y Disciplina"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Aprendendo com o próprio histórico",
+                  "body": "Um registro de operações (trading journal) é um histórico detalhado de cada operação realizada — incluindo o motivo da entrada, o tamanho da posição, o resultado e as emoções envolvidas na decisão. Manter esse registro ajuda a identificar padrões no próprio comportamento, como uma tendência a repetir overtrading depois de perdas, ou a abandonar o plano original em momentos de estresse — padrões que costumam ser difíceis de perceber sem um registro objetivo para consultar depois."
+                },
+                "en": {
+                  "title": "Learning from your own history",
+                  "body": "A trading journal is a detailed record of each trade made — including the reason for entering, the position size, the result, and the emotions involved in the decision. Keeping this record helps identify patterns in one's own behavior, like a tendency to repeat overtrading after losses, or to abandon the original plan during moments of stress — patterns that tend to be hard to notice without an objective record to review later."
+                },
+                "es": {
+                  "title": "Aprendiendo del propio historial",
+                  "body": "Un registro de operaciones (trading journal) es un historial detallado de cada operación realizada — incluyendo el motivo de la entrada, el tamaño de la posición, el resultado y las emociones involucradas en la decisión. Mantener este registro ayuda a identificar patrones en el propio comportamiento, como una tendencia a repetir overtrading después de pérdidas, o a abandonar el plan original en momentos de estrés — patrones que suelen ser difíciles de percibir sin un registro objetivo para consultar después."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Ao revisar seu registro de operações depois de alguns meses, um trader percebe um padrão claro: suas piores operações, em termos de resultado, costumam acontecer logo depois de uma perda, quando ele estava operando fora do seu plano original. Sem esse registro, esse padrão específico provavelmente passaria despercebido, escondido entre memórias seletivas de operações isoladas."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "Reviewing their trade journal after a few months, a trader notices a clear pattern: their worst trades, in terms of results, tend to happen right after a loss, when they were trading outside their original plan. Without this record, that specific pattern would likely go unnoticed, hidden among selective memories of isolated trades."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Al revisar su registro de operaciones después de algunos meses, un trader nota un patrón claro: sus peores operaciones, en términos de resultado, suelen ocurrir justo después de una pérdida, cuando estaba operando fuera de su plan original. Sin ese registro, ese patrón específico probablemente pasaría desapercibido, escondido entre recuerdos selectivos de operaciones aisladas."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Qual é a principal utilidade de um registro de operações?",
+                  "options": [
+                    "Garantir que todas as operações futuras vão dar lucro",
+                    "Ajudar a identificar padrões no próprio comportamento, que seriam difíceis de perceber sem um histórico objetivo",
+                    "Substituir completamente a necessidade de uma estratégia definida",
+                    "Eliminar qualquer custo associado às operações"
+                  ],
+                  "explanation": "O registro de operações funciona como uma fonte objetiva de dados sobre o próprio comportamento, ajudando a identificar padrões que a memória seletiva tende a esconder."
+                },
+                "en": {
+                  "prompt": "What is a trading journal's main use?",
+                  "options": [
+                    "Guaranteeing all future trades will be profitable",
+                    "Helping identify patterns in one's own behavior, which would be hard to notice without an objective record",
+                    "Completely replacing the need for a defined strategy",
+                    "Eliminating any cost associated with trading"
+                  ],
+                  "explanation": "The trading journal works as an objective source of data about one's own behavior, helping identify patterns that selective memory tends to hide."
+                },
+                "es": {
+                  "prompt": "¿Cuál es la principal utilidad de un registro de operaciones?",
+                  "options": [
+                    "Garantizar que todas las operaciones futuras darán ganancias",
+                    "Ayudar a identificar patrones en el propio comportamiento, que serían difíciles de percibir sin un historial objetivo",
+                    "Reemplazar por completo la necesidad de una estrategia definida",
+                    "Eliminar cualquier costo asociado a las operaciones"
+                  ],
+                  "explanation": "El registro de operaciones funciona como una fuente objetiva de datos sobre el propio comportamiento, ayudando a identificar patrones que la memoria selectiva tiende a esconder."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você já entende revenge trading e overtrading de outra lição. Como um registro de operações poderia ajudar alguém a perceber que está caindo nesses padrões?",
+                  "options": [
+                    "Não ajudaria em nada, esses padrões são impossíveis de identificar",
+                    "Revisando o registro, a pessoa poderia notar, por exemplo, que opera com tamanho de posição maior logo após perdas — um sinal objetivo de revenge trading que a memória subjetiva poderia minimizar ou esquecer",
+                    "Um registro de operações só serve para calcular impostos",
+                    "Registro de operações é útil apenas para day trade, nunca para swing trade"
+                  ],
+                  "explanation": "Um registro objetivo captura dados que a memória subjetiva tende a distorcer ou esquecer, como um padrão de aumentar o tamanho das posições logo após perdas — um sinal característico de revenge trading."
+                },
+                "en": {
+                  "prompt": "You already understand revenge trading and overtrading from another lesson. How could a trading journal help someone notice they're falling into these patterns?",
+                  "options": [
+                    "It wouldn't help at all, these patterns are impossible to identify",
+                    "By reviewing the journal, the person could notice, for example, that they trade with a larger position size right after losses — an objective sign of revenge trading that subjective memory might minimize or forget",
+                    "A trading journal only serves to calculate taxes",
+                    "A trading journal is only useful for day trading, never for swing trading"
+                  ],
+                  "explanation": "An objective record captures data that subjective memory tends to distort or forget, like a pattern of increasing position size right after losses — a characteristic sign of revenge trading."
+                },
+                "es": {
+                  "prompt": "Ya entiendes el revenge trading y el overtrading de otra lección. ¿Cómo podría ayudar un registro de operaciones a que alguien note que está cayendo en estos patrones?",
+                  "options": [
+                    "No ayudaría en nada, estos patrones son imposibles de identificar",
+                    "Revisando el registro, la persona podría notar, por ejemplo, que opera con un tamaño de posición mayor justo después de pérdidas — una señal objetiva de revenge trading que la memoria subjetiva podría minimizar u olvidar",
+                    "Un registro de operaciones solo sirve para calcular impuestos",
+                    "El registro de operaciones es útil solo para day trade, nunca para swing trade"
+                  ],
+                  "explanation": "Un registro objetivo captura datos que la memoria subjetiva tiende a distorsionar u olvidar, como un patrón de aumentar el tamaño de las posiciones justo después de pérdidas — una señal característica del revenge trading."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "Um registro de operações documenta o motivo, o tamanho e o resultado de cada operação.",
+                    "Ele ajuda a identificar padrões de comportamento difíceis de perceber sem dados objetivos.",
+                    "Você concluiu o módulo de ferramentas e riscos do trading."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "A trading journal documents the reason, size, and result of each trade.",
+                    "It helps identify behavioral patterns that are hard to notice without objective data.",
+                    "You've completed the trading tools and risks module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "Un registro de operaciones documenta el motivo, el tamaño y el resultado de cada operación.",
+                    "Ayuda a identificar patrones de comportamiento difíciles de percibir sin datos objetivos.",
+                    "Completaste el módulo de herramientas y riesgos del trading."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }

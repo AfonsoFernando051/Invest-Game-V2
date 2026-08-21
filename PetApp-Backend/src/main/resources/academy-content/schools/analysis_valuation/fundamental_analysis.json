@@ -813,6 +813,646 @@
           ]
         }
       ]
+    },
+    {
+      "moduleId": "advanced_fundamental_indicators",
+      "order": 2,
+      "iconKey": "analytics_outlined",
+      "xpReward": 100,
+      "contentAvailable": true,
+      "prerequisites": ["fundamental_analysis"],
+      "translations": {
+        "pt": {
+          "title": "Indicadores Avançados de Análise Fundamentalista",
+          "description": "Fluxo de caixa livre, dividend yield, payout ratio e CAGR."
+        },
+        "en": {
+          "title": "Advanced Fundamental Analysis Indicators",
+          "description": "Free cash flow, dividend yield, payout ratio and CAGR."
+        },
+        "es": {
+          "title": "Indicadores Avanzados de Análisis Fundamental",
+          "description": "Flujo de caja libre, rentabilidad por dividendos, payout ratio y CAGR."
+        }
+      },
+      "lessons": [
+        {
+          "lessonId": "fundamental_free_cash_flow",
+          "order": 1,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Fluxo de Caixa Livre"},
+            "en": {"title": "Free Cash Flow"},
+            "es": {"title": "Flujo de Caja Libre"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "O dinheiro que realmente sobra",
+                  "body": "Fluxo de caixa livre é o dinheiro que uma empresa gera em suas operações e que sobra depois de pagar os investimentos necessários para manter e expandir o negócio (como compra de equipamentos e instalações). Diferente do lucro contábil, que pode incluir itens que não representam saída ou entrada real de caixa, o fluxo de caixa livre mostra quanto dinheiro genuinamente sobra para a empresa pagar dívidas, distribuir dividendos ou recomprar ações."
+                },
+                "en": {
+                  "title": "The money that's genuinely left over",
+                  "body": "Free cash flow is the cash a company generates from its operations that's left over after paying for the investments needed to maintain and grow the business (like purchasing equipment and facilities). Unlike accounting profit, which can include items that don't represent an actual cash outflow or inflow, free cash flow shows how much money genuinely remains for the company to pay down debt, distribute dividends, or buy back shares."
+                },
+                "es": {
+                  "title": "El dinero que realmente sobra",
+                  "body": "El flujo de caja libre es el dinero que una empresa genera en sus operaciones y que sobra después de pagar las inversiones necesarias para mantener y expandir el negocio (como la compra de equipos e instalaciones). A diferencia de la ganancia contable, que puede incluir partidas que no representan una salida o entrada real de caja, el flujo de caja libre muestra cuánto dinero realmente sobra para que la empresa pague deudas, distribuya dividendos o recompre acciones."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa reporta um lucro contábil alto, mas precisa investir pesadamente em novos equipamentos todos os anos só para se manter competitiva — sobrando pouco fluxo de caixa livre no final. Outra empresa, com lucro contábil parecido, mas que precisa investir bem menos para manter suas operações, gera um fluxo de caixa livre bem maior, mesmo com um lucro contábil semelhante."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "One company reports a high accounting profit, but needs to invest heavily in new equipment every year just to stay competitive — leaving little free cash flow at the end. Another company, with a similar accounting profit, but that needs to invest much less to maintain its operations, generates much higher free cash flow, even with a similar accounting profit."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa reporta una ganancia contable alta, pero necesita invertir fuertemente en equipos nuevos todos los años solo para mantenerse competitiva — quedando poco flujo de caja libre al final. Otra empresa, con una ganancia contable parecida, pero que necesita invertir mucho menos para mantener sus operaciones, genera un flujo de caja libre bastante mayor, aunque tenga una ganancia contable similar."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o fluxo de caixa livre mostra que o lucro contábil, sozinho, pode não mostrar?",
+                  "options": [
+                    "O preço da ação no mercado",
+                    "Quanto dinheiro realmente sobra depois de pagar os investimentos necessários para manter e expandir o negócio",
+                    "O número total de funcionários da empresa",
+                    "A taxa de câmbio usada pela empresa"
+                  ],
+                  "explanation": "Fluxo de caixa livre revela o dinheiro genuinamente disponível depois dos investimentos necessários — algo que o lucro contábil, por si só, nem sempre reflete com precisão."
+                },
+                "en": {
+                  "prompt": "What does free cash flow show that accounting profit alone might not?",
+                  "options": [
+                    "The stock's market price",
+                    "How much money genuinely remains after paying the investments needed to maintain and grow the business",
+                    "The company's total number of employees",
+                    "The exchange rate used by the company"
+                  ],
+                  "explanation": "Free cash flow reveals the money genuinely available after necessary investments — something accounting profit alone doesn't always accurately reflect."
+                },
+                "es": {
+                  "prompt": "¿Qué muestra el flujo de caja libre que la ganancia contable, por sí sola, puede no mostrar?",
+                  "options": [
+                    "El precio de la acción en el mercado",
+                    "Cuánto dinero realmente sobra después de pagar las inversiones necesarias para mantener y expandir el negocio",
+                    "El número total de empleados de la empresa",
+                    "El tipo de cambio usado por la empresa"
+                  ],
+                  "explanation": "El flujo de caja libre revela el dinero genuinamente disponible después de las inversiones necesarias — algo que la ganancia contable, por sí sola, no siempre refleja con precisión."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Duas empresas do mesmo setor reportam lucro contábil parecido, mas uma delas precisa investir muito mais em equipamentos todos os anos para se manter competitiva. O que isso sugere sobre o fluxo de caixa livre das duas?",
+                  "options": [
+                    "As duas terão exatamente o mesmo fluxo de caixa livre, já que o lucro contábil é parecido",
+                    "A empresa que precisa investir mais tende a sobrar com menos fluxo de caixa livre, mesmo com lucro contábil parecido ao da outra",
+                    "Fluxo de caixa livre não tem relação nenhuma com a necessidade de investimento da empresa",
+                    "A empresa que investe mais sempre terá o maior fluxo de caixa livre"
+                  ],
+                  "explanation": "Como o fluxo de caixa livre desconta os investimentos necessários, uma empresa que precisa investir mais tende a sobrar com menos caixa livre, mesmo tendo um lucro contábil parecido ao de uma concorrente que investe menos."
+                },
+                "en": {
+                  "prompt": "Two companies in the same sector report similar accounting profit, but one of them needs to invest much more in equipment every year to stay competitive. What does this suggest about the two companies' free cash flow?",
+                  "options": [
+                    "Both will have exactly the same free cash flow, since accounting profit is similar",
+                    "The company that needs to invest more tends to end up with less free cash flow, even with accounting profit similar to the other's",
+                    "Free cash flow has no relation at all to the company's investment needs",
+                    "The company that invests more will always have the higher free cash flow"
+                  ],
+                  "explanation": "Since free cash flow subtracts necessary investments, a company that needs to invest more tends to end up with less free cash, even having accounting profit similar to a competitor that invests less."
+                },
+                "es": {
+                  "prompt": "Dos empresas del mismo sector reportan una ganancia contable parecida, pero una de ellas necesita invertir mucho más en equipos todos los años para mantenerse competitiva. ¿Qué sugiere esto sobre el flujo de caja libre de ambas?",
+                  "options": [
+                    "Ambas tendrán exactamente el mismo flujo de caja libre, ya que la ganancia contable es parecida",
+                    "La empresa que necesita invertir más tiende a quedar con menos flujo de caja libre, incluso con una ganancia contable parecida a la de la otra",
+                    "El flujo de caja libre no tiene ninguna relación con la necesidad de inversión de la empresa",
+                    "La empresa que invierte más siempre tendrá el mayor flujo de caja libre"
+                  ],
+                  "explanation": "Como el flujo de caja libre descuenta las inversiones necesarias, una empresa que necesita invertir más tiende a quedar con menos caja libre, aunque tenga una ganancia contable parecida a la de una competidora que invierte menos."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Fluxo de caixa livre é o dinheiro que sobra depois dos investimentos necessários ao negócio.",
+                    "Ele pode diferir bastante do lucro contábil, mesmo entre empresas parecidas.",
+                    "Empresas que precisam investir mais tendem a ter menos fluxo de caixa livre disponível."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Free cash flow is the money left over after the investments the business needs.",
+                    "It can differ quite a bit from accounting profit, even between similar companies.",
+                    "Companies that need to invest more tend to have less free cash flow available."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El flujo de caja libre es el dinero que sobra después de las inversiones que necesita el negocio.",
+                    "Puede diferir bastante de la ganancia contable, incluso entre empresas parecidas.",
+                    "Las empresas que necesitan invertir más tienden a tener menos flujo de caja libre disponible."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_dividend_yield",
+          "order": 2,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Dividend Yield"},
+            "en": {"title": "Dividend Yield"},
+            "es": {"title": "Rentabilidad por Dividendos"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto o dividendo representa em relação ao preço",
+                  "body": "Dividend yield é a relação entre os dividendos pagos por uma ação em um período e o preço atual dessa ação, expressa em percentual. Ele mostra qual seria o retorno em dividendos, no período, para quem comprasse a ação no preço atual — mas não garante que os dividendos futuros serão iguais aos pagos no passado, já que eles dependem do lucro e da política de distribuição da empresa, que podem mudar."
+                },
+                "en": {
+                  "title": "How much the dividend represents relative to the price",
+                  "body": "Dividend yield is the ratio between the dividends paid by a stock over a period and that stock's current price, expressed as a percentage. It shows what the dividend return would be, over the period, for someone buying the stock at the current price — but it doesn't guarantee future dividends will match past ones, since they depend on the company's profit and distribution policy, which can change."
+                },
+                "es": {
+                  "title": "Cuánto representa el dividendo en relación al precio",
+                  "body": "La rentabilidad por dividendos (dividend yield) es la relación entre los dividendos pagados por una acción en un período y el precio actual de esa acción, expresada en porcentaje. Muestra cuál sería el retorno en dividendos, en el período, para quien comprara la acción al precio actual — pero no garantiza que los dividendos futuros serán iguales a los pagados en el pasado, ya que dependen de la ganancia y la política de distribución de la empresa, que pueden cambiar."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma ação é negociada a R$100 e pagou R$6 em dividendos ao longo do último ano — um dividend yield de 6%. Se o preço da ação cai para R$80, mantendo o mesmo valor de dividendos, o dividend yield calculado sobe para 7,5%, mesmo sem nenhuma mudança no valor absoluto distribuído — um lembrete de que o yield é sensível tanto ao dividendo quanto ao preço."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A stock trades at R$100 and paid R$6 in dividends over the past year — a 6% dividend yield. If the stock's price falls to R$80, keeping the same dividend amount, the calculated dividend yield rises to 7.5%, even with no change in the absolute amount distributed — a reminder that yield is sensitive to both the dividend and the price."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una acción se negocia a R$100 y pagó R$6 en dividendos durante el último año — una rentabilidad por dividendos del 6%. Si el precio de la acción cae a R$80, manteniendo el mismo monto de dividendos, la rentabilidad calculada sube al 7,5%, aunque no haya ningún cambio en el monto absoluto distribuido — un recordatorio de que la rentabilidad es sensible tanto al dividendo como al precio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o dividend yield mede?",
+                  "options": [
+                    "O lucro total de uma empresa",
+                    "A relação entre os dividendos pagos por uma ação e o preço atual dessa ação",
+                    "A dívida total de uma empresa em relação ao patrimônio",
+                    "O número de ações em circulação"
+                  ],
+                  "explanation": "Dividend yield relaciona o valor de dividendos pagos com o preço atual da ação, mostrando o retorno em dividendos para quem comprasse ao preço de hoje."
+                },
+                "en": {
+                  "prompt": "What does dividend yield measure?",
+                  "options": [
+                    "A company's total profit",
+                    "The ratio between the dividends paid by a stock and that stock's current price",
+                    "A company's total debt relative to equity",
+                    "The number of shares outstanding"
+                  ],
+                  "explanation": "Dividend yield relates the amount of dividends paid to the stock's current price, showing the dividend return for someone buying at today's price."
+                },
+                "es": {
+                  "prompt": "¿Qué mide la rentabilidad por dividendos?",
+                  "options": [
+                    "La ganancia total de una empresa",
+                    "La relación entre los dividendos pagados por una acción y el precio actual de esa acción",
+                    "La deuda total de una empresa en relación al patrimonio",
+                    "El número de acciones en circulación"
+                  ],
+                  "explanation": "La rentabilidad por dividendos relaciona el monto de dividendos pagados con el precio actual de la acción, mostrando el retorno en dividendos para quien comprara al precio de hoy."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você percebe que o dividend yield de uma ação subiu bastante recentemente, sem nenhum aumento no valor de dividendos pagos pela empresa. O que provavelmente explica esse aumento no yield calculado?",
+                  "options": [
+                    "A empresa dobrou o valor pago em dividendos",
+                    "O preço da ação provavelmente caiu, o que aumenta o yield calculado mesmo sem mudança no valor absoluto dos dividendos",
+                    "Dividend yield nunca muda ao longo do tempo",
+                    "A empresa parou de pagar impostos"
+                  ],
+                  "explanation": "Como o dividend yield é uma relação entre dividendo e preço, uma queda no preço da ação aumenta o yield calculado, mesmo que o valor de dividendos pagos continue o mesmo — por isso um yield alto nem sempre é só boa notícia, pode refletir também uma queda de preço."
+                },
+                "en": {
+                  "prompt": "You notice a stock's dividend yield rose quite a bit recently, with no increase in the amount of dividends the company paid. What most likely explains that rise in the calculated yield?",
+                  "options": [
+                    "The company doubled the amount paid in dividends",
+                    "The stock's price probably fell, which increases the calculated yield even with no change in the absolute dividend amount",
+                    "Dividend yield never changes over time",
+                    "The company stopped paying taxes"
+                  ],
+                  "explanation": "Since dividend yield is a ratio between dividend and price, a drop in the stock's price increases the calculated yield, even if the amount of dividends paid stays the same — that's why a high yield isn't always just good news, it can also reflect a price decline."
+                },
+                "es": {
+                  "prompt": "Notas que la rentabilidad por dividendos de una acción subió bastante recientemente, sin ningún aumento en el monto de dividendos pagados por la empresa. ¿Qué probablemente explica ese aumento en la rentabilidad calculada?",
+                  "options": [
+                    "La empresa duplicó el monto pagado en dividendos",
+                    "El precio de la acción probablemente cayó, lo que aumenta la rentabilidad calculada aunque no haya cambio en el monto absoluto de los dividendos",
+                    "La rentabilidad por dividendos nunca cambia con el tiempo",
+                    "La empresa dejó de pagar impuestos"
+                  ],
+                  "explanation": "Como la rentabilidad por dividendos es una relación entre dividendo y precio, una caída en el precio de la acción aumenta la rentabilidad calculada, aunque el monto de dividendos pagados siga igual — por eso una rentabilidad alta no siempre es solo buena noticia, puede reflejar también una caída de precio."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Dividend yield relaciona dividendos pagos com o preço atual da ação.",
+                    "Ele pode subir tanto por aumento de dividendos quanto por queda no preço da ação.",
+                    "Dividendos futuros não são garantidos, mesmo com um histórico consistente no passado."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Dividend yield relates dividends paid to the stock's current price.",
+                    "It can rise both from an increase in dividends and from a drop in the stock's price.",
+                    "Future dividends aren't guaranteed, even with a consistent track record in the past."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "La rentabilidad por dividendos relaciona los dividendos pagados con el precio actual de la acción.",
+                    "Puede subir tanto por un aumento de dividendos como por una caída en el precio de la acción.",
+                    "Los dividendos futuros no están garantizados, incluso con un historial consistente en el pasado."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_payout_ratio",
+          "order": 3,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Payout Ratio"},
+            "en": {"title": "Payout Ratio"},
+            "es": {"title": "Payout Ratio"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Quanto do lucro vira dividendo",
+                  "body": "Payout ratio é a proporção do lucro de uma empresa que é distribuída aos acionistas na forma de dividendos, em vez de ser reinvestida no próprio negócio. Um payout ratio de 100%, por exemplo, significa que a empresa distribuiu todo o lucro do período como dividendos, sem reter nada para reinvestir. Não existe um payout ratio universalmente certo — empresas em fase de forte crescimento costumam reter mais lucro para reinvestir, enquanto empresas mais maduras, com menos oportunidades de expansão, tendem a distribuir uma parcela maior."
+                },
+                "en": {
+                  "title": "How much of the profit becomes a dividend",
+                  "body": "Payout ratio is the proportion of a company's profit that's distributed to shareholders as dividends, instead of being reinvested in the business itself. A payout ratio of 100%, for example, means the company distributed all of the period's profit as dividends, retaining nothing to reinvest. There's no universally right payout ratio — companies in a strong growth phase usually retain more profit to reinvest, while more mature companies, with fewer expansion opportunities, tend to distribute a larger share."
+                },
+                "es": {
+                  "title": "Cuánto de la ganancia se convierte en dividendo",
+                  "body": "El payout ratio es la proporción de la ganancia de una empresa que se distribuye a los accionistas en forma de dividendos, en lugar de reinvertirse en el propio negocio. Un payout ratio del 100%, por ejemplo, significa que la empresa distribuyó toda la ganancia del período como dividendos, sin retener nada para reinvertir. No existe un payout ratio universalmente correcto — las empresas en fase de fuerte crecimiento suelen retener más ganancia para reinvertir, mientras que las empresas más maduras, con menos oportunidades de expansión, tienden a distribuir una porción mayor."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa de tecnologia em fase de forte expansão reinveste quase todo o lucro em novos projetos, com um payout ratio próximo de 0%. Já uma empresa de energia elétrica, madura e com poucas oportunidades de grande crescimento, distribui 80% do lucro em dividendos — ambas as estratégias podem fazer sentido, dependendo da fase e do setor de cada negócio."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A technology company in a strong expansion phase reinvests almost all of its profit in new projects, with a payout ratio close to 0%. A mature electric utility company, with few opportunities for major growth, distributes 80% of its profit in dividends — both strategies can make sense, depending on each business's stage and sector."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa de tecnología en fase de fuerte expansión reinvierte casi toda la ganancia en nuevos proyectos, con un payout ratio cercano al 0%. En cambio, una empresa de energía eléctrica, madura y con pocas oportunidades de gran crecimiento, distribuye el 80% de la ganancia en dividendos — ambas estrategias pueden tener sentido, dependiendo de la fase y el sector de cada negocio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "O que o payout ratio mede?",
+                  "options": [
+                    "A dívida total de uma empresa",
+                    "A proporção do lucro distribuída aos acionistas como dividendos, em vez de reinvestida no negócio",
+                    "O preço da ação em relação ao lucro por ação",
+                    "O número de funcionários de uma empresa"
+                  ],
+                  "explanation": "Payout ratio mostra qual fração do lucro do período foi distribuída como dividendo, em vez de retida para reinvestimento no próprio negócio."
+                },
+                "en": {
+                  "prompt": "What does the payout ratio measure?",
+                  "options": [
+                    "A company's total debt",
+                    "The proportion of profit distributed to shareholders as dividends, instead of reinvested in the business",
+                    "The stock's price relative to earnings per share",
+                    "A company's number of employees"
+                  ],
+                  "explanation": "Payout ratio shows what fraction of the period's profit was distributed as dividends, instead of retained for reinvestment in the business."
+                },
+                "es": {
+                  "prompt": "¿Qué mide el payout ratio?",
+                  "options": [
+                    "La deuda total de una empresa",
+                    "La proporción de la ganancia distribuida a los accionistas como dividendos, en lugar de reinvertida en el negocio",
+                    "El precio de la acción en relación a la ganancia por acción",
+                    "El número de empleados de una empresa"
+                  ],
+                  "explanation": "El payout ratio muestra qué fracción de la ganancia del período se distribuyó como dividendo, en lugar de retenerse para reinvertir en el propio negocio."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Você compara duas empresas: uma de tecnologia em forte crescimento, com payout ratio de 5%, e outra de um setor maduro, com payout ratio de 75%. Por que essa diferença não significa automaticamente que uma das empresas é 'melhor' que a outra?",
+                  "options": [
+                    "Porque payout ratio não tem relação nenhuma com a qualidade de uma empresa",
+                    "Porque empresas em fase de crescimento tendem a reter mais lucro para reinvestir, enquanto empresas maduras, com menos oportunidades de expansão, tendem a distribuir mais — cada estratégia pode fazer sentido para a fase daquele negócio",
+                    "Porque toda empresa deveria ter o mesmo payout ratio, independentemente do setor",
+                    "Porque um payout ratio baixo sempre significa que a empresa está em dificuldades"
+                  ],
+                  "explanation": "O payout ratio ideal depende da fase e das oportunidades de reinvestimento de cada negócio — não existe um valor universalmente melhor, e a comparação direta entre empresas em fases muito diferentes pode ser enganosa."
+                },
+                "en": {
+                  "prompt": "You compare two companies: a fast-growing technology company, with a 5% payout ratio, and one from a mature sector, with a 75% payout ratio. Why doesn't this difference automatically mean one of the companies is 'better' than the other?",
+                  "options": [
+                    "Because payout ratio has no relation at all to a company's quality",
+                    "Because growing companies tend to retain more profit to reinvest, while mature companies, with fewer expansion opportunities, tend to distribute more — each strategy can make sense for that business's stage",
+                    "Because every company should have the same payout ratio, regardless of sector",
+                    "Because a low payout ratio always means the company is struggling"
+                  ],
+                  "explanation": "The ideal payout ratio depends on each business's stage and reinvestment opportunities — there's no universally better value, and directly comparing companies at very different stages can be misleading."
+                },
+                "es": {
+                  "prompt": "Comparas dos empresas: una de tecnología en fuerte crecimiento, con un payout ratio del 5%, y otra de un sector maduro, con un payout ratio del 75%. ¿Por qué esta diferencia no significa automáticamente que una de las empresas es 'mejor' que la otra?",
+                  "options": [
+                    "Porque el payout ratio no tiene ninguna relación con la calidad de una empresa",
+                    "Porque las empresas en fase de crecimiento tienden a retener más ganancia para reinvertir, mientras que las empresas maduras, con menos oportunidades de expansión, tienden a distribuir más — cada estrategia puede tener sentido para la fase de ese negocio",
+                    "Porque toda empresa debería tener el mismo payout ratio, sin importar el sector",
+                    "Porque un payout ratio bajo siempre significa que la empresa está en dificultades"
+                  ],
+                  "explanation": "El payout ratio ideal depende de la fase y las oportunidades de reinversión de cada negocio — no existe un valor universalmente mejor, y la comparación directa entre empresas en fases muy diferentes puede ser engañosa."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "O que você aprendeu",
+                  "takeaways": [
+                    "Payout ratio é a proporção do lucro distribuída como dividendo.",
+                    "Não existe um payout ratio universalmente ideal — depende da fase e do setor da empresa.",
+                    "Empresas em crescimento tendem a reter mais; empresas maduras tendem a distribuir mais."
+                  ]
+                },
+                "en": {
+                  "title": "What you learned",
+                  "takeaways": [
+                    "Payout ratio is the proportion of profit distributed as dividends.",
+                    "There's no universally ideal payout ratio — it depends on the company's stage and sector.",
+                    "Growing companies tend to retain more; mature companies tend to distribute more."
+                  ]
+                },
+                "es": {
+                  "title": "Lo que aprendiste",
+                  "takeaways": [
+                    "El payout ratio es la proporción de la ganancia distribuida como dividendo.",
+                    "No existe un payout ratio universalmente ideal — depende de la fase y el sector de la empresa.",
+                    "Las empresas en crecimiento tienden a retener más; las empresas maduras tienden a distribuir más."
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "lessonId": "fundamental_growth_cagr",
+          "order": 4,
+          "xpReward": 20,
+          "translations": {
+            "pt": {"title": "Crescimento e CAGR"},
+            "en": {"title": "Growth and CAGR"},
+            "es": {"title": "Crecimiento y CAGR"}
+          },
+          "steps": [
+            {
+              "type": "explanation",
+              "order": 1,
+              "translations": {
+                "pt": {
+                  "title": "Uma taxa de crescimento média e justa",
+                  "body": "CAGR (Compound Annual Growth Rate, ou Taxa de Crescimento Anual Composta) é a taxa de crescimento anual média de um indicador — como receita ou lucro — ao longo de um período de vários anos, calculada de forma que incorpore o efeito de juros compostos, suavizando anos de crescimento muito acima ou muito abaixo da média. Ela é mais representativa de uma tendência de longo prazo do que olhar apenas o crescimento de um único ano, que pode ser distorcido por eventos pontuais."
+                },
+                "en": {
+                  "title": "A fair, average growth rate",
+                  "body": "CAGR (Compound Annual Growth Rate) is the average annual growth rate of an indicator — like revenue or profit — over a multi-year period, calculated in a way that incorporates the compound interest effect, smoothing out years of growth well above or well below the average. It's more representative of a long-term trend than looking only at a single year's growth, which can be distorted by one-off events."
+                },
+                "es": {
+                  "title": "Una tasa de crecimiento promedio y justa",
+                  "body": "El CAGR (Compound Annual Growth Rate, o Tasa de Crecimiento Anual Compuesta) es la tasa de crecimiento anual promedio de un indicador — como el ingreso o la ganancia — a lo largo de un período de varios años, calculada de forma que incorpore el efecto del interés compuesto, suavizando años de crecimiento muy por encima o muy por debajo del promedio. Es más representativa de una tendencia a largo plazo que mirar solo el crecimiento de un único año, que puede estar distorsionado por eventos puntuales."
+                }
+              }
+            },
+            {
+              "type": "example",
+              "order": 2,
+              "translations": {
+                "pt": {
+                  "title": "Na prática",
+                  "body": "Uma empresa teve um ano excepcional, com crescimento de receita de 40%, seguido por dois anos de crescimento bem mais modesto, de 5% cada. Olhar isoladamente para o ano de 40% daria uma impressão distorcida do crescimento típico da empresa; o CAGR dos três anos juntos oferece uma visão mais equilibrada da tendência real ao longo do período."
+                },
+                "en": {
+                  "title": "In practice",
+                  "body": "A company had an exceptional year, with 40% revenue growth, followed by two years of much more modest growth, at 5% each. Looking only at the 40% year would give a distorted impression of the company's typical growth; the CAGR of all three years together offers a more balanced view of the actual trend over the period."
+                },
+                "es": {
+                  "title": "En la práctica",
+                  "body": "Una empresa tuvo un año excepcional, con un crecimiento de ingresos del 40%, seguido de dos años de crecimiento mucho más modesto, del 5% cada uno. Mirar aisladamente el año del 40% daría una impresión distorsionada del crecimiento típico de la empresa; el CAGR de los tres años juntos ofrece una visión más equilibrada de la tendencia real a lo largo del período."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 3,
+              "framing": "micro_exercise",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Por que o CAGR costuma ser mais representativo do que olhar o crescimento de um único ano?",
+                  "options": [
+                    "Porque ele ignora completamente todos os anos, exceto o mais recente",
+                    "Porque ele suaviza anos de crescimento muito acima ou abaixo da média, oferecendo uma visão mais equilibrada da tendência ao longo do período",
+                    "Porque ele sempre mostra um número maior do que o crescimento de qualquer ano individual",
+                    "Porque ele não considera o efeito de juros compostos"
+                  ],
+                  "explanation": "O CAGR calcula uma taxa média anual que, aplicada de forma composta, levaria ao mesmo resultado final observado ao longo do período — suavizando a distorção de anos atípicos, para cima ou para baixo."
+                },
+                "en": {
+                  "prompt": "Why is CAGR usually more representative than looking at a single year's growth?",
+                  "options": [
+                    "Because it completely ignores every year except the most recent one",
+                    "Because it smooths out years of growth well above or below average, offering a more balanced view of the trend over the period",
+                    "Because it always shows a higher number than any individual year's growth",
+                    "Because it doesn't consider the compound interest effect"
+                  ],
+                  "explanation": "CAGR calculates an average annual rate that, applied compounded, would lead to the same final result observed over the period — smoothing out the distortion of atypical years, up or down."
+                },
+                "es": {
+                  "prompt": "¿Por qué el CAGR suele ser más representativo que mirar el crecimiento de un único año?",
+                  "options": [
+                    "Porque ignora por completo todos los años, excepto el más reciente",
+                    "Porque suaviza años de crecimiento muy por encima o por debajo del promedio, ofreciendo una visión más equilibrada de la tendencia a lo largo del período",
+                    "Porque siempre muestra un número mayor que el crecimiento de cualquier año individual",
+                    "Porque no considera el efecto del interés compuesto"
+                  ],
+                  "explanation": "El CAGR calcula una tasa anual promedio que, aplicada de forma compuesta, llevaría al mismo resultado final observado a lo largo del período — suavizando la distorsión de años atípicos, hacia arriba o hacia abajo."
+                }
+              }
+            },
+            {
+              "type": "choice_question",
+              "order": 4,
+              "framing": "apply",
+              "correctIndex": 1,
+              "translations": {
+                "pt": {
+                  "prompt": "Uma empresa teve um crescimento de receita excepcional em um único trimestre, por causa de um evento pontual que não deve se repetir. Um relatório destaca só esse número isolado como 'prova' do potencial de crescimento da empresa. Como o conceito de CAGR ajuda a avaliar essa afirmação com mais cautela?",
+                  "options": [
+                    "Ele confirma que esse crescimento pontual vai se repetir todo trimestre a partir de agora",
+                    "Ele sugere olhar a taxa de crescimento média ao longo de um período mais longo, em vez de tirar conclusões de um único evento pontual que pode não se repetir",
+                    "CAGR não tem relação nenhuma com esse tipo de avaliação",
+                    "Ele mostra que eventos pontuais sempre representam a tendência real da empresa"
+                  ],
+                  "explanation": "Assim como você viu com indicadores macroeconômicos isolados, um único evento pontual raramente representa a tendência real — calcular o CAGR ao longo de vários anos ajuda a enxergar o crescimento médio real, sem o efeito distorcido de um evento isolado."
+                },
+                "en": {
+                  "prompt": "A company had exceptional revenue growth in a single quarter, due to a one-off event unlikely to repeat. A report highlights only that isolated number as 'proof' of the company's growth potential. How does the concept of CAGR help evaluate that claim more cautiously?",
+                  "options": [
+                    "It confirms that this one-off growth will repeat every quarter from now on",
+                    "It suggests looking at the average growth rate over a longer period, instead of drawing conclusions from a single one-off event that might not repeat",
+                    "CAGR has no relation at all to this type of evaluation",
+                    "It shows that one-off events always represent the company's real trend"
+                  ],
+                  "explanation": "Just like you saw with isolated macroeconomic indicators, a single one-off event rarely represents the real trend — calculating CAGR over several years helps see the real average growth, without the distorted effect of an isolated event."
+                },
+                "es": {
+                  "prompt": "Una empresa tuvo un crecimiento de ingresos excepcional en un solo trimestre, debido a un evento puntual que no debería repetirse. Un informe destaca solo ese número aislado como 'prueba' del potencial de crecimiento de la empresa. ¿Cómo ayuda el concepto de CAGR a evaluar esa afirmación con más cautela?",
+                  "options": [
+                    "Confirma que ese crecimiento puntual se repetirá cada trimestre a partir de ahora",
+                    "Sugiere mirar la tasa de crecimiento promedio a lo largo de un período más largo, en lugar de sacar conclusiones de un único evento puntual que puede no repetirse",
+                    "El CAGR no tiene ninguna relación con este tipo de evaluación",
+                    "Muestra que los eventos puntuales siempre representan la tendencia real de la empresa"
+                  ],
+                  "explanation": "Tal como viste con indicadores macroeconómicos aislados, un único evento puntual rara vez representa la tendencia real — calcular el CAGR a lo largo de varios años ayuda a ver el crecimiento promedio real, sin el efecto distorsionado de un evento aislado."
+                }
+              }
+            },
+            {
+              "type": "summary",
+              "order": 5,
+              "translations": {
+                "pt": {
+                  "title": "Módulo concluído!",
+                  "takeaways": [
+                    "CAGR é a taxa de crescimento anual média, composta, ao longo de vários anos.",
+                    "Ele suaviza a distorção de anos atípicos, para cima ou para baixo.",
+                    "Você concluiu o módulo de indicadores avançados de análise fundamentalista."
+                  ]
+                },
+                "en": {
+                  "title": "Module complete!",
+                  "takeaways": [
+                    "CAGR is the average, compounded annual growth rate over several years.",
+                    "It smooths out the distortion of atypical years, up or down.",
+                    "You've completed the advanced fundamental analysis indicators module."
+                  ]
+                },
+                "es": {
+                  "title": "¡Módulo completado!",
+                  "takeaways": [
+                    "El CAGR es la tasa de crecimiento anual promedio, compuesta, a lo largo de varios años.",
+                    "Suaviza la distorsión de años atípicos, hacia arriba o hacia abajo.",
+                    "Completaste el módulo de indicadores avanzados de análisis fundamental."
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
     }
   ]
 }
